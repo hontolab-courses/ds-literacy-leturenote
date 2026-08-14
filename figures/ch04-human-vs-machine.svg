@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 524" font-family="'Hiragino Sans','Noto Sans JP',sans-serif">
+<defs><marker id="ah" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#8C8C8C"/></marker></defs>
+<rect x="0" y="0" width="1000" height="524" fill="white"/>
+<text x="500" y="44" text-anchor="middle" font-size="20" font-weight="bold" fill="#333333">セル結合された表——人間の見た目と機械が読んだ状態</text>
+
+<!-- 左パネル：人間の見た目 -->
+<rect x="40" y="70" width="400" height="386" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="240" y="104" text-anchor="middle" font-size="19" font-weight="bold" fill="#4C72B0">人間の見た目</text>
+
+<!-- 左表 -->
+<rect x="55" y="132" width="370" height="200" fill="white"/>
+<rect x="55" y="132" width="370" height="40" fill="#F2F2F2"/>
+<rect x="55" y="132" width="370" height="200" fill="none" stroke="#8C8C8C" stroke-width="1.5"/>
+<line x1="225" y1="132" x2="225" y2="332" stroke="#BBBBBB" stroke-width="1"/>
+<line x1="315" y1="132" x2="315" y2="332" stroke="#BBBBBB" stroke-width="1"/>
+<line x1="55" y1="172" x2="425" y2="172" stroke="#8C8C8C" stroke-width="1.5"/>
+<!-- 学部列はセル結合されているため，行の区切り線は学年・参加人数列のみ -->
+<line x1="225" y1="212" x2="425" y2="212" stroke="#BBBBBB" stroke-width="1"/>
+<line x1="55" y1="252" x2="425" y2="252" stroke="#BBBBBB" stroke-width="1"/>
+<line x1="225" y1="292" x2="425" y2="292" stroke="#BBBBBB" stroke-width="1"/>
+<text x="140" y="158" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">学部</text>
+<text x="270" y="158" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">学年</text>
+<text x="370" y="158" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">参加人数</text>
+<text x="140" y="218" text-anchor="middle" font-size="16" fill="#333333">経済学部</text>
+<text x="140" y="298" text-anchor="middle" font-size="16" fill="#333333">人文社会学部</text>
+<text x="270" y="198" text-anchor="middle" font-size="16" fill="#333333">1年</text>
+<text x="270" y="238" text-anchor="middle" font-size="16" fill="#333333">2年</text>
+<text x="270" y="278" text-anchor="middle" font-size="16" fill="#333333">1年</text>
+<text x="270" y="318" text-anchor="middle" font-size="16" fill="#333333">2年</text>
+<text x="370" y="198" text-anchor="middle" font-size="16" fill="#333333">18</text>
+<text x="370" y="238" text-anchor="middle" font-size="16" fill="#333333">7</text>
+<text x="370" y="278" text-anchor="middle" font-size="16" fill="#333333">12</text>
+<text x="370" y="318" text-anchor="middle" font-size="16" fill="#333333">6</text>
+
+<!-- 目のアイコン＋吹き出し -->
+<path d="M64,392 Q92,370 120,392 Q92,414 64,392 Z" fill="white" stroke="#4C72B0" stroke-width="2.5"/>
+<circle cx="92" cy="392" r="9" fill="#4C72B0"/>
+<path d="M138,385 L122,392 L138,399 Z" fill="#4C72B0"/>
+<rect x="136" y="356" width="288" height="68" rx="10" fill="white" stroke="#4C72B0" stroke-width="2"/>
+<text x="152" y="384" font-size="15" fill="#333333">同じ学部がひとつにまとまって</text>
+<text x="152" y="406" font-size="15" fill="#333333">見やすい！</text>
+
+<!-- 中央の矢印 -->
+<text x="500" y="210" text-anchor="middle" font-size="13" fill="#333333">プログラムで</text>
+<text x="500" y="228" text-anchor="middle" font-size="13" fill="#333333">読み込むと</text>
+<line x1="446" y1="244" x2="554" y2="244" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+
+<!-- 右パネル：機械が読んだ状態 -->
+<rect x="560" y="70" width="400" height="386" rx="8" fill="#FBEEE4" stroke="#DD8452" stroke-width="2"/>
+<text x="760" y="104" text-anchor="middle" font-size="19" font-weight="bold" fill="#DD8452">機械が読んだ状態</text>
+
+<!-- 右表 -->
+<rect x="575" y="132" width="370" height="200" fill="white"/>
+<rect x="575" y="132" width="370" height="40" fill="#F2F2F2"/>
+<rect x="575" y="132" width="370" height="200" fill="none" stroke="#8C8C8C" stroke-width="1.5"/>
+<line x1="745" y1="132" x2="745" y2="332" stroke="#BBBBBB" stroke-width="1"/>
+<line x1="835" y1="132" x2="835" y2="332" stroke="#BBBBBB" stroke-width="1"/>
+<line x1="575" y1="172" x2="945" y2="172" stroke="#8C8C8C" stroke-width="1.5"/>
+<line x1="575" y1="212" x2="945" y2="212" stroke="#BBBBBB" stroke-width="1"/>
+<line x1="575" y1="252" x2="945" y2="252" stroke="#BBBBBB" stroke-width="1"/>
+<line x1="575" y1="292" x2="945" y2="292" stroke="#BBBBBB" stroke-width="1"/>
+<text x="660" y="158" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">学部</text>
+<text x="790" y="158" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">学年</text>
+<text x="890" y="158" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">参加人数</text>
+<text x="660" y="198" text-anchor="middle" font-size="16" fill="#333333">経済学部</text>
+<text x="660" y="278" text-anchor="middle" font-size="16" fill="#333333">人文社会学部</text>
+<text x="790" y="198" text-anchor="middle" font-size="16" fill="#333333">1年</text>
+<text x="790" y="238" text-anchor="middle" font-size="16" fill="#333333">2年</text>
+<text x="790" y="278" text-anchor="middle" font-size="16" fill="#333333">1年</text>
+<text x="790" y="318" text-anchor="middle" font-size="16" fill="#333333">2年</text>
+<text x="890" y="198" text-anchor="middle" font-size="16" fill="#333333">18</text>
+<text x="890" y="238" text-anchor="middle" font-size="16" fill="#333333">7</text>
+<text x="890" y="278" text-anchor="middle" font-size="16" fill="#333333">12</text>
+<text x="890" y="318" text-anchor="middle" font-size="16" fill="#333333">6</text>
+<!-- 結合されていたセルは空欄（NaN）として読まれる：青枠 -->
+<rect x="578" y="215" width="164" height="34" rx="4" fill="none" stroke="#4C72B0" stroke-width="2.5"/>
+<text x="660" y="238" text-anchor="middle" font-size="15" font-style="italic" fill="#8C8C8C">NaN</text>
+<rect x="578" y="295" width="164" height="34" rx="4" fill="none" stroke="#4C72B0" stroke-width="2.5"/>
+<text x="660" y="318" text-anchor="middle" font-size="15" font-style="italic" fill="#8C8C8C">NaN</text>
+
+<!-- ロボットのアイコン＋吹き出し -->
+<line x1="610" y1="376" x2="610" y2="366" stroke="#DD8452" stroke-width="2.5"/>
+<circle cx="610" cy="363" r="3.5" fill="#DD8452"/>
+<rect x="588" y="376" width="44" height="34" rx="6" fill="white" stroke="#DD8452" stroke-width="2.5"/>
+<circle cx="602" cy="390" r="3.5" fill="#DD8452"/>
+<circle cx="618" cy="390" r="3.5" fill="#DD8452"/>
+<line x1="601" y1="401" x2="619" y2="401" stroke="#DD8452" stroke-width="2"/>
+<path d="M658,385 L642,392 L658,399 Z" fill="#DD8452"/>
+<rect x="656" y="356" width="288" height="68" rx="10" fill="white" stroke="#DD8452" stroke-width="2"/>
+<text x="672" y="384" font-size="15" fill="#333333">2行目と4行目の学部が</text>
+<text x="672" y="406" font-size="15" fill="#333333">分からない…</text>
+
+<!-- 下部の注記 -->
+<text x="500" y="492" text-anchor="middle" font-size="14" fill="#8C8C8C">セル結合は先頭の行にしか値を持たないため，機械には2行目以降が欠損（NaN）として読み込まれる</text>
+</svg>

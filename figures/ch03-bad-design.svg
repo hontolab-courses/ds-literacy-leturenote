@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1100 510" font-family="'Hiragino Sans','Noto Sans JP',sans-serif">
+<rect x="0" y="0" width="1100" height="510" fill="white"/>
+
+<!-- ① 重複の注記（表の上） -->
+<text x="323" y="48" text-anchor="middle" font-size="15" font-weight="bold" fill="#DD8452">① 重複：同じ学生の学部・メールが繰り返し現れる</text>
+<path d="M158,66 v-8 h330 v8" fill="none" stroke="#DD8452" stroke-width="2"/>
+
+<!-- 悪い設計の表 -->
+<rect x="24" y="80" width="832" height="32" fill="#F2F2F2"/>
+<!-- ① 重複セルのハイライト（山田さんの学部・メール，3行分） -->
+<rect x="158" y="112" width="330" height="90" fill="#FBEEE4"/>
+<line x1="24" y1="112" x2="856" y2="112" stroke="#A9BBD6" stroke-width="1"/>
+<line x1="24" y1="142" x2="856" y2="142" stroke="#A9BBD6" stroke-width="1"/>
+<line x1="24" y1="172" x2="856" y2="172" stroke="#A9BBD6" stroke-width="1"/>
+<line x1="24" y1="202" x2="856" y2="202" stroke="#A9BBD6" stroke-width="1"/>
+<line x1="158" y1="80" x2="158" y2="232" stroke="#A9BBD6" stroke-width="1"/>
+<line x1="268" y1="80" x2="268" y2="232" stroke="#A9BBD6" stroke-width="1"/>
+<line x1="488" y1="80" x2="488" y2="232" stroke="#A9BBD6" stroke-width="1"/>
+<line x1="758" y1="80" x2="758" y2="232" stroke="#A9BBD6" stroke-width="1"/>
+<rect x="24" y="80" width="832" height="152" rx="2" fill="none" stroke="#4C72B0" stroke-width="2"/>
+<text x="91" y="101" text-anchor="middle" font-size="14" font-weight="bold" fill="#333333">氏名</text>
+<text x="213" y="101" text-anchor="middle" font-size="14" font-weight="bold" fill="#333333">学部</text>
+<text x="373" y="101" text-anchor="middle" font-size="14" font-weight="bold" fill="#333333">連絡先メール</text>
+<text x="623" y="101" text-anchor="middle" font-size="14" font-weight="bold" fill="#333333">科目名</text>
+<text x="807" y="101" text-anchor="middle" font-size="14" font-weight="bold" fill="#333333">教室</text>
+<text x="91" y="132" text-anchor="middle" font-size="14" fill="#333333">山田 太郎</text>
+<text x="213" y="132" text-anchor="middle" font-size="14" fill="#333333">経済学部</text>
+<text x="373" y="132" text-anchor="middle" font-size="13" fill="#333333">yamada@example.ac.jp</text>
+<text x="623" y="132" text-anchor="middle" font-size="14" fill="#333333">データサイエンス・リテラシー</text>
+<text x="807" y="132" text-anchor="middle" font-size="14" fill="#333333">101教室</text>
+<text x="91" y="162" text-anchor="middle" font-size="14" fill="#333333">山田 太郎</text>
+<text x="213" y="162" text-anchor="middle" font-size="14" fill="#333333">経済学部</text>
+<text x="373" y="162" text-anchor="middle" font-size="13" fill="#333333">yamada@example.ac.jp</text>
+<text x="623" y="162" text-anchor="middle" font-size="14" fill="#333333">経済学入門</text>
+<text x="807" y="162" text-anchor="middle" font-size="14" fill="#333333">201教室</text>
+<text x="91" y="192" text-anchor="middle" font-size="14" fill="#333333">山田 太郎</text>
+<text x="213" y="192" text-anchor="middle" font-size="14" fill="#333333">経済学部</text>
+<text x="373" y="192" text-anchor="middle" font-size="13" fill="#333333">yamada@example.ac.jp</text>
+<text x="623" y="192" text-anchor="middle" font-size="14" fill="#333333">統計学基礎</text>
+<text x="807" y="192" text-anchor="middle" font-size="14" fill="#333333">301教室</text>
+<text x="91" y="222" text-anchor="middle" font-size="14" fill="#333333">佐藤 さくら</text>
+<text x="213" y="222" text-anchor="middle" font-size="14" fill="#333333">医学部</text>
+<text x="373" y="222" text-anchor="middle" font-size="13" fill="#333333">sato@example.ac.jp</text>
+<text x="623" y="222" text-anchor="middle" font-size="14" fill="#333333">データサイエンス・リテラシー</text>
+<text x="807" y="222" text-anchor="middle" font-size="14" fill="#333333">101教室</text>
+
+<!-- ③ 削除で消える情報（佐藤さんの唯一の行に取消し線） -->
+<line x1="30" y1="217" x2="850" y2="217" stroke="#C44E52" stroke-width="2.5"/>
+<line x1="856" y1="217" x2="864" y2="217" stroke="#C44E52" stroke-width="2"/>
+<text x="868" y="200" font-size="15" font-weight="bold" fill="#C44E52">③ 削除で消える情報</text>
+<text x="868" y="220" font-size="13" fill="#333333">佐藤さんの唯一の行を削除すると</text>
+<text x="868" y="238" font-size="13" fill="#333333">学部・連絡先も一緒に消える</text>
+
+<!-- ② 更新時の矛盾（直し漏れ）のパネル -->
+<text x="24" y="286" font-size="16" font-weight="bold" fill="#333333"><tspan fill="#C44E52">②</tspan><tspan dx="6">もし山田さんがメールアドレスを変更したら…</tspan></text>
+<rect x="24" y="300" width="500" height="30" fill="#F2F2F2"/>
+<line x1="24" y1="330" x2="524" y2="330" stroke="#A9BBD6" stroke-width="1"/>
+<line x1="24" y1="358" x2="524" y2="358" stroke="#A9BBD6" stroke-width="1"/>
+<line x1="24" y1="386" x2="524" y2="386" stroke="#A9BBD6" stroke-width="1"/>
+<line x1="274" y1="300" x2="274" y2="414" stroke="#A9BBD6" stroke-width="1"/>
+<rect x="24" y="300" width="500" height="114" rx="2" fill="none" stroke="#4C72B0" stroke-width="2"/>
+<text x="149" y="321" text-anchor="middle" font-size="14" font-weight="bold" fill="#333333">科目名</text>
+<text x="399" y="321" text-anchor="middle" font-size="14" font-weight="bold" fill="#333333">連絡先メール</text>
+<text x="149" y="349" text-anchor="middle" font-size="14" fill="#333333">データサイエンス・リテラシー</text>
+<text x="399" y="349" text-anchor="middle" font-size="14" fill="#55A868">新しいアドレス（変更済み）</text>
+<text x="149" y="377" text-anchor="middle" font-size="14" fill="#333333">経済学入門</text>
+<text x="399" y="377" text-anchor="middle" font-size="14" fill="#55A868">新しいアドレス（変更済み）</text>
+<text x="149" y="405" text-anchor="middle" font-size="14" fill="#333333">統計学基礎</text>
+<text x="399" y="405" text-anchor="middle" font-size="13" fill="#333333">yamada@example.ac.jp</text>
+<rect x="276" y="388" width="246" height="24" fill="none" stroke="#C44E52" stroke-width="2.5"/>
+<text x="399" y="432" text-anchor="middle" font-size="13" font-weight="bold" fill="#C44E52">直し漏れ</text>
+
+<!-- 吹き出し：どちらが正しい？ -->
+<path d="M582,336 H798 A12,12 0 0 1 810,348 V380 A12,12 0 0 1 798,392 H650 L538,412 L618,392 H582 A12,12 0 0 1 570,380 V348 A12,12 0 0 1 582,336 Z" fill="#F9EAEA" stroke="#C44E52" stroke-width="2" stroke-linejoin="round"/>
+<text x="690" y="360" text-anchor="middle" font-size="16" font-weight="bold" fill="#C44E52">どちらが正しい？</text>
+<text x="690" y="381" text-anchor="middle" font-size="13" fill="#333333">あとから見た人には分かりません</text>
+
+<!-- 凡例 -->
+<rect x="24" y="466" width="26" height="18" fill="#FBEEE4" stroke="#DD8452" stroke-width="2"/>
+<text x="58" y="480" font-size="14" fill="#333333">① 重複（同じ情報の繰り返し）</text>
+<rect x="320" y="466" width="26" height="18" fill="white" stroke="#C44E52" stroke-width="2.5"/>
+<text x="354" y="480" font-size="14" fill="#333333">② 更新時の矛盾（直し漏れ）</text>
+<rect x="600" y="466" width="26" height="18" fill="#F2F2F2" stroke="#8C8C8C" stroke-width="1.5"/>
+<line x1="597" y1="475" x2="629" y2="475" stroke="#C44E52" stroke-width="2.5"/>
+<text x="634" y="480" font-size="14" fill="#333333">③ 削除で情報が消える</text>
+</svg>

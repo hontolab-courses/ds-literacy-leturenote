@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 640" font-family="'Hiragino Sans','Noto Sans JP',sans-serif">
+<defs>
+<marker id="ar" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#C44E52"/></marker>
+<marker id="ag" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#55A868"/></marker>
+</defs>
+<rect x="0" y="0" width="1100" height="640" fill="white"/>
+
+<text x="550" y="48" text-anchor="middle" font-size="20" font-weight="bold" fill="#333333">だますグラフの解剖図——チェックリスト6項目を当てはめる</text>
+
+<!-- 中央：怪しい広告グラフ（架空データ） -->
+<rect x="390" y="78" width="320" height="482" rx="8" fill="white" stroke="#8C8C8C" stroke-width="2"/>
+<text x="550" y="116" text-anchor="middle" font-size="18" font-weight="bold" fill="#333333">学習アプリの会員数が急成長！！</text>
+<text x="444" y="160" font-size="12" fill="#8C8C8C">（会員数，万人）</text>
+
+<!-- 軸 -->
+<line x1="460" y1="170" x2="460" y2="480" stroke="#333333" stroke-width="2"/>
+<line x1="460" y1="480" x2="690" y2="480" stroke="#333333" stroke-width="2"/>
+<!-- 目盛り（数値ラベルなし） -->
+<line x1="452" y1="190" x2="460" y2="190" stroke="#333333" stroke-width="2"/>
+<line x1="452" y1="248" x2="460" y2="248" stroke="#333333" stroke-width="2"/>
+<line x1="452" y1="306" x2="460" y2="306" stroke="#333333" stroke-width="2"/>
+<line x1="452" y1="364" x2="460" y2="364" stroke="#333333" stroke-width="2"/>
+<line x1="452" y1="422" x2="460" y2="422" stroke="#333333" stroke-width="2"/>
+
+<!-- 棒（縦軸が途中から始まるため差が誇張されている） -->
+<rect x="486" y="435" width="48" height="45" fill="#DD8452"/>
+<rect x="551" y="346" width="48" height="134" fill="#DD8452"/>
+<rect x="616" y="212" width="48" height="268" fill="#DD8452"/>
+<text x="510" y="427" text-anchor="middle" font-size="13" fill="#333333">1210万人</text>
+<text x="575" y="338" text-anchor="middle" font-size="13" fill="#333333">1230万人</text>
+<text x="640" y="204" text-anchor="middle" font-size="13" fill="#333333">1260万人</text>
+<text x="510" y="502" text-anchor="middle" font-size="14" fill="#333333">2023年</text>
+<text x="575" y="502" text-anchor="middle" font-size="14" fill="#333333">2024年</text>
+<text x="640" y="502" text-anchor="middle" font-size="14" fill="#333333">2025年</text>
+
+<!-- 問題箇所のハイライト -->
+<rect x="436" y="460" width="48" height="36" rx="6" fill="none" stroke="#C44E52" stroke-width="2" stroke-dasharray="6 4"/>
+<rect x="444" y="180" width="24" height="252" rx="6" fill="none" stroke="#C44E52" stroke-width="2" stroke-dasharray="6 4"/>
+<rect x="404" y="516" width="292" height="34" rx="6" fill="none" stroke="#C44E52" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="550" y="538" text-anchor="middle" font-size="13" fill="#8C8C8C">（出典・調査方法の記載なし）</text>
+
+<!-- 左：問題ありの3項目 -->
+<rect x="24" y="120" width="320" height="70" rx="8" fill="#F9EAEA" stroke="#C44E52" stroke-width="2"/>
+<text x="40" y="148" font-size="16" font-weight="bold" fill="#333333">軸の目盛り：省略されていないか</text>
+<text x="40" y="174" font-size="14" font-weight="bold" fill="#C44E52">× 目盛りの数値ラベルが消されている</text>
+
+<rect x="24" y="260" width="320" height="70" rx="8" fill="#F9EAEA" stroke="#C44E52" stroke-width="2"/>
+<text x="40" y="288" font-size="16" font-weight="bold" fill="#333333">軸の始点：縦軸は0からか</text>
+<text x="40" y="314" font-size="14" font-weight="bold" fill="#C44E52">× 縦軸が0でなく途中から始まっている</text>
+
+<rect x="24" y="430" width="320" height="70" rx="8" fill="#F9EAEA" stroke="#C44E52" stroke-width="2"/>
+<text x="40" y="458" font-size="16" font-weight="bold" fill="#333333">データの出どころ：出典はあるか</text>
+<text x="40" y="484" font-size="14" font-weight="bold" fill="#C44E52">× 出典・調査方法がどこにも書かれていない</text>
+
+<!-- 右：この例では問題なしの3項目 -->
+<rect x="756" y="120" width="320" height="70" rx="8" fill="#EAF5EC" stroke="#55A868" stroke-width="2"/>
+<text x="772" y="148" font-size="16" font-weight="bold" fill="#333333">立体表現：歪んで見えていないか</text>
+<text x="772" y="174" font-size="14" font-weight="bold" fill="#55A868">✓ この例は平面（3D円グラフなら要注意）</text>
+
+<rect x="756" y="260" width="320" height="70" rx="8" fill="#EAF5EC" stroke="#55A868" stroke-width="2"/>
+<text x="772" y="288" font-size="16" font-weight="bold" fill="#333333">面積・大きさ：値に比例しているか</text>
+<text x="772" y="314" font-size="14" font-weight="bold" fill="#55A868">✓ 量は棒の長さで表されている</text>
+
+<rect x="756" y="430" width="320" height="70" rx="8" fill="#EAF5EC" stroke="#55A868" stroke-width="2"/>
+<text x="772" y="458" font-size="16" font-weight="bold" fill="#333333">2本の縦軸：誇張されていないか</text>
+<text x="772" y="484" font-size="14" font-weight="bold" fill="#55A868">✓ 縦軸は1本だけ（左右2本なら要注意）</text>
+
+<!-- 吹き出し矢印 -->
+<line x1="344" y1="155" x2="438" y2="205" stroke="#C44E52" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="344" y1="300" x2="430" y2="458" stroke="#C44E52" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="344" y1="465" x2="400" y2="533" stroke="#C44E52" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="756" y1="150" x2="670" y2="222" stroke="#55A868" stroke-width="2" marker-end="url(#ag)"/>
+<line x1="756" y1="295" x2="670" y2="350" stroke="#55A868" stroke-width="2" marker-end="url(#ag)"/>
+<line x1="756" y1="465" x2="700" y2="425" stroke="#55A868" stroke-width="2" marker-end="url(#ag)"/>
+
+<text x="550" y="608" text-anchor="middle" font-size="13" fill="#8C8C8C">×が1つでもあれば印象を鵜呑みにしない．✓の項目も，別のグラフでは要チェック</text>
+</svg>

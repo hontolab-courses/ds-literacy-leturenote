@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 660" font-family="'Hiragino Sans','Noto Sans JP',sans-serif">
+<defs>
+<marker id="ah-gray" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#8C8C8C"/></marker>
+</defs>
+<rect x="0" y="0" width="1000" height="660" fill="white"/>
+
+<!-- ===== 循環の4ステップ ===== -->
+<!-- 上：過去の偏ったデータ -->
+<rect x="310" y="82" width="220" height="56" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="420" y="117" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">過去の偏ったデータ</text>
+
+<!-- 右：機械学習モデルが学習 -->
+<rect x="545" y="310" width="220" height="60" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="655" y="335" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">機械学習モデルが</text>
+<text x="655" y="359" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">パターンを学習</text>
+
+<!-- 下：偏った判断 -->
+<rect x="290" y="536" width="260" height="68" rx="8" fill="#FBEEE4" stroke="#DD8452" stroke-width="2"/>
+<text x="420" y="564" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">偏った判断</text>
+<text x="420" y="590" text-anchor="middle" font-size="13" fill="#333333">（例：採用で特定の属性に不利）</text>
+
+<!-- 左：結果がさらに偏ったデータとして蓄積 -->
+<rect x="75" y="308" width="220" height="64" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="185" y="334" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">結果がさらに偏った</text>
+<text x="185" y="358" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">データとして蓄積</text>
+
+<!-- 円環の矢印（時計回り） -->
+<path d="M 536,142 Q 650,175 657,305" fill="none" stroke="#8C8C8C" stroke-width="2.5" marker-end="url(#ah-gray)"/>
+<path d="M 652,374 Q 638,510 556,552" fill="none" stroke="#8C8C8C" stroke-width="2.5" marker-end="url(#ah-gray)"/>
+<path d="M 286,558 Q 200,516 188,377" fill="none" stroke="#8C8C8C" stroke-width="2.5" marker-end="url(#ah-gray)"/>
+<path d="M 183,304 Q 196,168 305,116" fill="none" stroke="#8C8C8C" stroke-width="2.5" marker-end="url(#ah-gray)"/>
+<text x="176" y="180" text-anchor="end" font-size="13" fill="#8C8C8C">最初へ戻る</text>
+
+<!-- 中央ラベル -->
+<text x="420" y="332" text-anchor="middle" font-size="20" font-weight="bold" fill="#333333">偏りの再生産</text>
+<text x="420" y="362" text-anchor="middle" font-size="14" fill="#8C8C8C">（アルゴリズムによる差別）</text>
+
+<!-- 注記：ほかの回との関連 -->
+<rect x="740" y="64" width="236" height="96" rx="8" fill="#F2F2F2" stroke="#8C8C8C" stroke-width="1.5"/>
+<text x="858" y="92" text-anchor="middle" font-size="13" font-weight="bold" fill="#8C8C8C">「データの偏り」との関連</text>
+<text x="858" y="116" text-anchor="middle" font-size="13" fill="#8C8C8C">第2回：標本の偏り</text>
+<text x="858" y="138" text-anchor="middle" font-size="13" fill="#8C8C8C">第4回：前処理の恣意性</text>
+<line x1="736" y1="112" x2="536" y2="112" stroke="#8C8C8C" stroke-width="1.5" stroke-dasharray="6 4"/>
+</svg>

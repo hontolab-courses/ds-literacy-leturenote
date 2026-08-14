@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1100 384" font-family="'Hiragino Sans','Noto Sans JP',sans-serif">
+<defs>
+<marker id="ahb" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#4C72B0"/></marker>
+<marker id="aho" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#DD8452"/></marker>
+<g id="keyicon"><circle cx="5" cy="5" r="4" fill="none" stroke="#8C8C8C" stroke-width="2"/><path d="M9,5 h9 M14,5 v5 M18,5 v4" fill="none" stroke="#8C8C8C" stroke-width="2" stroke-linecap="round"/></g>
+</defs>
+<rect x="0" y="0" width="1100" height="384" fill="white"/>
+
+<!-- 関連づけの線（青：学生番号，橙：科目番号） -->
+<circle cx="535" cy="120" r="3.5" fill="#4C72B0"/>
+<path d="M535,120 L535,76 L67,76 L67,114" fill="none" stroke="#4C72B0" stroke-width="2.5" marker-end="url(#ahb)"/>
+<text x="300" y="68" text-anchor="middle" font-size="14" font-weight="bold" fill="#4C72B0">学生番号でつなぐ</text>
+<circle cx="621" cy="120" r="3.5" fill="#DD8452"/>
+<path d="M621,120 L621,76 L747,76 L747,114" fill="none" stroke="#DD8452" stroke-width="2.5" marker-end="url(#aho)"/>
+<text x="684" y="68" text-anchor="middle" font-size="14" font-weight="bold" fill="#DD8452">科目番号でつなぐ</text>
+
+<!-- 学生表 -->
+<rect x="24" y="120" width="86" height="92" fill="#EAF0F8"/>
+<rect x="110" y="120" width="342" height="32" fill="#F2F2F2"/>
+<line x1="24" y1="152" x2="452" y2="152" stroke="#A9BBD6" stroke-width="1"/>
+<line x1="24" y1="182" x2="452" y2="182" stroke="#A9BBD6" stroke-width="1"/>
+<line x1="110" y1="120" x2="110" y2="212" stroke="#A9BBD6" stroke-width="1"/>
+<line x1="200" y1="120" x2="200" y2="212" stroke="#A9BBD6" stroke-width="1"/>
+<line x1="290" y1="120" x2="290" y2="212" stroke="#A9BBD6" stroke-width="1"/>
+<rect x="24" y="120" width="428" height="92" rx="2" fill="none" stroke="#4C72B0" stroke-width="2"/>
+<use xlink:href="#keyicon" x="28" y="131"/>
+<text x="51" y="141" font-size="14" font-weight="bold" fill="#333333">学生番号</text>
+<text x="155" y="141" text-anchor="middle" font-size="14" font-weight="bold" fill="#333333">氏名</text>
+<text x="245" y="141" text-anchor="middle" font-size="14" font-weight="bold" fill="#333333">学部</text>
+<text x="371" y="141" text-anchor="middle" font-size="14" font-weight="bold" fill="#333333">連絡先メール</text>
+<text x="67" y="172" text-anchor="middle" font-size="14" fill="#333333">S001</text>
+<text x="155" y="172" text-anchor="middle" font-size="14" fill="#333333">山田 太郎</text>
+<text x="245" y="172" text-anchor="middle" font-size="14" fill="#333333">経済学部</text>
+<text x="371" y="172" text-anchor="middle" font-size="13" fill="#333333">yamada@example.ac.jp</text>
+<text x="67" y="202" text-anchor="middle" font-size="14" fill="#333333">S002</text>
+<text x="155" y="202" text-anchor="middle" font-size="14" fill="#333333">佐藤 さくら</text>
+<text x="245" y="202" text-anchor="middle" font-size="14" fill="#333333">医学部</text>
+<text x="371" y="202" text-anchor="middle" font-size="13" fill="#333333">sato@example.ac.jp</text>
+<text x="238" y="240" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">学生表（1人につき1行）</text>
+
+<!-- 履修表 -->
+<rect x="492" y="120" width="86" height="122" fill="#EAF0F8"/>
+<rect x="578" y="120" width="86" height="122" fill="#FBEEE4"/>
+<line x1="492" y1="152" x2="664" y2="152" stroke="#A9BBD6" stroke-width="1"/>
+<line x1="492" y1="182" x2="664" y2="182" stroke="#A9BBD6" stroke-width="1"/>
+<line x1="492" y1="212" x2="664" y2="212" stroke="#A9BBD6" stroke-width="1"/>
+<line x1="578" y1="120" x2="578" y2="242" stroke="#A9BBD6" stroke-width="1"/>
+<rect x="492" y="120" width="172" height="122" rx="2" fill="none" stroke="#4C72B0" stroke-width="2"/>
+<text x="535" y="141" text-anchor="middle" font-size="14" font-weight="bold" fill="#333333">学生番号</text>
+<text x="621" y="141" text-anchor="middle" font-size="14" font-weight="bold" fill="#333333">科目番号</text>
+<text x="535" y="172" text-anchor="middle" font-size="14" fill="#333333">S001</text>
+<text x="621" y="172" text-anchor="middle" font-size="14" fill="#333333">C01</text>
+<text x="535" y="202" text-anchor="middle" font-size="14" fill="#333333">S001</text>
+<text x="621" y="202" text-anchor="middle" font-size="14" fill="#333333">C02</text>
+<text x="535" y="232" text-anchor="middle" font-size="14" fill="#333333">S002</text>
+<text x="621" y="232" text-anchor="middle" font-size="14" fill="#333333">C01</text>
+<text x="578" y="270" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">履修表（1件の履修につき1行）</text>
+
+<!-- 科目表 -->
+<rect x="704" y="120" width="86" height="92" fill="#FBEEE4"/>
+<rect x="790" y="120" width="284" height="32" fill="#F2F2F2"/>
+<line x1="704" y1="152" x2="1074" y2="152" stroke="#A9BBD6" stroke-width="1"/>
+<line x1="704" y1="182" x2="1074" y2="182" stroke="#A9BBD6" stroke-width="1"/>
+<line x1="790" y1="120" x2="790" y2="212" stroke="#A9BBD6" stroke-width="1"/>
+<line x1="1004" y1="120" x2="1004" y2="212" stroke="#A9BBD6" stroke-width="1"/>
+<rect x="704" y="120" width="370" height="92" rx="2" fill="none" stroke="#4C72B0" stroke-width="2"/>
+<use xlink:href="#keyicon" x="708" y="131"/>
+<text x="731" y="141" font-size="14" font-weight="bold" fill="#333333">科目番号</text>
+<text x="897" y="141" text-anchor="middle" font-size="14" font-weight="bold" fill="#333333">科目名</text>
+<text x="1039" y="141" text-anchor="middle" font-size="14" font-weight="bold" fill="#333333">教室</text>
+<text x="747" y="172" text-anchor="middle" font-size="14" fill="#333333">C01</text>
+<text x="897" y="172" text-anchor="middle" font-size="14" fill="#333333">データサイエンス・リテラシー</text>
+<text x="1039" y="172" text-anchor="middle" font-size="14" fill="#333333">101教室</text>
+<text x="747" y="202" text-anchor="middle" font-size="14" fill="#333333">C02</text>
+<text x="897" y="202" text-anchor="middle" font-size="14" fill="#333333">経済学入門</text>
+<text x="1039" y="202" text-anchor="middle" font-size="14" fill="#333333">201教室</text>
+<text x="889" y="240" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">科目表（1科目につき1行）</text>
+
+<!-- 注記：履修表の役割 -->
+<rect x="448" y="290" width="260" height="32" rx="8" fill="#FBEEE4" stroke="#DD8452" stroke-width="2"/>
+<text x="578" y="311" text-anchor="middle" font-size="14" fill="#333333">履修表の1行＝学生と科目の橋渡し</text>
+
+<!-- 凡例 -->
+<use xlink:href="#keyicon" x="24" y="347"/>
+<text x="50" y="357" font-size="14" fill="#333333">＝ 主キー（各行を一意に識別するための列）</text>
+</svg>

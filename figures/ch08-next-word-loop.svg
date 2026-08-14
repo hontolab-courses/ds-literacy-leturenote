@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 420" font-family="'Hiragino Sans','Noto Sans JP',sans-serif">
+<defs><marker id="ah" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#8C8C8C"/></marker></defs>
+<rect x="0" y="0" width="1000" height="420" fill="white"/>
+<text x="500" y="50" text-anchor="middle" font-size="18" font-weight="bold" fill="#333333">LLMの基本動作＝「スマホの予測変換の超強力版」の繰り返し</text>
+<!-- ① ここまでの文章 -->
+<rect x="40" y="110" width="250" height="170" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="165" y="145" text-anchor="middle" font-size="17" font-weight="bold" fill="#333333">① ここまでの文章</text>
+<text x="165" y="185" text-anchor="middle" font-size="14" fill="#8C8C8C">例</text>
+<text x="165" y="220" text-anchor="middle" font-size="20" fill="#333333">「データ」</text>
+<line x1="290" y1="195" x2="340" y2="195" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+<!-- ② 次の語の候補と確率 -->
+<rect x="350" y="95" width="300" height="200" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="500" y="128" text-anchor="middle" font-size="17" font-weight="bold" fill="#333333">② 次の語の候補と確率</text>
+<text x="392" y="167" text-anchor="end" font-size="16" fill="#333333">を</text>
+<rect x="402" y="152" width="141" height="18" fill="#4C72B0"/>
+<text x="551" y="167" font-size="14" fill="#333333">0.64</text>
+<text x="392" y="202" text-anchor="end" font-size="16" fill="#333333">の</text>
+<rect x="402" y="187" width="59" height="18" fill="#4C72B0"/>
+<text x="469" y="202" font-size="14" fill="#333333">0.27</text>
+<text x="392" y="237" text-anchor="end" font-size="16" fill="#333333">は</text>
+<rect x="402" y="222" width="20" height="18" fill="#4C72B0"/>
+<text x="430" y="237" font-size="14" fill="#333333">0.09</text>
+<text x="500" y="275" text-anchor="middle" font-size="13" fill="#8C8C8C">確率にしたがってくじ引きのように選ぶ</text>
+<line x1="650" y1="195" x2="700" y2="195" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+<!-- ③ 1語選んで文末に追加 -->
+<rect x="710" y="110" width="250" height="170" rx="8" fill="#FBEEE4" stroke="#DD8452" stroke-width="2"/>
+<text x="835" y="145" text-anchor="middle" font-size="17" font-weight="bold" fill="#333333">③ 1語選んで文末に追加</text>
+<text x="835" y="185" text-anchor="middle" font-size="14" fill="#8C8C8C">例</text>
+<text x="835" y="220" text-anchor="middle" font-size="20" fill="#333333">「データ <tspan font-weight="bold" fill="#DD8452">を</tspan>」</text>
+<!-- 循環矢印：③→① -->
+<path d="M835,280 L835,340 L165,340 L165,292" fill="none" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+<text x="500" y="330" text-anchor="middle" font-size="15" fill="#333333">追加した文章を新しい「ここまでの文章」として①に戻る</text>
+<text x="500" y="378" text-anchor="middle" font-size="14" fill="#8C8C8C">文末記号「．」が出るまで繰り返すことで，長い文章が一語ずつ生成される</text>
+</svg>

@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" font-family="'Hiragino Sans','Noto Sans JP',sans-serif">
+<defs>
+<marker id="arrow-gray" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto">
+  <path d="M0,0 L8,4 L0,8 Z" fill="#8C8C8C"/>
+</marker>
+</defs>
+<rect x="0" y="0" width="1000" height="560" fill="white"/>
+<text x="500" y="42" text-anchor="middle" font-size="20" font-weight="bold" fill="#333333">4つの尺度水準の階段</text>
+
+<!-- のぼり矢印と注記 -->
+<line x1="100" y1="280" x2="760" y2="40" stroke="#8C8C8C" stroke-width="2.5" marker-end="url(#arrow-gray)"/>
+<text x="110" y="228" font-size="16" font-weight="bold" fill="#333333">上の段ほど，できる計算が増える</text>
+
+<!-- 階段（質的変数＝青，量的変数＝橙） -->
+<!-- 名義尺度 -->
+<rect x="60" y="330" width="210" height="140" rx="6" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="165" y="362" text-anchor="middle" font-size="18" font-weight="bold" fill="#4C72B0">名義尺度</text>
+<text x="165" y="390" text-anchor="middle" font-size="14" fill="#333333">同じか違うかを区別できる</text>
+<text x="165" y="410" text-anchor="middle" font-size="13" fill="#333333">（度数を数える）</text>
+<text x="165" y="438" text-anchor="middle" font-size="14" fill="#333333">例：学部，血液型</text>
+
+<!-- 順序尺度 -->
+<rect x="276" y="250" width="210" height="220" rx="6" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="381" y="282" text-anchor="middle" font-size="18" font-weight="bold" fill="#4C72B0">順序尺度</text>
+<text x="381" y="310" text-anchor="middle" font-size="14" fill="#333333">＋大小の比較・並べ替え</text>
+<text x="381" y="330" text-anchor="middle" font-size="13" fill="#333333">（間隔が等しいとは限らない）</text>
+<text x="381" y="358" text-anchor="middle" font-size="14" fill="#333333">例：満足度（5段階）</text>
+
+<!-- 間隔尺度 -->
+<rect x="492" y="170" width="210" height="300" rx="6" fill="#FBEEE4" stroke="#DD8452" stroke-width="2"/>
+<text x="597" y="202" text-anchor="middle" font-size="18" font-weight="bold" fill="#DD8452">間隔尺度</text>
+<text x="597" y="230" text-anchor="middle" font-size="14" fill="#333333">＋差の計算（平均など）</text>
+<text x="597" y="250" text-anchor="middle" font-size="13" fill="#333333">（ゼロは便宜的な位置）</text>
+<text x="597" y="278" text-anchor="middle" font-size="14" fill="#333333">例：摂氏の気温</text>
+
+<!-- 比率尺度 -->
+<rect x="708" y="90" width="210" height="380" rx="6" fill="#FBEEE4" stroke="#DD8452" stroke-width="2"/>
+<text x="813" y="122" text-anchor="middle" font-size="18" font-weight="bold" fill="#DD8452">比率尺度</text>
+<text x="813" y="150" text-anchor="middle" font-size="14" fill="#333333">＋比の計算（2倍が言える）</text>
+<text x="813" y="170" text-anchor="middle" font-size="13" fill="#333333">（ゼロ＝「何もない」）</text>
+<text x="813" y="198" text-anchor="middle" font-size="14" fill="#333333">例：金額，身長</text>
+
+<!-- 床線 -->
+<line x1="50" y1="470" x2="928" y2="470" stroke="#8C8C8C" stroke-width="2"/>
+
+<!-- 質的／量的の括り -->
+<path d="M 60 480 L 60 490 L 486 490 L 486 480" fill="none" stroke="#4C72B0" stroke-width="2"/>
+<text x="273" y="520" text-anchor="middle" font-size="16" font-weight="bold" fill="#4C72B0">質的変数（値が「分類」を表す）</text>
+<path d="M 492 480 L 492 490 L 918 490 L 918 480" fill="none" stroke="#DD8452" stroke-width="2"/>
+<text x="705" y="520" text-anchor="middle" font-size="16" font-weight="bold" fill="#DD8452">量的変数（値が「量」を数値で表す）</text>
+</svg>

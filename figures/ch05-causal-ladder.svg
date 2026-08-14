@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" font-family="'Hiragino Sans','Noto Sans JP',sans-serif">
+<rect x="0" y="0" width="1000" height="560" fill="white"/>
+
+<!-- 床線 -->
+<line x1="30" y1="520" x2="970" y2="520" stroke="#8C8C8C" stroke-width="2"/>
+
+<!-- 1段目：関連（見る） -->
+<rect x="50" y="384" width="290" height="136" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="195" y="416" text-anchor="middle" font-size="19" font-weight="bold" fill="#4C72B0">1段目　関連（見る）</text>
+<text x="195" y="446" text-anchor="middle" font-size="16" fill="#333333">AとBは一緒に動くか？</text>
+<text x="195" y="474" text-anchor="middle" font-size="14" fill="#8C8C8C">相関の世界</text>
+<text x="195" y="496" text-anchor="middle" font-size="14" fill="#8C8C8C">観察だけで分かる</text>
+
+<!-- 2段目：介入（する） -->
+<rect x="350" y="248" width="290" height="272" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="495" y="280" text-anchor="middle" font-size="19" font-weight="bold" fill="#4C72B0">2段目　介入（する）</text>
+<text x="495" y="310" text-anchor="middle" font-size="16" fill="#333333">Aを変えたらBはどうなるか？</text>
+<text x="495" y="338" text-anchor="middle" font-size="14" fill="#8C8C8C">実験・介入の世界</text>
+
+<!-- 3段目：反事実（想像する） -->
+<rect x="650" y="112" width="290" height="408" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="795" y="144" text-anchor="middle" font-size="19" font-weight="bold" fill="#4C72B0">3段目　反事実（想像する）</text>
+<text x="795" y="174" text-anchor="middle" font-size="16" fill="#333333">もしあのときAが違っていたら，</text>
+<text x="795" y="196" text-anchor="middle" font-size="16" fill="#333333">Bはどうなっていたか？</text>
+<text x="795" y="224" text-anchor="middle" font-size="14" fill="#8C8C8C">起こらなかった世界との比較</text>
+
+<!-- 1段目に立つ人（データだけを持って眺めている人） -->
+<circle cx="105" cy="336" r="10" fill="none" stroke="#DD8452" stroke-width="2.5"/>
+<line x1="105" y1="346" x2="105" y2="370" stroke="#DD8452" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="105" y1="370" x2="96" y2="384" stroke="#DD8452" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="105" y1="370" x2="114" y2="384" stroke="#DD8452" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="105" y1="353" x2="93" y2="364" stroke="#DD8452" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="105" y1="353" x2="117" y2="364" stroke="#DD8452" stroke-width="2.5" stroke-linecap="round"/>
+
+<!-- データだけでは越えられない壁（点線） -->
+<line x1="345" y1="520" x2="345" y2="180" stroke="#DD8452" stroke-width="2.5" stroke-dasharray="6 4"/>
+<text x="195" y="290" text-anchor="middle" font-size="15" font-weight="bold" fill="#DD8452">データを眺めるだけで</text>
+<text x="195" y="312" text-anchor="middle" font-size="15" font-weight="bold" fill="#DD8452">到達できるのはここまで</text>
+
+<!-- 上に登るための条件 -->
+<text x="497" y="196" text-anchor="middle" font-size="14" fill="#8C8C8C">因果の知識（モデル）を組み合わせて</text>
+<text x="497" y="218" text-anchor="middle" font-size="14" fill="#8C8C8C">初めて2段目・3段目に登れる</text>
+</svg>

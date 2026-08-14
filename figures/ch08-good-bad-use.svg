@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" font-family="'Hiragino Sans','Noto Sans JP',sans-serif">
+<defs>
+<marker id="ah" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#8C8C8C"/></marker>
+</defs>
+<rect x="0" y="0" width="1000" height="600" fill="white"/>
+
+<!-- 判断の軸 -->
+<rect x="230" y="28" width="540" height="72" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="500" y="54" text-anchor="middle" font-size="14" fill="#4C72B0">大学での使い方を考えるときの軸</text>
+<text x="500" y="82" text-anchor="middle" font-size="18" font-weight="bold" fill="#333333">「その使い方は自分の学びを増やすか，減らすか」</text>
+<line x1="420" y1="104" x2="300" y2="142" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+<line x1="580" y1="104" x2="700" y2="142" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+
+<!-- 左パネル：学びを増やす -->
+<rect x="24" y="150" width="464" height="304" rx="8" fill="#EAF5EC" stroke="#55A868" stroke-width="2"/>
+<circle cx="168" cy="180" r="11" fill="none" stroke="#55A868" stroke-width="3"/>
+<text x="190" y="187" font-size="18" font-weight="bold" fill="#333333">学びを増やす使い方</text>
+<text x="52" y="228" font-size="16" fill="#333333">・レポートの構成のたたき台を出してもらう</text>
+<text x="52" y="262" font-size="16" fill="#333333">・自分で書いた文章の推敲を頼む</text>
+<text x="52" y="296" font-size="16" fill="#333333">・自分の主張への反論を挙げてもらう（壁打ち相手）</text>
+<text x="52" y="330" font-size="16" fill="#333333">・文献調査の検索キーワードや学術用語を挙げてもらう</text>
+<line x1="52" y1="392" x2="460" y2="392" stroke="#55A868" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="256" y="424" text-anchor="middle" font-size="14" font-weight="bold" fill="#55A868">最終的に考え，判断し，書くのは自分自身</text>
+
+<!-- 右パネル：学びを減らす -->
+<rect x="512" y="150" width="464" height="304" rx="8" fill="#F9EAEA" stroke="#C44E52" stroke-width="2"/>
+<line x1="646" y1="169" x2="668" y2="191" stroke="#C44E52" stroke-width="3.5"/>
+<line x1="646" y1="191" x2="668" y2="169" stroke="#C44E52" stroke-width="3.5"/>
+<text x="680" y="187" font-size="18" font-weight="bold" fill="#333333">学びを減らす使い方</text>
+<text x="540" y="228" font-size="16" fill="#333333">・出力された文章をそのまま自分のレポートとして提出</text>
+<text x="540" y="262" font-size="16" fill="#333333">・挙げられた参考文献を実物で確認せずに載せる</text>
+<text x="540" y="296" font-size="16" fill="#333333">・利用したことを書かずに黙って使う</text>
+<line x1="540" y1="392" x2="948" y2="392" stroke="#C44E52" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="744" y="424" text-anchor="middle" font-size="14" font-weight="bold" fill="#C44E52">評価と学びの仕組みが壊れ，自分の力が鍛えられない</text>
+
+<!-- ルール確認の帯 -->
+<rect x="24" y="482" width="952" height="84" rx="8" fill="#FBEEE4" stroke="#DD8452" stroke-width="2"/>
+<text x="500" y="514" text-anchor="middle" font-size="17" font-weight="bold" fill="#333333">生成AIを使う前に，所属大学の方針と授業のシラバス・担当教員の指示を必ず確認する</text>
+<text x="500" y="544" text-anchor="middle" font-size="14" fill="#333333">利用ルールは大学ごと・授業ごとに異なる．迷ったら担当教員に質問するのが確実</text>
+</svg>

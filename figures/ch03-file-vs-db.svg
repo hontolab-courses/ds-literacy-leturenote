@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1040 484" font-family="'Hiragino Sans','Noto Sans JP',sans-serif">
+<defs>
+<marker id="ah" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#8C8C8C"/></marker>
+<marker id="ahr" markerWidth="10" markerHeight="8" refX="1" refY="4" orient="auto"><path d="M10,0 L0,4 L10,8 z" fill="#8C8C8C"/></marker>
+<g id="person" fill="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="0" cy="-15" r="8"/>
+<path d="M -12,16 C -12,1 12,1 12,16 Z"/>
+</g>
+<g id="file" fill="white" stroke="#8C8C8C" stroke-width="2" stroke-linejoin="round">
+<path d="M0,0 h20 l10,10 v28 h-30 z"/>
+<path d="M20,0 v10 h10" fill="none"/>
+</g>
+</defs>
+<rect x="0" y="0" width="1040" height="484" fill="white"/>
+
+<!-- 左パネル：ファイル管理 -->
+<rect x="24" y="24" width="470" height="436" rx="8" fill="white" stroke="#8C8C8C" stroke-width="2"/>
+<text x="259" y="58" text-anchor="middle" font-size="18" font-weight="bold" fill="#333333">ファイル：データの「置き場所」</text>
+
+<!-- 吹き出し -->
+<rect x="105" y="74" width="130" height="32" rx="10" fill="white" stroke="#C44E52" stroke-width="2"/>
+<path d="M138,106 L124,122 L158,106" fill="white" stroke="#C44E52" stroke-width="2"/>
+<line x1="140" y1="106" x2="156" y2="106" stroke="white" stroke-width="3"/>
+<text x="170" y="95" text-anchor="middle" font-size="14" font-weight="bold" fill="#C44E52">どれが最新？</text>
+
+<!-- 人（利用者） -->
+<use xlink:href="#person" x="95" y="150" stroke="#4C72B0"/>
+<use xlink:href="#person" x="95" y="227" stroke="#4C72B0"/>
+<use xlink:href="#person" x="95" y="304" stroke="#4C72B0"/>
+
+<!-- ファイル群 -->
+<use xlink:href="#file" x="205" y="131"/>
+<text x="243" y="155" font-size="12" fill="#333333">顧客リスト.xlsx</text>
+<use xlink:href="#file" x="205" y="208"/>
+<text x="243" y="232" font-size="12" fill="#333333">顧客リスト（最新）.xlsx</text>
+<use xlink:href="#file" x="205" y="285"/>
+<text x="243" y="309" font-size="12" fill="#333333">顧客リスト（最新）2.xlsx</text>
+
+<!-- 矢印：各自がコピーを直接触る -->
+<line x1="112" y1="150" x2="196" y2="150" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+<line x1="112" y1="227" x2="196" y2="227" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+<line x1="112" y1="304" x2="196" y2="304" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+<line x1="112" y1="220" x2="196" y2="158" stroke="#8C8C8C" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ah)"/>
+<line x1="112" y1="297" x2="196" y2="235" stroke="#8C8C8C" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ah)"/>
+
+<text x="259" y="404" text-anchor="middle" font-size="14" fill="#8C8C8C">各自がコピーを直接触る</text>
+<text x="259" y="434" text-anchor="middle" font-size="14" fill="#333333"><tspan font-size="17" font-weight="bold" fill="#C44E52">×</tspan><tspan dx="8">コピーがあちこちに増え，情報が食い違っていく</tspan></text>
+
+<!-- 中央 vs -->
+<text x="520" y="232" text-anchor="middle" font-size="16" font-weight="bold" fill="#8C8C8C">vs</text>
+
+<!-- 右パネル：データベース -->
+<rect x="546" y="24" width="470" height="436" rx="8" fill="white" stroke="#8C8C8C" stroke-width="2"/>
+<text x="781" y="58" text-anchor="middle" font-size="18" font-weight="bold" fill="#333333">データベース：「管理人つきの倉庫」</text>
+
+<!-- 人（利用者） -->
+<use xlink:href="#person" x="600" y="150" stroke="#4C72B0"/>
+<use xlink:href="#person" x="600" y="227" stroke="#4C72B0"/>
+<use xlink:href="#person" x="600" y="304" stroke="#4C72B0"/>
+
+<!-- 管理人（DBMS） -->
+<use xlink:href="#person" transform="translate(760,227) scale(1.3)" stroke="#DD8452"/>
+<text x="760" y="280" text-anchor="middle" font-size="15" font-weight="bold" fill="#DD8452">管理人</text>
+<text x="760" y="299" text-anchor="middle" font-size="13" fill="#DD8452">（DBMS）</text>
+
+<!-- 矢印：全員が管理人を介する -->
+<line x1="617" y1="155" x2="731" y2="212" stroke="#8C8C8C" stroke-width="2" marker-start="url(#ahr)" marker-end="url(#ah)"/>
+<line x1="617" y1="227" x2="731" y2="227" stroke="#8C8C8C" stroke-width="2" marker-start="url(#ahr)" marker-end="url(#ah)"/>
+<line x1="617" y1="299" x2="731" y2="242" stroke="#8C8C8C" stroke-width="2" marker-start="url(#ahr)" marker-end="url(#ah)"/>
+<line x1="789" y1="227" x2="876" y2="227" stroke="#8C8C8C" stroke-width="2" marker-start="url(#ahr)" marker-end="url(#ah)"/>
+
+<!-- データベース（倉庫） -->
+<path d="M884,180 v100 a46,14 0 0 0 92,0 v-100" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<ellipse cx="930" cy="180" rx="46" ry="14" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<path d="M884,213 a46,14 0 0 0 92,0" fill="none" stroke="#4C72B0" stroke-width="1.5" opacity="0.35"/>
+<path d="M884,246 a46,14 0 0 0 92,0" fill="none" stroke="#4C72B0" stroke-width="1.5" opacity="0.35"/>
+<text x="930" y="322" text-anchor="middle" font-size="15" font-weight="bold" fill="#4C72B0">データベース</text>
+
+<text x="781" y="404" text-anchor="middle" font-size="14" fill="#8C8C8C">全員が「管理人」を介してアクセスする</text>
+<text x="781" y="434" text-anchor="middle" font-size="14" fill="#333333"><tspan font-size="17" font-weight="bold" fill="#55A868">○</tspan><tspan dx="8">データは1か所で一元管理される</tspan></text>
+</svg>
