@@ -1,6 +1,6 @@
 # 目次定義（章構成は policy/jupyter-book-design.md 2.1節を参照）
 format: jb-book
-root: introduction
+root: index
 chapters:
   - file: chapters/ch01-what-is-ds
   - file: chapters/ch02-data-collection

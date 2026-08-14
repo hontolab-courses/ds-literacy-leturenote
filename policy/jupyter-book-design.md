@@ -24,7 +24,7 @@
 
 | 章 | タイトル（案） | ファイル | インタラクティブ度 |
 |---|---|---|---|
-| 序 | 科目トップページ（開講情報・科目概要・小テスト・授業予定） | `introduction.md` | なし |
+| 序 | 科目トップページ（開講情報・科目概要・小テスト・授業予定） | `index.md` | なし |
 | 1 | データサイエンスとは何か——ビッグデータとThick・Thinデータ | `ch01-what-is-ds.md` | 低 |
 | 2 | データの収集 | `ch02-data-collection.md` | 低〜中（Literary Digestの再現例） |
 | 3 | データの保存と検索 | `ch03-database.md` | 中（クエリの疑似体験） |
@@ -41,7 +41,7 @@
 ds-literacy-lecturenote/
 ├── _config.yml          # Jupyter Book設定
 ├── _toc.yml             # 目次定義
-├── introduction.md      # 序章（開講情報・科目概要・小テスト・授業予定．構成は5.1節参照）
+├── index.md      # 序章（開講情報・科目概要・小テスト・授業予定．構成は5.1節参照）
 ├── chapters/
 │   ├── ch01-what-is-ds.md
 │   ├── ch02-data-collection.md
@@ -86,7 +86,7 @@ ds-literacy-lecturenote/
 
 ## 5. 各章の構成テンプレート
 
-### 5.1 序章（`introduction.md`）の構成
+### 5.1 序章（`index.md`）の構成
 
 序章は，現行科目ページ（<https://www.ds.nagoya-cu.ac.jp/~yamamoto/lecture/ds-literacy/>）の構成を踏襲し，講義ノートの入口として以下を掲載する．
 
