@@ -1,0 +1,33 @@
+# Jupyter Book設定（設計方針は policy/jupyter-book-design.md を参照）
+title: データサイエンス・リテラシー
+author: 名古屋市立大学 大学院データサイエンス研究科 山本祐輔
+copyright: "2026"
+language: ja
+
+# _toc.yml に載せたファイルのみビルドする（policy/ 等を除外）
+only_build_toc_files: true
+
+# コードセルはビルド時に実行し，結果をキャッシュする（設計方針3節）
+execute:
+  execute_notebooks: cache
+
+# 参考文献データベース（設計方針6節）
+bibtex_bibfiles:
+  - references.bib
+
+# TODO: 公開用GitHubリポジトリが決まったら url を設定し，
+# launch_buttons（Colabボタン）を有効化する（設計方針4節）
+# repository:
+#   url: https://github.com/<org>/<repo>
+#   branch: main
+# launch_buttons:
+#   colab_url: "https://colab.research.google.com"
+
+html:
+  use_issues_button: false
+  use_repository_button: false
+
+sphinx:
+  config:
+    language: ja
+    bibtex_reference_style: author_year

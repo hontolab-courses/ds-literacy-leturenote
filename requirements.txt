@@ -1,0 +1,6 @@
+# 講義ノートのビルド・実行環境（設計方針3節）
+jupyter-book>=1.0,<2
+pandas
+matplotlib
+plotly
+ghp-import

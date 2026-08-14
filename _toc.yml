@@ -1,0 +1,13 @@
+# 目次定義（章構成は policy/jupyter-book-design.md 2.1節を参照）
+format: jb-book
+root: introduction
+chapters:
+  - file: chapters/ch01-what-is-ds
+  - file: chapters/ch02-data-collection
+  - file: chapters/ch03-database
+  - file: chapters/ch04-preprocessing
+  - file: chapters/ch05-data-analysis
+  - file: chapters/ch06-data-visualization
+  - file: chapters/ch07-data-law
+  - file: chapters/ch08-genai
+  - file: references

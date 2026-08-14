@@ -1,0 +1,30 @@
+# Jupyter Book のビルド成果物
+# _build/ 以下に html・jupyter_execute・.doctrees・.jupyter_cache がまとめて作られる
+_build/
+# ビルド設定によってはリポジトリ直下にも作られるため念のため除外する
+jupyter_execute/
+.jupyter_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Claude Code（settings.json は共有設定なので追跡し，個人設定のみ除外する）
+.claude/settings.local.json
+
+# エディタ（設定を共有したくなったら該当行を削除する）
+.vscode/
+.idea/
+
+# macOS
+.DS_Store
+._*
+
+# Dropbox が同期の衝突時に作る複製ファイル
+*のコンフリクト コピー*
+*conflicted copy*
