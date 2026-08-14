@@ -1,0 +1,703 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ja" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>第7回：データと法——情報法の基礎 &#8212; データサイエンス・リテラシー</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=1cf7f4d9"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'クリックして表示';</script>
+    <script>let toggleHintHide = 'クリックして非表示';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script src="../_static/translations.js?v=91613774"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/ch07-data-law';</script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="第8回：生成AIの基礎と知的活動への利用" href="ch08-genai.html" />
+    <link rel="prev" title="第6回：データの可視化とコミュニケーション" href="ch06-data-visualization.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ja"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">本文へスキップ</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>トップに戻る</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="バージョン警告"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../introduction.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">データサイエンス・リテラシー</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">検索</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../introduction.html">
+                    データサイエンス・リテラシー
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ch01-what-is-ds.html">第1回：データサイエンスとは何か——ビッグデータとThick・Thinデータ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch02-data-collection.html">第2回：データの収集</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch03-database.html">第3回：データの保存と検索</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch04-preprocessing.html">第4回：データの前処理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch05-data-analysis.html">第5回：データの分析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch06-data-visualization.html">第6回：データの可視化とコミュニケーション</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">第7回：データと法——情報法の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch08-genai.html">第8回：生成AIの基礎と知的活動への利用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">参考文献</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="このページをダウンロード">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/ch07-data-law.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="ソースファイルをダウンロード"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="PDFに印刷"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="全画面モード"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="ライト"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="ダーク"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>第7回：データと法——情報法の基礎</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目次 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">この回で学ぶこと</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">導入：その「同意する」ボタン，何に同意していますか？</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">個人情報を守るしくみ——個人情報保護法</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">個人情報とは何か</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">プライバシーという考え方</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">取得と利用の基本ルール——利用目的という考え方</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">加工すれば使ってよいのか——仮名加工情報と匿名加工情報</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#netflix">「匿名化すれば安全」の限界——Netflix再識別事例</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">創作物とデータを守るしくみ——著作権</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sns">著作権とは何か——SNSの投稿も著作物</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">データやデータベースは守られるのか——データベースの権利</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ai">AI学習と著作権——いま最も熱い論点</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">法だけでは足りない——データ倫理とアルゴリズムの社会的影響</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">データ倫理・公平性・アルゴリズムによる差別</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">フィルターバブル——懸念と実証のあいだ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">活用事例：匿名加工情報が広げるデータ利活用</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">まとめ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">確認問題</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">さらに学ぶために</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>第7回：データと法——情報法の基礎<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<section id="id2">
+<h2>この回で学ぶこと<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>データの取得・利用を規律する<strong>個人情報保護法</strong>の基本的な考え方（個人情報の定義，利用目的のルール，仮名加工情報・匿名加工情報という区分）を説明できるようになる．</p></li>
+<li><p>「匿名化すれば安全」という直感には限界があることを，実際の再識別事例を通じて理解する．</p></li>
+<li><p><strong>著作権</strong>の基本的な考え方と，データベースの保護，AI学習と著作権をめぐる論点の存在を知る．</p></li>
+<li><p>法律を守るだけでは足りない場面があること（<strong>データ倫理</strong>）を，公平性・アルゴリズムによる差別・フィルターバブルなどの事例を通じて知る．</p></li>
+<li><p>第2回で予告した「集めてよいデータ・集め方のルール」の答え合わせをし，第8回「生成AI」の法的論点への足がかりを作る．</p></li>
+</ul>
+</section>
+<section id="id3">
+<h2>導入：その「同意する」ボタン，何に同意していますか？<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="ch02-data-collection.html"><span class="std std-doc">第2回「データの収集」</span></a>の最後に，「集めてよいデータ・集め方のルール（同意・プライバシー）は第7回で扱います」と予告しました．この回は，その伏線を回収する回です．データの収集から可視化まで一通りの流れを学んできたいま，あらためて「そもそもそのデータ，集めてよかったのか？　使ってよかったのか？」という問いに向き合います．</p>
+<p>みなさんは，新しいスマホアプリをインストールするとき，利用規約やプライバシーポリシーを最後まで読んでから「同意する」を押しているでしょうか．正直に言えば，ほとんどの人は読んでいないはずです．しかしその画面の裏側では，「あなたのどんなデータを集めるか」「何の目的で使うか」「誰に渡す可能性があるか」が書かれており，みなさんはそれに法的な意味で「同意」したことになっています．</p>
+<div class="admonition- admonition">
+<p class="admonition-title">事例：就活サービスと「予測データ」の販売</p>
+<p>かつて日本で，ある就職活動支援サービスをめぐって大きな問題になった出来事があります（ここでは一般化して紹介します）．そのサービスは，学生がサイト上でどの企業のページを閲覧したかという行動履歴データをもとに，<strong>学生ごとの「内定辞退率」を予測し，そのスコアを企業側に販売していた</strong>とされます．多くの学生は，自分の閲覧履歴がそのような形で使われるとは想像しておらず，十分な説明や同意もないままでした．この件は行政機関からの指導・勧告に発展し，「本人が想定していない目的でのデータ利用」の危うさを社会に強く印象づけました．</p>
+<p>みなさんも数年後には就職活動でこうしたサービスを使うことになります．これは「どこか遠くの話」ではなく，みなさん自身のデータの話なのです．</p>
+</div>
+<p>この事例の重要なポイントは，「データを集める技術があること」と「そのデータをその目的で使ってよいこと」はまったく別問題だ，という点です．データサイエンスの技術が強力になればなるほど，それを支えるルール——法律と倫理——の理解が欠かせなくなります．この回では，データ利活用に関わる法制度の基礎として<strong>個人情報保護法</strong>と<strong>著作権</strong>を主軸に学び，最後に法律だけではカバーしきれない<strong>データ倫理</strong>の世界に視野を広げます．</p>
+<p>なお，本章は法律の専門講義ではありません．条文の細かい解釈や罰則の詳細には立ち入らず，「データを扱うすべての人が知っておくべき基本的な考え方」に絞って説明します．正確な最新情報は，本文中で紹介する政府の公式資料（個人情報保護委員会・文化庁）を参照してください．</p>
+</section>
+<section id="id4">
+<h2>個人情報を守るしくみ——個人情報保護法<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<section id="id5">
+<h3>個人情報とは何か<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>日本でデータの取り扱いを規律する中心的な法律が<strong>個人情報保護法</strong>です．正式名称は「個人情報の保護に関する法律」で，個人情報を取り扱う企業・団体などが守るべきルールを定めています．この法律の運用を担う行政機関が<strong>個人情報保護委員会</strong>（Personal Information Protection Commission）で，公式サイト（<a class="reference external" href="https://www.ppc.go.jp/">https://www.ppc.go.jp/</a>）にはガイドラインやわかりやすい解説資料が公開されています．本章の個人情報保護法に関する説明も，この公式資料の内容を基礎にしています．</p>
+<p>では，そもそも<strong>個人情報</strong>（personal information）とは何でしょうか．個人情報保護法における個人情報とは，おおまかに言えば，<strong>生存する個人に関する情報であって，特定の個人を識別できるもの</strong>のことです．典型例は氏名や顔写真ですが，重要なのは「単独では誰のことか分からなくても，他の情報と容易に照らし合わせることで個人を特定できるなら，それも個人情報になる」という点です．</p>
+<p>たとえば「名古屋市在住・19歳・大学1年生」だけでは個人を特定できませんが，これに学籍番号や氏名が結びつけば個人情報です．また，マイナンバーや運転免許証番号のような，それ自体で個人に割り当てられた番号・記号（個人識別符号と呼ばれます）も個人情報に含まれます．メールアドレスも，<code class="docutils literal notranslate"><span class="pre">yusuke_yamamoto&#64;...</span></code> のように氏名や所属が読み取れるものは個人情報にあたり得ます．</p>
+<p>学生生活に引きつけて言えば，サークルの新歓で集めた新入生の名簿，ゼミの連絡網，アルバイト先の顧客リスト，イベントで撮影した参加者の顔が写った写真——これらはすべて個人情報を含むデータです．「企業が扱うビッグデータ」だけの話ではないことを，まず押さえてください．</p>
+</section>
+<section id="id6">
+<h3>プライバシーという考え方<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>個人情報とよく似た言葉に<strong>プライバシー</strong>（privacy）があります．両者は重なりますが，同じではありません．個人情報保護法が「個人を識別できる情報の適正な取り扱い」を定めた法律上の制度であるのに対し，プライバシーは，<strong>私生活をみだりに公開されない，自分に関する情報の扱われ方を自分でコントロールしたい</strong>という，より広い利益・権利の考え方です．プライバシーは判例の積み重ねを通じて法的に保護されるべき利益として認められてきました．</p>
+<p>両者のずれが分かる例を挙げましょう．友人があなたの帰宅時間や交友関係をSNSで勝手に暴露したとします．投稿に氏名が書かれていなくても，知り合いが読めば誰のことか分かる内容であれば，あなたのプライバシーは傷つけられています．逆に，法律上のルールをすべて守って取得された個人情報でも，本人が「そんな使われ方をするとは思わなかった」と感じる使い方をすれば，プライバシーの観点から問題になり得ます．導入で紹介した就活サービスの事例が炎上したのも，まさにこの「法律の形式だけでは片づかない，本人の合理的な期待への裏切り」が大きかったからです．</p>
+<p><strong>「個人情報保護法を守っていれば，プライバシーの問題は起きない」とは限らない</strong>——この感覚は，この章全体を貫く重要な視点なので，覚えておいてください．</p>
+</section>
+<section id="id7">
+<h3>取得と利用の基本ルール——利用目的という考え方<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>個人情報保護法の基本的な枠組みのうち，データサイエンスの入り口として最低限知っておきたいのは，次の考え方です．</p>
+<ol class="arabic simple">
+<li><p><strong>利用目的の特定</strong>：個人情報を取得するときは，「何のために使うのか」という利用目的をできる限り具体的に定めなければなりません．</p></li>
+<li><p><strong>利用目的の通知・公表</strong>：定めた利用目的は，本人に通知するか，あらかじめ公表しておく必要があります．アプリやWebサービスの「プライバシーポリシー」は，この公表の役割を果たしています．</p></li>
+<li><p><strong>目的外利用の制限</strong>：定めた利用目的の範囲を超えて個人情報を使うには，原則として本人の同意が必要です．</p></li>
+<li><p><strong>適正な取得</strong>：偽りその他不正な手段で個人情報を取得してはいけません．</p></li>
+</ol>
+<p>ポイントは，この枠組みが「個人情報を集めるな」ではなく，<strong>「目的を明らかにし，その範囲で適正に使うなら活用してよい」</strong> という設計になっていることです．個人情報保護法は，個人の権利利益を守ることと，データの有用性・利活用とのバランスを取ることを目指した法律なのです．</p>
+<p>冒頭のアプリの利用規約の話に戻りましょう．「同意する」ボタンが法的に意味を持つのは，この枠組みがあるからです．サービス提供者は利用目的を公表し，ユーザーの同意を得ることで，データを適法に取得・利用できます．逆に言えば，ユーザーであるみなさんにとって，プライバシーポリシーの「取得する情報」「利用目的」「第三者提供」の欄は，読み飛ばしてよい飾りではなく，<strong>自分のデータがどう扱われるかを知る唯一の手がかり</strong>です．すべてを熟読するのは現実的でなくても，位置情報や連絡先など気になるデータについてだけでも確認する習慣は，データ社会を生きるリテラシーの一部だと言えます．</p>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>身近な落とし穴として「目的外利用」に注意してください．たとえば，サークルの新歓で「連絡用」として集めた新入生の連絡先リストを，本人に断りなくアルバイト先の勧誘に使ったり，他団体に渡したりするのは，集めたときの目的を超えた利用です．企業であれば法律上の問題になり得る行為であり，学生団体でも信頼を根本から損ないます．「集めたときに伝えた目的の範囲で使う」は，規模の大小を問わずデータを扱う人の基本動作です．</p>
+</div>
+</section>
+<section id="id8">
+<h3>加工すれば使ってよいのか——仮名加工情報と匿名加工情報<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>ここで一つの疑問が浮かびます．「個人が特定できるから問題なのであって，名前を消してしまえば自由に使ってよいのではないか？」——データ利活用の現場で必ず出てくる発想です．個人情報保護法は，この「加工したデータ」について，加工の程度に応じた区分を用意しています．代表的なものが<strong>仮名加工情報</strong>と<strong>匿名加工情報</strong>です．</p>
+<ul class="simple">
+<li><p><strong>仮名加工情報</strong>（pseudonymized information）は，氏名などを削除・置き換えして，<strong>他の情報と照合しない限り特定の個人を識別できない</strong>ようにしたデータです．たとえば顧客データの氏名を「ユーザーA」「ユーザーB」のようなIDに置き換えたものをイメージしてください．元の対応表と照合すれば誰のことか分かる状態なので，本人に関わる情報としての性質は残っています．そのため，主に組織の<strong>内部での分析</strong>に使うことを想定した区分で，通常の個人情報よりも一部のルールが緩和される代わりに，本人を特定するために他の情報と照合してはいけない，といった義務が課されます．</p></li>
+<li><p><strong>匿名加工情報</strong>（anonymized information）は，さらに加工を進めて，<strong>特定の個人を識別できず，元の個人情報を復元できない</strong>ようにしたデータです．こちらは一定のルール（加工方法の基準を守る，作成や第三者提供の際に公表するなど）のもとで，<strong>本人の同意なしに第三者へ提供して利活用できる</strong>ことが大きな特徴です．</p></li>
+</ul>
+<p>直感的には，<strong>仮名加工情報は「名札を裏返した状態」，匿名加工情報は「名札を外して，元に戻せないよう作り直した状態」</strong> とイメージすると分かりやすいでしょう．前者は内部利用向け，後者は外部への提供・流通も視野に入れた区分です．この二つの区分の存在は，「守るべきものは守りつつ，データの利活用も進める」という個人情報保護法の設計思想をよく表しています．なお，加工の具体的な基準や義務の詳細は個人情報保護委員会のガイドラインに定められていますので，実務で扱う際は必ず公式資料（<a class="reference external" href="https://www.ppc.go.jp/">https://www.ppc.go.jp/</a>）を確認してください．</p>
+</section>
+<section id="netflix">
+<h3>「匿名化すれば安全」の限界——Netflix再識別事例<a class="headerlink" href="#netflix" title="Link to this heading">#</a></h3>
+<p>では，きちんと加工すれば本当に「誰のデータか」は分からなくなるのでしょうか．この直感の限界を鮮烈に示したのが，映像配信サービスNetflixのデータをめぐる有名な研究です <span id="id9">[<a class="reference internal" href="../references.html#id28" title="Arvind Narayanan and Vitaly Shmatikov. Robust de-anonymization of large sparse datasets. In Proceedings of the 2008 IEEE Symposium on Security and Privacy, 111–125. 2008. doi:10.1109/SP.2008.33.">Narayanan and Shmatikov, 2008</a>]</span>．</p>
+<div class="admonition- admonition">
+<p class="admonition-title">事例：約50万人の「匿名」映画評価データ</p>
+<p>2006年，Netflixは映画のおすすめアルゴリズムの改良コンテストのために，<strong>約50万人分</strong>の映画評価データ（どの映画に何点をつけたか，その日付）を公開しました．氏名などは削除され，ユーザーは無意味なIDに置き換えられた「匿名」のデータでした．</p>
+<p>しかし，研究者のNarayananとShmatikovは，このデータが別の公開情報（映画レビューサイトに実名で投稿された評価）と照合できることを示しました．彼らの分析によれば，<strong>64%の加入者は，わずか2件の評価とその日付を知るだけで完全に再識別でき，89%については約50万件の中から8件以下にまで絞り込める</strong>というのです <span id="id10">[<a class="reference internal" href="../references.html#id28" title="Arvind Narayanan and Vitaly Shmatikov. Robust de-anonymization of large sparse datasets. In Proceedings of the 2008 IEEE Symposium on Security and Privacy, 111–125. 2008. doi:10.1109/SP.2008.33.">Narayanan and Shmatikov, 2008</a>]</span>．</p>
+<p>「どの映画をいつ観たか」は一見ささいな情報ですが，人によっては思想・信条や性的指向を推測させる映画の視聴記録が含まれ得ます．名前を消したはずのデータから個人が浮かび上がるこの結果は，世界中のデータ公開のあり方に大きな影響を与えました．</p>
+</div>
+<p>この事例が教えてくれるのは，<strong>「名前を消す」ことと「個人を特定できなくする」ことの間には大きな隔たりがある</strong>という事実です．一人ひとりの行動履歴（視聴履歴・購買履歴・位置情報など）は，それ自体が指紋のようにユニークなパターンを持つため，外部の情報と突き合わせる（照合する）ことで個人が<strong>再識別</strong>（re-identification）されてしまうことがあるのです．</p>
+<p>前節で学んだ匿名加工情報の制度が，単に「名前を消す」ではなく「復元できないように加工する」ことを求め，しかも詳細な加工基準をガイドラインで定めているのは，まさにこうした再識別のリスクを踏まえてのことです．データを公開・提供する側に立ったとき，「匿名化したから大丈夫」と安易に考えてはいけない——これは，データサイエンスを学ぶ人が最初に身につけるべき慎重さの一つです．</p>
+</section>
+</section>
+<section id="id11">
+<h2>創作物とデータを守るしくみ——著作権<a class="headerlink" href="#id11" title="Link to this heading">#</a></h2>
+<section id="sns">
+<h3>著作権とは何か——SNSの投稿も著作物<a class="headerlink" href="#sns" title="Link to this heading">#</a></h3>
+<p>個人情報保護法が「人に関するデータ」のルールだとすれば，もう一つの主軸である<strong>著作権</strong>（copyright）は「人が創作した表現」のルールです．著作権は，小説・音楽・絵画・写真・映画・プログラムなど，<strong>思想や感情を創作的に表現したもの（著作物）</strong> を保護する権利で，著作物を創作した時点で自動的に発生します．特許のような登録手続きは不要です．</p>
+<p>「創作的な表現」というとプロの作品を想像するかもしれませんが，ハードルはそれほど高くありません．みなさんがSNSに投稿した文章や写真，授業のレポート，友人が描いたイラスト——これらも創作性が認められれば立派な著作物であり，作った本人に著作権があります．逆に言えば，<strong>他人のイラストや写真を「ネットで拾ったから」と自分のSNSアイコンや資料に無断で使う行為は，著作権侵害になり得ます</strong>．インターネット上で公開されていることと，自由に使ってよいことは別なのです．</p>
+<p>一方で，著作権法は「保護」一辺倒の法律ではありません．文化の発展のためには，先人の作品を学び，引用し，批評できることも重要です．そのため著作権法には，一定の条件を満たせば許諾なく著作物を利用できる例外規定が数多く置かれています．たとえば，本講義ノートが他の文献の図や文章を出典を明記して<strong>引用</strong>しているのも，こうした例外規定に基づく利用です．著作権制度の全体像や最新の動向については，制度を所管する<strong>文化庁</strong>の公式サイト（<a class="reference external" href="https://www.bunka.go.jp/">https://www.bunka.go.jp/</a>）が信頼できる情報源です．</p>
+<p>ここで注意してほしいのは，<strong>事実やデータそのものは著作物ではない</strong>という点です．著作権が守るのは「創作的な表現」であって，アイデアや事実は保護しません．たとえば「2026年8月の名古屋の平均気温は◯度だった」という事実，実験で得られた測定値そのものには著作権は発生しません．では，データサイエンスの主役である「データの集まり」は，法的にどう扱われるのでしょうか．</p>
+</section>
+<section id="id12">
+<h3>データやデータベースは守られるのか——データベースの権利<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<p>大量のデータを集め，整理したものをデータベースと呼ぶことは第3回で学びました．著作権法は，このデータベースについても一定の保護を用意しています．すなわち，<strong>情報の選び方や体系的な構成に創作性があるデータベースは，「データベースの著作物」として保護される</strong>のです．本章ではこれを<strong>データベースの権利</strong>と呼んでおきます．</p>
+<p>ポイントは，保護されるのが「中身のデータ一つひとつ」ではなく「<strong>選択や構成の創作性</strong>」だという点です．たとえば，ある観点から情報を独自に選び抜き，独自の分類体系で整理した辞典型のデータベースは保護の対象になり得ます．一方で，機械的に網羅しただけで選択にも構成にも創作性がないデータの集積は，データベースの著作物とは認められにくいと考えられています．つまり，<strong>手間やお金をかけて集めたデータであっても，法的に必ず保護されるとは限らない</strong>のです（悪質なコピー行為が別の法理で違法とされた裁判例はありますが，個別の事案ごとの判断になります）．</p>
+<p>このことは，データ利活用の実務に大きな示唆を与えます．データそのものの法的保護が限定的だからこそ，現実の世界では，データの提供条件を<strong>契約</strong>（利用規約・ライセンス）で細かく定めるのが一般的です．第2回で学んだオープンデータに「CC BY（出典を表示すれば自由に使える）」のようなライセンスが付いているのも，Webスクレイピングの可否がサイトの利用規約で定められているのも，この文脈で理解できます．<strong>データを使うときは，著作権の有無だけでなく，利用規約・ライセンスを確認する</strong>——これが実務上の基本動作です．</p>
+</section>
+<section id="ai">
+<h3>AI学習と著作権——いま最も熱い論点<a class="headerlink" href="#ai" title="Link to this heading">#</a></h3>
+<p>著作権とデータの関係で，いま社会的に最も注目されているのが<strong>AI学習と著作権</strong>の問題です．画像生成AIや大規模言語モデル（第8回で詳しく学びます）は，インターネット上の大量の文章や画像を「学習」して作られます．その学習データの中には，当然，他人の著作物が大量に含まれています．そこで，「AIの学習のために著作物を許諾なく利用してよいのか」「AIが生成した画像や文章が既存の作品に似ていたらどうなるのか」といった論点が，世界中で議論されています．</p>
+<p>日本の著作権法には，コンピュータによる<strong>情報解析</strong>（大量の情報から言語・音・映像などの要素に関する情報を抽出し，比較・分類などの解析を行うこと）のためであれば，一定の条件のもとで著作権者の許諾なく著作物を利用できるとする規定があり，AI開発に比較的有利な制度だと紹介されることもあります．ただし，この規定は無制限ではなく，「著作権者の利益を不当に害することとなる場合」には適用されないなどの限界があり，どこまでが適法かをめぐる解釈が活発に議論されています．</p>
+<p>この論点について，文化庁は2024年に「<strong>AIと著作権に関する考え方について</strong>」という整理を公表し，AI開発（学習）段階と生成・利用段階に分けて，現行法の解釈の考え方を示しました．考え方は今後も議論とともに更新されていくため，最新の内容は文化庁のAIと著作権に関する公式ページ（<a class="reference external" href="https://www.bunka.go.jp/seisaku/chosakuken/aiandcopyright.html">https://www.bunka.go.jp/seisaku/chosakuken/aiandcopyright.html</a>）で確認してください．</p>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>ここで大切なのは，個別の結論を暗記することではなく，<strong>「AI学習と著作権」は現在進行形で議論が続いている論点だ</strong>と知っておくことです．技術の進歩に法制度が追いつこうとしている過渡期には，「適法か違法かがまだはっきりしないグレーゾーン」が必ず生まれます．そうした場面で，一次資料（政府の公式見解）に当たって考える姿勢こそが，この章で身につけてほしいリテラシーです．この論点は，第8回「生成AI」で学ぶ内容と直結します．</p>
+</div>
+</section>
+</section>
+<section id="id13">
+<h2>法だけでは足りない——データ倫理とアルゴリズムの社会的影響<a class="headerlink" href="#id13" title="Link to this heading">#</a></h2>
+<p>ここまで，個人情報保護法と著作権という二つの法制度を学んできました．最後に視野を広げて，<strong>法律を守っているだけでは防げない問題</strong>の世界を紹介します．ここからは深入りせず，「こういう問題があるのか」という事例紹介のレベルに留めます（本格的な議論は上級学年の科目や参考文献に委ねます）．</p>
+<section id="id14">
+<h3>データ倫理・公平性・アルゴリズムによる差別<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<p><strong>データ倫理</strong>（data ethics）とは，データやアルゴリズムの利用が人や社会に与える影響について，「適法かどうか」の一歩先——<strong>「やってよいことか，公正なことか」</strong>——を問う考え方です．導入の就活サービスの事例で見たように，法律の形式を満たしていても人々の信頼を裏切る使い方はあり得ます．データを扱う者には，法律とあわせて倫理的な判断が求められるのです．</p>
+<p>データ倫理の中心的なテーマの一つが<strong>公平性</strong>（fairness）です．近年，採用の書類選考，ローンの審査（与信），保険料の算定など，人の人生を左右する判断に機械学習アルゴリズムが使われる場面が増えています．アルゴリズムは人間と違って感情や偏見がないから公平だ——と思いたくなりますが，現実はそう単純ではありません．機械学習は<strong>過去のデータからパターンを学ぶ</strong>技術です．もし過去のデータに社会の偏りや過去の差別の痕跡が含まれていれば，アルゴリズムはそれを忠実に学び，再生産してしまいます．これが<strong>アルゴリズムによる差別</strong>（algorithmic discrimination）と呼ばれる問題です．</p>
+<p>たとえば，過去に男性ばかりを採用してきた組織の採用データで「優秀な応募者」を予測するモデルを学習させれば，モデルは女性に不利な判断を学んでしまうかもしれません．実際，海外の大手企業がAI採用ツールの開発において特定の性別に不利な傾向が見つかり運用を取りやめた，と報じられた事例や，与信の審査で属性による不公平が疑われて議論になった事例が知られています（報道ベースの事例であり，ここでは一般化して紹介しています）．機械学習におけるバイアスの発生源と公平性の定義については，体系的なサーベイ論文があり，データの偏り・アルゴリズムの設計・人間とシステムの相互作用など，バイアスが入り込む経路が多岐にわたることが整理されています <span id="id15">[<a class="reference internal" href="../references.html#id29" title="Ninareh Mehrabi, Fred Morstatter, Nripsuta Saxena, Kristina Lerman, and Aram Galstyan. A survey on bias and fairness in machine learning. ACM Computing Surveys, 54(6):115:1–115:35, 2021. doi:10.1145/3457607.">Mehrabi <em>et al.</em>, 2021</a>]</span>．</p>
+<p>第2回で学んだ「標本の偏り」や第4回の「前処理の恣意性」を思い出してください．<strong>データの偏りは，分析結果の偏りとなり，それが社会に実装されると現実の不公平になる</strong>——データのライフサイクル全体が，実は公平性の問題とつながっているのです．</p>
+</section>
+<section id="id16">
+<h3>フィルターバブル——懸念と実証のあいだ<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<p>アルゴリズムの社会的影響としてもう一つ有名なのが<strong>フィルターバブル</strong>（filter bubble）です．SNSや動画サイト，ニュースアプリは，あなたの閲覧履歴から「あなたが好みそうな情報」を推薦アルゴリズムで選んで表示します．その結果，<strong>自分の好みや意見に合う情報ばかりに囲まれ，異なる意見に触れる機会が減って，泡（バブル）の中に閉じ込められたようになる</strong>のではないか——という懸念です．みなさんも，動画サイトのおすすめ欄が「いつもの傾向」で埋まっている経験があるでしょう．</p>
+<p>ただし，この問題については<strong>均衡の取れた見方</strong>が大切です．フィルターバブルという言葉のインパクトは強いのですが，実証研究を批判的にレビューした論文は，現時点で <strong>「深刻に懸念すべきことを示す明確な実証的証拠は乏しい」</strong> と指摘しています <span id="id17">[<a class="reference internal" href="../references.html#id30" title="Frederik J. Zuiderveen Borgesius, Damian Trilling, Judith Möller, Balázs Bodó, Claes H. de Vreese, and Natali Helberger. Should we worry about filter bubbles? Internet Policy Review, 2016. doi:10.14763/2016.1.401.">Zuiderveen Borgesius <em>et al.</em>, 2016</a>]</span>．また，Facebook上の約1,010万人のユーザーを対象にした大規模な実証研究では，自分と異なる立場のニュースへの接触を最も強く減らしていたのはアルゴリズムではなく，<strong>「何をクリックして読むか」という個人の選択</strong>の方だったと報告されています <span id="id18">[<a class="reference internal" href="../references.html#id31" title="Eytan Bakshy, Solomon Messing, and Lada A. Adamic. Exposure to ideologically diverse news and opinion on facebook. Science, 348(6239):1130–1132, 2015. doi:10.1126/science.aaa1160.">Bakshy <em>et al.</em>, 2015</a>]</span>（ただしこの研究は同社の研究者によるもので，対象も政治的立場を明示したユーザーに限られる点には留意が必要です）．</p>
+<p>つまり現時点での誠実なまとめは，こうなります．<strong>懸念には根拠がある一方で，「アルゴリズムのせいで社会が分断された」と断定できるほどの証拠はなく，私たち自身の選択の影響も大きい</strong>．「アルゴリズムが悪い」と単純化するのではなく，自分の情報環境を意識して，ときには検索語を変えたり，立場の異なる情報源をあえて見に行ったりする——そうした利用者側の行動も含めて考えるべき問題なのです．</p>
+<p>こうした公平性・差別・フィルターバブルの問題をまとめて，本章では<strong>アルゴリズムの社会的影響</strong>と呼びます．アルゴリズムはもはや，コンピュータの中だけの存在ではありません．何を推薦し，誰を選考に通し，どんな情報を見せるかを通じて，社会のあり方そのものに影響を与えています．だからこそ，アルゴリズムを作る側にも使う側にも，法と倫理の両方の視点が必要なのです．</p>
+</section>
+</section>
+<section id="id19">
+<h2>活用事例：匿名加工情報が広げるデータ利活用<a class="headerlink" href="#id19" title="Link to this heading">#</a></h2>
+<p>法律は「ブレーキ」の話ばかりに見えたかもしれませんが，最後に，法制度が利活用の「アクセル」としても機能している例を紹介します．</p>
+<div class="admonition- admonition">
+<p class="admonition-title">事例：加工されたデータが社会で活きる</p>
+<p>匿名加工情報の制度は，「本人の同意を個別に取ることが難しい大量のデータを，個人の権利利益を守りながら社会で活用する」ための道を開きました．実際に，次のような利活用が行われています（いずれも一般的な例として紹介します）．</p>
+<ul class="simple">
+<li><p><strong>購買データの分析</strong>：小売やポイントサービスの購買履歴を匿名加工し，メーカーや研究機関に提供して，商品開発や需要予測に活用する．</p></li>
+<li><p><strong>移動・人流データの分析</strong>：携帯電話の位置情報などを集計・加工した人流データを，まちづくりや観光振興，災害時の避難計画の検討に活用する．</p></li>
+<li><p><strong>医療・健康データの研究利用</strong>：医療機関の診療データを適切に加工・管理したうえで研究に用い，治療法の改善や薬の安全性の検証に役立てる（医療分野では専用の法制度も整備されています）．</p></li>
+</ul>
+<p>ここで思い出してほしいのが，本章で学んだNetflixの再識別事例です <span id="id20">[<a class="reference internal" href="../references.html#id28" title="Arvind Narayanan and Vitaly Shmatikov. Robust de-anonymization of large sparse datasets. In Proceedings of the 2008 IEEE Symposium on Security and Privacy, 111–125. 2008. doi:10.1109/SP.2008.33.">Narayanan and Shmatikov, 2008</a>]</span>．行動履歴は個人の指紋のようにユニークだからこそ，こうした利活用は「名前を消せばよい」という素朴な発想ではなく，<strong>再識別リスクを踏まえた加工基準と法的義務のセット</strong>の上に成り立っています．過去には，交通機関の乗降履歴データの外部提供が，利用者への説明が不十分だとして社会的な批判を受け，計画の見直しに至った出来事もありました（ここでは一般化して紹介します）．データ利活用の成否は，技術だけでなく，<strong>法制度の遵守と，本人の納得感（プライバシーへの配慮）</strong> にかかっている——本章の内容が凝縮された好例と言えるでしょう．</p>
+</div>
+</section>
+<section id="id21">
+<h2>まとめ<a class="headerlink" href="#id21" title="Link to this heading">#</a></h2>
+<p>この回では，データ利活用を支える法制度の基礎と，その先にあるデータ倫理を学びました．要点を振り返ります．</p>
+<ul class="simple">
+<li><p><strong>個人情報保護法</strong>は，生存する個人を識別できる情報（<strong>個人情報</strong>）について，利用目的の特定・通知や目的外利用の制限などのルールを定め，保護と利活用のバランスを図る法律です．一次資料は個人情報保護委員会（<a class="reference external" href="https://www.ppc.go.jp/">https://www.ppc.go.jp/</a>）の公式資料です．</p></li>
+<li><p>加工の程度に応じて<strong>仮名加工情報</strong>（主に内部分析向け．照合すれば個人に戻り得る）と<strong>匿名加工情報</strong>（復元できないよう加工し，同意なしの第三者提供も可能）という区分があります．</p></li>
+<li><p>ただし，Netflixの再識別事例——64%の加入者が2件の評価と日付だけで再識別された——が示すように，<strong>「匿名化すれば安全」という直感には限界があります</strong> <span id="id22">[<a class="reference internal" href="../references.html#id28" title="Arvind Narayanan and Vitaly Shmatikov. Robust de-anonymization of large sparse datasets. In Proceedings of the 2008 IEEE Symposium on Security and Privacy, 111–125. 2008. doi:10.1109/SP.2008.33.">Narayanan and Shmatikov, 2008</a>]</span>．</p></li>
+<li><p><strong>著作権</strong>は創作的な表現を保護します．SNSの投稿も著作物になり得る一方，事実やデータそのものは保護されず，創作性のあるデータベースが<strong>データベースの権利</strong>（データベースの著作物）として保護されます．だからこそ実務では利用規約・ライセンスの確認が基本動作になります．</p></li>
+<li><p><strong>AI学習と著作権</strong>は現在進行形の論点であり，文化庁「AIと著作権に関する考え方について」などの一次資料に当たる姿勢が重要です．</p></li>
+<li><p>法律を守るだけでは足りない場面を扱うのが<strong>データ倫理</strong>です．<strong>公平性</strong>をめぐる<strong>アルゴリズムによる差別</strong>の懸念 <span id="id23">[<a class="reference internal" href="../references.html#id29" title="Ninareh Mehrabi, Fred Morstatter, Nripsuta Saxena, Kristina Lerman, and Aram Galstyan. A survey on bias and fairness in machine learning. ACM Computing Surveys, 54(6):115:1–115:35, 2021. doi:10.1145/3457607.">Mehrabi <em>et al.</em>, 2021</a>]</span> や，<strong>フィルターバブル</strong>——ただし懸念を裏づける明確な証拠は乏しいとするレビュー <span id="id24">[<a class="reference internal" href="../references.html#id30" title="Frederik J. Zuiderveen Borgesius, Damian Trilling, Judith Möller, Balázs Bodó, Claes H. de Vreese, and Natali Helberger. Should we worry about filter bubbles? Internet Policy Review, 2016. doi:10.14763/2016.1.401.">Zuiderveen Borgesius <em>et al.</em>, 2016</a>]</span> や，個人の選択の影響の方が大きいとする大規模実証 <span id="id25">[<a class="reference internal" href="../references.html#id31" title="Eytan Bakshy, Solomon Messing, and Lada A. Adamic. Exposure to ideologically diverse news and opinion on facebook. Science, 348(6239):1130–1132, 2015. doi:10.1126/science.aaa1160.">Bakshy <em>et al.</em>, 2015</a>]</span> もある——など，<strong>アルゴリズムの社会的影響</strong>への視点が求められます．</p></li>
+</ul>
+<p>次回はいよいよ最終回，<a class="reference internal" href="ch08-genai.html"><span class="std std-doc">第8回「生成AIの基礎と知的活動への利用」</span></a>です．生成AIは，本章で学んだ論点のいわば集大成です．学習データには他人の著作物や個人情報が含まれ得ます（AI学習と著作権・個人情報保護法），学習データの偏りは出力のバイアスにつながります（公平性）．本章で学んだ法と倫理のレンズを持って，生成AIの仕組みと付き合い方を学びましょう．</p>
+</section>
+<section id="id26">
+<h2>確認問題<a class="headerlink" href="#id26" title="Link to this heading">#</a></h2>
+<p><strong>問1（事例判断型）</strong>：あるサークルが新入生歓迎会で，「今後の連絡のため」と説明して新入生の氏名・LINE ID・メールアドレスを集めました．後日，幹部の一人が，このリストを（a）自分のアルバイト先の塾の勧誘メール送信に使い，さらに（b）他大学のイベントサークルに「新入生名簿」として渡しました．このデータの扱いの問題点を，本章で学んだ考え方を使って指摘してください．</p>
+<div class="dropdown admonition">
+<p class="admonition-title">解答と解説</p>
+<p>このリストは氏名を含み特定の個人を識別できるため，<strong>個人情報</strong>を含むデータです．問題点は大きく2つあります．</p>
+<ol class="arabic simple">
+<li><p><strong>目的外利用</strong>（a）：データは「今後の連絡のため」という目的を示して集められました．塾の勧誘という営業目的での利用は，取得時に示した利用目的の範囲を明らかに超えており，本人の同意もありません．個人情報保護法の基本的な枠組みは「利用目的を特定・通知し，その範囲で使う」ことであり，目的外利用には原則として本人の同意が必要です．</p></li>
+<li><p><strong>無断の第三者提供</strong>（b）：本人に断りなく名簿を他団体へ渡すことは，本人がまったく想定していないデータの流通であり，同意のない第三者への提供として問題です．</p></li>
+</ol>
+<p>なお，仮にこの行為が法律上の義務の対象になるかどうか微妙なケースだったとしても，「本人が想定していない使われ方」は<strong>プライバシー</strong>への裏切りであり，<strong>データ倫理</strong>の観点からも許されません．「集めたときに伝えた目的の範囲で使う」が基本動作です．</p>
+</div>
+<p><strong>問2（事例判断型）</strong>：ある動画配信サービスが，研究促進のために視聴履歴データ（ユーザーID・作品名・評価・日付）を公開することにしました．担当者は「ユーザーIDをランダムな文字列に置き換えたので，誰のデータか分からず安全だ」と説明しています．この説明の問題点はどこにあるでしょうか．</p>
+<div class="dropdown admonition">
+<p class="admonition-title">解答と解説</p>
+<p>問題点は，<strong>「名前（ID）を消すこと」と「個人を特定できなくすること」を混同している</strong>点です．視聴履歴のような行動履歴データは，一人ひとりのパターンが指紋のようにユニークです．そのため，別の公開情報（たとえばレビューサイトに実名で投稿された評価）と照合することで，個人が<strong>再識別</strong>されるおそれがあります．</p>
+<p>実際，Netflixが公開した約50万人分の匿名映画評価データでは，<strong>64%の加入者はわずか2件の評価とその日付だけで完全に再識別でき，89%は8件以下にまで絞り込める</strong>ことが研究で示されました <span id="id27">[<a class="reference internal" href="../references.html#id28" title="Arvind Narayanan and Vitaly Shmatikov. Robust de-anonymization of large sparse datasets. In Proceedings of the 2008 IEEE Symposium on Security and Privacy, 111–125. 2008. doi:10.1109/SP.2008.33.">Narayanan and Shmatikov, 2008</a>]</span>．</p>
+<p>日本の個人情報保護法の<strong>匿名加工情報</strong>の制度が，単なるIDの置き換えではなく「特定の個人を識別できず，復元もできない」水準の加工基準と法的義務を定めているのは，この再識別リスクを踏まえたものです．担当者は，定められた加工基準に従った加工と手続きを行う必要があります．</p>
+</div>
+<p><strong>問3（知識確認型）</strong>：次の記述のうち，本章の内容に照らして<strong>適切でないもの</strong>を1つ選んでください．</p>
+<ol class="arabic simple">
+<li><p>SNSに投稿された一般人の文章や写真でも，創作性があれば著作物として保護される．</p></li>
+<li><p>実験で得られた測定値そのものには著作権は発生しないが，情報の選択や体系的な構成に創作性のあるデータベースは保護され得る．</p></li>
+<li><p>推薦アルゴリズムによるフィルターバブルが社会の分断を引き起こしていることは，大規模な実証研究によって明確に証明されている．</p></li>
+<li><p>機械学習アルゴリズムは，学習に使う過去のデータに偏りがあると，その偏りを学んで差別的な判断を再生産してしまうことがある．</p></li>
+</ol>
+<div class="dropdown admonition">
+<p class="admonition-title">解答と解説</p>
+<p>適切でないのは <strong>3</strong> です．</p>
+<p>フィルターバブルは広く懸念されている問題ですが，実証研究のレビューは「深刻に懸念すべきことを示す明確な証拠は乏しい」と指摘しています <span id="id28">[<a class="reference internal" href="../references.html#id30" title="Frederik J. Zuiderveen Borgesius, Damian Trilling, Judith Möller, Balázs Bodó, Claes H. de Vreese, and Natali Helberger. Should we worry about filter bubbles? Internet Policy Review, 2016. doi:10.14763/2016.1.401.">Zuiderveen Borgesius <em>et al.</em>, 2016</a>]</span>．また，約1,010万人を対象とした大規模実証研究では，異なる立場の情報への接触を制限する要因として，アルゴリズムよりも<strong>個人の選択</strong>の影響の方が大きいと報告されています <span id="id29">[<a class="reference internal" href="../references.html#id31" title="Eytan Bakshy, Solomon Messing, and Lada A. Adamic. Exposure to ideologically diverse news and opinion on facebook. Science, 348(6239):1130–1132, 2015. doi:10.1126/science.aaa1160.">Bakshy <em>et al.</em>, 2015</a>]</span>．「明確に証明されている」という記述は誤りです．</p>
+<p>1と2は著作権・データベースの権利の説明として適切です．4は<strong>アルゴリズムによる差別</strong>の説明として適切であり，バイアスの発生源はサーベイ論文に体系的に整理されています <span id="id30">[<a class="reference internal" href="../references.html#id29" title="Ninareh Mehrabi, Fred Morstatter, Nripsuta Saxena, Kristina Lerman, and Aram Galstyan. A survey on bias and fairness in machine learning. ACM Computing Surveys, 54(6):115:1–115:35, 2021. doi:10.1145/3457607.">Mehrabi <em>et al.</em>, 2021</a>]</span>．</p>
+</div>
+</section>
+<section id="id31">
+<h2>さらに学ぶために<a class="headerlink" href="#id31" title="Link to this heading">#</a></h2>
+<p>事例 → 解説 → 原典の順で読み進めるのがおすすめです．あわせて，日本法については政府の公式資料を一次資料として参照してください．</p>
+<ul class="simple">
+<li><p>【政府公式資料】<strong>個人情報保護委員会</strong>：<a class="reference external" href="https://www.ppc.go.jp/">https://www.ppc.go.jp/</a>
+個人情報保護法を所管する行政機関の公式サイト．法律の概要，ガイドライン，仮名加工情報・匿名加工情報の解説資料などが公開されています．本章の日本法パートの一次資料です．</p></li>
+<li><p>【政府公式資料】<strong>文化庁「AIと著作権」関連ページ</strong>：<a class="reference external" href="https://www.bunka.go.jp/seisaku/chosakuken/aiandcopyright.html">https://www.bunka.go.jp/seisaku/chosakuken/aiandcopyright.html</a>
+著作権制度を所管する文化庁による，「AIと著作権に関する考え方について」をはじめとする公式資料．AI学習と著作権の論点の最新動向はここで確認できます．</p></li>
+<li><p>【原典・事例】Narayanan, A. &amp; Shmatikov, V., &quot;Robust De-anonymization of Large Sparse Datasets,&quot; IEEE S&amp;P 2008 <span id="id32">[<a class="reference internal" href="../references.html#id28" title="Arvind Narayanan and Vitaly Shmatikov. Robust de-anonymization of large sparse datasets. In Proceedings of the 2008 IEEE Symposium on Security and Privacy, 111–125. 2008. doi:10.1109/SP.2008.33.">Narayanan and Shmatikov, 2008</a>]</span>．
+Netflixデータ再識別の原典．「匿名化すれば安全」の限界を示した決定的な研究で，後にTest of Time Awardを受賞しています．全文：<a class="reference external" href="https://arxiv.org/abs/cs/0610105">https://arxiv.org/abs/cs/0610105</a></p></li>
+<li><p>【解説・サーベイ】Mehrabi, N. et al., &quot;A Survey on Bias and Fairness in Machine Learning,&quot; ACM Computing Surveys, 2021 <span id="id33">[<a class="reference internal" href="../references.html#id29" title="Ninareh Mehrabi, Fred Morstatter, Nripsuta Saxena, Kristina Lerman, and Aram Galstyan. A survey on bias and fairness in machine learning. ACM Computing Surveys, 54(6):115:1–115:35, 2021. doi:10.1145/3457607.">Mehrabi <em>et al.</em>, 2021</a>]</span>．
+機械学習におけるバイアスの発生源と公平性の定義を体系的に整理したサーベイ．全文（arXiv版）：<a class="reference external" href="https://arxiv.org/abs/1908.09635">https://arxiv.org/abs/1908.09635</a></p></li>
+<li><p>【解説・サーベイ】Zuiderveen Borgesius, F. J. et al., &quot;Should We Worry About Filter Bubbles?,&quot; Internet Policy Review, 2016 <span id="id34">[<a class="reference internal" href="../references.html#id30" title="Frederik J. Zuiderveen Borgesius, Damian Trilling, Judith Möller, Balázs Bodó, Claes H. de Vreese, and Natali Helberger. Should we worry about filter bubbles? Internet Policy Review, 2016. doi:10.14763/2016.1.401.">Zuiderveen Borgesius <em>et al.</em>, 2016</a>]</span>．
+フィルターバブルの実証的根拠を批判的に検討したオープンアクセスのレビュー．全文：<a class="reference external" href="https://doi.org/10.14763/2016.1.401">https://doi.org/10.14763/2016.1.401</a></p></li>
+<li><p>【原典・事例】Bakshy, E., Messing, S. &amp; Adamic, L. A., &quot;Exposure to Ideologically Diverse News and Opinion on Facebook,&quot; Science, 2015 <span id="id35">[<a class="reference internal" href="../references.html#id31" title="Eytan Bakshy, Solomon Messing, and Lada A. Adamic. Exposure to ideologically diverse news and opinion on facebook. Science, 348(6239):1130–1132, 2015. doi:10.1126/science.aaa1160.">Bakshy <em>et al.</em>, 2015</a>]</span>．
+約1,010万人を対象に，アルゴリズムより個人の選択の影響が大きいことを示した大規模実証研究．DOI：<a class="reference external" href="https://doi.org/10.1126/science.aaa1160">https://doi.org/10.1126/science.aaa1160</a></p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="ch06-data-visualization.html"
+       title="前のページ">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">前へ</p>
+        <p class="prev-next-title">第6回：データの可視化とコミュニケーション</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="ch08-genai.html"
+       title="次ページ">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">次へ</p>
+        <p class="prev-next-title">第8回：生成AIの基礎と知的活動への利用</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目次
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">この回で学ぶこと</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">導入：その「同意する」ボタン，何に同意していますか？</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">個人情報を守るしくみ——個人情報保護法</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">個人情報とは何か</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">プライバシーという考え方</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">取得と利用の基本ルール——利用目的という考え方</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">加工すれば使ってよいのか——仮名加工情報と匿名加工情報</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#netflix">「匿名化すれば安全」の限界——Netflix再識別事例</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">創作物とデータを守るしくみ——著作権</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sns">著作権とは何か——SNSの投稿も著作物</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">データやデータベースは守られるのか——データベースの権利</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ai">AI学習と著作権——いま最も熱い論点</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">法だけでは足りない——データ倫理とアルゴリズムの社会的影響</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">データ倫理・公平性・アルゴリズムによる差別</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">フィルターバブル——懸念と実証のあいだ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">活用事例：匿名加工情報が広げるデータ利活用</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">まとめ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">確認問題</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">さらに学ぶために</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+著者 名古屋市立大学 大学院データサイエンス研究科 山本祐輔
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

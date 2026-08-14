@@ -1,0 +1,1193 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ja" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>第5回：データの分析 &#8212; データサイエンス・リテラシー</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=1cf7f4d9"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'クリックして表示';</script>
+    <script>let toggleHintHide = 'クリックして非表示';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script src="../_static/translations.js?v=91613774"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/ch05-data-analysis';</script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="第6回：データの可視化とコミュニケーション" href="ch06-data-visualization.html" />
+    <link rel="prev" title="第4回：データの前処理" href="ch04-preprocessing.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ja"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">本文へスキップ</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>トップに戻る</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="バージョン警告"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../introduction.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">データサイエンス・リテラシー</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">検索</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../introduction.html">
+                    データサイエンス・リテラシー
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ch01-what-is-ds.html">第1回：データサイエンスとは何か——ビッグデータとThick・Thinデータ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch02-data-collection.html">第2回：データの収集</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch03-database.html">第3回：データの保存と検索</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch04-preprocessing.html">第4回：データの前処理</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">第5回：データの分析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch06-data-visualization.html">第6回：データの可視化とコミュニケーション</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch07-data-law.html">第7回：データと法——情報法の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch08-genai.html">第8回：生成AIの基礎と知的活動への利用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">参考文献</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="このページをダウンロード">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/ch05-data-analysis.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="ソースファイルをダウンロード"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="PDFに印刷"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="全画面モード"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="ライト"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="ダーク"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>第5回：データの分析</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目次 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">この回で学ぶこと</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">導入：「朝ごはんを食べる学生は成績が良い」は本当か</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">記述統計：データを数字で要約する</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">なぜ要約が必要なのか</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">代表値：平均・中央値・最頻値</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">ばらつき：分散と標準偏差</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">統計量だけでは分布は分からない——アンスコムの四重奏</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">相関：2つの量の関係をとらえる</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">相関とは何か</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">相関係数の読み方</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">相関と因果の区別——データ分析最大の落とし穴</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">因果関係とは何か</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">偶然の一致——疑似相関のギャラリー</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">交絡——隠れた第3の変数</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">因果の向きの取り違え</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">因果を確かめるには——介入と比較の発想</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">分析のその先へ：推測統計と機械学習の入口</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">推測統計の入口：一部から全体を推し量る</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">機械学習の入口：予測というタスク</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-b">活用事例：A/Bテスト——「比較」の発想でサービスを磨く</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">まとめ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">確認問題</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">さらに学ぶために</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>第5回：データの分析<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<section id="id2">
+<h2>この回で学ぶこと<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>データを少数の数字に要約する<strong>記述統計</strong>の基本（代表値とばらつき）を理解し，平均・中央値・最頻値を場面に応じて使い分けられるようになる</p></li>
+<li><p>「統計量だけではデータの姿は分からない」ことを，アンスコムの四重奏という有名な例で体感する</p></li>
+<li><p>2つの量の関係の強さを表す<strong>相関</strong>の考え方と，相関係数の読み方を理解する</p></li>
+<li><p><strong>「相関があること」と「因果があること」はまったく別である</strong>ことを，疑似相関・交絡の概念とともに説明できるようになる</p></li>
+<li><p>推測統計と機械学習という「分析のその先」の世界を概観し，統計学や各学部の専門科目への見通しを持つ</p></li>
+</ul>
+<p>この章には，Pythonのコードとその実行結果が多く登場します．序章でも述べたとおり，本科目ではコードを書けるようになる必要はありません．コードは「読んで，動かして，実感するための材料」です．グラフや数値の変化を眺めるだけでも，この回の学習目標は達成できます．</p>
+</section>
+<section id="id3">
+<h2>導入：「朝ごはんを食べる学生は成績が良い」は本当か<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>まずは，みなさんが一度は目にしたことがありそうな話から始めましょう．</p>
+<div class="admonition- admonition">
+<p class="admonition-title">事例：「朝食と成績」のニュース</p>
+<p>テレビやネットニュースで，「朝ごはんを毎日食べる子どもは，食べない子どもよりテストの成績が良い」という調査結果が紹介されることがあります．この手の調査自体は実際に数多く行われており，たしかに「朝食を食べる習慣」と「成績」の間には関係（相関）が見られることが多いのです．</p>
+<p>このニュースを見た人の多くは，自然にこう考えます．「そうか，朝ごはんを食べれば成績が上がるのか．明日から毎朝しっかり食べよう」と．</p>
+<p>しかし，ここで一度立ち止まってほしいのです．この調査結果が示しているのは，あくまで「朝食を食べる子どもたちの成績が，平均的に見て高い傾向がある」という事実だけです．「朝食を食べること<strong>が原因で</strong>成績が上がる」とは，実はひとことも言っていません．たとえば，生活リズムが整った家庭では朝食も出るし，勉強の習慣も身につきやすい，ということかもしれません．その場合，朝食そのものを増やしても，成績は思ったほど変わらない可能性があります．</p>
+</div>
+<p>「関係がある」ことと「原因である」ことの違い——これが，今回の授業の最大のテーマである<strong>相関と因果の区別</strong>です．データ分析の結果は，ニュース・広告・SNSなどを通じて毎日のようにみなさんの目に飛び込んできます．そのとき，示された数字やグラフから「言えること」と「言えないこと」を見分ける力は，データサイエンス・リテラシーの核心と言ってよいものです．</p>
+<p>この章では，まずデータを数字で要約する<strong>記述統計</strong>の基本を押さえ，次に2つの量の関係をとらえる<strong>相関</strong>を学び，そのうえで「相関があっても因果があるとは限らない」という落とし穴をじっくり掘り下げます．最後に，分析の世界のその先にある<strong>推測統計</strong>と<strong>機械学習</strong>の入口を覗きます．</p>
+<p>それでは，コードを動かす準備をしておきましょう．次のセルでは，この章で使うライブラリを読み込んでいます（クリックすると中身が見られます）．</p>
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># この章で使うライブラリの読み込み</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.graph_objects</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">go</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">plotly.subplots</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_subplots</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTML</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+</section>
+<section id="id4">
+<h2>記述統計：データを数字で要約する<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<section id="id5">
+<h3>なぜ要約が必要なのか<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>800人が受けた試験の採点結果を想像してください．800個の点数をそのまま眺めても，「今回の試験は難しかったのか」「点数は割れたのか」はすぐには分かりません．人間は，何百・何千という数字の列をそのまま理解することができないからです．</p>
+<p>そこで，データ全体の特徴を<strong>少数の数字に要約して</strong>とらえようとするのが，<strong>記述統計</strong>（descriptive statistics）です．記述統計で使われる要約の数字（平均や分散など）を<strong>統計量</strong>と呼びます．要約の観点は大きく2つあります．</p>
+<ol class="arabic simple">
+<li><p>データの「真ん中」はどのあたりか —— <strong>代表値</strong></p></li>
+<li><p>データはどれくらい「散らばって」いるか —— <strong>ばらつき</strong></p></li>
+</ol>
+</section>
+<section id="id6">
+<h3>代表値：平均・中央値・最頻値<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>データ全体を代表する1つの値を<strong>代表値</strong>と呼びます．代表値には，主に次の3つがあります．</p>
+<ul class="simple">
+<li><p><strong>平均</strong>（平均値，mean）：すべての値を足して，個数で割った値です．みなさんが「テストの平均点」でおなじみの，最もよく使われる代表値です．</p></li>
+<li><p><strong>中央値</strong>（median）：データを小さい順に並べたとき，ちょうど真ん中に来る値です．データが偶数個のときは，真ん中の2つの値の平均を取ります．</p></li>
+<li><p><strong>最頻値</strong>（mode）：データの中で最も多く登場する値です．たとえば売れ筋の靴のサイズを知りたいときのように，「一番よくあるケース」を知りたいときに役立ちます．</p></li>
+</ul>
+<p>「代表値なんて平均だけで十分では？」と思うかもしれません．ところが，平均には大きな弱点があります．それを，アルバイトの時給の例で確かめてみましょう．</p>
+<p>ある学生が，同じ学部の友人7人に時給を聞いてまわったとします．コンビニ，飲食店，書店など，時給1000円〜1200円くらいのアルバイトが並びました．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 友人7人のアルバイトの時給（円）</span>
+<span class="n">wages</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">1030</span><span class="p">,</span> <span class="mi">1050</span><span class="p">,</span> <span class="mi">1100</span><span class="p">,</span> <span class="mi">1150</span><span class="p">,</span> <span class="mi">1200</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;平均値：&quot;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">wages</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">1</span><span class="p">),</span> <span class="s2">&quot;円&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;中央値：&quot;</span><span class="p">,</span> <span class="n">wages</span><span class="o">.</span><span class="n">median</span><span class="p">(),</span> <span class="s2">&quot;円&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;最頻値：&quot;</span><span class="p">,</span> <span class="n">wages</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;円&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>平均値： 1075.7 円
+中央値： 1050.0 円
+最頻値： 1000 円
+</pre></div>
+</div>
+</div>
+</div>
+<p>平均・中央値ともにおよそ1000円台の前半で，実感とよく合う「代表値」になっています．ではここに，時給5000円で家庭教師をしている友人が1人加わったらどうなるでしょうか．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 時給5000円の家庭教師の友人を1人加える</span>
+<span class="n">wages2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">wages</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">5000</span><span class="p">])],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;平均値：&quot;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">wages2</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">1</span><span class="p">),</span> <span class="s2">&quot;円&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;中央値：&quot;</span><span class="p">,</span> <span class="n">wages2</span><span class="o">.</span><span class="n">median</span><span class="p">(),</span> <span class="s2">&quot;円&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;最頻値：&quot;</span><span class="p">,</span> <span class="n">wages2</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;円&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>平均値： 1566.2 円
+中央値： 1075.0 円
+最頻値： 1000 円
+</pre></div>
+</div>
+</div>
+</div>
+<p>たった1人加わっただけで，平均は約1076円から約1566円へと，500円近くも跳ね上がりました．「友人たちの時給はだいたい1500円くらい」と言われたら，多くの人の実態とかけ離れた印象を与えてしまいます．一方，中央値は1050円から1075円へとわずかに動いただけで，最頻値は変わっていません．</p>
+<p>このように，平均は<strong>外れ値</strong>（他の値から大きく離れた値，第4回で学びました）に強く引っ張られるという弱点を持ちます．逆に，中央値は外れ値の影響を受けにくい<strong>頑健</strong>（ロバスト）な代表値です．</p>
+<p>この性質は，実社会のデータを読むときにとても重要です．たとえば「平均年収」や「平均貯蓄額」のニュースを見て，「自分のまわりの実感より高すぎないか？」と感じたことはないでしょうか．年収や貯蓄額のデータには，ごく少数の非常に大きな値（高所得者・高額資産家）が含まれるため，平均はその方向に引っ張られ，「ふつうの人」の姿からずれてしまうのです．こうしたデータでは，中央値をあわせて見ることで実態に近い理解ができます．</p>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>「平均＝ふつう・真ん中」と思い込むのは危険です．平均が「真ん中」の実感と一致するのは，データが左右対称に近い形で分布しているときだけです．年収・貯蓄・SNSのフォロワー数のように一部の大きな値に偏ったデータでは，平均と中央値は大きくずれます．ニュースで「平均◯◯円」という数字を見たら，「中央値はいくつだろう？」「外れ値に引っ張られていないか？」と考える習慣をつけましょう．</p>
+</div>
+</section>
+<section id="id7">
+<h3>ばらつき：分散と標準偏差<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>代表値だけでは，データの姿はまだ半分しか分かりません．たとえば，2つのクラスで同じ試験をして，どちらも平均点が60点だったとします．しかし，</p>
+<ul class="simple">
+<li><p>クラスA：ほとんどの学生が55〜65点に集まっている</p></li>
+<li><p>クラスB：90点以上の学生と30点未満の学生に大きく割れている</p></li>
+</ul>
+<p>という2つの状況は，平均点だけを見るとまったく区別できません．授業の進め方を考える先生にとって，この2つはまるで違う状況のはずです．そこで必要になるのが，データの散らばり具合，すなわち<strong>ばらつき</strong>をとらえる統計量です．</p>
+<p>ばらつきを表す代表的な統計量が<strong>分散</strong>（variance）と<strong>標準偏差</strong>（standard deviation）です．考え方は次のとおりです．</p>
+<ol class="arabic simple">
+<li><p>まず，各データが平均からどれだけ離れているか（偏差）を測ります．</p></li>
+<li><p>離れ方には「平均より上」と「平均より下」があるので，符号を消すために偏差を2乗してから平均します．こうして得られる値が<strong>分散</strong>です．</p></li>
+<li><p>ただし分散は「2乗」した値なので，単位も2乗されてしまい（点数なら「点の2乗」），直感的に扱いにくくなります．そこで分散の平方根を取って元の単位に戻した値が<strong>標準偏差</strong>です．</p></li>
+</ol>
+<p>細かい計算式を覚える必要はありません．押さえてほしいのは，「<strong>分散・標準偏差は，データが平均のまわりにどれくらい散らばっているかを表す数字であり，大きいほどばらつきが大きい</strong>」ということだけです．先ほどの例で言えば，クラスAは標準偏差が小さく，クラスBは標準偏差が大きい，と一言で表現できます．</p>
+<p>ちなみに，模試の結果でおなじみの「偏差値」は，平均と標準偏差を使って「自分が全体の中でどの位置にいるか」を表せるように点数を変換したものです．平均ぴったりなら偏差値50，標準偏差1つ分だけ平均より上なら偏差値60，という決め方になっています．みなさんは高校時代から，知らないうちに記述統計の世界に触れていたわけです．</p>
+</section>
+<section id="id8">
+<h3>統計量だけでは分布は分からない——アンスコムの四重奏<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>ここまでで，代表値とばらつきという要約の道具を手に入れました．すると，こう考えたくなります．「平均とばらつき（と後で学ぶ相関係数）さえ計算すれば，データのことはだいたい分かるのでは？」と．</p>
+<p>この考えが危ういことを鮮やかに示したのが，統計学者アンスコムが1973年に発表した<strong>アンスコムの四重奏</strong>（Anscombe's quartet）と呼ばれる4組のデータです <span id="id9">[<a class="reference internal" href="../references.html#id21" title="F. J. Anscombe. Graphs in statistical analysis. The American Statistician, 27(1):17–21, 1973. doi:10.1080/00031305.1973.10478966.">Anscombe, 1973</a>]</span>．実際に計算して確かめてみましょう．次のコードでは，アンスコムの論文に載っている4組のデータ（I〜IV）をそのまま入力し，それぞれの統計量を計算しています．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># アンスコムの四重奏：Anscombe (1973) の4組のデータをそのまま入力</span>
+<span class="n">anscombe</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;I&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+        <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">8.04</span><span class="p">,</span> <span class="mf">6.95</span><span class="p">,</span> <span class="mf">7.58</span><span class="p">,</span> <span class="mf">8.81</span><span class="p">,</span> <span class="mf">8.33</span><span class="p">,</span> <span class="mf">9.96</span><span class="p">,</span> <span class="mf">7.24</span><span class="p">,</span> <span class="mf">4.26</span><span class="p">,</span> <span class="mf">10.84</span><span class="p">,</span> <span class="mf">4.82</span><span class="p">,</span> <span class="mf">5.68</span><span class="p">],</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;II&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+        <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">9.14</span><span class="p">,</span> <span class="mf">8.14</span><span class="p">,</span> <span class="mf">8.74</span><span class="p">,</span> <span class="mf">8.77</span><span class="p">,</span> <span class="mf">9.26</span><span class="p">,</span> <span class="mf">8.10</span><span class="p">,</span> <span class="mf">6.13</span><span class="p">,</span> <span class="mf">3.10</span><span class="p">,</span> <span class="mf">9.13</span><span class="p">,</span> <span class="mf">7.26</span><span class="p">,</span> <span class="mf">4.74</span><span class="p">],</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;III&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+        <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">7.46</span><span class="p">,</span> <span class="mf">6.77</span><span class="p">,</span> <span class="mf">12.74</span><span class="p">,</span> <span class="mf">7.11</span><span class="p">,</span> <span class="mf">7.81</span><span class="p">,</span> <span class="mf">8.84</span><span class="p">,</span> <span class="mf">6.08</span><span class="p">,</span> <span class="mf">5.39</span><span class="p">,</span> <span class="mf">8.15</span><span class="p">,</span> <span class="mf">6.42</span><span class="p">,</span> <span class="mf">5.73</span><span class="p">],</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;IV&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span>
+        <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">6.58</span><span class="p">,</span> <span class="mf">5.76</span><span class="p">,</span> <span class="mf">7.71</span><span class="p">,</span> <span class="mf">8.84</span><span class="p">,</span> <span class="mf">8.47</span><span class="p">,</span> <span class="mf">7.04</span><span class="p">,</span> <span class="mf">5.25</span><span class="p">,</span> <span class="mf">12.50</span><span class="p">,</span> <span class="mf">5.56</span><span class="p">,</span> <span class="mf">7.91</span><span class="p">,</span> <span class="mf">6.89</span><span class="p">],</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+
+<span class="c1"># 4組それぞれの統計量（平均・分散・相関係数）を計算して表にする</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">anscombe</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">])</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">])</span>
+    <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s2">&quot;データ&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+        <span class="s2">&quot;xの平均&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="s2">&quot;xの分散&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="s2">&quot;yの平均&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="s2">&quot;yの分散&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="s2">&quot;xとyの相関係数&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="mi">3</span><span class="p">),</span>
+    <span class="p">})</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>データ</th>
+      <th>xの平均</th>
+      <th>xの分散</th>
+      <th>yの平均</th>
+      <th>yの分散</th>
+      <th>xとyの相関係数</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>I</td>
+      <td>9.0</td>
+      <td>11.0</td>
+      <td>7.5</td>
+      <td>4.13</td>
+      <td>0.816</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>II</td>
+      <td>9.0</td>
+      <td>11.0</td>
+      <td>7.5</td>
+      <td>4.13</td>
+      <td>0.816</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>III</td>
+      <td>9.0</td>
+      <td>11.0</td>
+      <td>7.5</td>
+      <td>4.12</td>
+      <td>0.816</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>IV</td>
+      <td>9.0</td>
+      <td>11.0</td>
+      <td>7.5</td>
+      <td>4.12</td>
+      <td>0.817</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>表を見てください．4組のデータは，xの平均・分散，yの平均・分散，そしてxとyの相関係数（次の節で説明します）が，<strong>小数第2位までほぼ一致</strong>しています．統計量だけを見れば，「この4組は同じようなデータだ」と結論したくなります．</p>
+<p>では，この4組を散布図（横軸にx，縦軸にyを取って点を打った図）にして，実際の姿を見てみましょう（点にマウスを重ねると各点の値が表示されます）．</p>
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 4組のデータを散布図で並べて描く（作図の体裁調整が中心のセルです）</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">make_subplots</span><span class="p">(</span>
+    <span class="n">rows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">shared_xaxes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">shared_yaxes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">subplot_titles</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;データセット </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">anscombe</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">anscombe</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span>
+        <span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;markers&quot;</span><span class="p">,</span>
+                   <span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#1f77b4&quot;</span><span class="p">)),</span>
+        <span class="n">row</span><span class="o">=</span><span class="n">i</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">title_text</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">title_text</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;アンスコムの四重奏：統計量はほぼ同じでも，分布はまったく違う&quot;</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">750</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">showlegend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">HTML</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="n">include_plotlyjs</span><span class="o">=</span><span class="s2">&quot;cdn&quot;</span><span class="p">,</span> <span class="n">full_html</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>                        <script>window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.4.0.min.js" integrity="sha256-KEmPoupLpFyGMyGAiOsiNDbKDKAvxXAn/W+oQa0ZAfk=" crossorigin="anonymous"></script>                <div id="ba3565df-1d35-4a64-867e-8ced540f2efa" class="plotly-graph-div" style="height:600px; width:750px;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("ba3565df-1d35-4a64-867e-8ced540f2efa")) {                    Plotly.newPlot(                        "ba3565df-1d35-4a64-867e-8ced540f2efa",                        [{"marker":{"color":"#1f77b4","size":9},"mode":"markers","x":[10,8,13,9,11,14,6,4,12,7,5],"y":[8.04,6.95,7.58,8.81,8.33,9.96,7.24,4.26,10.84,4.82,5.68],"type":"scatter","xaxis":"x","yaxis":"y"},{"marker":{"color":"#1f77b4","size":9},"mode":"markers","x":[10,8,13,9,11,14,6,4,12,7,5],"y":[9.14,8.14,8.74,8.77,9.26,8.1,6.13,3.1,9.13,7.26,4.74],"type":"scatter","xaxis":"x2","yaxis":"y2"},{"marker":{"color":"#1f77b4","size":9},"mode":"markers","x":[10,8,13,9,11,14,6,4,12,7,5],"y":[7.46,6.77,12.74,7.11,7.81,8.84,6.08,5.39,8.15,6.42,5.73],"type":"scatter","xaxis":"x3","yaxis":"y3"},{"marker":{"color":"#1f77b4","size":9},"mode":"markers","x":[8,8,8,8,8,8,8,19,8,8,8],"y":[6.58,5.76,7.71,8.84,8.47,7.04,5.25,12.5,5.56,7.91,6.89],"type":"scatter","xaxis":"x4","yaxis":"y4"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,0.45],"matches":"x3","showticklabels":false},"yaxis":{"anchor":"x","domain":[0.625,1.0],"title":{"text":"y"}},"xaxis2":{"anchor":"y2","domain":[0.55,1.0],"matches":"x4","showticklabels":false},"yaxis2":{"anchor":"x2","domain":[0.625,1.0],"matches":"y","showticklabels":false},"xaxis3":{"anchor":"y3","domain":[0.0,0.45],"title":{"text":"x"}},"yaxis3":{"anchor":"x3","domain":[0.0,0.375],"title":{"text":"y"}},"xaxis4":{"anchor":"y4","domain":[0.55,1.0],"title":{"text":"x"}},"yaxis4":{"anchor":"x4","domain":[0.0,0.375],"matches":"y3","showticklabels":false},"annotations":[{"font":{"size":16},"showarrow":false,"text":"データセット I","x":0.225,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"size":16},"showarrow":false,"text":"データセット II","x":0.775,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"size":16},"showarrow":false,"text":"データセット III","x":0.225,"xanchor":"center","xref":"paper","y":0.375,"yanchor":"bottom","yref":"paper"},{"font":{"size":16},"showarrow":false,"text":"データセット IV","x":0.775,"xanchor":"center","xref":"paper","y":0.375,"yanchor":"bottom","yref":"paper"}],"title":{"text":"アンスコムの四重奏：統計量はほぼ同じでも，分布はまったく違う"},"width":750,"height":600,"showlegend":false},                        {"responsive": true}                    )                };            </script>        </div></div></div>
+</div>
+<p>どうでしょうか．統計量がほぼ同じ4組のデータは，グラフにするとまったく違う顔をしていました．</p>
+<ul class="simple">
+<li><p><strong>データセットI</strong>は，素直な右上がりの関係です．</p></li>
+<li><p><strong>データセットII</strong>は，直線ではなく曲線的な（山なりの）関係です．</p></li>
+<li><p><strong>データセットIII</strong>は，1点の外れ値を除けばきれいな直線の上に乗っています．</p></li>
+<li><p><strong>データセットIV</strong>は，xがほぼ同じ値に集中しており，たった1つの点が関係の見かけをつくり出しています．</p></li>
+</ul>
+<p>アンスコムがこの例で伝えたかったのは，「<strong>統計量による要約とグラフによる観察は，どちらか一方ではなく両方行うべきだ</strong>」ということです <span id="id10">[<a class="reference internal" href="../references.html#id21" title="F. J. Anscombe. Graphs in statistical analysis. The American Statistician, 27(1):17–21, 1973. doi:10.1080/00031305.1973.10478966.">Anscombe, 1973</a>]</span>．要約は便利ですが，要約の過程で必ず情報が失われます．データを分析するときは，統計量を計算するだけでなく，必ずグラフを描いて自分の目で分布を確かめる——この教訓は，50年経った今もデータ分析の鉄則であり続けています．グラフの描き方・読み方そのものは，次回（第6回）でじっくり扱います．</p>
+</section>
+</section>
+<section id="id11">
+<h2>相関：2つの量の関係をとらえる<a class="headerlink" href="#id11" title="Link to this heading">#</a></h2>
+<section id="id12">
+<h3>相関とは何か<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<p>ここまでは，時給や点数といった「1つの量」の要約を考えてきました．しかしデータ分析の面白さの多くは，「<strong>2つの量の間に関係があるか</strong>」を調べるところにあります．</p>
+<ul class="simple">
+<li><p>勉強時間が長い学生ほど，成績が良いのか？</p></li>
+<li><p>SNSの投稿につく「いいね」の数は，投稿時刻と関係があるのか？</p></li>
+<li><p>気温が高い日ほど，アイスクリームは売れるのか？</p></li>
+</ul>
+<p>このような，「一方が大きいとき，もう一方も大きい（または小さい）傾向がある」という2つの量の間の関係を<strong>相関</strong>（correlation）と呼びます．一方が増えるともう一方も増える傾向があるとき<strong>正の相関</strong>，一方が増えるともう一方は減る傾向があるとき<strong>負の相関</strong>があると言います．</p>
+</section>
+<section id="id13">
+<h3>相関係数の読み方<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<p>相関の「強さ」を1つの数字で表したものが<strong>相関係数</strong>（correlation coefficient）です．相関係数は必ず−1から+1までの値を取り，読み方のポイントは2つだけです．</p>
+<ul class="simple">
+<li><p><strong>符号</strong>が関係の向きを表します．プラスなら正の相関（右上がりの傾向），マイナスなら負の相関（右下がりの傾向）です．</p></li>
+<li><p><strong>絶対値の大きさ</strong>が関係の強さを表します．1に近いほど点が一直線に近く並び，0に近いほど直線的な関係は見られません．</p></li>
+</ul>
+<p>「どこからが強い相関か」に絶対の基準はありませんが，おおまかな目安として，絶対値が0.7を超えると「強い相関」，0.4〜0.7で「中程度の相関」，0.2以下では「ほとんど相関なし」などと表現されることが多いです（分野によって目安は異なります）．</p>
+<p>とはいえ，相関係数0.8や0.3と言われても，どんな散布図なのかすぐには想像しにくいと思います．そこで，相関係数の値と散布図の見た目の対応を，自分の目で確かめられるグラフを用意しました．次のコードでは，相関係数がさまざまな値になるように乱数でデータをつくっています（乱数の種を固定しているので，何度実行しても同じ結果になります）．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 相関の強さが異なる6組のデータを乱数でつくる</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># 乱数の種を固定して，結果を再現可能にする</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">200</span>            <span class="c1"># 各データセットの点の数</span>
+<span class="n">target_rs</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.6</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9</span><span class="p">]</span>  <span class="c1"># 目標とする相関係数</span>
+
+<span class="n">datasets</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">target_rs</span><span class="p">:</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+    <span class="n">noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">r</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">noise</span>  <span class="c1"># 相関係数がおよそ r になるように y をつくる</span>
+    <span class="n">actual</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>       <span class="c1"># 実際に得られた相関係数</span>
+    <span class="n">datasets</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">r</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">actual</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>次のグラフは，上でつくった6組のデータを<strong>ドロップダウンメニューで切り替えて</strong>表示できるようになっています．メニューから相関係数を選んで，散布図の見た目がどう変わるかをぜひ自分の手で試してみてください（点にマウスを重ねると値も表示されます）．</p>
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ドロップダウンで散布図を切り替えられるインタラクティブ図をつくる</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.graph_objects</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">go</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTML</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+
+<span class="c1"># 6組の散布図を重ねて追加し，最初は1つ目だけを表示する</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">actual</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">datasets</span><span class="p">):</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span>
+        <span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span>
+            <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;markers&quot;</span><span class="p">,</span>
+            <span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.6</span><span class="p">),</span>
+            <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;相関係数 </span><span class="si">{</span><span class="n">actual</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">visible</span><span class="o">=</span><span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+<span class="c1"># ドロップダウンメニューのボタンをつくる</span>
+<span class="n">buttons</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">actual</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">datasets</span><span class="p">):</span>
+    <span class="n">visible</span> <span class="o">=</span> <span class="p">[</span><span class="n">j</span> <span class="o">==</span> <span class="n">i</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">datasets</span><span class="p">))]</span>
+    <span class="n">buttons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;相関係数 約 </span><span class="si">{</span><span class="n">r</span><span class="si">:</span><span class="s2">+.1f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">method</span><span class="o">=</span><span class="s2">&quot;update&quot;</span><span class="p">,</span>
+            <span class="n">args</span><span class="o">=</span><span class="p">[</span>
+                <span class="p">{</span><span class="s2">&quot;visible&quot;</span><span class="p">:</span> <span class="n">visible</span><span class="p">},</span>
+                <span class="p">{</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;散布図（このデータの相関係数 = </span><span class="si">{</span><span class="n">actual</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">）&quot;</span><span class="p">},</span>
+            <span class="p">],</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+    <span class="n">updatemenus</span><span class="o">=</span><span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">buttons</span><span class="o">=</span><span class="n">buttons</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">xanchor</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.18</span><span class="p">,</span> <span class="n">yanchor</span><span class="o">=</span><span class="s2">&quot;top&quot;</span><span class="p">)],</span>
+    <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;散布図（このデータの相関係数 = </span><span class="si">{</span><span class="n">datasets</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">）&quot;</span><span class="p">,</span>
+    <span class="n">xaxis_title</span><span class="o">=</span><span class="s2">&quot;変数 X&quot;</span><span class="p">,</span>
+    <span class="n">yaxis_title</span><span class="o">=</span><span class="s2">&quot;変数 Y&quot;</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">650</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">520</span><span class="p">,</span>
+    <span class="n">showlegend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">HTML</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="n">include_plotlyjs</span><span class="o">=</span><span class="s2">&quot;cdn&quot;</span><span class="p">,</span> <span class="n">full_html</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>                        <script>window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.4.0.min.js" integrity="sha256-KEmPoupLpFyGMyGAiOsiNDbKDKAvxXAn/W+oQa0ZAfk=" crossorigin="anonymous"></script>                <div id="3a877bc9-09c5-4727-9478-1a8a7a676d18" class="plotly-graph-div" style="height:520px; width:650px;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("3a877bc9-09c5-4727-9478-1a8a7a676d18")) {                    Plotly.newPlot(                        "3a877bc9-09c5-4727-9478-1a8a7a676d18",                        [{"marker":{"opacity":0.6,"size":6},"mode":"markers","name":"相関係数 0.92","visible":true,"x":{"dtype":"f8","bdata":"pc\u002fl8445\u002fD9Ticz6LJzZP6vJIlLSUe8\u002fTjHjaVntAUDaPbF8hOH9P4KMpULcRe+\u002f6ZUy0x9n7j82hNNJrF\u002fDv1m0yPiMbLq\u002fZiln8D5H2j\u002ft4aoNBXDCP\u002feF\u002fUu0RPc\u002fE+qQyWta6D+Qs5MIGCa\u002fP8t1IlVBaNw\u002f5JXlkOta1T87mU11v+f3P7ZqsECgQsq\u002fhJEBHU0J1D\u002fwhX6WwFTrvzo6sOyFbATAZilvi3Hq5D9qkHIadqnrP9cvXNvQv+e\u002fvcW\u002fHHUoAkANOg3xFEX3v111pQ6pbac\u002fOKQZ8aP1x7\u002fHh1p\u002fQ4b4Pw4AbVd+gvc\u002fz9v7NlHVwz8z6pCR0DPYP8qj\u002fae9aOy\u002feN0wo1ex\u002f79FKc9RMUTWv+5OiDY+A8Q\u002fRsnkR0Wv8z8lYP6m8jzzP\u002fhgaGv2ydi\u002f9Y\u002fNou1Y079TZFF538bwv12sfrpkuPa\u002fYPyt+OFM+7\u002fMysVCYDb\u002fPzarnhcST+C\u002fZdaoy2gJ3L9v678lcwv0v1McaHQz4eg\u002fBIqljIbS+b+jygfREjvLvyKhX32pp+y\u002fmvXCsQLD2D8\u002flg8EhFjgv66StpLe4\u002fK\u002fE\u002fUrVM3bnL9Cz\u002fATymnbP7Wnwc5FB7E\u002fORcwF7Nb0z\u002f5re\u002fYXUzkv3r4NLkmN9e\u002fpKPhxcuE5b+mXH9D6wLXv2fWB1pLBeq\u002fdrGKgdqe+79PuDdb5rXGP4XtSmPHttm\u002fFWaj3EoV+r+Jvyl3OZ7dP6ywV5SWCO2\u002fCpA+QJaYqj8p\u002fgu7tVTnP2UVuRODgsA\u002fsXRSNvw68j8Rziq42MHzv25Mqyf3v9k\u002f3OYR2vbp5b969aX7kd3rv9zWbrvvheK\u002fiEYeCHrw078+PxcotMGsP32q0Sh0pPK\u002ffNeaEZLT7D+ci2fVac3dP170c0J0lPi\u002fctZIiOHP9z+TRH7jj1X+P3wttfdH3PI\u002fCq\u002fG6sYHx7+e5zeAzSHxv0wUJsYI3\u002fA\u002fSA9wrqbN2b\u002fgLuePIo\u002fzP1QmtSXBqMo\u002fVTk2gqBA7z9KeVABtc7WP2GyM1U\u002fnOY\u002fzHLT7AiBhT+LeGPw7JL8PwSC0MunPsA\u002fNW5VmDG62T9NvRSgYiH+P1vpJ85rkPW\u002fm+DoE+hT9L9ZcMw+TAXvPxozMgwdxfK\u002fxNJChxIZ\u002fz\u002fKjNe+u3jav2IHTFom6+e\u002fQWW9217E\u002fj8mSCdHMLD3P1skJoGF4f0\u002fy0MAXlH+7D\u002flH\u002fkqKY\u002frv+y8rESgj\u002f4\u002fRQ1dnPcm0b9nKw0Jua3pP9kd1VvjT+4\u002flgEw6F7Xw78oHJnHiabjP\u002ff\u002f0JC3gu0\u002fyVdsHFsX2D8wF4xIJZfxv4uPKJFVFtM\u002fx1cCa+A49T8JxExg5jnmv2yYh4A5J8O\u002fyX1YSI7Z27\u002f69jeQlZb9P22AVEtwg+U\u002f7INBz9oT2j\u002fkCA0JJ6PovwvFH4WHQeE\u002fNL2EFiKU5b9bgJpNGEygPy+r\u002fd\u002fZWOS\u002fShD3b1el5T+UH5GVbnPiP16jgJuIqcq\u002fAzX4iSxY2T8aOYgQLn3xv\u002fRQ6esw3Pe\u002fwyjEXv4e3D8fFd6djlXFP4JFrHItUuQ\u002fLWQtNa4QA0Diu4sLLTnuP\u002fcGq\u002fTWNe2\u002fOomneEzf8T9gYMvt9A31v2MKgSeait2\u002fWogYJ0h4sb+2LcUO2mn7PyyQhxAI1ee\u002fVTn2Oy9y6r\u002fZqZ1ELzS5vwQBsdA2O+W\u002f2CN\u002fY7MG8j8jdOVCZkfxv26n9BYIXPK\u002ffHptXT4F3L\u002fdfQSAw9\u002ffv4WkuwBd3\u002f4\u002fGGt8vqdh7j+hPXkWwmm2P8O3S0Zim\u002fO\u002ftSEzgQUF6z9n7d\u002fO4QDwv0x0x+Vht\u002fi\u002fmjoNhysC8z9iRDuqyUjUP4Pki+ysd+0\u002fvCZuqwhm1D\u002fkrQoIKGvrP\u002fuoAqAz1eS\u002fzmHZOEKM8L\u002f44KROn8\u002flP\u002fxXHS+Item\u002fd9YMssoQ5r+\u002fzjfNcSfdv8guf4EO5pE\u002fG0f0E9an1r8zLG3tzP\u002f1vzCs6J6FmOS\u002fjgSFl4fJAcDo9FJj5QHkP9cyUjUHovm\u002funpR3Y2r8b+XmNaaYbWqP3yjWgSAque\u002flFyIEjCw+D+ltxq6iq\u002f0v2xHjodcF9E\u002fhOIpp+AcpL\u002fEf7fOgrDyv6fO97GuvuA\u002fYpYs7Tr1xb9sYhoZgrLoP7meLGIlWuo\u002fYIk9pk5OAUDUTpAha2L1Pw=="},"y":{"dtype":"f8","bdata":"NJIdDN3T9j812MbEAF\u002fQPwXtEIJbw\u002fU\u002fzZrtsl5rAkClo+e1dVv\u002fP1tuCwCPWfm\u002fF2ShqvIF6z9koRrUlk7dv\u002fxTXaV10Z0\u002fF1gDiJHp1D8DYTGVFNjgP+jesJdlJ\u002fc\u002fsAUBQmdx8D834bRxRAO4v2AF8HMX+4i\u002fHBIuejwfvz+Ui9Z\u002fYmX1P0jw4fjI1pO\u002f6d5l0d9D9D9LddEl+C\u002fpv7SYV5oLtwXAzsdrwyD\u002f2z88lkXt5m3iP6T7nFwcUd2\u002fofaA2Ebw9T\u002f5UjDjbID0v+QjVb\u002fJAbw\u002fFbHfL\u002fU3sb+wfEx3\u002fOfxP4qhi4bbf\u002fM\u002fqG9yJE\u002fN3r+Ctw+bQgrAPwLFoAL2kfC\u002fsBoutTCf+b8ccDMxmCXqv+T157d6zN4\u002fxAunj5oj\u002fD9gAswUiAXHPzHI03lg1sS\u002fUJKnSFqJlz+QM1UKeIvzv5vB5JILOPe\u002fCn\u002fWdT1\u002f+b9PAC49qQP6P4QGaX79\u002fOK\u002f4XPhP0P\u002f8b\u002fZav4\u002f2gHkv3f0PmeyufI\u002fGgODW6jp\u002fL\u002f6q0dw0JTqv6s+AeF4heK\u002fyOTayTPkuD\u002fx8mBJWnbZv63f47xpOvO\u002flQEgpCSr0T+X88aJ0gbmP7boDbsaadC\u002fIZZ8glQr1b8aaVgVjSz0v7hqnIbo7a6\u002f9pH6r4358b9s2AWRqGzhvyuISTJ9vO+\u002fC+PkQZ85+b9y1GO59eXlv6d4FeNQ4NG\u002f\u002fQeNnTTS879L6xmeeh\u002fdP2gvyeBxd+6\u002fINt9eD7Wtj9KvaGKW5DqPzKuSui3evG\u002fGGU632EM\u002fj86Htm2LB\u002fuv8QI1Q4P5rM\u002ftMnh8fws6b8sQCW3JzHivyjBV\u002fJTSuK\u002fELAH+hmm8r+D81nzAWruP1V3mnaRjPG\u002f9Bc8bToW9D+w5hLHdRC+P3tDm49O0Oa\u002f0iSkR4ht9z8Zu4nnCYz\u002fP\u002f5D2DyBXuM\u002fcm27lnBs1z9ndsg9PDflv1QopSB0Q\u002fg\u002fk0geCFNf5L\u002fGhpjCL3\u002fsP5PF3pM1EfM\u002fGkn7+eWu2j8Y7\u002fFr77vQP+cGEtqFGvI\u002fFQP1FPOlqj9yB+PMPcj9P+zWK76Lqq6\u002fvmEguy+94D8CfE79XQHyP\u002fRhZ9jGX9+\u002fQi9DkHwe879isCWDYW7iP+I\u002fl0atfei\u002fc+wOy2TG+D8i6Uzd6YXuv6nfNYXaJ\u002fS\u002fkFtcJLNDAEBqHLXT3TT0P0P0fKDb9fk\u002f45A6kUCQ9D88mbKtqUL0vx+5bS21aPY\u002fxXUrLoks2r98IPcZQ23oP4x9LyVQseo\u002fkCy2X47u0L\u002fS1AifbdPgP32Vqh4UEOk\u002fsAZry6q3mT9Ord9SWoD1v9E6NT0x1tg\u002fod4\u002fsuPF6T9MzHeGzRLyv+ZkqUK5VNG\u002fvK87H5l23b\u002f6s2BHJS8FQMz3bx6wENM\u002fzpl151bk6D+Wx2NCvYDXv7C1jJeF26C\u002fXSGaJSlF0b\u002fwVgYLdzHfvwjjkbKus\u002fu\u002fwFSsXELw6z\u002f8Auidc4vPv6AFt9IynYI\u002fIE9lBUnTrT826aNx96nQv8zfR8dMC+y\u002fIvquyV5SyT8R3CD5JS3Dv1AbnjyFq6U\u002fw98n2v89\u002fz\u002fAt\u002fu1XErnPwFAxJtOYO+\u002f0jcZd4wt8T863Iu9IdTtv5Ac+h8+1dC\u002fJ1b6LH0\u002f2b+XuwaTDUrtPxAGhA6OU7O\u002fAocqcIe18L8YN22xLN7Xv+mM6L7CYOq\u002ftGWDKdf0yj\u002fp7xXLb+Lyvzb5d4ho3vO\u002f7I7hWDmmv79A7znuV2fCvykLZHDCz\u002fs\u002frZkD76sr9D8ElMfqyg3NP+FHU8VxwfG\u002fSCmxmPaP6j9X1H7ULHfvv0y5zUec\u002f\u002fi\u002frADqmBR77j+ut3aAo2zKv4rAs0S2bu4\u002fmPz5qlyxwr8UtwHmRTXyP6Owp5OmOua\u002fbEFaSIcY7b+W8XFJqITqP1o0IzhzVNy\u002fYmQfuyfi9L+68m0fXQHgvyG5et+kj9k\u002fZX3IEMXw8L8c\u002fKT+KhnxvzaMTAW7\u002f\u002fi\u002fAIChmviSA8BmqPwXpoviP9UQxMvdTwHAa7NaC7zG9r9ZkmxdCgfjv7A0kTRtCKs\u002fjBvIzmFd9z+2bnMkSlLtv8ZEVvEgV8I\u002fw+W+4KU+yL+k\u002f5X4Hhj8v1BjlzbW\u002f9U\u002fQUD8c9cf378a9szP3hjxP2yHPT4Y0fM\u002faZrat36wBEBCmOKLIDH5Pw=="},"type":"scatter"},{"marker":{"opacity":0.6,"size":6},"mode":"markers","name":"相関係数 0.60","visible":false,"x":{"dtype":"f8","bdata":"gZYWTSwo479UekbMttrxv4HQhjmBiOg\u002fova1Y4DN1j+OBXb57kv8v6kbirQ2wNY\u002feu7w34sQ6j\u002fzgd2sfiuuP+ezfrTWr8e\u002fSDwfpEHY6b+GdrKRASX3v8AU73EKnOk\u002fBgHB84fI07\u002fCqgROPOLNv7R27tk5ufs\u002fHCeB3W7n5T\u002fMp0LJmLvXP3QbpcsUL8I\u002fqzuRIeZR+D8ndt4TcIP7P\u002fye6ICBvu0\u002fvmRfd5Wh4j\u002fRc0dBv8EAwAtybkc9rL8\u002fnD+fPFinwL\u002fgiZCfUQ24P6B49fxuLe4\u002fpGrV3NvqBcAD8FvpzTfiv9wvYeocRtE\u002ftBwlJMzg3b+AE5a+pav2v715tIOMzus\u002fdZQy8US40T8dxGHkSRPvv1VFZw\u002f3JdQ\u002fAKyDHm5K6j9gpT3sva11P9cSIhQ6nuk\u002ffQjm3NsItD+roruAbkvZvyX8A4f8jPK\u002fgP\u002fcCY\u002f\u002ftb9BC2BLl97IP\u002fANeW3SBuw\u002ftpCt3K53vb\u002f\u002fi1kbTEbdPwYVigMa3u6\u002fIJylTEwL6b\u002ffGiYdeUK8vwvxoxjC3\u002fC\u002fU5N9ZHg\u002f6j9YYo1k7aPdPyQiIXu03NE\u002fzwuS7Zqw1T\u002fV8gLjGCsAQJpPZfDeAd6\u002fEFCqP42cAcDZ2uA5q4LJP0X7+xK16Km\u002fGHZUGISP4L8Oakn\u002fklLvv++1OF6uG9y\u002fmNB\u002f\u002fxg2xz\u002fqjaQMExfgv8cKxoO0TANALO5Yr3O87r\u002fZA9epN2HpvzCpBgYYTwLABSh+FlIY0D9vs07MmSEAwOicAF02Q+G\u002ftSOaBpak0b\u002fCzktsF7bmv4gzGShs0vs\u002fINTALxTS7z8Ym+pELxv1P91\u002f4WPGPOy\u002f7MtYprgO8j+GRdXAer7fP5Q4MIdbr+g\u002fJ6xt2ZR48D8UbqaolhTtv\u002fLcTRgFKNu\u002fkRpK82Ka6z8lrxc5tT4FwCpT7IGXNvg\u002fWX\u002fEA0Kz4T\u002fAsKpwgmanv+1R\u002f0iYOcw\u002f0e9sa5168L+3MZfaeGXWv\u002fRRD8DDmvE\u002frhYKsLLE9D\u002fhl4Pq3ZEFQN7GChi67LK\u002feY\u002fjq90S5b9TjEbKmnTgv3kVBUfmSfC\u002fxqCaDkrus7\u002f9XIEpsH7YP+7mDEY0iKG\u002fXVFz\u002faKK8T+HmH2LyPrNv9IhXamhPNa\u002fT\u002fJJWcCZ4r839odhRR\u002f6vwQR+puTFfm\u002fyIbOtNTd8r8IWN49ptL0P5IML9\u002f4pew\u002fO1QlUtr\u002f9T++Vf0qvVD1v2eqS5p8f\u002f+\u002fyc6Pbi4f5b+zMTZHPIHGP5WKZJ2K6t8\u002fugWQc37E8D9sN0JcozHSP3HRyqj44fs\u002fHdbJy1d+zL9UsoTo8TftvyXPTxJF5vq\u002foDjDD3Ry7L+CRxqquP3OP64MFHdlcOy\u002foRG1VMv57T\u002f4pcrv5Jj2PyzTt\u002frp9ALAhniVAlGm6z84h1+IteoBwEQ2vxcpstk\u002fp7dw4BGZ8z\u002fvCbHnaJqwP99Rv1qbefS\u002fK8qNONq74r8\u002fcR6KzL7Qv11IHw3MU8e\u002fpfvGD4b4yb9B74YfRyG8v791NXJQU8s\u002fbnbZU1FW8797ViN7gfrOv1hulznMSvg\u002fKwE91gee2L\u002f6sziAz2fcv5No4dBLQPE\u002fBPtyzzV5BMB6o4s\u002f7ebyPw9B2zqOOOS\u002fiCvIiJz7xD\u002fGgZYxhKi4PwNgsuayKO4\u002fGWLqtkUg0b\u002fAQLUfY7Llv0+QofL5w\u002fQ\u002fY3JV9tPpAsBd5qjVe9KUP405ej8akfW\u002fShuCJ89e6L8e9zW+DRcAQEKwWzQ21aa\u002f3lfaOAv4yD\u002fSYZANSIH8vyQY23ZVVOe\u002f6Fz1+8ooyT9HPnucWbTWP5\u002fCDt+IveM\u002fhDV5\u002fYCrgT8hWQXuN93gP4ZXkkrDCt0\u002f6vGW4Z1G\u002fb+16Lz6afKiP3Bp9xGokug\u002f2gBUpUvg4j\u002fG50t2dknXv1aD1T2xx+m\u002fBQNbC5vk8b+KPMq6YMbAvxpvJ14YIfI\u002fjf4A8JY6\u002f7+e2cJC1R3lv\u002fxV33+hPPK\u002fAUVPPF8e6T8rar+K57zhv2adgmntHt6\u002fjizh5QDFy78c8pyxUoHcP6k5l77mHNm\u002f\u002f2z6P4BeCMCSMaGez2LhP+1kL6JHGdw\u002f2ghooOsZzL+vPJfINljxv9SesLmQg9Y\u002fnw2BHWVF2D\u002fPq8\u002fMBBXev\u002ftlEVnbvcu\u002fUh7QkdfD7b8W\u002fffiAdzGvw=="},"y":{"dtype":"f8","bdata":"Rv8e5LKX+b8fsWQd1XvVv+RW3MJr6dK\u002fxOpt0l3f2T\u002fk3UGutXwBwHKsOrF5j9C\u002ft7WqU9me2T+N1JQy97D0vxTpFZ4qXpO\u002fmK5dCok26b9Ez7KgLRgCwEZIzqZO\u002f+G\u002fANOaGbYc0z9W6EOTlHHiPzAj7dgx5O0\u002f3BykWhuB5z9w3bkIUrPZPwxDvm71VNY\u002fruDRpnMN\u002fz9Qi8+ujkDGvyjcMnH6lPE\u002f8CszdXZjpj8I3MFVjPr2v\u002fLeYdLScsW\u002fA7hvtiE02L+CxKZQM5btv\u002fCRQ7rKzOY\u002fKBJX57ym07\u002f0pArbT7zYv+WK9Ds6lsQ\u002fbtUoFeyO6r9IIs0TQjbuv0wBQZcynuw\u002fZoqHBymmwL\u002fUGVctOUPuv7sa\u002fFg5XuA\u002flu9XcOnnzr\u002fZcxbxGkPKP8NfaZ9\u002fL\u002fI\u002fs4EFkZwo8j\u002fK7VH+6c3TvxTOxpfNf9k\u002fAR3F4b3U6D\u002fQVeteysXlvx61\u002fy76udy\u002fscscmMUI1L+ZNJ+qwo\u002fxP41iQ0gAX+S\u002fCMvPiT9n7r\u002f1I5gDGc\u002fyP5QZurfnztm\u002foj6+QEjU9b+qxB0N7ALhP6iVwR3zq+I\u002fwgCsLqmQ2D\u002fQXiuEiCj5P3XkENnqctW\u002fJ4su2zABA8Ae4823YafGvyxUKQnqLem\u002f0GB5nULo8L\u002fo6WIGZZD5vwj6A1DTNbk\u002f1ooUHIzzxz8MH\u002fqJiiDlv8wl5Pcwsu0\u002f9CADqZMK479PoXFqj8zYPwJCBZ32zwfAolsIA\u002f3z3D8xGaS9tVf6v\u002fnU1bIsTf2\u002fGtfi8iqN+78n7t6EPH\u002fyv5w9OQ6+gPM\u002fHGLs4p8n7T+wcEeByqGkP9Cgb4DEL9I\u002fTB5sEHcM\u002fT9ckCClvKnjP4AClqXtDIW\u002f1JQUFnJG+D8wHwUU7jyuP9JxCAsSHtw\u002fgGdbkCgvf7+IqyDdW+MOwDuga1u6zwRA4L6aSEye7r+NHs8h3LCsvwT4hq+SSwBA1gRrer2f1r8nGwCo8JThP8WccBP9VeG\u002fES5UnxSW5L9TmVACrhDzP83S8qH7gOo\u002fSg+GlBmC5b8kQRaYSjfuv0Bx2UT29Ny\u002f0QOuIeYz6j8azreIWqTtv66fpOO4pe+\u002foEbEn4SEmz+MiYLDmobnP5iEyHieG5W\u002fYXA8aR229T+ICS6+iX7Nv7NidkTk\u002f+6\u002fNgD2uwh+0z9OEruY2GbuP+BSigB1bJu\u002fciGY1UDn9T9QuxM8xLP1v1xQUU6qnfa\u002f3HhlpnJR5T9ocW+\u002fqQ2ZP5y6TSOc+NW\u002flUG\u002fiNF30D\u002f2JIa+sp3vP+zkWF5vUOM\u002fvLfvsBhb3L+kgFKyOJjuv4E1qk8mkuu\u002f2BaiVdHv6r++bgkF3i3yv1UCEcE74\u002fO\u002fPMc8GWaTx795k8+nC3n9P0YeaI4Nsei\u002fVljUJqef7z+rglFSAvj7v0rP\u002frnYWdq\u002fQBIBONUM1T9Y5swZ0q7pv2Bxn7TcrfM\u002fIejm4xwuAcCUpbBHftTSP4pnehIbMfK\u002f2A0TjmpEyr8Gb+e7EGfrv8rs73ppDOq\u002f4iIWx2Iy+r+ZNrpg8yP0P3ueDR8Bv+k\u002fTu3YD7f86r\u002fK7j76ctPGP1POnXJh9+Q\u002fqpyjWhe07r9s+Wt\u002fvATov7XxNnDwcMG\u002fb+HUsqzt5j83N7aDAVj0v\u002fuaGUC2ke0\u002fNAqILGgk8z91aabtAczav3SwyjUr+fY\u002f+0mglLw57L8WGdlEw7jhvzQEHzC13Oi\u002f6wWp+15e+7\u002fk1M+6ERDrP88Z6q8RyMc\u002fCuH1zLdB5j+CHONIuMnwv\u002fLzyhtXvME\u002f6hPtION16L\u002fczqcT49TAP5bPqbnwrNg\u002fcjcpzPHB9z\u002fLRlfuEovCPywb2tG0P8C\u002fZwGMbM5K8b9M5EyBnNHmv5AGXyOgreM\u002fmP9EDDmvrz8BhhuhCmz6v+qaz6rE9+C\u002fRgn69caZ7b8ILsr4Myf2v7YpIgVYCeQ\u002fABu7w1fklD+gof1EU52VPwS43Lgf4Mi\u002fBaM45GhF47+g2EdPvA2pP6HJKJ6Y8cS\u002fwbEvx5nB0j8S3VeT717jP3+9E48QLPW\u002fp62OBN3F\u002fb8BlUR7l\u002fDRv9\u002f0nuQCl8w\u002fhFuBdksw67\u002f4BcBJTJLZP3hxsWyVeN6\u002fWyWA4JN2378RigoP\u002fHXMv5LZH60nvO+\u002fgr12ifq67L8MV5KdDq3ovw=="},"type":"scatter"},{"marker":{"opacity":0.6,"size":6},"mode":"markers","name":"相関係数 0.34","visible":false,"x":{"dtype":"f8","bdata":"jfR2KCmU9j8V+CkRTiXpPyXHpgylbK2\u002fLmUuP7MJ2b8Bk9pB\u002fxvuP+1STBjd7tk\u002fVKZzMRfg3z+E4zVLI9Kav6B0Vn39Avu\u002fJXsBFZLKvL\u002fue45MKArhv5br8\u002fRKpOQ\u002fTqTmsIEw8D+3yHNZ7w3lvxGNyQ8G+t0\u002fcPlNDinG+z\u002fbKD8R513lv4e6QMUm6fo\u002fGSxUHWJI67\u002fyWdcdw4KXPzlC1rKC04a\u002fxx8ON7yMhz9aTVIuQs7qv0a2E9T46uK\u002fkEIZ7\u002fZd5b9SwZGF9OzUPyqe1plLH9U\u002fWULc5rvOAUBtIhMrku\u002f1P7hIYsaiUOC\u002fz8HT7anK1D8bIrj3Y+jvP4tv7aoVVp8\u002fhBTfzQfUsb\u002fev\u002froB2iqP48nquq6wOs\u002fyyu\u002fFHEl67+P2njBxNfUvwl8BJ+TG94\u002f\u002fKSwsr\u002fu0z84YiLbparOPxwK04LSqte\u002f4dARYAMf7z8Mu\u002f2DKRIBQPpTeyG2Ato\u002fRLvAnwO6yL\u002f6SiJCBi\u002foP03uYRaTQOG\u002fcAcUm3b957+kFgzkTsygPz+Z9keRqQTApnsRqJR28r8u39vNAUXWv08+SBN7p\u002fW\u002fLBHxxbSF8L+Xun1Mr\u002fPbvwXVwvmVSfq\u002fnOQwjxT92b\u002ftLWbl7iDhv\u002fyWpazSA5o\u002fspiIrIl38j9eT6DtnxTGP8tCaFNIkZU\u002fh2pj6Nh1uT+J9z7aNBvNPym7xb6PRPC\u002fZUJHauphvb+zaJKRlMLTP\u002fMB+wSi7vW\u002f88klwm2z6z9I0er0UE3xP2TVu2o7NOS\u002f4TvKICjkzr+LCEGiIhrsvwUNDy5TYeY\u002fJt2lOMT68L8vd41tIHrMv2VaPZpFfOu\u002fDaq10q0Wqj8oMKnAKbX8v+C+1dcvOfU\u002f6UavSg7e7r\u002fYm2AShKquPz6od4P0M8u\u002fxHMQ+T1j6L\u002fdeJzjsWjsvxiOEhT69u0\u002f\u002fFSaOAzS4L\u002fYuKow2lrRP5+r08vcpem\u002frqqL1bW15L+5alAcTDnePx741gnoxe0\u002f+DQ5k8Rwxr+wpiMNL8D2vyTuVcug9\u002f8\u002fFOBIGNpo67+SQZiMV6r4v084o61hwQRAXYcnRKrb2b8HO7nQQWP3v4yV5BK93uW\u002fKo0OB9uF1z9sWfUNIVzIP38U6JZdQeu\u002fxybDOOAp\u002fT8FrGfdx7Dgv+E8He159PK\u002fZeT7FAC+7j80d0Nn10P1Pyz13kjnKOq\u002fTBKfI+tr9r8BjTHWrHzwP89M0zPrYADAicd6CD6g8793a+OgUfXuPyVLA08rV6y\u002fx4EZelnk0L91QpgajJTWP+d5ZcAcjsO\u002f4Al3umvH9L9fQWX7zWr0P4Q6fu9BM\u002fU\u002fP3YdY1ZIyj\u002f2bm9AzhunP8ch1jWNtwJASoc4YxOx0b+oYfHF6JzQv4eQXympU9c\u002fGEo45IiK9z8z+cMv\u002fXv5Pw5QLDl0jNC\u002fkL1u+rK70z8TLeM\u002foQz2v0mLKKNq99O\u002ftz\u002f3rqjj6r8XLYuc+xvwv\u002fdUofy85\u002fo\u002fAXawjmla6b9toKhk6gLhv9mV2AgRatc\u002fLi9ZbeTD9D9x3FwZl8rePzMvJsYoEwZAD6qlzHAds7\u002ffWm5mz47QP9cXYQJxo9E\u002f53eGWPb19j+RvUguTTvgP1GX\u002fMk6wb2\u002fQ6gOmtNR7r9myIlU7EnPP+gUzY7oa\u002fY\u002fl5mo\u002f7FD2r8z3tAqG+3gP\u002f4qMU\u002fFgc8\u002fRW2G+vOh6z8y8qvqisDpv9Dv2uDuxQJAPwYQo3F39L+ydSBmMGXXvxf2+aXaBO4\u002f6AjgIa390j8LWiwiP4\u002fqP\u002fUo+wAkwN+\u002fB54wWmsms7\u002f9KY0NFQ2JPynYNfivG\u002fk\u002fd+b9m\u002f4X5j\u002fl+GGBVn7pP+stVAW7DeW\u002ftUvJKRYB7z8Bes0l3N\u002fMPxinQ3DwOfY\u002fgGkMksscAEDbWuTrDKLTv6eIYdjeANq\u002fTtVhrkGm679UP5k90GDCv8PSXt4ac9i\u002fHT27vR4C1z9\u002fmmhbKoHCvxm1TU9xJNe\u002fGqF3bIoI8T9xiAtnHQPuv5YKm2sKuNs\u002fec2WAvP62b\u002fAZ9XbBi7nP\u002fJA+QIIKvY\u002fWJd7N\u002fZl07\u002fMq0wW4jncPx+DikOv4sY\u002fO0e3SN6U6b99PtAHINLOP7ChsUrzgNI\u002fHX\u002fSu3ls2j8cybOSImXJv5\u002f5XZH8HLg\u002fdyBKS51c8r+yFptMV+vWvw=="},"y":{"dtype":"f8","bdata":"QpvR5MKE7j9WoqpIymTxP9GRkOH54tq\u002fhKxdSsjkkb+01SIGH\u002f3fP1kadlyoFNQ\u002frX0xDftJ5T\u002fa0Xv4BeD7v+nPpQhytuG\u002fV13GCEreyD8DMqIJ89LxvyT95oB3pfw\u002f9Enq\u002fXhK3T+ZW0R7QbT0P2UYWKySouO\u002fYJOqPE8Q1r+w+xGqH9+LP7D6c8pzjPG\u002flP8an+D2qb8Tw8P9S4G5PyBxg46y5e4\u002f2BWQmKqC5T8veX8QIMnkv4dAapy7lvO\u002fxWh0LQ7u9j9NnWz8kgrlv+nJZ8RVv+y\u002fTN+JW59+179Rtfd\u002fW6L3Pwq840oGvOS\u002fpUQ2VI3j478higkPCY3bP20LqYH9F8i\u002fdxePTD5e5b8vIHrt8YLnP1LF7gVBbPQ\u002f6MXTPRnv5T8Tc17a20jkP3RvY6qFzuA\u002fK+mqekic+b\u002fFGfGpuKD6P0XZ65l9rMY\u002fH8oaTaXm6z868lbqoEL7P4BeGuH90\u002fc\u002fxiRkWMjV1T+st5vx9IzkP8UxS1q2d+e\u002fGpbp\u002fWm\u002fyL\u002fqJlSIW8Lpvyam1hDKYve\u002fW7LM\u002fXct8786gcI\u002f2jTQv7xVmYE6COM\u002fyO4FC5O4BUDUL0D4Y3ipPxomEs6Td\u002fy\u002f5rMlirtb8T8Y5btqA6Tcv5BLbJUA7OO\u002fFvkcVW184T\u002fOtQD9jxvyv3+67PDz+Ms\u002f16Wc4kzjq78zDfOBhr7EPwjQZtV7Hq4\u002fZpttt3Ornj88D83VtbO7P6zqC4vS68G\u002fRkmTvKX95D84tXrwGhvlvyfpfCdK2\u002fi\u002fcvgK0SvLwL9DYvE6TBX6vylRmHCnxdI\u002fdQN45e934j\u002f23i4qnmXgP3Ar8mD+HvS\u002fboTDH3HF6b9Qz430uc\u002fMvyCBw0W++Y4\u002f4ueFYSzt4r8e\u002fNkF08viP33MNeLOFvC\u002feIiaTH2Q47\u002fKThsvGHnwv2BUb29r2ua\u002fY\u002f9C9Jg1779wB0MzkkjnP\u002fsEnrEyc8i\u002f8J8dfm6G8L\u002fM1Q4DGyu0v4mDkUgVjPS\u002frWU\u002fhHQR6L91FqtE2vv5P6udR3LzbOA\u002fSF9cITw53D+bJxIPYMzgv55V0FhxxPE\u002fu3VmezFe4D8SJG3ASOD3v5DqoUmDBc6\u002fTuvDWsvc+T8z5ylT3XTmv7StQgvAd+m\u002fvQHrGwo20D+Ekjw\u002fAKS5P4pSxdxLmsI\u002f5k19sbP09z\u002f8inf7twHsP1bpxdD9e9O\u002fefCOPwb86D9ybQTizGLvP3yiBaLvUwDAcH80EQxWAEDWb1Y7eaj\u002fP7faGM5Kqsa\u002fFgChOS4B0j+Z8OUZQej1P75kaWaa5Mq\u002fR9Cqg5yn0z+ZEvzd\u002f\u002fv2P6zATMssQuK\u002f5InYOWZq4L\u002fLiU6CbI\u002fsP6jtpct8Q\u002fI\u002f9xoJyc2L6T+9haqMpSfKv0882MPsSsW\u002fmE4AvGRx978stsC\u002fOLHjv6ZN+fqXuqC\u002fmS0Wu2Uh7D\u002fkKqs9peG3PyWtlVSGo8u\u002fGhS2G+dc4L\u002f2YAncnkm4v\u002fC4ombWh+I\u002f7sv3y3ei8T8oIxUd1EKUv+hGwU0r2vS\u002fOi0FIBZj6r9EgG7ofn35P9gx0cGuhdK\u002f8LC9jsqe5j+DhWL4sNXGv8x4tIBPSrS\u002fHnd73CVd0z8Ysl3HpxP1P9sYk76QAsy\u002f0xngtdo51L+9pjlr\u002fTD2v6m4icYpw+M\u002flniOOLyK2D+oOZ0djcHYP7c7w+2DhPY\u002fT1bx5qny0z8oGPCGW2qmPyigOJtoNgJAiNQFAELM\u002fb\u002fcbq\u002fEgGzhv5Qoj0Q1Rfo\u002fSAOpsMps7z+9q0AuF63sP+jYVWurp+Q\u002faFUhwiWI0j8+ldh0Ovb4PwrBzfesmOo\u002f+Fn7ro\u002fm2z+JVNzNOADZP6CJ9IkQcIu\u002feepgCpUE6r875Zvu8bDpP34ps3g9tdI\u002fLtYl19q8AkCVJtQ2XQTFv55hdyCd5dE\u002fQPEZyZeLmL+ZP9\u002f8YXnkv+FgsClbnuo\u002fxordFHvN\u002fj\u002frJDeZQ2ytv0WwcCueSdm\u002fAGMTF3TDk795JDmOR7EAwKBMy5pRUqS\u002fi1kbsJkevj+34+KDZZPzP5j09\u002f9vTfU\u002fpmW+7WQ\u002f379qBERpl93Av+u6U9gsA\u002fI\u002fLrmBenLw2b+3tmAA6IPav6o+06tOpPY\u002fCzPkyYfR8T8iKAVUvEulv9VG8RGwOOG\u002fTI7bJ6MbAsDRfFDMeSDdPw=="},"type":"scatter"},{"marker":{"opacity":0.6,"size":6},"mode":"markers","name":"相関係数 -0.02","visible":false,"x":{"dtype":"f8","bdata":"A49vjg+v7L+EJuGtWWf\u002fv2bl78RsW\u002fk\u002fcfbn8ia85D\u002fDA7WnYDnyv15vACUwbvO\u002fgcZPPuve6z9K25vVVRjsv63zu6QHvfQ\u002fQmhh4Qi64z+2a193zCvhP+ABrcSH5tk\u002frRIRUXaByD8fR4fSJS3sP4ypsBSnD92\u002fWmbt0vIAtj\u002f9MU1K8g\u002foPyP5qQMDBOI\u002flnz8e6oe87\u002fakXUiWwPgvy65BcHuLdA\u002fhEDnuekc2r90Jg9gAGX8P3tbcgRsKdm\u002f6SuT95LDxL+OdnoJLJ\u002foP0rfnM5yJ9U\u002fzr5ReVqYwr\u002fQtcXqMTXov4lq850BTNM\u002fGgvNliOg8D\u002fa\u002fMoDf6neP8cV3iDh5ui\u002f46CLidTJ+z80Io3bLiX3v5tE9i2uUvm\u002f114fgeK87j\u002fNE9s+V+jMP6Jpsvl9leG\u002fzRYz5r6T8b\u002fhKpKB\u002f5ACQGxXkdqq+b0\u002fVo\u002fIDS0Y4T9yhSG8OljUP2W8n8Hk09s\u002fwo2WLXRI4T\u002fieRZ6BHDnP7KY\u002f9CkA9i\u002fumJhJkOq0r9r3Xe7Otv7v2IpW\u002fJA+Oi\u002f+QGRfOlZ0T\u002fvblVuarjwP1qB2fBUK+M\u002f0gK9QufN1b\u002fFlKnM9DX0v9LbVhIIOAbAiwK2moBt8j95Ul2\u002f9triv\u002fD\u002fwpGms9y\u002fH8aVcGrXwD9MzEGILH32v1VeE8zUYta\u002fSRXFDxIwAEDpfKA6ISzgP\u002f3QlSzw\u002fdY\u002fE4TQuuVR+b8Dz9OM5fIBQHxyF5jEw\u002fa\u002fWcxOmtfB\u002fj+IhPN8ousAwFEAZHhgfPY\u002ffiWI34zj+T+TEdQ8j2Hqv4H8tYuOC9s\u002fJ1EM+vWE4T8FmWS6mgrqv6\u002fDovKVL\u002fe\u002f55Xix14V9b+KBnN48E\u002fhPy8\u002fM9kiyrW\u002flzdkCsEO4r\u002fW7Nh3w+\u002fuP75436EXQuA\u002f7MviKsAs6L8FXYEVHzjzv3k63WaPvuA\u002fjpJaCeIz4b95Ti1ofWW5P5x4gkWFOPk\u002fLU9frBIT4D+xhov2sJfrv2uVAb6LkMQ\u002faFShRBF87r8TD2u6gbz5P72Udf9z+OG\u002fwafVC9mHyj\u002fPXgr447HTP3rUxMBRYsQ\u002fjtLebTdW\u002f7\u002fb3OBpiiT3vzr5+ZFO89y\u002fr3RdN5Jx1D\u002fkhbbRv6LBv7Y+1LzzoO6\u002f7yP8YCWT9b89jUVqHrPZv1T3tvKC+92\u002fD9axAChp4D9pQ8PUZuLUv3M1LZFhSeM\u002fAr0w9F4H478B4ptGnGHQv6GZg1JkRta\u002fCRYKcyYJ6b8ZEzDX+ADkP2qt9Xj6COq\u002fbeoxiUmx4L866AoY+Leyv2RHjSsRwvS\u002fHhPU\u002frvL1L\u002fdBhGOBcPmvywPoa6E19i\u002fuoIsF+Kurr\u002ficmB05JjpvwYtfHJxK8y\u002fTmVKpU7w9D8MqfLv72qav1lqp23+UvI\u002fLowqBvcs1j9RvqB47MXoP9rd3ixeyOi\u002fo4koKzLbuj97l5IDDyTBP177JEuhmuO\u002fIiDiEJxU6r\u002f4wvaEINj3vx9Orx0w8Pc\u002fnMEJquwd778U0KobH4r1P76t\u002fXxo692\u002fisdqjIuZ67\u002fazpdCrevjP8ulaXG5MuS\u002f8cY8wtAw4j8B6nC3yUzVv6t7wWJGv94\u002fQpEdV2H77r88RLGIbZrqP2NBWMbxOt8\u002fzgOySMdt7b8Kgrl7uyQFQAOdxhWwSOE\u002f3\u002fJDZuBSAkD036Vtspr5P0X9sPK8K8i\u002fwtPFEali2r+WC4R3RtLZv\u002fdWbQTMR\u002f2\u002fTHcgA0hE5r+zA2FxB5bPP85YsXlSavg\u002fZxyVGYy66L\u002f7he\u002fCzjnsPxgbz1CfCvS\u002f17GoNiLD4r\u002fB6XLG+0ndv7Cd1LTAy9c\u002fq+ozro9E3T+8szHqgMvuP42X70Wyqug\u002fEkpK1iIgzz+C9nc+vfvYP4RMbyifavk\u002f9QHi3IFZ4L9ktjULk8roPxdWbFMo7vy\u002f7RY+3ExT2j97TTB9j+3evzuEkg4pEGU\u002fzGZ4eTGk8D86zrNgDBPFPzY1itJ0U+w\u002fLT0waoqU9z\u002fZV9Zj6ubYP5sWLY6VvPI\u002fAwzSA2Dm1L+65tC+V9CAv0f0tVpMueC\u002fi3g3Rgmw8D8KZIYFeYDaP27FJ8RDO+C\u002f11gcNzDMwz8dX2idQ6rwPz5EkyLvGqS\u002fUG+WV6hd7r\u002fMTYgCfOLAP4eVk4tlsP+\u002fR0L65MSZ6D\u002fVkh38B\u002ffavw=="},"y":{"dtype":"f8","bdata":"mb\u002f+5S8J3r94aLPxsgXsP2hTdge11\u002fW\u002fov0P6FAn\u002fz8ThNsdSbzev4QOLsN4vuC\u002frk2cwe9W8D+q2Zq1oa3mPydJs1MenANApFw1NMwIy78a8Ugv+NK+vyFHpjtHq\u002fe\u002fGPsI6SlB1b\u002fLVJkV9xXnv0LzM0eZuNy\u002fvrnHazHo+7\u002f5y5M72ZH6P3Wvxmloqva\u002fFNH+TOlqBsDzd4dTyQPzv7FNaVOnUuO\u002flcUqzZJk8r8vb8i7ppLxP7y\u002fFta2pMG\u002f4RfcEq\u002f+mT9JEC5PVIjjP2iCZ3wHTtI\u002fUehuXWxQ7z+ZNgiJa8Dxv7VbDK5EheG\u002fJogSVZpP5T8\u002fqWR9xEYEwD8mynDBAPa\u002fwWmY3CAI4D\u002fqR89yZrzev4xQKNKX9O0\u002fNqnxE87k6T\u002f02p9wYyvzv+XW1nKrBto\u002fij7chyc68z9puLJmId\u002fCPyhPGGxkR++\u002fX2AeYPYj7D+wBRTRZVXkP1CyMkoRXeE\u002fwuGnrvjo5j+A3laW9\u002fQHwBIl1fejMOw\u002fFrQUnxvu\u002fD8nUi2A4vHbP1uGegBYq8g\u002f8Vi8wTlJ5j8btQl1fKXVP9zKZGBk2+Q\u002fEpiSfNIZWD8fdH2e2Ijov\u002fN3ObG0EfC\u002fLZh8xy\u002fx77+vm0V3+\u002ff1vwBHnqV4FfG\u002fVCINZCUu\u002fD\u002fzr646jSHoPz4JQ3E5AOS\u002fSfdQozH82L8qZykCktC8PwAa1pE5+uS\u002fxQ9+5chIsT9637ASIuLoP6FuUR\u002ffTKK\u002fgSlrLEiB1T8vXjeBI17sP8VHE1CbatG\u002fqWFfWQI60j+9JuOs18zTv8X+uAusNp2\u002f1F8jc2HI1L9zpJt4gOzgv6nfwKMwPMY\u002f04RkpCMh4j+uvGqlGrrCP9VU5Xkk698\u002fohXaGyOd579frTjVf0LzvydUkDvXsNo\u002f9uvT1R8D5j8YRAdD5IapPysxbPeNkfU\u002fxz9\u002fWd4L7T9wtv0fz3EFQLRTL+gXtMm\u002fTx0cwJH2778HXdlZM6\u002fnvy7YCtuOGOK\u002fKSDvVUx33j8N6oVzuUMBwCDszPPIGPU\u002fYhWATEWhzr91eMhp7pbPv7TQ81b9RPG\u002fUJnYv+I9vb8GDByJcx2LP63O9GPIN7+\u002f+nHrlyWz1T\u002fTThsERN7iv4WWRtCFquy\u002fjuZ+b+eL4T+\u002fhFEvRUK5P7dSu5M6Pck\u002fJmr2j8bx8D\u002f5TKh6bFzwvzl5QzwhXuu\u002fYy9DWpId9D\u002fQAknm47n3v0WhlyZa8\u002fS\u002fZcIyk+wr6j+OWlEJWH3OPztkKEt+8Lo\u002f328psP12t7\u002fssNHHTAKgP5HXKtiolLe\u002fCOvzr+Sv9T+qffxJQnvZvwpgYFbjp8S\u002ff5tM8w+2\u002fD951CnagCucP08sqWgr2wFAlcmeHvPfur\u002fzoFuI7uD1P72ywgdKfPq\u002ffxk1J5+qwz\u002f7wXHzAFr5v2OougnFBes\u002ft9FPFehn879aU+vGRynSP9rkXEt\u002fD9K\u002fo9AnEACI8r\u002fh728D5uj5v8hLwIdxWuC\u002fZTMJQ57Z+z9IVieKdcjSv5Jg0v3gWe0\u002f4oYoBrk0rb8V5pBOJQ7sP4kh6GwHO\u002f2\u002fThgDVNbN2b8NrWqxh2HuPykHE8WJ5cS\u002fLHXP8+4htr+CR24esIzbv5Yi5KLbY\u002fI\u002fke4UpXkK0z9G7O94FoqmP13YOCDnk+Q\u002fUBwoFr3S4j9hUABmDTbLP1RSVxmkwPg\u002fzEus8gHerr\u002fwOKpzFMzRP7X4sDsRk+S\u002fh7xPy\u002fk2wz\u002fwVaWgeGf5P7bAUveQleS\u002f\u002f44ROzIj8r+sR3x6dOXvP2M2TO\u002fECsO\u002fD6efSLuTuD9WbPRHFxmnv9c0rkBSQbQ\u002fQ0m\u002fH4w36z\u002fUAH35Gtrqv1vGogU6MPC\u002fmGzHyXjAtT9S75Ia+rP5v9tQD\u002fwG+PW\u002fLEIhJu\u002fd\u002fT+l0is5Lj3oP+ARU858mIS\u002fR5piXODO8z\u002fsVddgS6bwvy9LXXHXMtS\u002fz6Dh+1Tz4z\u002fVE+flYYDsP+8qVpfQaeA\u002fksYSA3VUBMD0xmZZh\u002fruv2\u002fSqJtIiN4\u002fQ0xmxejH1r\u002feZ7v0ZFIEQE+2D5hdpu0\u002fQuo3iM7b4T\u002fK+8l+Bt\u002fxv375fwxqEqK\u002fyDP+gMXfzj8kzwXZZgvyPzcCsdc5Muw\u002fUFp5rR+H8D\u002fzIYnur5Dtv4jvEmEsmPY\u002fn9Z4jj4W9r+KzXlLNibhvw=="},"type":"scatter"},{"marker":{"opacity":0.6,"size":6},"mode":"markers","name":"相関係数 -0.65","visible":false,"x":{"dtype":"f8","bdata":"0r8pGMGR2z9GODjOpS\u002fDvzxrtRq6GPC\u002fqP8f3CJK6r+rbyhTpsX4vxrLmq3vBeE\u002fGAC9PEor9D+q+NZ9Y7O5v4Vm3qJQn9m\u002f4KGufKKO97\u002f+1ek98zjtPzgihlPAsAFA3y18BGHC\u002fL\u002fHz61B0gPxv5oeiug5v+W\u002flUTUbuQO4r8jRV8OrBnNPxBsUlX30\u002fk\u002fKGCe6DYj8D90EQ\u002foE+LgP80nkodsKue\u002fbV91S\u002f\u002fp8b\u002f8EVvtLn\u002fpv8Uev7HhxPg\u002fb3sEadGcr7\u002fFegkW95jcvxQr8MlOhce\u002fCg6hv0Vj6j\u002fvFgypbgH1v5bj2w9To\u002fY\u002fEKkX+2kHxD8WvLvTKLHLv\u002fj87DmXV9w\u002fO05Rb2\u002f0yz+dS\u002fuSUAfWv1418WFpLNC\u002f5UXw07jN67+FzQotJwHlP34No+EXBuG\u002f7uBbQ6uZ7r\u002fkubISBDvFP4F9UqYpRPU\u002fTrwkZKDAqL+ycmjEkHXjvxdnHrJu2dk\u002fuWT8NMb8\u002fj+cp9xKATv3v1SVfq4Cdtg\u002fi+EbTkdAyj8jwjd4pJXyP6YMySeHte8\u002fcEqLjBXmx7+Sj5ldyPP6v1YYqNFez+k\u002fu2FHBea56r96m9uLskvuv3CTxtukX\u002fI\u002ffDvwsK8l7b\u002fkiYFTDXL2P08Vvtt6ftU\u002fCQn7lG9s1D8E\u002fN7lOarTPzngGLH7Nvq\u002fsB9DeBZs\u002fL9npEkSPpfLPzd5+MQdLeI\u002f71FmIf8ltT\u002fxSWTBAkrqv4LVYeVQYJM\u002fijfqtDAAtb\u002fbOCYFCqHuv2V2j906OfA\u002fgIyW8zWv+7\u002fONeBQ+tbiP9IOHjLBmNg\u002fCcwsnscn8D9QTeDmwRXwv8VIhZrR9bk\u002fG1icuoteAUCP1lhrti\u002flP4tCFaqwv7k\u002fo+LyJM9A4T8o9rF\u002frw+2P1TknYn1hgFAsnGCnfJ57z8M8XeU3Oq1vycpY7syJtA\u002flaggmdUC2b9N5l\u002fOi1vzP7H7fbdnf\u002fa\u002fGyUGTwKt+b\u002fL0QBH5Vb3Pwqwq96WOQFAb1HFJbX43T9zOKDKZNy8P3tyUkBWCOU\u002f4GnSmKm05L+XOAr5TuvFP8g\u002fXYbX66M\u002fAGm5eNAM5D+dOFzdj+34v+Z2QvugOeC\u002fbOAEODQK6z9enmHydp7lv4ipkcudye+\u002fKaJc7ClWAED\u002folHYM4SjP1fAw1V\u002fhuK\u002fNrIaBvMT+7+gaBcmzlbnP16JdchSX+Y\u002f5xZ0luAe07+0wekfvKLxv6v6t+57I5m\u002fO+U\u002fOVW\u002f6r\u002fTZj90oSXuv97mDqAmbLq\u002fkCwZvX7S8L\u002f0bjNmMZLPP16hA7WsdOM\u002fJZ6o3UTe6r+tQBb4VOT1v8LVFlEA+\u002fg\u002fKNQam7EW7r\u002f6vvQpQB7lv7qIzIMlRMs\u002fQqKmrQgu4z\u002f5y\u002fP4fmfQv1Mw6n2nfd0\u002fOhSU2MGp2b+2K4iA1BPvv8gE7aAx0vY\u002fDHa8E1ToA0CX7vTysCL7P3+Hwk64JsI\u002flEBlUcBV\u002fT\u002fC1Mat2MPWPzqMjbbbi96\u002fSo3ftinZ3T+8BAZ4Gyq4v7BN6UO0de+\u002fKYUSuA2\u002f7L\u002f85HJoaKrpPxVJhB5li\u002f2\u002fhW3QkhZV4z85cH5BxhL6v0o2H1sr+ADABA6Yaupr\u002fb+DkqZ\u002f3Xf\u002fP5YB5s4xHsm\u002f3rMxt1Aqtj+f7W3HRLX2P9GJjO3M5O0\u002fPdiEB5tD9r9kis1j5s7rP+4EOG5Ak8c\u002fb8O7zw3e1b8eMT+nt9+YPyEAWiscevQ\u002fYfo2YdZZ7L8B90toHKjZP2LtoFgsx4O\u002fDHEKry\u002fB\u002fL98RvbXDqzpv+cuJMI4u8g\u002fcw1Gx+nB9D8DmD+scwXwP1OZ5WVdHOM\u002fq8m5+7wW6r\u002fC7PnCxdH8Py\u002fZpOj\u002fjMs\u002f1Oa2uxIa8L+iLocvbmnHv+Lgfy0Rruw\u002fOxB2ooYzfz88NRsNMmHsP+h7wf66qPE\u002f+1bZc0ui2T8jwXXFTHLrv8TuPhKUVsE\u002fmGZOpPofpz+pSP3w4b\u002f9P7+8+yZqBfq\u002fb8AbsdxBwb8MPinz5LDiv66l3NdectU\u002fX0AlviGAA8CPSYgiu9bxP64AzrsqKIw\u002fRc8KXuWD\u002fb\u002fzR\u002fdDehzXvzjbvJeefOM\u002fRhgmDJJ2+b8vvs5HemVqP8IH23xp6\u002fC\u002ftYofH6HK4b8nwIp8TmGbPxCzyUNMe8c\u002fyw6iJKUg3r+J9d\u002f8fnXRPw=="},"y":{"dtype":"f8","bdata":"0\u002fXnV75W2T8Cj6bulAzBv2dJo7xl+\u002fs\u002fL2Vmm2ya+j\u002feMwwTcMDiPxBCxuLpiuq\u002fntJ5aZGzAMAYMIBvfQClv2zKmF6A4Km\u002fONigBS0b+D8YTkfqJBf8v+DiAyh1x\u002fi\u002fortrG8+n\u002fT9QsFHtRoirP3aWfuOB38m\u002fptk0y+406r+5\u002ff33Xlz\u002fP3jutvJ\u002fEPm\u002fUIN2h7RT+r+gWXRUXLXuv2oGsNqpsMe\u002ffndvm3Iz3T\u002f3gMwWvDbyP9UqXwcTrvK\u002fn2lAjlVw5r9\u002f9E3SM5Psv8AvDh\u002fDWcA\u002fZyZnQMJ83b\u002f9ytBdghkAQMdnlhyGzOi\u002f3FF0UeQnxr99YWXpML7mv5pdmJzEVeC\u002fUih5XhrW3r867ztW6PC2v6uNm+BztOO\u002f\u002fi7RTKF27j\u002fak5d10j\u002fgv+RgORJHV8Q\u002fAkppoviE6b8OE4x5yefSP3BEoEuVGtq\u002fnmXg6LGN5L9WYBA\u002f5oLyP+d9xpWnWPW\u002fWjzx7lPf8r8\u002fceiJBe\u002fkP7d0039rh\u002fS\u002fWJDLKy9mnT92T9f0ykjlP9nNcuJES+G\u002fuz3iVH6J0L\u002f89kapreT1PzDNLL4mj9m\u002fddaBvRS\u002f4D\u002fMKRcQVyLNP0YWUFxftdw\u002f9iXjr9Ur7T8GGgew+jv0v+ndm6cdbdK\u002fS1tr8t8X6b\u002fnrV3Fw3jlvwhwNkk9HN4\u002fqBtBaOxFxD\u002fTkGCu84TfP1k\u002fCTY9W+K\u002fdZQiJfYy2T9gNyWksBumv9oNuqOPia6\u002fIuWQUKmg4L8Mkio5hWbyP94t36zq0+m\u002fZvDGepkF3T8Vjbwtbar6v4DgUzXCmoS\u002fTIDxOLTC8r8g\u002feby5eXiP4vgQOMTEt2\u002fNIlzR1VC4b\u002fQbYlyEn6jP1W5r9vxCNM\u002fiWN5muUf6r\u002fAoIuhmpDUP8Ap+XDlWa0\u002fAPl+oEoY9L8VvkOPBjnIPzciKq5IiPe\u002fXAlTwTun9T9zNbu+NLXwv1x5SGD\u002fg\u002fc\u002fRJdqxnmb2r+LPku5egLiP7mKF2HnPPm\u002f1sm5iNTowz\u002fIi2TZXCSrP9HrxAHbKOO\u002fGGJv9TPK+z8e9Gh7Kr32vz+CdYKfmcs\u002fHqg5Q6OQ1j+qt9STNSbtP8xSi9ju1so\u002flnqzyXDg47+mSBNfwnTiv+qAUQNxDOQ\u002fuq3tJgwV6r9shLTIbWOgP1eXeWtwlMA\u002fvNWclOD04z+86eUkSCflv\u002fGRacVbxuI\u002f1jz\u002f\u002f0DX979cujtMSzDmPyhF2rg8rc+\u002fignlY5eo+j+VGuWTQILjP5VmX7l1\u002f\u002fM\u002fFji7b6oX8b8JfXo\u002fbR7MP89QSwMSBMK\u002fFvPsfvvb+T+IK6OAFn\u002ffvziw7qYF+fC\u002fklDbfYy+4z8ADMYi2fpFv2t4yRTxDes\u002fSlwDoJst5L93fG0ub4H8P6M8u5nDI+I\u002fAkLqyicF8D+N+ti9dXvwP9kk+YLVTvu\u002fhzA86TVo\u002fb\u002fITgIzcubhv4Z2dQzcPt0\u002fIP3RJhDPq7\u002fIwHJ7xsviv5IuOplJttm\u002f3TpzscAT2j+8NAG8Auriv66uh4vHnfQ\u002f3PLl9gL79z9QKOC\u002fZsa9v+S0neCkTOo\u002fV33Uz24Y1b+gsEumiD33P0n\u002fOw9hfvQ\u002fiQ4EcEPlBkBY9Jjov4\u002f\u002fv5hhg0aP5uW\u002f\u002fb9NWMGr6r84C4uN5Sv1v0jUhKjhbQLAvkFSbRky1T8kKNRxWrTwvwYKfNHPa6i\u002fqGU7m4NB4T8TTM9joxvwvxB1rCT8fqi\u002fdhPJRfCS\u002fz9XrGKt5g7av0fHph+iPvQ\u002f5kBcssLM8z\u002fF9pCmJZQAQJzGoLCL5Og\u002fS34Zrnk8AMAJNR53qr\u002fiv62dCRdpDN8\u002f+\u002fdK2W5v4D9aolIBhsPxv0u97I+UX+w\u002fcAKG+DJmoj9z15dncK6\u002fPxIhXySn2NG\u002f8lubq\u002fJh0b+RISYQCYvhv6Dkz\u002f\u002fxmqW\u002f4ho4VKYfuz906erV7PDAv5tOHBLG3e6\u002fTExNknUR5b\u002f4KMFIcNXxv5vLZyWEIes\u002fVP8iJ6O14r8kj0WoaGTAv13y55hrrPa\u002fjomq+8e\u002f\u002fD\u002f5O7MKWG7mv3xS3wTcQfC\u002fVaZMPVIT8j9jTLK2+ab0Px7hmlFqou6\u002faeNx7koOAED3R1QmTK\u002fQv3AXJGAuXuk\u002fW5NCacta2j9gNNm3zK7xP3hbsYLBE5E\u002fV9Z7iMUx5L\u002fY40hNNmbzvw=="},"type":"scatter"},{"marker":{"opacity":0.6,"size":6},"mode":"markers","name":"相関係数 -0.91","visible":false,"x":{"dtype":"f8","bdata":"9lD9OdiG+L\u002ftMqjTOmT7v07Q07IDn6c\u002fS5w89QCr7r8J+rriEbC0v3hWkmIDhua\u002f98F51kOq6L+43l6JK8bevzc0ZNrFg+Y\u002fa+rcmo677T\u002fDOrOFSsHXPzG+5FagrO+\u002fyCfYnaCY5D+J8awFcQvmP+gCXd3Rk9E\u002fssb8zdtQ47\u002frELVG+q7mP4UqmKN1D9s\u002fFew5glLvCMCB6ureWZ\u002fkPzX1hKKwnv6\u002fKfPKfOU75T+3uDn0pLjDv\u002fgPz48IGfM\u002fFX\u002fd1xchub+4dmPeJF\u002fsv94eKiF83MK\u002fLV4Ncvf08D8wb2K1ZOCaP2NOb6wRRb2\u002fceT9vTDL5z94iQpEDu3KP3f4QuNVR3i\u002fDp9izWHb9T8H6VNAv+H4PzaMe1JeoOM\u002fALrnnCdN0r\u002f8HSPxWPP3P37238UO7vI\u002fEDLkoDQB5z92wnu3DHXzv\u002fo9FnSJAcI\u002fZSKplinM578ibgtyg1rEv8\u002f4QHovus4\u002fZM0iBgykuT\u002fOPNrYRGnev+LnDsAEXvQ\u002fgTsMiloj+7+Z8UjaqV3nP5vZBWFAuP2\u002fRjgv5Xx82D+8PoIuhWHsv7NIbXsQG+w\u002fzO5Eq8Ahtj8oR0O117TPP4AKGEPfSvC\u002f\u002fBdYET3y5L94Y+57GYbKP3Il4NaarOI\u002fx7KpAspuB0DjeK8cn4bMPxQbZAyzO+8\u002fIo8ijjPp+L+FVzqwPEf1v3zmtSdtwNa\u002f\u002f3mB8ako87+x\u002fWaVSsj3P7PCbOcFQdq\u002fVFp8wWod9j+Ha2dr3Mn3P8L2qTM556U\u002fQ9R3W74O4D9s3aT2Ebmsv6hUbzvgOuE\u002fcuGLqRLv3j+scF57gKe\u002fvywHe862KOA\u002fcKXDi0KU+z++BYRpB9HmP\u002fOyaJ\u002fm2dQ\u002f6w1rNOXwvz\u002f3\u002fMG76DPwvxcnpdnOb\u002fC\u002fE\u002ffpl9+x1D+KcdOqBun1v\u002fBD8nTBhei\u002fvxIFCRKB9D8bq55Rr6D+P9qyJo\u002fBp\u002fq\u002fSTUCscEG+j\u002f74ibwaBDLvzM2lrD8uo6\u002fELmYbIsIvb9zWXej6EnxP9iRmBMLufm\u002fvFAZ3Mgx3T\u002fs45dsYDzuv4IGVE7mQ+I\u002fIreVNkuv+D\u002fBAEFLk1k7v0MbeCwo8tc\u002feytjqRg22j\u002fkuWUbRZbpv\u002fuYMb6sL\u002fg\u002fzV8aprFN+z\u002fM0ANnAnXmP1\u002f+voXVwrI\u002f1PbKE6uP3b\u002fjDHY5NQzkv6NpLS6WX\u002fs\u002fl933qnGh9j8dpF2MHkywvx87LjxlR\u002fm\u002frCTZ1vWnBsB\u002fMZcxt1Xxv3OrfkwruMC\u002fscas5zhp9j+nbkQfXtrkv73tb75yJ+A\u002fLcywR9TZ9D\u002fUXJ\u002fG4HPAP9me6lS7O8K\u002fSKW9ArLw9L\u002faxK+\u002fVj3zv5ZibFxgodo\u002fGRtPila3yb8LhQ5iNl6\u002fP1xsfeXINKi\u002fXYJ6BatA5T8BhDXGKBzpv7cPVzwnetW\u002foMUzLcNW\u002fj8KJ4UZ2Zfpv+svqfRUBdK\u002fhT82gEHc4r+mNFo\u002fTHfcP3AfSQ24W\u002fA\u002f3CEU\u002fLLi378Se4TlSpzbv\u002fiSvanV2tG\u002fj+iK+mX04D82HWNWIKnnv8zqnGO6D9i\u002fN1zPx0D6AsAiE7OnoBv2v9YDvi4dyby\u002fIAqFpU277D+V4MeJheLSP\u002fsytDuOlPG\u002fP+O+DXNn9r+jQyHT6lvGP2n4Yjvicfq\u002f\u002fxelRwkO8T+K+Xk1gFuwP+fJ4VeVt\u002fm\u002fcnclERjp7r+aDIfuji3nv4J\u002fHTj+vei\u002f46x4\u002fsPW97+7U99BPP3rv2aMnhee5uW\u002frqNOWNrC5r+WU\u002fY+HAzyP3a72rD+1bo\u002fwSAtXMPI77+06Ia9cGrVv8JY\u002fexUJey\u002fAWpCIU8z07+g6ILFKwTsP0DKHVg0JdA\u002fY+WyRelIAkCWz9XnMQ\u002fYP6wExY0qPO2\u002fRcqiZGXp6T8a6Lj0ZUfxP8rUST+1gfE\u002fZqwzzQKC8b+t7IBlyOXCv6vMvNrmG\u002fI\u002fpc1PWqb0+r9ffeq3cfbfv\u002f1rRZy81Pa\u002fHTDUhZ3X7b+\u002fLHpFBjPwv0U2QoNVAvQ\u002fxfPMolcFzr8k01Xim6Drv4iLvVDXkfC\u002fVCcFUCYiwj+MJv2ZRs6GvwbTqSFUgfU\u002frCeFAyMA4D+WZXTJpOj2vwZsHSacIOS\u002fNxi7WgQf8T\u002fSpFfS6N\u002fjvy2VvcDOwPs\u002fzFBR8JeS8b\u002fiBBI92VLiPw=="},"y":{"dtype":"f8","bdata":"DH\u002fAc1cR8D94ff5QLBn1Px9gZhNd\u002fds\u002fvVELsSvU6T+CHHaJ+1jbP+OMkVRx3+o\u002fMRO0819b8D\u002fgA4KyAFqnP1sCAH2YWue\u002fV54t0XnX5L\u002fIpVN7dYjmvz7dxgoznvk\u002fSh2vxrJg7b9j2RpmWgbov+AeZ2wm8+W\u002fzv4ZQfIF2b9UqyD5spjCPxCzck0GDt6\u002fobW8pyLhBECbZ\u002fFb\u002fVTlv37LjjbtugJAhODzckJJ8L9iIRX+GtXbPyqP1YXDJPS\u002fFPCXS4D7xb8dzsXn17jwP3vAw3o6B+I\u002fiJBWE2XY8r\u002fd8pXG2fXWv65I4gxMB9q\u002f+Nt9Ha0WyL9kS\u002fiCIircv1ArnGQxn+m\u002f4lZ+NgSt47+7r\u002fXAhvL\u002fv4JQWyiBKsu\u002fkXsp8Z2W1T9xvJ7CKozzvwqQG2nMHPW\u002fpd6knac13790Mx\u002foIIXXP1korUeAmsA\u002fDLdr212R9T8laNQGD+ngPz1rfZGkivG\u002f153s7uCc4L+wyisClSHWP\u002fWDGQl53u2\u002fciG8ODOu9z+00OsIrOjrv2yYokpH5v4\u002fAg2LupTgxD9jnhuOfU3mP+oWGzFgQd6\u002fnQ9WRFk787867C4e9TXkv906W0lq2Og\u002fF0TpBOAS2D8YbMFtnDalv8TNcesRVbW\u002fvL0MAZtSA8D5jyOp4DHev0Za1Y\u002fSrPi\u002fMpd0ReNN+j9mMTBdflLZPxiHiyvdWOM\u002fQW6sonrb7z8YnEnLzZr9v\u002fAezEBnpN8\u002fDcnTCmns87+EyWJFN6r1v6Z7crM2QbO\u002fLoVotUEz0b9yCrBKLQXdP9vDlojwKNG\u002fALeMJ7lGeT+ySDA8PJC3P7WwEw9WENA\u002f\u002fbFTVZLW9L9IATapWh7sv2RSqZUlpOi\u002fqGtoEUMhl7\u002fUVLnjyuHVP1INvFJQAuA\u002ffmjx5Tvpx7\u002f+RwSnmPXuP9Xgbv6RGtI\u002fWIyKH7ex8r\u002fwrNlb2w77v643ViXijfY\u002f6UFxG44O+r+ePjG3qALiP2YXHnZ91cQ\u002f8NWxX64scz8A9Jbn6ge6P5RVjmqbgPg\u002fgGatDcc3tT8eej+yLmPjP1ov93GOufG\u002flvaocPi8+78zNjgye8+9v5fQUjvds+G\u002fWvzuUcBhyz9JBGRSmVrlP8ubVzSZjPK\u002fAZ4PVbbl+L+cHTGkP0Lqv2Dshc9GSqm\u002fEOM5XgCb8j8sHoCFJ1PNPyKXqXtwSfO\u002fRu0xJ\u002fCF+7+RGP9IgE\u002fCv9EZz0OnxvY\u002f4RWW9FGHBUDIMd3n7fH5P1PYPqKegbg\u002fDqvWEbIN+r9tuacQtdXrPwFcXNtInuO\u002fR76nLOcZ8b9F+7YluUrFv4czBL15Aee\u002f7GSQTiVk9j+6eClnWmL1P4BlEl8gHZ4\u002fItvSjFzm7j9uOg4u4zLkv4Dz3pPWIdE\u002fzCZ0UyzW2r+W+F2U4cDgP8a2wN1RaN4\u002f45n8lAPS979M4Ec25iPIP\u002fLMYpZtFtc\u002fVCMCT+6twD9LUz6T8Oblv2BVp9iVGfu\u002f+62fErv7zj\u002fs63yQoyvTP8KFu7aeaN8\u002f1zU1REp+3r8Ahnnn8uZ7v9j6M85x2uY\u002fGoDdrpCqAECbmFWmmk33P0Fe2x4ztuA\u002fQJv7z68PyL8MuYFdotviP19MAZgMo+4\u002fv0GxO2NV9j9wfEMEgRLkv4RzVhdINP8\u002fyCwXxe+c979zkZD9TQXrv4R02OTM7\u002fw\u002fvF6QyueK5D80GMTu47TvPwhmYDPA9es\u002fuxTuXIws5D9+\u002fBkxfn3Zvyp4XRPMqME\u002fAX3fOg635D\u002fEgeQCd8P4vzlIPumFP9i\u002fxogLKfmC0D+xegtzZgPYP2Hz\u002feUemeo\u002fsD6RAtfOrj8oyExLMunGv9LM70Q6QNs\u002faoL\u002fx2j4\u002fL9kmOWrI\u002ffxvxkmFdA4ztU\u002f1ORAekWk4b8xp1\u002fNSe\u002fzv0bEX1MxJ\u002fO\u002fFx8tq9QG9j8ztP3iecHWP2QpEAUOiNy\u002fMjpwvEVE9T\u002fD33VhYsjwP4Y91BTqrvA\u002fk+NhyQbj9z+FLXY7j6LuPwSNxoN1Avi\u002fxHAXVyX\u002f37\u002fok9cA2ajkP35eBwxbQOo\u002fA1gmmkGIzz8DtPMwwIyjvxiHrqvcXva\u002f0ADLbfDrkz\u002fyjzTaxQzzP6Im5NdlJ9Q\u002fB6LSgJzN5r8X5RbsERzWPz19JSUZYvS\u002fdvW8n\u002f1N5z80SNea6Jnjvw=="},"type":"scatter"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"updatemenus":[{"buttons":[{"args":[{"visible":[true,false,false,false,false,false]},{"title":"散布図（このデータの相関係数 = 0.92）"}],"label":"相関係数 約 +0.9","method":"update"},{"args":[{"visible":[false,true,false,false,false,false]},{"title":"散布図（このデータの相関係数 = 0.60）"}],"label":"相関係数 約 +0.6","method":"update"},{"args":[{"visible":[false,false,true,false,false,false]},{"title":"散布図（このデータの相関係数 = 0.34）"}],"label":"相関係数 約 +0.3","method":"update"},{"args":[{"visible":[false,false,false,true,false,false]},{"title":"散布図（このデータの相関係数 = -0.02）"}],"label":"相関係数 約 +0.0","method":"update"},{"args":[{"visible":[false,false,false,false,true,false]},{"title":"散布図（このデータの相関係数 = -0.65）"}],"label":"相関係数 約 -0.6","method":"update"},{"args":[{"visible":[false,false,false,false,false,true]},{"title":"散布図（このデータの相関係数 = -0.91）"}],"label":"相関係数 約 -0.9","method":"update"}],"x":0,"xanchor":"left","y":1.18,"yanchor":"top"}],"title":{"text":"散布図（このデータの相関係数 = 0.92）"},"xaxis":{"title":{"text":"変数 X"}},"yaxis":{"title":{"text":"変数 Y"}},"width":650,"height":520,"showlegend":false},                        {"responsive": true}                    )                };            </script>        </div></div></div>
+</div>
+<p>切り替えてみると，次のことが実感できるはずです．</p>
+<ul class="simple">
+<li><p>相関係数が <strong>+0.9</strong>だと，点はかなりはっきりした右上がりの帯に並びます．</p></li>
+<li><p><strong>+0.6 → +0.3</strong>と小さくなるにつれて，帯はどんどんぼやけていきます．</p></li>
+<li><p><strong>0.0</strong>では，点はただの雲のように広がり，傾向は見えません．</p></li>
+<li><p><strong>マイナス</strong>になると，帯の向きが右下がりに変わります．</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>相関係数を読むときには，次の2点に注意してください．</p>
+<ol class="arabic simple">
+<li><p><strong>相関係数は「直線的な関係」しか測れません</strong>．アンスコムのデータセットIIのような曲線的な関係は，相関係数ではうまくとらえられません．</p></li>
+<li><p><strong>相関係数は外れ値に弱い</strong>という点は平均と同じです．データセットIIIやIVのように，たった1つの外れ値が相関係数を大きく変えてしまうことがあります．</p></li>
+</ol>
+<p>だからこそ，相関係数を計算したら必ず散布図もあわせて見る，というのが鉄則です．</p>
+</div>
+</section>
+</section>
+<section id="id14">
+<h2>相関と因果の区別——データ分析最大の落とし穴<a class="headerlink" href="#id14" title="Link to this heading">#</a></h2>
+<p>いよいよ今回の中心テーマです．時間をかけてじっくり考えていきましょう．</p>
+<section id="id15">
+<h3>因果関係とは何か<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<p><strong>因果</strong>（因果関係，causation）とは，「一方が<strong>原因</strong>となって，もう一方という<strong>結果</strong>を引き起こす」関係のことです．「勉強時間を増やす<strong>と</strong>成績が上がる」「気温が上がる<strong>と</strong>アイスクリームが売れる」のように，原因を変化させれば結果も変化する，という関係です．</p>
+<p>相関と因果は，日常の言葉ではしばしば混同されますが，意味はまったく異なります．</p>
+<ul class="simple">
+<li><p><strong>相関</strong>：2つの量が「一緒に動く傾向がある」という，データ上の<strong>見え方</strong>の話</p></li>
+<li><p><strong>因果</strong>：一方を変えればもう一方が変わるという，世界の<strong>仕組み</strong>の話</p></li>
+</ul>
+<p>重要なのは，<strong>因果関係があれば通常は相関が観察されますが，相関が観察されても因果関係があるとは限らない</strong>，ということです．「相関は因果の証拠としては不十分」——これがこの章でいちばん持ち帰ってほしいメッセージです．</p>
+<p>では，因果がないのに相関が見えてしまうのは，どんなときなのでしょうか．主な原因は次の3つです．</p>
+<ol class="arabic simple">
+<li><p><strong>偶然の一致</strong>：たまたま2つの量が似た動きをしていた</p></li>
+<li><p><strong>第3の変数（交絡）</strong>：隠れた共通の原因が両方を動かしていた</p></li>
+<li><p><strong>因果の向きの取り違え</strong>：関係はあるが，原因と結果が逆だった（または双方向だった）</p></li>
+</ol>
+<p>順番に見ていきましょう．</p>
+</section>
+<section id="id16">
+<h3>偶然の一致——疑似相関のギャラリー<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<p>まったく無関係なはずの2つの量でも，データを大量に集めて総当たりで組み合わせれば，偶然よく似た動きをするペアがいくらでも見つかります．このように，実際には意味のある関係がないのに，見かけ上強い相関が観察される現象を<strong>疑似相関</strong>（見せかけの相関，spurious correlation）と呼びます．</p>
+<p>疑似相関の面白さを世に知らしめたのが，Tyler Vigenが運営するウェブサイト「Spurious Correlations」です <span id="id17">[<a class="reference internal" href="../references.html#id23" title="Tyler Vigen. Spurious correlations. tylervigen.com（書籍版 Hachette, 2015）, 2015. ウェブサイト（査読論文ではない）. URL: https://www.tylervigen.com/spurious-correlations.">Vigen, 2015</a>]</span>．このサイトは，公開されている統計データを片っ端から突き合わせて，「ある食品の年間消費量と，ある学問分野の博士号取得者数」「ある州でのある出来事の件数と，まったく関係のない事故の件数」のような，誰がどう見ても無関係な2つの量の年ごとの推移が驚くほどよく一致する例を大量に集めたものです．グラフを見ると2本の線がぴったり重なっていて，思わず「何か関係があるのでは」と感じてしまうほどです．</p>
+<p>ここで注意してほしいのは，このサイトは査読を経た学術論文ではなく，<strong>あくまで「相関だけでは何も言えない」ことを面白く伝えるためのウェブサイト</strong>だという点です．しかし教材としては非常に優れています．なぜなら，「グラフがぴったり重なっている＝関係がある」という直感が，いかに当てにならないかを一目で教えてくれるからです．データの組み合わせの数が膨大であれば，偶然だけでいくらでも「きれいな相関」は生まれる——このことは頭の片隅に置いておいてください．</p>
+</section>
+<section id="id18">
+<h3>交絡——隠れた第3の変数<a class="headerlink" href="#id18" title="Link to this heading">#</a></h3>
+<p>疑似相関のもう1つの，そして実社会で最も重要なパターンが<strong>交絡</strong>（confounding）です．交絡とは，注目している2つの量の<strong>両方に影響を与える第3の変数</strong>（これを<strong>交絡因子</strong>と呼びます）が隠れているせいで，直接の因果がない2つの量の間に相関が生じてしまう現象です．</p>
+<p>定番の例で考えてみましょう．「アイスクリームの売上」と「水難事故の件数」です．日ごとのデータを集めると，この2つの間には正の相関が観察されることが知られています．アイスクリームがよく売れた日ほど，水の事故が多いのです．</p>
+<p>では，「アイスクリームを食べると泳ぎが下手になる」のでしょうか？　もちろん違います．少し考えれば，種明かしは簡単です．<strong>気温</strong>です．</p>
+<ul class="simple">
+<li><p>気温が高い日は，アイスクリームがよく売れる（気温 → 売上）</p></li>
+<li><p>気温が高い日は，海やプールに行く人が増え，水難事故も増える（気温 → 事故）</p></li>
+</ul>
+<p>つまり，気温という交絡因子が両方を同時に動かしているために，アイスクリームと水難事故の間に「見かけの相関」が生まれているのです．アイスクリームの販売を禁止しても，水難事故は減りません．</p>
+<p>この構図を，乱数でつくったデータで実際に再現してみましょう．次のコードでは，「気温が両方を動かす」という仕組みをそのままプログラムにしています．<strong>アイスクリームの売上と水難事故の間には，直接の関係をいっさい入れていない</strong>ことに注目してください．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 交絡の実演：気温が「アイスクリーム売上」と「水難事故」の両方を動かすデータをつくる</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>  <span class="c1"># 乱数の種を固定して再現可能にする</span>
+
+<span class="n">days</span> <span class="o">=</span> <span class="mi">100</span>  <span class="c1"># 夏のある期間の100日分を想定</span>
+
+<span class="c1"># その日の最高気温（15〜35℃の間でランダム）</span>
+<span class="n">temp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="n">days</span><span class="p">)</span>
+
+<span class="c1"># アイスクリームの売上：気温が高いほど売れる（＋日ごとの偶然のゆらぎ）</span>
+<span class="n">ice</span> <span class="o">=</span> <span class="mi">20</span> <span class="o">+</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">temp</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="n">days</span><span class="p">)</span>
+
+<span class="c1"># 水難事故の件数：気温が高いほど増える（＋偶然のゆらぎ．マイナスは0件に切り上げ）</span>
+<span class="n">accidents</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">temp</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">days</span><span class="p">)</span>
+<span class="n">accidents</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">accidents</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;気温&quot;</span><span class="p">:</span> <span class="n">temp</span><span class="p">,</span> <span class="s2">&quot;アイス売上&quot;</span><span class="p">:</span> <span class="n">ice</span><span class="p">,</span> <span class="s2">&quot;水難事故&quot;</span><span class="p">:</span> <span class="n">accidents</span><span class="p">})</span>
+
+<span class="c1"># 3つの量の相関係数をまとめて確認する</span>
+<span class="n">df</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>気温</th>
+      <th>アイス売上</th>
+      <th>水難事故</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>気温</th>
+      <td>1.00</td>
+      <td>0.83</td>
+      <td>0.81</td>
+    </tr>
+    <tr>
+      <th>アイス売上</th>
+      <td>0.83</td>
+      <td>1.00</td>
+      <td>0.66</td>
+    </tr>
+    <tr>
+      <th>水難事故</th>
+      <td>0.81</td>
+      <td>0.66</td>
+      <td>1.00</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>表の「アイス売上」と「水難事故」の交わるところを見てください．<strong>直接の関係をまったく入れていない</strong>のに，2つの間にはっきりとした正の相関が現れています．散布図でも確かめましょう（点にマウスを重ねると，その日の売上・事故件数・気温が確認できます）．</p>
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 左：見かけの相関．右：点を気温で色分けすると，気温が黒幕だと分かる</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">make_subplots</span><span class="p">(</span>
+    <span class="n">rows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">shared_yaxes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">subplot_titles</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;一見すると「アイスが売れるほど事故が多い」&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;気温で色分けすると：黒幕は気温（赤いほど高温）&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+
+<span class="c1"># 点にマウスを重ねたときに気温も表示する</span>
+<span class="n">hover</span> <span class="o">=</span> <span class="s2">&quot;アイス売上 %</span><span class="si">{x:.0f}</span><span class="s2">個&lt;br&gt;水難事故 %</span><span class="si">{y:.1f}</span><span class="s2">件&lt;br&gt;気温 %</span><span class="si">{customdata:.1f}</span><span class="s2">℃&lt;extra&gt;&lt;/extra&gt;&quot;</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span>
+    <span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;アイス売上&quot;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;水難事故&quot;</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;markers&quot;</span><span class="p">,</span>
+               <span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#1f77b4&quot;</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.7</span><span class="p">),</span>
+               <span class="n">customdata</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;気温&quot;</span><span class="p">],</span> <span class="n">hovertemplate</span><span class="o">=</span><span class="n">hover</span><span class="p">),</span>
+    <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span>
+    <span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;アイス売上&quot;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;水難事故&quot;</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;markers&quot;</span><span class="p">,</span>
+               <span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;気温&quot;</span><span class="p">],</span> <span class="n">colorscale</span><span class="o">=</span><span class="s2">&quot;RdBu_r&quot;</span><span class="p">,</span>
+                           <span class="n">opacity</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">colorbar</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;気温（℃）&quot;</span><span class="p">)),</span>
+               <span class="n">customdata</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;気温&quot;</span><span class="p">],</span> <span class="n">hovertemplate</span><span class="o">=</span><span class="n">hover</span><span class="p">),</span>
+    <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">title_text</span><span class="o">=</span><span class="s2">&quot;アイスクリームの売上（個）&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">title_text</span><span class="o">=</span><span class="s2">&quot;水難事故（件）&quot;</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">900</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">450</span><span class="p">,</span> <span class="n">showlegend</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">HTML</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="n">include_plotlyjs</span><span class="o">=</span><span class="s2">&quot;cdn&quot;</span><span class="p">,</span> <span class="n">full_html</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>                        <script>window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.4.0.min.js" integrity="sha256-KEmPoupLpFyGMyGAiOsiNDbKDKAvxXAn/W+oQa0ZAfk=" crossorigin="anonymous"></script>                <div id="d2e1d4f2-d7dd-4e2d-934d-137fb64bb8ce" class="plotly-graph-div" style="height:450px; width:900px;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("d2e1d4f2-d7dd-4e2d-934d-137fb64bb8ce")) {                    Plotly.newPlot(                        "d2e1d4f2-d7dd-4e2d-934d-137fb64bb8ce",                        [{"customdata":{"dtype":"f8","bdata":"msl9OaV9NkD6srog1AFBQJMAcxnPoz1A7vv9pSH5OkA9VZ3A0B4yQOT7PyOxHjJAVuslWmMpMEBpyeoyaSlAQExv23e1BTtAkZGg41QpPUDxNEgEydIuQCQK5x74MkFAeqzYNxumP0CYf4AeLT8zQPED+57xojJAKzCL9QerMkBAdYdkuBU1QL6FBMDAfjlAjMKO+Y6jN0AU28\u002fbF9M0QDjpf9OvPDtAs92dZDXKMUAaNG\u002fVx9c0QEL5lMvFUzZA9fy5DBQfOEBdxAvWGbQ+QJLGdGtU\u002fjJAjET1XOFIOUBuuqqfKdk6QEW5TPim2y9AlmUzMKEmO0DMUSBhFWkyQFR9iGwQTTBAK4EtoCX9QECSQPSbBChBQKOqdpL+Kj9A6TcKXJ8XNUClxRPLFPQwQJ1BmulFrzxA5Uk1rZTNN0DaZYb01XAxQKg+lUdO5zhAIOjdcSNgL0CvI\u002f033JdAQI+h9Bj0LDRAam5jNR1APECJGRDx9Ts1QCkVhY6\u002fZjlABlTrGCjvOUBeCpRudLIyQPiHTfsiMkFAt9cfGK6APkC1cr4GHuVAQOWHaA3CckBAPnTRdT\u002f1OkA4fqh\u002f\u002f7dAQIoVbeQUxTBAfFVNqG7rMkDYTM6fIM8vQG2AnPiwgTVA7UjeGAfGNkAoZ1maTm00QFCF99Mikz9AbsNpuJMiNkB9gAR7Yp40QLSjMJya2jlAc509M4jRMUBWxWmgPws\u002fQN4BCgWzfTBADH0HOW5eQUBjufyp5HE+QBrVO55s+TJArAUS5os4LkBWQn+aKU8\u002fQERCxw4cIz1AXLZ5RoSUPUB70AN452w+QCLVUM4bezBAdbAgM1grNkD+ksnkP1ExQCkDEHaLIUBAAKYfUkl3O0D+D72oMp41QNxSbTNrRTBA8w6svzo4NUC4MKpI8IA1QDpu+miVlz1Aa9IvVEvAO0AQmTO+Q19AQL0S9Yu9cThAT+XtkVJkMUAKTh810EM9QCrozS04Nz5AxAeXP705OkA84iMaWms+QKTgmcM74DhAAtPGX2R0OUBa+EaQAo03QMhZMrdKBC9ArBmBc2coMUA="},"hovertemplate":"アイス売上 %{x:.0f}個\u003cbr\u003e水難事故 %{y:.1f}件\u003cbr\u003e気温 %{customdata:.1f}℃\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":"#1f77b4","opacity":0.7,"size":8},"mode":"markers","x":{"dtype":"f8","bdata":"Z7YxHXoMb0BulqbL68J1QLaQ04UbAXRA5LGDelNHakBMGjbbVg1oQKIlzhF472pALf3AgnAXbkAPiyYbEih0QKKEYtMhHnBAtoWELrU4ckAeOvSZdFdqQGQUkrsckndAsap8GcW0c0DePRXf8x9tQMXly2XwR2pAo9kYiqetbkA9B6q7hVhpQN1jfU2EXXBASnYLuIwWbkCUpb4+kTZlQKQh0DxyA3NANqM3VekKakCyP6BeRZRsQICscLtxPG1AUWCcYCyTaUB6Hy6eWWNzQCU8+NQ8h2hA9G0CfS8YbkBCabz2gKBxQP+lr713bmhA0s\u002fTcE3vdkDL\u002f8dh0GJqQFG+WKT+KWhAIQoz0MlMdkDBxhtJAuZxQBpOABPnqXRAoWlCb58qbUBAfmCVBgFyQGCBXEZvsnJAExp\u002fcHrhcEBTpV0XnSBoQMHoHm45yWtA4QM2VebSa0CO2kD7D993QIz+Yni2rG9A6s35NhCicECeRo+IQwdyQCyTv+MQPmtAFlMiug\u002ftckAMAgsFbWlyQLYSbEG6RHRAVMvAlv7lckBqMZ9pLJ52QKXCQh05jXRAGiik7rVxbEAg4yq74FF2QIb9N2+aJmJAQrnmFn2EbEB4BAN1l8hhQGsNIdwDkXJAhYO+bvgMa0BmvNIiZWxqQCQKq22cBHdA1bf\u002fB7cDaECnAAssIWltQAGEcuYyrXRAlnnWJFa8YEDhbpItMh11QKL1KivGaWhAQDtFo2fqeEBE\u002fRjpiC9xQP7etYyYnWNAfgC5P23\u002fZ0BS6Zb4i491QIfU4EhCFnRAOvAnv4yadECVQelq2ZByQNxyHaYrQ2hAbb3ZPFCtb0BqmMgxMZNkQE61h9IGFHpAsX17nM6Zc0Bd2XP+4JBnQIVr0nwpH2pAU+MGv7EmaEAuBG8eUqhwQClWU649pHZA1pJPffKKcEA+oEY5pB94QM0uZ35Ej3FAV\u002fnB4qNZbECdBCWxVEh4QBkLELl2hXNA\u002fiVOS2SDb0DmBQlFzglyQAoDrP0NhG1AWETHY2b3cEBVXRnxd9JwQBKaBr3YRGdASWuVuEwVbEA="},"y":{"dtype":"f8","bdata":"+2Svl\u002fWKJkA7uRS\u002fCeozQIxSBebMlCxACixT1krtMkDRopCxf58kQKhZvdrsYR1AbjRGnpbBF0CEK8TSbyAxQFsLMAriICpA6TDX6jsCMEBLOYfp\u002fE0hQB3pGkquDTFA8mxiU\u002f1CLECzTD0E8l8aQM\u002fNyWe22SBAMADDw\u002fsXJkBJunzI8\u002fAlQIbQvM0dgyRAGQzCUOVUKEA563F\u002fqF0mQICrBOedsydAhU7YgZ9nIkBeeWfmYhMlQMkLT\u002f1ewSFA1nUI3HONKUCll0cRLHkwQHIYCs5fUydA4w6NP\u002fl\u002fLUDka2rdbVYlQOtHLo78WhhAJjDnlwY2LUB9kaFIM3ckQNS\u002fqhV5XCJAbMT+2L6xOEDNTMZeUEwyQEBoSSXo2jFAQFakMoXoKEDHzvgZG48jQMCYvfhvbCtAogto58PWKkBeF53s7LIcQEAd6bPN9CdAbiI5KR1+G0CDPjugx8EwQPi06fMpby1AVt6G1wjIJEC769jusPonQHcVc8RT8yJAAU6F\u002feULKEBQxxdMig0nQDgi1UoMUzFALUdlxBExKkDc+iR6w+0uQAnA3Em2zjFA6THcOloJKED44K4o0yYxQBkb1Ua\u002f8yBAkTcxiTFQIEC2kTdk9nooQJ0sEQrTCihAnR7hPJBYHUAg75l7PCwlQNoOG3p37SxAtqQlAXiLKUD8npDs13IhQLiZ8SMdZSlAWhXelaPWI0C0ff8T5EAxQBaHZQkxYRdA66sOeiqzMEC9bLGZjIssQAkinkdqXCBA4GCLLxksJkCMvYeQ7nYwQAGU9+T2FyhA34qGIzSgMEDQQND9\u002fnQzQDAgEmFanCRANIC3eoIXIEDKl36sycIeQKdmEQo0qjJAfc4yBKKiKECv7mFCq2QnQBq2xN6kXiNA+q63fA2DIUDl6qMR\u002fEMlQBqs3Z+GoCBAF\u002f5HQVKnJ0BzN65C5rsvQPzrGKwCdCNAkuwdZunrJ0DQUOM5WYsnQPJPMSiddCxAldg1G56\u002fKkBtN6SfmxcyQKBbxh3pISNAxGrUxXgbLkB2o2AZfZcnQB1qCoIpKhdASWq2GpkBI0A="},"type":"scatter","xaxis":"x","yaxis":"y"},{"customdata":{"dtype":"f8","bdata":"msl9OaV9NkD6srog1AFBQJMAcxnPoz1A7vv9pSH5OkA9VZ3A0B4yQOT7PyOxHjJAVuslWmMpMEBpyeoyaSlAQExv23e1BTtAkZGg41QpPUDxNEgEydIuQCQK5x74MkFAeqzYNxumP0CYf4AeLT8zQPED+57xojJAKzCL9QerMkBAdYdkuBU1QL6FBMDAfjlAjMKO+Y6jN0AU28\u002fbF9M0QDjpf9OvPDtAs92dZDXKMUAaNG\u002fVx9c0QEL5lMvFUzZA9fy5DBQfOEBdxAvWGbQ+QJLGdGtU\u002fjJAjET1XOFIOUBuuqqfKdk6QEW5TPim2y9AlmUzMKEmO0DMUSBhFWkyQFR9iGwQTTBAK4EtoCX9QECSQPSbBChBQKOqdpL+Kj9A6TcKXJ8XNUClxRPLFPQwQJ1BmulFrzxA5Uk1rZTNN0DaZYb01XAxQKg+lUdO5zhAIOjdcSNgL0CvI\u002f033JdAQI+h9Bj0LDRAam5jNR1APECJGRDx9Ts1QCkVhY6\u002fZjlABlTrGCjvOUBeCpRudLIyQPiHTfsiMkFAt9cfGK6APkC1cr4GHuVAQOWHaA3CckBAPnTRdT\u002f1OkA4fqh\u002f\u002f7dAQIoVbeQUxTBAfFVNqG7rMkDYTM6fIM8vQG2AnPiwgTVA7UjeGAfGNkAoZ1maTm00QFCF99Mikz9AbsNpuJMiNkB9gAR7Yp40QLSjMJya2jlAc509M4jRMUBWxWmgPws\u002fQN4BCgWzfTBADH0HOW5eQUBjufyp5HE+QBrVO55s+TJArAUS5os4LkBWQn+aKU8\u002fQERCxw4cIz1AXLZ5RoSUPUB70AN452w+QCLVUM4bezBAdbAgM1grNkD+ksnkP1ExQCkDEHaLIUBAAKYfUkl3O0D+D72oMp41QNxSbTNrRTBA8w6svzo4NUC4MKpI8IA1QDpu+miVlz1Aa9IvVEvAO0AQmTO+Q19AQL0S9Yu9cThAT+XtkVJkMUAKTh810EM9QCrozS04Nz5AxAeXP705OkA84iMaWms+QKTgmcM74DhAAtPGX2R0OUBa+EaQAo03QMhZMrdKBC9ArBmBc2coMUA="},"hovertemplate":"アイス売上 %{x:.0f}個\u003cbr\u003e水難事故 %{y:.1f}件\u003cbr\u003e気温 %{customdata:.1f}℃\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":{"dtype":"f8","bdata":"msl9OaV9NkD6srog1AFBQJMAcxnPoz1A7vv9pSH5OkA9VZ3A0B4yQOT7PyOxHjJAVuslWmMpMEBpyeoyaSlAQExv23e1BTtAkZGg41QpPUDxNEgEydIuQCQK5x74MkFAeqzYNxumP0CYf4AeLT8zQPED+57xojJAKzCL9QerMkBAdYdkuBU1QL6FBMDAfjlAjMKO+Y6jN0AU28\u002fbF9M0QDjpf9OvPDtAs92dZDXKMUAaNG\u002fVx9c0QEL5lMvFUzZA9fy5DBQfOEBdxAvWGbQ+QJLGdGtU\u002fjJAjET1XOFIOUBuuqqfKdk6QEW5TPim2y9AlmUzMKEmO0DMUSBhFWkyQFR9iGwQTTBAK4EtoCX9QECSQPSbBChBQKOqdpL+Kj9A6TcKXJ8XNUClxRPLFPQwQJ1BmulFrzxA5Uk1rZTNN0DaZYb01XAxQKg+lUdO5zhAIOjdcSNgL0CvI\u002f033JdAQI+h9Bj0LDRAam5jNR1APECJGRDx9Ts1QCkVhY6\u002fZjlABlTrGCjvOUBeCpRudLIyQPiHTfsiMkFAt9cfGK6APkC1cr4GHuVAQOWHaA3CckBAPnTRdT\u002f1OkA4fqh\u002f\u002f7dAQIoVbeQUxTBAfFVNqG7rMkDYTM6fIM8vQG2AnPiwgTVA7UjeGAfGNkAoZ1maTm00QFCF99Mikz9AbsNpuJMiNkB9gAR7Yp40QLSjMJya2jlAc509M4jRMUBWxWmgPws\u002fQN4BCgWzfTBADH0HOW5eQUBjufyp5HE+QBrVO55s+TJArAUS5os4LkBWQn+aKU8\u002fQERCxw4cIz1AXLZ5RoSUPUB70AN452w+QCLVUM4bezBAdbAgM1grNkD+ksnkP1ExQCkDEHaLIUBAAKYfUkl3O0D+D72oMp41QNxSbTNrRTBA8w6svzo4NUC4MKpI8IA1QDpu+miVlz1Aa9IvVEvAO0AQmTO+Q19AQL0S9Yu9cThAT+XtkVJkMUAKTh810EM9QCrozS04Nz5AxAeXP705OkA84iMaWms+QKTgmcM74DhAAtPGX2R0OUBa+EaQAo03QMhZMrdKBC9ArBmBc2coMUA="},"colorbar":{"title":{"text":"気温（℃）"}},"colorscale":[[0.0,"rgb(5,48,97)"],[0.1,"rgb(33,102,172)"],[0.2,"rgb(67,147,195)"],[0.3,"rgb(146,197,222)"],[0.4,"rgb(209,229,240)"],[0.5,"rgb(247,247,247)"],[0.6,"rgb(253,219,199)"],[0.7,"rgb(244,165,130)"],[0.8,"rgb(214,96,77)"],[0.9,"rgb(178,24,43)"],[1.0,"rgb(103,0,31)"]],"opacity":0.8,"size":8},"mode":"markers","x":{"dtype":"f8","bdata":"Z7YxHXoMb0BulqbL68J1QLaQ04UbAXRA5LGDelNHakBMGjbbVg1oQKIlzhF472pALf3AgnAXbkAPiyYbEih0QKKEYtMhHnBAtoWELrU4ckAeOvSZdFdqQGQUkrsckndAsap8GcW0c0DePRXf8x9tQMXly2XwR2pAo9kYiqetbkA9B6q7hVhpQN1jfU2EXXBASnYLuIwWbkCUpb4+kTZlQKQh0DxyA3NANqM3VekKakCyP6BeRZRsQICscLtxPG1AUWCcYCyTaUB6Hy6eWWNzQCU8+NQ8h2hA9G0CfS8YbkBCabz2gKBxQP+lr713bmhA0s\u002fTcE3vdkDL\u002f8dh0GJqQFG+WKT+KWhAIQoz0MlMdkDBxhtJAuZxQBpOABPnqXRAoWlCb58qbUBAfmCVBgFyQGCBXEZvsnJAExp\u002fcHrhcEBTpV0XnSBoQMHoHm45yWtA4QM2VebSa0CO2kD7D993QIz+Yni2rG9A6s35NhCicECeRo+IQwdyQCyTv+MQPmtAFlMiug\u002ftckAMAgsFbWlyQLYSbEG6RHRAVMvAlv7lckBqMZ9pLJ52QKXCQh05jXRAGiik7rVxbEAg4yq74FF2QIb9N2+aJmJAQrnmFn2EbEB4BAN1l8hhQGsNIdwDkXJAhYO+bvgMa0BmvNIiZWxqQCQKq22cBHdA1bf\u002fB7cDaECnAAssIWltQAGEcuYyrXRAlnnWJFa8YEDhbpItMh11QKL1KivGaWhAQDtFo2fqeEBE\u002fRjpiC9xQP7etYyYnWNAfgC5P23\u002fZ0BS6Zb4i491QIfU4EhCFnRAOvAnv4yadECVQelq2ZByQNxyHaYrQ2hAbb3ZPFCtb0BqmMgxMZNkQE61h9IGFHpAsX17nM6Zc0Bd2XP+4JBnQIVr0nwpH2pAU+MGv7EmaEAuBG8eUqhwQClWU649pHZA1pJPffKKcEA+oEY5pB94QM0uZ35Ej3FAV\u002fnB4qNZbECdBCWxVEh4QBkLELl2hXNA\u002fiVOS2SDb0DmBQlFzglyQAoDrP0NhG1AWETHY2b3cEBVXRnxd9JwQBKaBr3YRGdASWuVuEwVbEA="},"y":{"dtype":"f8","bdata":"+2Svl\u002fWKJkA7uRS\u002fCeozQIxSBebMlCxACixT1krtMkDRopCxf58kQKhZvdrsYR1AbjRGnpbBF0CEK8TSbyAxQFsLMAriICpA6TDX6jsCMEBLOYfp\u002fE0hQB3pGkquDTFA8mxiU\u002f1CLECzTD0E8l8aQM\u002fNyWe22SBAMADDw\u002fsXJkBJunzI8\u002fAlQIbQvM0dgyRAGQzCUOVUKEA563F\u002fqF0mQICrBOedsydAhU7YgZ9nIkBeeWfmYhMlQMkLT\u002f1ewSFA1nUI3HONKUCll0cRLHkwQHIYCs5fUydA4w6NP\u002fl\u002fLUDka2rdbVYlQOtHLo78WhhAJjDnlwY2LUB9kaFIM3ckQNS\u002fqhV5XCJAbMT+2L6xOEDNTMZeUEwyQEBoSSXo2jFAQFakMoXoKEDHzvgZG48jQMCYvfhvbCtAogto58PWKkBeF53s7LIcQEAd6bPN9CdAbiI5KR1+G0CDPjugx8EwQPi06fMpby1AVt6G1wjIJEC769jusPonQHcVc8RT8yJAAU6F\u002feULKEBQxxdMig0nQDgi1UoMUzFALUdlxBExKkDc+iR6w+0uQAnA3Em2zjFA6THcOloJKED44K4o0yYxQBkb1Ua\u002f8yBAkTcxiTFQIEC2kTdk9nooQJ0sEQrTCihAnR7hPJBYHUAg75l7PCwlQNoOG3p37SxAtqQlAXiLKUD8npDs13IhQLiZ8SMdZSlAWhXelaPWI0C0ff8T5EAxQBaHZQkxYRdA66sOeiqzMEC9bLGZjIssQAkinkdqXCBA4GCLLxksJkCMvYeQ7nYwQAGU9+T2FyhA34qGIzSgMEDQQND9\u002fnQzQDAgEmFanCRANIC3eoIXIEDKl36sycIeQKdmEQo0qjJAfc4yBKKiKECv7mFCq2QnQBq2xN6kXiNA+q63fA2DIUDl6qMR\u002fEMlQBqs3Z+GoCBAF\u002f5HQVKnJ0BzN65C5rsvQPzrGKwCdCNAkuwdZunrJ0DQUOM5WYsnQPJPMSiddCxAldg1G56\u002fKkBtN6SfmxcyQKBbxh3pISNAxGrUxXgbLkB2o2AZfZcnQB1qCoIpKhdASWq2GpkBI0A="},"type":"scatter","xaxis":"x2","yaxis":"y2"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,0.45],"title":{"text":"アイスクリームの売上（個）"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"水難事故（件）"}},"xaxis2":{"anchor":"y2","domain":[0.55,1.0],"title":{"text":"アイスクリームの売上（個）"}},"yaxis2":{"anchor":"x2","domain":[0.0,1.0],"matches":"y","showticklabels":false},"annotations":[{"font":{"size":16},"showarrow":false,"text":"一見すると「アイスが売れるほど事故が多い」","x":0.225,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"size":16},"showarrow":false,"text":"気温で色分けすると：黒幕は気温（赤いほど高温）","x":0.775,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"}],"width":900,"height":450,"showlegend":false},                        {"responsive": true}                    )                };            </script>        </div></div></div>
+</div>
+<p>左の散布図だけを見せられたら，「アイスクリームの売上と水難事故には関係がある」と思ってしまいそうです．しかし右の図のように点を気温で色分けすると，右上（売上も事故も多い）には暑い日が，左下には涼しい日が集まっていることが分かります．相関をつくり出していた黒幕は気温だったのです．</p>
+<p>冒頭の「朝食と成績」の例も，まさにこの構図だった可能性があります．家庭の生活習慣や教育環境といった交絡因子が，「朝食を食べる習慣」と「成績」の両方に影響していたのかもしれません．そうだとすれば，朝食だけを変えても期待した効果は得られないことになります．</p>
+</section>
+<section id="id19">
+<h3>因果の向きの取り違え<a class="headerlink" href="#id19" title="Link to this heading">#</a></h3>
+<p>相関から因果を語るときのもう1つの落とし穴が，<strong>原因と結果の向き</strong>です．たとえば「警察官が多い地域ほど犯罪件数が多い」という相関が観察されたとしましょう．これを「警察官が多いから犯罪が増える」と読むのは，おそらく逆です．「犯罪が多い地域だから警察官が多く配置されている」と考える方が自然でしょう．</p>
+<p>身近な例では，「SNSの利用時間が長い学生ほど気分が沈みがちだ」という相関が見つかったとしても，「SNSが気分を沈ませる」のか「気分が沈んでいるときほどSNSを長く見てしまう」のかは，相関だけからは区別できません．両方向の影響が同時に存在することもあります．データの上では，相関係数はどちらの向きでも同じ値になるため，<strong>相関は因果の向きについて何も教えてくれない</strong>のです．</p>
+</section>
+<section id="id20">
+<h3>因果を確かめるには——介入と比較の発想<a class="headerlink" href="#id20" title="Link to this heading">#</a></h3>
+<p>では，因果関係はどうすれば確かめられるのでしょうか．完全な答えは統計学の専門科目（因果推論と呼ばれる分野）に譲りますが，最も基本的な発想だけ紹介します．それは，<strong>実際に原因を変えてみて（介入），変えなかった場合と比較する</strong>というものです．</p>
+<p>朝食の例で考えましょう．朝食を食べている学生と食べていない学生を「観察して比べる」だけでは，交絡（家庭環境など）の影響を取り除けません．そこで，たとえば次のような実験を考えます．</p>
+<ol class="arabic simple">
+<li><p>参加者を集め，<strong>くじ引き（ランダム）で</strong>2つのグループに分ける</p></li>
+<li><p>一方のグループには朝食を提供し（介入するグループ），もう一方には今までどおり過ごしてもらう（比較するグループ）</p></li>
+<li><p>一定期間後に，2つのグループの成績を比較する</p></li>
+</ol>
+<p>ポイントは「くじ引きで分ける」ところです．ランダムに分ければ，家庭環境も生活習慣も学力も，2つのグループの間でおおよそ均等にばらけます．つまり，交絡因子ごと2つのグループを「同じ条件」にそろえたうえで，朝食の有無<strong>だけ</strong>を変えられるのです．この状態で成績に差が出れば，それは朝食の効果だと考えてよい，という理屈です．このような方法は<strong>ランダム化比較試験</strong>（RCT）と呼ばれ，新薬の効果の確認などで実際に使われています．医療のニュースで「治験」という言葉を聞いたことがあるかもしれませんが，あれはまさにこの発想の実践です．</p>
+<p>もちろん，実社会では倫理的・費用的に実験できないことも多くあります（「喫煙が健康に与える影響」を調べるために，くじ引きで人に喫煙させるわけにはいきません）．実験ができない状況で観察データから因果に迫るための方法論も発展していますが，それはこの科目の範囲を超えるので，「そういう分野がある」ということだけ知っておいてください．</p>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p><strong>発展：因果推論という研究分野——「因果のはしご」</strong></p>
+<p>「相関から因果は言えない．では，どんな条件がそろえば因果を語れるのか？」——この問いに正面から取り組む研究分野が<strong>因果推論</strong>（causal inference）です．この分野を切り拓いた計算機科学者のJudea Pearl（2011年チューリング賞受賞）は，データとの関わり方を3段の「因果のはしご」として整理しています <span id="id21">[<a class="reference internal" href="../references.html#id22" title="Judea Pearl. The seven tools of causal inference, with reflections on machine learning. Communications of the ACM, 62(3):54–60, 2019. doi:10.1145/3241036.">Pearl, 2019</a>]</span>．</p>
+<ol class="arabic simple">
+<li><p><strong>関連</strong>（見る）：「AとBは一緒に動くか？」——相関の世界．観察だけで分かる</p></li>
+<li><p><strong>介入</strong>（する）：「Aを変えたらBはどうなるか？」——実験・介入の世界</p></li>
+<li><p><strong>反事実</strong>（想像する）：「もしあのときAが違っていたら，Bはどうなっていたか？」——起こらなかった世界との比較</p></li>
+</ol>
+<p>Pearlは，データだけをいくら眺めても1段目から上には登れず，因果の知識（何が何に影響しうるかというモデル）を組み合わせて初めて2段目・3段目の問いに答えられる，と論じています．機械学習の限界を考えるうえでも重要な視点です．興味のある人は，章末の「さらに学ぶために」から原典をたどってみてください．</p>
+</div>
+</section>
+</section>
+<section id="id22">
+<h2>分析のその先へ：推測統計と機械学習の入口<a class="headerlink" href="#id22" title="Link to this heading">#</a></h2>
+<p>ここまで学んできた記述統計と相関は，「<strong>手元にあるデータ</strong>を要約し，関係をとらえる」ための道具でした．この章の締めくくりとして，その先に広がる2つの世界を覗いておきましょう．どちらも「入口」の紹介にとどめます．</p>
+<section id="id23">
+<h3>推測統計の入口：一部から全体を推し量る<a class="headerlink" href="#id23" title="Link to this heading">#</a></h3>
+<p>第2回（データの収集）で，<strong>母集団</strong>（知りたい対象の全体）と<strong>標本</strong>（実際に集められたその一部）という言葉を学んだのを覚えているでしょうか．世論調査が数千人への調査から有権者全体の支持率を推し量るように，私たちが手にできるデータはほとんどの場合，全体のごく一部です．</p>
+<p><strong>手元の標本から，その背後にある母集団の性質を推し量る</strong>ための統計学の分野を<strong>推測統計</strong>（inferential statistics）と呼びます．鍋いっぱいのみそ汁の味を，よくかき混ぜてから一口味見して判断する——推測統計がやっていることは，本質的にはこれと同じです．よくかき混ぜてあれば（＝標本に偏りがなければ），一口で全体の味がかなり正確に分かります．逆に，かき混ぜずに上澄みだけを味見すれば判断を誤ります．第2回で学んだ「標本の偏り」が，ここで効いてくるわけです．</p>
+<p>推測統計には，「一部しか見ていないことによる誤差はどれくらいか」を見積もる道具（信頼区間）や，「観察された差は偶然の範囲か，それとも意味のある差か」を判定する道具（仮説検定）が用意されています．これらの中身は，統計学の入門科目で本格的に学ぶことになります．この章では，「<strong>記述統計＝手元のデータを記述する</strong>」「<strong>推測統計＝手元のデータから全体を推し量る</strong>」という役割の違いをつかんでおけば十分です．</p>
+</section>
+<section id="id24">
+<h3>機械学習の入口：予測というタスク<a class="headerlink" href="#id24" title="Link to this heading">#</a></h3>
+<p>もう1つの世界が<strong>機械学習</strong>（machine learning）です．機械学習とは，人間がルールを1つ1つ書き込む代わりに，<strong>大量のデータからコンピュータにパターンを学ばせて，未知のデータに対する予測や判別を行わせる</strong>技術の総称です．</p>
+<p>実は，みなさんは機械学習の恩恵を毎日受けています．</p>
+<ul class="simple">
+<li><p>メールアプリが迷惑メールを自動で振り分ける（過去の迷惑メールのパターンを学習）</p></li>
+<li><p>動画サイトやネットショッピングの「あなたへのおすすめ」（似た行動をした人のデータから好みを予測）</p></li>
+<li><p>スマートフォンの顔認証（顔画像の特徴を学習して本人かどうかを判別）</p></li>
+</ul>
+<p>第1回で紹介した医療の画像診断支援や交通の需要予測も，機械学習の応用です．</p>
+<p>機械学習の中心的なタスクは<strong>予測</strong>です．そして予測の材料になっているのは，突き詰めれば，この章で学んだ「変数と変数の間の相関（関係のパターン）」です．ここで面白いのは，<strong>予測が目的なら，因果がなくても相関さえあれば役に立つ場合がある</strong>ということです．たとえば「傘を持って歩く人が多い日は，その日の遅くに道路が渋滞しがちだ」というパターンがあれば，傘が渋滞の原因でなくても（本当の原因は雨でも），渋滞の予測には使えます．一方で，「では渋滞を減らすにはどうすればよいか」という<strong>介入</strong>の問いに答えるには，因果の理解が必要になります <span id="id25">[<a class="reference internal" href="../references.html#id22" title="Judea Pearl. The seven tools of causal inference, with reflections on machine learning. Communications of the ACM, 62(3):54–60, 2019. doi:10.1145/3241036.">Pearl, 2019</a>]</span>．予測には相関で足りることがあるが，対策（介入）には因果がいる——この区別は，AIの結果を社会で使うときの重要な視点です．機械学習と生成AIの関係については，第8回であらためて扱います．</p>
+</section>
+</section>
+<section id="a-b">
+<h2>活用事例：A/Bテスト——「比較」の発想でサービスを磨く<a class="headerlink" href="#a-b" title="Link to this heading">#</a></h2>
+<div class="admonition-a-b admonition">
+<p class="admonition-title">事例：A/Bテスト——ウェブサービスの裏側で毎日行われている実験</p>
+<p>この章で学んだ「介入と比較」の発想は，実は研究の世界だけのものではなく，みなさんが毎日使っているウェブサービスの裏側で大規模に実践されています．その代表が<strong>A/Bテスト</strong>です．</p>
+<p>A/Bテストとは，ウェブサイトやアプリの利用者を<strong>ランダムに</strong>2つのグループに分け，一方には現行版（A案），もう一方には変更版（B案）を見せて，クリック率や購入率などの反応を比較する実験です．たとえば「購入ボタンの色を変えたら売上は増えるか」「おすすめ商品の並べ方を変えたら閲覧時間は延びるか」といった問いに，データで答えを出します．</p>
+<p>ポイントは，利用者をランダムに分けているおかげで，年齢・性別・利用時間帯などの交絡因子が2つのグループでおおよそ均等になり，<strong>A案とB案の差だけ</strong>を取り出せることです．つまりA/Bテストは，本文で紹介したランダム化比較試験の考え方を，ウェブの仕組みに載せて高速化・大規模化したものと言えます．大手の検索サイト・SNS・ECサイトでは，こうした実験が常時数多く走っており，ボタンの文言ひとつ，表示順ひとつが実験の結果にもとづいて決められています．</p>
+<p>みなさんが目にしているアプリの画面は，「なんとなく」ではなく「比較実験の結果」でつくられている——データ分析が社会で価値を生む，最も身近な現場の1つです．</p>
+</div>
+</section>
+<section id="id26">
+<h2>まとめ<a class="headerlink" href="#id26" title="Link to this heading">#</a></h2>
+<p>今回の内容を振り返りましょう．</p>
+<ul class="simple">
+<li><p><strong>記述統計</strong>は，データを少数の統計量に要約する方法です．データの真ん中を表す<strong>代表値</strong>には<strong>平均・中央値・最頻値</strong>があり，平均は外れ値に弱く，中央値は外れ値に対して頑健です．「平均◯◯円」のようなニュースの数字は，分布の偏りと外れ値を疑って読む必要があります．</p></li>
+<li><p>データの散らばりは<strong>ばらつき</strong>の統計量（<strong>分散・標準偏差</strong>）でとらえます．平均が同じでも，ばらつきが違えばデータの姿はまったく異なります．</p></li>
+<li><p><strong>アンスコムの四重奏</strong>が示すように，統計量がほぼ同じでも分布は大きく異なることがあります．統計量の計算とグラフによる観察は，必ずセットで行いましょう．</p></li>
+<li><p><strong>相関</strong>は2つの量が一緒に動く傾向のことで，<strong>相関係数</strong>（−1〜+1）の符号が向きを，絶対値が強さを表します．相関係数は直線的な関係しか測れず，外れ値にも弱いことに注意が必要です．</p></li>
+<li><p><strong>相関があっても因果があるとは限りません</strong>．偶然の一致（<strong>疑似相関</strong>），隠れた第3の変数（<strong>交絡</strong>），因果の向きの取り違えという3つの落とし穴があります．因果に迫る基本の発想は，ランダムに分けたグループへの<strong>介入と比較</strong>です．</p></li>
+<li><p><strong>推測統計</strong>は標本から母集団を推し量る分野，<strong>機械学習</strong>はデータからパターンを学んで予測を行う技術です．予測には相関で足りる場合もありますが，対策（介入）を考えるには因果の理解が必要です．</p></li>
+</ul>
+<p>この章で扱った内容は，いずれも入口にすぎません．代表値・ばらつき・相関係数の計算の理屈や，信頼区間・仮説検定の使い方は統計学の入門科目で，因果推論や実験計画の方法論は社会調査法・実験計画法・疫学・計量経済学など各学部の専門科目で，機械学習の仕組みは情報系の科目で，それぞれ本格的に学ぶことができます．この章が，それらの科目に出会ったときの「地図」になれば幸いです．</p>
+<p>そして，アンスコムの四重奏が教えてくれたように，分析とグラフは切っても切れない関係にあります．次回（第6回）は，データを「見せる」技術と，グラフにだまされないための技術——データの可視化とコミュニケーション——を学びます．</p>
+</section>
+<section id="id27">
+<h2>確認問題<a class="headerlink" href="#id27" title="Link to this heading">#</a></h2>
+<p><strong>問1．</strong> あるニュースが「わが国の世帯の平均貯蓄額は1500万円」と報じたところ，SNSでは「そんなに持っている家庭ばかりのはずがない」という声が多く上がりました．平均貯蓄額と多くの世帯の実感がずれる理由を，この章で学んだ言葉を使って説明してください．また，実感に近い数字を知るには，平均のほかにどの統計量を見るとよいでしょうか．</p>
+<div class="dropdown admonition">
+<p class="admonition-title">解答と解説</p>
+<p>貯蓄額のデータには，ごく少数の非常に大きな値（高額資産の世帯）が<strong>外れ値</strong>のように含まれています．<strong>平均は外れ値（一部の大きな値）に強く引っ張られる</strong>性質があるため，分布が一部の大きな値の方向に偏っているデータでは，平均は「ふつうの世帯」の水準より高い値になります．</p>
+<p>実感に近い数字を知るには，<strong>中央値</strong>をあわせて見るのがよいでしょう．中央値は「全世帯を貯蓄額順に並べたときの真ん中の世帯」の値であり，外れ値の影響を受けにくい（頑健な）代表値だからです．実際，貯蓄額のような偏った分布のデータでは，中央値は平均よりかなり小さくなるのがふつうです．</p>
+</div>
+<p><strong>問2．</strong> ある大学の調査で，「図書館の利用回数が多い学生ほど成績（GPA）が高い」という強い正の相関が見つかりました．これを受けて「全学生の図書館利用を義務づければ，大学全体の成績が上がるはずだ」という提案がなされました．この提案の問題点を，「相関」「因果」「交絡」という言葉を使って指摘してください．</p>
+<div class="dropdown admonition">
+<p class="admonition-title">解答と解説</p>
+<p>この提案は，「図書館利用と成績に<strong>相関</strong>がある」という観察結果から，「図書館利用が成績を上げる」という<strong>因果</strong>関係を，確かめないまま前提にしてしまっています．相関があっても因果があるとは限りません．</p>
+<p>たとえば，「学習意欲」や「学習習慣」という<strong>交絡因子</strong>を考えてみましょう．意欲の高い学生は，図書館にもよく行き，成績も高い傾向があるでしょう．この場合，図書館利用と成績の相関は交絡因子がつくり出した見かけの関係であり，意欲の低い学生を図書館に「義務」で通わせても，成績が上がるとは限りません．</p>
+<p>因果を確かめたいなら，たとえば希望する学生を<strong>ランダムに</strong>2つのグループに分け，一方にだけ図書館での学習プログラムを提供して（<strong>介入</strong>），その後の成績を<strong>比較</strong>する，といった実験的な方法が考えられます．</p>
+</div>
+<p><strong>問3．</strong> ある分析者が2つの変数の相関係数を計算したところ0.82という高い値が得られたため，散布図を確認しないまま「この2つの変数には強い右上がりの直線的な関係がある」と報告しました．この報告の問題点を，アンスコムの四重奏を思い出しながら指摘してください．</p>
+<div class="dropdown admonition">
+<p class="admonition-title">解答と解説</p>
+<p>問題点は，<strong>統計量（相関係数）だけを見て，散布図で分布の形を確認していない</strong>ことです．</p>
+<p>アンスコムの四重奏では，相関係数がほぼ同じ約0.82の4組のデータが，(1) 素直な直線関係，(2) 曲線的な関係，(3) 外れ値が1つあるほぼ完全な直線，(4) たった1点が相関の見かけをつくるデータ，というまったく異なる姿をしていました．つまり，相関係数0.82という値だけでは，「きれいな右上がりの直線関係」なのか，「1つの外れ値が数字を吊り上げているだけ」なのか，区別がつきません．</p>
+<p>正しい手順は，相関係数の計算と<strong>散布図の確認をセットで行う</strong>ことです．散布図を見て初めて，直線的な関係かどうか，外れ値の影響がないかを判断できます．</p>
+</div>
+</section>
+<section id="id28">
+<h2>さらに学ぶために<a class="headerlink" href="#id28" title="Link to this heading">#</a></h2>
+<p>この章の内容の元になった資料を紹介します．事例 → 解説 → 原典の順にたどるのがおすすめです．</p>
+<ul class="simple">
+<li><p>【原典】F. J. Anscombe, &quot;Graphs in Statistical Analysis,&quot; <em>The American Statistician</em>, 27(1), 17–21, 1973. <a class="reference external" href="https://doi.org/10.1080/00031305.1973.10478966">https://doi.org/10.1080/00031305.1973.10478966</a></p>
+<ul>
+<li><p>アンスコムの四重奏の原典です <span id="id29">[<a class="reference internal" href="../references.html#id21" title="F. J. Anscombe. Graphs in statistical analysis. The American Statistician, 27(1):17–21, 1973. doi:10.1080/00031305.1973.10478966.">Anscombe, 1973</a>]</span>．わずか5ページの論文で，「計算とグラフの両方を使え」というメッセージが50年にわたり読み継がれています．この章で使った4組のデータはこの論文のものです．</p></li>
+</ul>
+</li>
+<li><p>【解説・サーベイ】Judea Pearl, &quot;The Seven Tools of Causal Inference, with Reflections on Machine Learning,&quot; <em>Communications of the ACM</em>, 62(3), 54–60, 2019. <a class="reference external" href="https://doi.org/10.1145/3241036">https://doi.org/10.1145/3241036</a></p>
+<ul>
+<li><p>因果推論の第一人者による解説記事です <span id="id30">[<a class="reference internal" href="../references.html#id22" title="Judea Pearl. The seven tools of causal inference, with reflections on machine learning. Communications of the ACM, 62(3):54–60, 2019. doi:10.1145/3241036.">Pearl, 2019</a>]</span>．「因果のはしご」（関連・介入・反事実）の3段階と，データだけからは因果に登れない理由，機械学習との関係が平易に論じられています．本文は購読が必要なため，DOIリンクを掲載します．</p></li>
+</ul>
+</li>
+<li><p>【事例】Tyler Vigen, <em>Spurious Correlations</em>（ウェブサイト．書籍版 Hachette, 2015）. <a class="reference external" href="https://www.tylervigen.com/spurious-correlations">https://www.tylervigen.com/spurious-correlations</a></p>
+<ul>
+<li><p>無関係な2つの量の「見かけの相関」を大量に集めたウェブサイトです <span id="id31">[<a class="reference internal" href="../references.html#id23" title="Tyler Vigen. Spurious correlations. tylervigen.com（書籍版 Hachette, 2015）, 2015. ウェブサイト（査読論文ではない）. URL: https://www.tylervigen.com/spurious-correlations.">Vigen, 2015</a>]</span>．査読された学術資料ではありませんが，「相関だけでは何も言えない」ことを一目で実感できる教材として広く知られています．眺めるだけでも楽しいので，ぜひ一度訪れてみてください．</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="ch04-preprocessing.html"
+       title="前のページ">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">前へ</p>
+        <p class="prev-next-title">第4回：データの前処理</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="ch06-data-visualization.html"
+       title="次ページ">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">次へ</p>
+        <p class="prev-next-title">第6回：データの可視化とコミュニケーション</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目次
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">この回で学ぶこと</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">導入：「朝ごはんを食べる学生は成績が良い」は本当か</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">記述統計：データを数字で要約する</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">なぜ要約が必要なのか</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">代表値：平均・中央値・最頻値</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">ばらつき：分散と標準偏差</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">統計量だけでは分布は分からない——アンスコムの四重奏</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">相関：2つの量の関係をとらえる</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">相関とは何か</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">相関係数の読み方</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">相関と因果の区別——データ分析最大の落とし穴</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">因果関係とは何か</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">偶然の一致——疑似相関のギャラリー</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">交絡——隠れた第3の変数</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">因果の向きの取り違え</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">因果を確かめるには——介入と比較の発想</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">分析のその先へ：推測統計と機械学習の入口</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">推測統計の入口：一部から全体を推し量る</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">機械学習の入口：予測というタスク</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-b">活用事例：A/Bテスト——「比較」の発想でサービスを磨く</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">まとめ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">確認問題</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">さらに学ぶために</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+著者 名古屋市立大学 大学院データサイエンス研究科 山本祐輔
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

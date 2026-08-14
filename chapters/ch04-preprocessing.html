@@ -1,0 +1,1334 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ja" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>第4回：データの前処理 &#8212; データサイエンス・リテラシー</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=1cf7f4d9"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'クリックして表示';</script>
+    <script>let toggleHintHide = 'クリックして非表示';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script src="../_static/translations.js?v=91613774"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/ch04-preprocessing';</script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="第5回：データの分析" href="ch05-data-analysis.html" />
+    <link rel="prev" title="第3回：データの保存と検索" href="ch03-database.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ja"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">本文へスキップ</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>トップに戻る</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="バージョン警告"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../introduction.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">データサイエンス・リテラシー</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">検索</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../introduction.html">
+                    データサイエンス・リテラシー
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ch01-what-is-ds.html">第1回：データサイエンスとは何か——ビッグデータとThick・Thinデータ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch02-data-collection.html">第2回：データの収集</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch03-database.html">第3回：データの保存と検索</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">第4回：データの前処理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch05-data-analysis.html">第5回：データの分析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch06-data-visualization.html">第6回：データの可視化とコミュニケーション</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch07-data-law.html">第7回：データと法——情報法の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch08-genai.html">第8回：生成AIの基礎と知的活動への利用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">参考文献</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="このページをダウンロード">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/ch04-preprocessing.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="ソースファイルをダウンロード"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="PDFに印刷"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="全画面モード"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="ライト"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="ダーク"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>第4回：データの前処理</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目次 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">この回で学ぶこと</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">導入：集計が合わない新歓アンケート</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">バッドデータ——現実のデータは汚れている</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">欠損値</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">外れ値</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">表記ゆれ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">重複データ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">データを機械が読める形に整える</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">マシンリーダブル（機械可読）とは</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">表づくりの基本ルール</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">データクレンジング</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">前処理は中立な作業ではない——前処理の恣意性</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tidy-data">tidy data（整然データ）——分析しやすい表のかたち</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tidy-data3">tidy dataの3つの条件</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tidy">「横持ち」の表をtidyに変換する</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">変数の型と尺度水準</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">質的変数と量的変数</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">4つの尺度水準</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">尺度水準が分析と可視化を決める</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">活用事例：政府統計の「機械判読可能なデータ」ルール</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">まとめ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">確認問題</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">さらに学ぶために</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>第4回：データの前処理<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<section id="id2">
+<h2>この回で学ぶこと<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>現実のデータには<strong>欠損値・外れ値・表記ゆれ・重複</strong>などの「汚れ」が含まれていることを，具体例を挙げて説明できる．</p></li>
+<li><p>機械（プログラム）がそのまま読み取り処理できる形にデータを整える<strong>マシンリーダブル（機械可読）</strong> の考え方と，表づくりの基本ルールを説明できる．</p></li>
+<li><p><strong>tidy data（整然データ）</strong> の3つの条件を説明でき，「分析しにくい表」との違いを見分けられる．</p></li>
+<li><p>変数の4つの<strong>尺度水準</strong>（名義・順序・間隔・比率）を区別でき，それが統計量やグラフの選択につながることを説明できる．</p></li>
+<li><p>前処理の判断が分析結果を左右すること，恣意的な前処理の危うさを説明できる．</p></li>
+</ul>
+</section>
+<section id="id3">
+<h2>導入：集計が合わない新歓アンケート<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>まずは，みなさんの学生生活で実際に起こりそうな場面から始めましょう．</p>
+<div class="admonition- admonition">
+<p class="admonition-title">事例：新歓アンケートの集計に2時間かかった話</p>
+<p>あなたは音楽サークルの新歓担当になりました．新入生歓迎イベントの出欠を，紙のアンケートとLINEのメッセージで集め，Excelの表に手入力していきます．回答は40人分．「学部ごとの参加人数を数えて，部長に報告するだけ．30分もあれば終わるだろう」と思っていました．</p>
+<p>ところが，学部別に人数を数えてみると，合計が回答者数と合いません．表をよく見ると，同じ学部のはずなのに「経済学部」「経済」「けいざい」と書き方がバラバラで，別々に数えられています．同じ人の回答が2回入力されている行もあれば，学部欄が空欄のままの行もあります．学年も「1年」「１年（全角）」「一年」が混在しています．結局，表を1行ずつ確認して直す作業に2時間かかり，「数える」作業そのものは最後の5分だけでした．</p>
+</div>
+<p>この事例の「表を直す2時間」にあたる作業，つまり，<strong>集めたデータを分析できる状態に整える作業</strong>のことを，データサイエンスでは<strong>前処理</strong>（データの前処理，data preprocessing）と呼びます．</p>
+<p>データ分析というと，統計量を計算したり，きれいなグラフを描いたり，AIに予測させたりする華やかな場面を想像するかもしれません．しかし現実には，分析者の時間の多くはこの地味な前処理に費やされます．New York Timesの報道記事 <span id="id4">[<a class="reference internal" href="../references.html#id20" title="Steve Lohr. For big-data scientists, `janitor work' is key hurdle to insights. The New York Times, 2014. 報道記事（2014年8月17日）. URL: https://www.nytimes.com/2014/08/18/technology/for-big-data-scientists-hurdle-to-insights-is-janitor-work.html.">Lohr, 2014</a>]</span> は，データサイエンティストが「データの収集と準備という地味な労働（janitor work，掃除人の仕事）」に労働時間の50〜80%を費やしていると伝えました．また，産業界の調査（CrowdFlower社による2016年のData Science Report）でも，データサイエンティストの時間の約60%がデータの整理・清掃に費やされると報告されています．「分析の8割は前処理」という言い回しを聞くことがありますが，これらの出典（報道記事と産業調査であり，厳密な学術的推計ではありません）を踏まえると，<strong>「分析の作業時間のおおむね5〜8割は前処理」</strong> と幅を持たせて理解しておくのが誠実です．いずれにせよ，前処理が分析の成否を握る最重要工程のひとつであること——<strong>前処理の重要性</strong>——は，実務でも研究でも広く共有されている認識です．</p>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p><strong>第3回との役割分担</strong>：データの品質を保つ話題は，<a class="reference internal" href="ch03-database.html"><span class="std std-doc">第3回「データの保存と検索」</span></a>でも「データの品質管理」として登場しました．第3回で扱ったのは，<strong>組織として</strong>データベースの設計や運用ルールを工夫し，データを日頃から健全に保つ話です．それに対して本章で扱うのは，<strong>分析者が</strong>目の前に届いた（しばしば汚れた）データを，自分の分析のために整える話です．「組織の仕組みで汚れを防ぐ」のが第3回，「それでも汚れているデータを自分の手で整える」のが本章，と整理してください．</p>
+</div>
+</section>
+<section id="id5">
+<h2>バッドデータ——現実のデータは汚れている<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>そのままでは分析に使えない，誤りや不統一を含んだデータのことを，俗に<strong>バッドデータ</strong>（bad data）と呼びます．教科書に載っている練習用データはたいてい最初から整っていますが，現実の世界でみなさんが手にするデータ——アンケートの回答，手入力の名簿，ウェブからダウンロードした表——は，ほぼ例外なくどこかが汚れています．まずは，バッドデータの代表的な4つの型を，先ほどの新歓アンケートを小さくした例で具体的に見ていきましょう．</p>
+<p>以下では，表計算ソフトの代わりにPythonのライブラリ<strong>pandas</strong>を使って表を扱います．本科目ではコードを書けるようになる必要はありません．「機械にデータを読ませるとこう見えるのか」を実感するための材料として，コードと実行結果を眺めてください．</p>
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 準備：表データを扱うライブラリを読み込む</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># 日本語を含む表の列幅を見やすく調整する設定</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;display.unicode.east_asian_width&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<p>新歓アンケートの回答7件を，入力された「そのまま」の状態で表にしたものが次のデータです．一見それらしい表ですが，この小さな表の中に，これから説明する汚れがすべて含まれています．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 新歓アンケートの回答（手入力されたままの状態）</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;名前&quot;</span><span class="p">:</span>     <span class="p">[</span><span class="s2">&quot;佐藤&quot;</span><span class="p">,</span> <span class="s2">&quot;鈴木&quot;</span><span class="p">,</span> <span class="s2">&quot;高橋&quot;</span><span class="p">,</span> <span class="s2">&quot;田中&quot;</span><span class="p">,</span> <span class="s2">&quot;伊藤&quot;</span><span class="p">,</span> <span class="s2">&quot;高橋&quot;</span><span class="p">,</span> <span class="s2">&quot;渡辺&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;学部&quot;</span><span class="p">:</span>     <span class="p">[</span><span class="s2">&quot;経済学部&quot;</span><span class="p">,</span> <span class="s2">&quot;経済&quot;</span><span class="p">,</span> <span class="s2">&quot;人文社会学部&quot;</span><span class="p">,</span> <span class="s2">&quot;けいざい&quot;</span><span class="p">,</span> <span class="s2">&quot;芸術工学部&quot;</span><span class="p">,</span> <span class="s2">&quot;人文社会学部&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
+    <span class="s2">&quot;学年&quot;</span><span class="p">:</span>     <span class="p">[</span><span class="s2">&quot;1年&quot;</span><span class="p">,</span> <span class="s2">&quot;１年&quot;</span><span class="p">,</span> <span class="s2">&quot;一年&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span> <span class="s2">&quot;1年&quot;</span><span class="p">,</span> <span class="s2">&quot;一年&quot;</span><span class="p">,</span> <span class="s2">&quot;1年&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;参加希望&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;参加&quot;</span><span class="p">,</span> <span class="s2">&quot;参加します&quot;</span><span class="p">,</span> <span class="s2">&quot;不参加&quot;</span><span class="p">,</span> <span class="s2">&quot;参加&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;不参加&quot;</span><span class="p">,</span> <span class="s2">&quot;参加&quot;</span><span class="p">],</span>
+<span class="p">})</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>名前</th>
+      <th>学部</th>
+      <th>学年</th>
+      <th>参加希望</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>佐藤</td>
+      <td>経済学部</td>
+      <td>1年</td>
+      <td>参加</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>鈴木</td>
+      <td>経済</td>
+      <td>１年</td>
+      <td>参加します</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>高橋</td>
+      <td>人文社会学部</td>
+      <td>一年</td>
+      <td>不参加</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>田中</td>
+      <td>けいざい</td>
+      <td>2</td>
+      <td>参加</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>伊藤</td>
+      <td>芸術工学部</td>
+      <td>1年</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>高橋</td>
+      <td>人文社会学部</td>
+      <td>一年</td>
+      <td>不参加</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>渡辺</td>
+      <td>None</td>
+      <td>1年</td>
+      <td>参加</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="id6">
+<h3>欠損値<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p><strong>欠損値</strong>（missing value）とは，本来入っているはずの値が入っていない「穴」のことです．アンケートの記入漏れ，センサーの故障，入力忘れなど，欠損が生まれる理由はさまざまです．上の表では，渡辺さんの学部が入力されておらず，<code class="docutils literal notranslate"><span class="pre">None</span></code>（値がない印）になっています．pandasでは，欠損の数を次のように数えられます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 列ごとの欠損値の個数を数える</span>
+<span class="n">df</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>名前        0
+学部        1
+学年        0
+参加希望    0
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>学部に1件の欠損があると表示されました．ここで注意してほしいのは，伊藤さんの「参加希望」です．この欄は空文字（<code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code>，見た目には何も書かれていない状態）ですが，機械はこれを「空文字という値が入っている」と解釈するため，<strong>欠損としては数えられていません</strong>．人間の目には同じ「空欄」でも，機械にとって「値がない（<code class="docutils literal notranslate"><span class="pre">None</span></code>や<code class="docutils literal notranslate"><span class="pre">NaN</span></code>）」と「空文字が入っている」は別物です．こうした「見えない欠損」は集計ミスの定番の原因で，前処理の段階で欠損として明示しておく必要があります．</p>
+<p>欠損値への対処には，欠損を含む行を取り除く，平均値などで穴埋めする，欠損のまま扱える方法で分析する，といった選択肢があります．どれを選ぶかで結果が変わりうることは，本章の後半（前処理の恣意性）で改めて取り上げます．</p>
+</section>
+<section id="id7">
+<h3>外れ値<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p><strong>外れ値</strong>（outlier）とは，ほかの値から大きくかけ離れた値のことです．入力ミス（172cmを「17.2」と打つ，単位を間違える）で生じることもあれば，本当にそういう値が存在することもあります．外れ値の怖さは，少数でも集計結果を大きく歪めてしまう点にあります．たとえば，新入生5人に「昨日の睡眠時間（時間）」をきいた結果を集計してみます．4人目の「65」は，おそらく「6.5」の小数点の打ち忘れです．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 新入生5人にきいた「昨日の睡眠時間（時間）」．65はおそらく6.5の入力ミス</span>
+<span class="n">sleep</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mf">6.5</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;睡眠時間&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;平均値:&quot;</span><span class="p">,</span> <span class="n">sleep</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;中央値:&quot;</span><span class="p">,</span> <span class="n">sleep</span><span class="o">.</span><span class="n">median</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>平均値: 18.4
+中央値: 7.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>たった1件の外れ値のせいで，平均睡眠時間は18.4時間という非現実的な値になりました（一方，値を小さい順に並べた真ん中の値である中央値は7.0時間で，実態に近い値を保っています）．外れ値を見つける第一歩は，最大値・最小値を確認したり，<a class="reference internal" href="ch06-data-visualization.html"><span class="std std-doc">第6回「データの可視化」</span></a>で学ぶヒストグラムや散布図でデータの分布を眺めたりすることです．</p>
+<p>ただし，<strong>外れ値＝誤りとは限らない</strong>点に注意してください．たとえばアルバイト収入の調査で月30万円という回答があったとき，それは入力ミスかもしれませんが，本当にそれだけ働いて稼いでいる学生かもしれません．明らかな入力ミスと確認できれば修正・除外できますが，確認できない外れ値を「邪魔だから」と安易に消すのは，データの改ざんに近づく危険な行為です．</p>
+</section>
+<section id="id8">
+<h3>表記ゆれ<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p><strong>表記ゆれ</strong>とは，同じものを指しているのに文字としての書き方が異なることです．「経済学部／経済／けいざい」「1年／１年（全角）／一年」のほか，前後の余分なスペース，大文字と小文字（「NCU」と「ncu」），日付の書き方（「2026-04-06」「4月6日」「04/06/2026」）など，形はさまざまです．人間は文脈からすべて同じ意味だと分かりますが，機械は<strong>文字列が1文字でも違えば別の値</strong>として扱います．先ほどの表で学部ごとの人数を数えてみましょう．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 学部ごとの回答数を数える（表記ゆれがあるとどうなるか）</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;学部&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>学部
+人文社会学部    2
+経済学部        1
+経済            1
+けいざい        1
+芸術工学部      1
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>実際には経済学部の回答者は3人いるのに，「経済学部」「経済」「けいざい」がそれぞれ別の学部として数えられてしまいました．導入の事例で「集計が合わない」原因の正体はこれです．表記ゆれは，複数人で手入力したデータや，自由記述で集めたデータにほぼ必ず発生します．そもそも自由入力ではなく選択式で集める（データが生まれる段階で汚れを防ぐ）ことが最善ですが，すでに汚れてしまったデータは，後述するデータクレンジングで表記を統一する必要があります．</p>
+</section>
+<section id="id9">
+<h3>重複データ<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p><strong>重複データ</strong>（duplicated data）とは，同じ対象についての記録が複数回登録されてしまったものです．同じ人がフォームを2回送信した，紙とLINEの両方で回答した人を二重に入力した，複数のファイルを結合したときに同じ行が重なった，などの理由で生じます．重複をそのままにすると，人数が水増しされたり，特定の回答者の意見が二重に反映されたりして，集計が歪みます．pandasでは，まったく同じ内容の行を次のように見つけられます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 内容が完全に一致する行（重複の疑いがある行）をすべて表示する</span>
+<span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">(</span><span class="n">keep</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>名前</th>
+      <th>学部</th>
+      <th>学年</th>
+      <th>参加希望</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2</th>
+      <td>高橋</td>
+      <td>人文社会学部</td>
+      <td>一年</td>
+      <td>不参加</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>高橋</td>
+      <td>人文社会学部</td>
+      <td>一年</td>
+      <td>不参加</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>高橋さんの回答が2行あることが分かりました．なお，現実の重複はもっと厄介で，「高橋」と「高橋 」（末尾にスペース）のように表記ゆれを伴う重複は，このような単純な方法では見つけられません．重複の検出が，表記ゆれの統一とセットで行われることが多いのはこのためです．</p>
+</section>
+</section>
+<section id="id10">
+<h2>データを機械が読める形に整える<a class="headerlink" href="#id10" title="Link to this heading">#</a></h2>
+<p>バッドデータの正体が見えてきたところで，「では，どういう状態を目指して整えればよいのか」を考えます．キーワードは<strong>マシンリーダブル</strong>です．</p>
+<section id="id11">
+<h3>マシンリーダブル（機械可読）とは<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<p><strong>マシンリーダブル（機械可読，machine-readable）</strong> とは，人間が目で読んで解釈しなくても，機械（プログラム）がそのまま読み取って処理できる形式・状態のことです．ポイントは，<strong>人間にとって読みやすい表と，機械にとって読みやすい表は違う</strong>，ということです．</p>
+<p>たとえば，レポートや掲示物でよく見かける次のような表を考えてみましょう．Excelでは，同じ学部が続く部分を「セル結合」してひとつにまとめると，人間には見やすくなります．</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>学部</p></th>
+<th class="head"><p>学年</p></th>
+<th class="head"><p>参加人数</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>経済学部</p></td>
+<td><p>1年</p></td>
+<td><p>18</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>2年</p></td>
+<td><p>7</p></td>
+</tr>
+<tr class="row-even"><td><p>人文社会学部</p></td>
+<td><p>1年</p></td>
+<td><p>12</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>2年</p></td>
+<td><p>6</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>しかし，この表をプログラムで読み込むと，セル結合された部分は<strong>先頭の行にしか値が入っておらず，残りは空欄（欠損）</strong> として読み込まれます．機械はこの表を「2行目の学部は不明」と解釈してしまうのです．同じように，表の上に置かれた飾りのタイトル行，「同上」「〃」という書き方，数値のセルに書き込まれた「約」や「（見込み）」という注釈，色分けだけで表現された情報（赤いセル＝欠席，など）は，どれも人間には伝わりますが機械には伝わりません．見た目の美しさのための工夫が，機械可読性を壊してしまうわけです．</p>
+</section>
+<section id="id12">
+<h3>表づくりの基本ルール<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<p>それでは，機械が読める表はどう作ればよいのでしょうか．統計学者のBromanとWooは，スプレッドシート（Excelなど）でデータを整理するときの実務的な推奨事項をまとめています <span id="id13">[<a class="reference internal" href="../references.html#id18" title="Karl W. Broman and Kara H. Woo. Data organization in spreadsheets. The American Statistician, 72(1):2–10, 2018. doi:10.1080/00031305.2017.1375989.">Broman and Woo, 2018</a>]</span>．本章に関わる要点を，かみ砕いて紹介します．</p>
+<ul class="simple">
+<li><p><strong>一貫性を保つ</strong>：同じものは常に同じ書き方で記録する．「経済学部」と決めたら全行で「経済学部」と書く．欠損の印も（たとえば「NA」に）統一する．</p></li>
+<li><p><strong>日付はYYYY-MM-DD形式で書く</strong>：「2026-04-06」のような国際規格（ISO 8601）の形式を使う．「4/6」のような書き方は，国や設定によって4月6日とも6月4日とも解釈されるうえ，Excelが日付を勝手に別の形式に変換してしまう事故の原因にもなる．</p></li>
+<li><p><strong>空セルを残さない</strong>：値が「ない」のか「入力し忘れた」のか区別がつかなくなる．欠損なら欠損と分かる印を明示的に入れる．</p></li>
+<li><p><strong>1つのセルには1つの情報だけを入れる</strong>：「172cm」のように数値と単位を混ぜない（数値の172だけを入れ，単位は列名で示す）．「佐藤（会計係）」のように名前と役職を混ぜず，別の列に分ける．</p></li>
+<li><p><strong>セルを結合しない</strong>：前節で見たとおり，機械には空欄として読まれてしまう．</p></li>
+<li><p><strong>生データ（raw data）を保存し，手を加える前の状態を残す</strong>：整形は元ファイルのコピーに対して行い，「何をどう直したか」を後から確認できるようにする．</p></li>
+</ul>
+<p>これらのルールは，特別な専門技術ではなく「書き方の習慣」です．みなさんがこれからレポートやサークル運営でExcelの表を作るとき，このルールを守るだけで，その表は将来の自分や他人が分析に使える「資産」になります．</p>
+</section>
+<section id="id14">
+<h3>データクレンジング<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<p>すでに汚れてしまったデータの誤りや不統一を検出し，修正・統一・除去して品質を高める作業を<strong>データクレンジング</strong>（data cleansing，データクリーニングとも呼びます）と呼びます．前処理の中心的な作業です．先ほどの新歓アンケートの表を，実際にクレンジングしてみましょう．ビフォー（<code class="docutils literal notranslate"><span class="pre">df</span></code>）とアフター（<code class="docutils literal notranslate"><span class="pre">df_clean</span></code>）を見比べてください．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 元データのコピーに対してクレンジングを行う（生データdfはそのまま残す）</span>
+<span class="n">df_clean</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># (1) 完全に同じ内容の行（重複）を取り除く</span>
+<span class="n">df_clean</span> <span class="o">=</span> <span class="n">df_clean</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+
+<span class="c1"># (2) 学部名の表記ゆれを統一する</span>
+<span class="n">df_clean</span><span class="p">[</span><span class="s2">&quot;学部&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[</span><span class="s2">&quot;学部&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+    <span class="p">{</span><span class="s2">&quot;経済&quot;</span><span class="p">:</span> <span class="s2">&quot;経済学部&quot;</span><span class="p">,</span> <span class="s2">&quot;けいざい&quot;</span><span class="p">:</span> <span class="s2">&quot;経済学部&quot;</span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="c1"># (3) 学年の表記ゆれを統一し，数値にそろえる</span>
+<span class="n">df_clean</span><span class="p">[</span><span class="s2">&quot;学年&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[</span><span class="s2">&quot;学年&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span>
+    <span class="p">{</span><span class="s2">&quot;1年&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;１年&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;一年&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="c1"># (4) 参加希望の表記ゆれを統一し，空文字は欠損値として明示する</span>
+<span class="n">df_clean</span><span class="p">[</span><span class="s2">&quot;参加希望&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[</span><span class="s2">&quot;参加希望&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+    <span class="p">{</span><span class="s2">&quot;参加します&quot;</span><span class="p">:</span> <span class="s2">&quot;参加&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="n">df_clean</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>名前</th>
+      <th>学部</th>
+      <th>学年</th>
+      <th>参加希望</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>佐藤</td>
+      <td>経済学部</td>
+      <td>1</td>
+      <td>参加</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>鈴木</td>
+      <td>経済学部</td>
+      <td>1</td>
+      <td>参加</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>高橋</td>
+      <td>人文社会学部</td>
+      <td>1</td>
+      <td>不参加</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>田中</td>
+      <td>経済学部</td>
+      <td>2</td>
+      <td>参加</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>伊藤</td>
+      <td>芸術工学部</td>
+      <td>1</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>渡辺</td>
+      <td>None</td>
+      <td>1</td>
+      <td>参加</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>重複していた高橋さんの行が1行にまとまり，学部・学年・参加希望の表記が統一され，伊藤さんの「見えない欠損」も欠損値（<code class="docutils literal notranslate"><span class="pre">NaN</span></code>）として明示されました．この状態で学部ごとの人数を数え直すと，今度は正しく集計できます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># クレンジング後にあらためて学部ごとの人数を数える</span>
+<span class="n">df_clean</span><span class="p">[</span><span class="s2">&quot;学部&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>学部
+経済学部        3
+人文社会学部    1
+芸術工学部      1
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>経済学部3人，人文社会学部1人，芸術工学部1人（それに学部不明1人）という，実態どおりの集計になりました．今回は7行の表なので目視でも直せますが，行数が数万・数百万になっても，プログラムによるクレンジングなら同じ手順で処理できます．これが，データをマシンリーダブルに保つことの威力です．</p>
+</section>
+<section id="id15">
+<h3>前処理は中立な作業ではない——前処理の恣意性<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<p>ここまで読むと，前処理は「誰がやっても同じ結果になる機械的な作業」に見えるかもしれません．しかし実際には，前処理には<strong>分析者の判断</strong>が何度も入り込みます．欠損値を含む行を捨てるのか，穴埋めするのか．外れ値を除外するのか，残すのか．「参加します」を「参加」と同じとみなすのか，別の回答として区別するのか．こうした判断のひとつひとつが，最終的な集計値や分析結果を変えうるのです．これを<strong>前処理の恣意性</strong>と呼ぶことにします．</p>
+<p>たとえば，先ほどの睡眠時間の例で「65」を除外すれば平均は約6.8時間，除外しなければ18.4時間で，報告される「新入生の平均睡眠時間」はまったく別物になります．また，満足度アンケートで「無回答の人」を単純に除外して平均を出すと，もし不満な人ほど回答してくれない傾向があった場合，平均満足度は実態より高く見積もられます．どちらの例でも，前処理の判断そのものが結果をつくっているのです．</p>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p><strong>恣意的な前処理はデータの改ざんと紙一重です</strong>．「都合の悪い外れ値を消したらきれいな結果が出た」「欠損の扱いをいろいろ試して，いちばん見栄えのよい結果を採用した」——こうした処理は，意図的であれば研究不正（改ざん）ですし，無自覚であっても読み手を誤った結論に導きます．前処理で心がけるべきことは次の3点です．(1) 生データを必ず残す．(2) どのような基準で何を修正・除外したかを<strong>記録し，報告に明記する</strong>（「明らかな入力ミス1件を除外した」など）．(3) 判断に迷う処理は，処理の前後で結果がどう変わるかを確認する．前処理は「隠れた分析」であり，透明性が命です．</p>
+</div>
+</section>
+</section>
+<section id="tidy-data">
+<h2>tidy data（整然データ）——分析しやすい表のかたち<a class="headerlink" href="#tidy-data" title="Link to this heading">#</a></h2>
+<p>クレンジングでデータの「値」をきれいにしても，表の「構造」が分析に向いていないことがあります．統計学者のHadley Wickhamは，分析しやすい表の標準形として<strong>整然データ</strong>（tidy data）という考え方を提唱しました <span id="id16">[<a class="reference internal" href="../references.html#id17" title="Hadley Wickham. Tidy data. Journal of Statistical Software, 59(10):1–23, 2014. doi:10.18637/jss.v059.i10.">Wickham, 2014</a>]</span>．</p>
+<section id="tidy-data3">
+<h3>tidy dataの3つの条件<a class="headerlink" href="#tidy-data3" title="Link to this heading">#</a></h3>
+<p>tidy dataとは，次の3つの条件を満たす表のことです <span id="id17">[<a class="reference internal" href="../references.html#id17" title="Hadley Wickham. Tidy data. Journal of Statistical Software, 59(10):1–23, 2014. doi:10.18637/jss.v059.i10.">Wickham, 2014</a>]</span>．</p>
+<ol class="arabic simple">
+<li><p><strong>各変数が1つの列をなす</strong>（1列＝1変数）：「学部」「学年」「参加人数」のように，測っている項目ひとつごとに列がひとつ対応する．</p></li>
+<li><p><strong>各観測が1つの行をなす</strong>（1行＝1観測）：「誰それの回答」「何月の売上」のように，観測ひとつごとに行がひとつ対応する．</p></li>
+<li><p><strong>各観測単位の類型が1つの表をなす</strong>（1表＝1種類）：「回答者の名簿」と「イベントの一覧」のように種類の違うデータは，1枚の表に無理に詰め込まず，別々の表に分ける．</p></li>
+</ol>
+<p>ここで<strong>変数</strong>（variable）とは，学部・学年・参加人数のように，観測対象ごとに値が変わりうる測定項目のことです．tidy dataの利点は，<strong>どんなデータでも同じ形になっているので，集計・分析・可視化の道具がそのまま使える</strong>ことです．pandasのようなライブラリも，<a class="reference internal" href="ch05-data-analysis.html"><span class="std std-doc">第5回</span></a>・<a class="reference internal" href="ch06-data-visualization.html"><span class="std std-doc">第6回</span></a>で登場する分析・可視化の道具も，基本的にtidy dataを前提に設計されています．</p>
+</section>
+<section id="tidy">
+<h3>「横持ち」の表をtidyに変換する<a class="headerlink" href="#tidy" title="Link to this heading">#</a></h3>
+<p>tidy dataの反対例としてもっともよく出会うのが，いわゆる<strong>横持ち</strong>の表です．たとえば，サークルの各イベントの参加人数を学年別にまとめた次の表を見てください．人間が一覧するには便利な形です．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 横持ちの表：学年ごとの参加人数が「列」として横に並んでいる</span>
+<span class="n">df_wide</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;イベント名&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;新歓BBQ&quot;</span><span class="p">,</span> <span class="s2">&quot;春合宿&quot;</span><span class="p">,</span> <span class="s2">&quot;七夕ライブ&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;1年生&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">18</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">],</span>
+    <span class="s2">&quot;2年生&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
+    <span class="s2">&quot;3年生&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+<span class="p">})</span>
+<span class="n">df_wide</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>イベント名</th>
+      <th>1年生</th>
+      <th>2年生</th>
+      <th>3年生</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>新歓BBQ</td>
+      <td>18</td>
+      <td>7</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>春合宿</td>
+      <td>10</td>
+      <td>8</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>七夕ライブ</td>
+      <td>12</td>
+      <td>6</td>
+      <td>4</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>この表では，「学年」という変数の値（1年生・2年生・3年生）が<strong>列の名前</strong>になってしまっています．「1列＝1変数」の条件に照らすと，本来この表の変数は「イベント名」「学年」「参加人数」の3つのはずです．このような表は，たとえば「学年別の合計参加人数」を計算したいときに扱いにくくなります．そこで，列名に隠れていた「学年」を1つの列として取り出し，縦長のtidyな形（<strong>縦持ち</strong>）に変換します．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 横持ち → 縦持ち（tidy data）への変換</span>
+<span class="n">df_tidy</span> <span class="o">=</span> <span class="n">df_wide</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span>
+    <span class="n">id_vars</span><span class="o">=</span><span class="s2">&quot;イベント名&quot;</span><span class="p">,</span>     <span class="c1"># そのまま残す列</span>
+    <span class="n">var_name</span><span class="o">=</span><span class="s2">&quot;学年&quot;</span><span class="p">,</span>          <span class="c1"># 列名だった「1年生」などを値として持つ新しい列</span>
+    <span class="n">value_name</span><span class="o">=</span><span class="s2">&quot;参加人数&quot;</span><span class="p">,</span>    <span class="c1"># 表の中身の数値を持つ新しい列</span>
+<span class="p">)</span>
+<span class="n">df_tidy</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>イベント名</th>
+      <th>学年</th>
+      <th>参加人数</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>新歓BBQ</td>
+      <td>1年生</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>春合宿</td>
+      <td>1年生</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>七夕ライブ</td>
+      <td>1年生</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>新歓BBQ</td>
+      <td>2年生</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>春合宿</td>
+      <td>2年生</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>七夕ライブ</td>
+      <td>2年生</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>新歓BBQ</td>
+      <td>3年生</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>春合宿</td>
+      <td>3年生</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>七夕ライブ</td>
+      <td>3年生</td>
+      <td>4</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>1行が「あるイベントの，ある学年の，参加人数」という1つの観測になり，「イベント名」「学年」「参加人数」がそれぞれ1列になりました．この形にしておけば，学年別の集計も1行のコードで済みます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># tidyな形なら，学年別の合計参加人数の集計も簡単</span>
+<span class="n">df_tidy</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;学年&quot;</span><span class="p">)[</span><span class="s2">&quot;参加人数&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>学年
+1年生    40
+2年生    21
+3年生    12
+Name: 参加人数, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>大事なのは，横持ちの表が「悪い表」だということではない，という点です．横持ちは人間が読むための<strong>見せる表</strong>として優れています．一方，tidy dataは機械が処理するための<strong>分析する表</strong>の標準形です．目的に応じて2つの形を行き来できること，そして分析の前には tidy な形に整えておくこと——これがデータを扱ううえでの基本作法です．</p>
+</section>
+</section>
+<section id="id18">
+<h2>変数の型と尺度水準<a class="headerlink" href="#id18" title="Link to this heading">#</a></h2>
+<p>前処理の仕上げとして，表の各列（変数）が<strong>どんな種類の値なのか</strong>を確認する作業があります．実は，変数の種類によって「やってよい計算」と「意味をなさない計算」が決まっており，これを取り違えると，形式上は計算できても意味のない分析結果が生まれてしまいます．</p>
+<section id="id19">
+<h3>質的変数と量的変数<a class="headerlink" href="#id19" title="Link to this heading">#</a></h3>
+<p>変数は大きく2つに分けられます．<strong>質的変数</strong>（カテゴリカル変数）は，学部・血液型・参加希望のように，値が「分類」を表すものです．<strong>量的変数</strong>は，参加人数・身長・気温のように，値が「量」を数値で表すものです．学年（1年・2年…）のように数字で書かれていても，足し算やかけ算に意味があるとは限らないため，「数字で書かれているか」ではなく「値が量を表しているか」で見分けるのがコツです．</p>
+</section>
+<section id="id20">
+<h3>4つの尺度水準<a class="headerlink" href="#id20" title="Link to this heading">#</a></h3>
+<p>この分類をさらに細かくしたのが<strong>尺度水準</strong>（scales of measurement）です．心理学者のStevensは1946年の論文で，変数の測定水準を次の4つに整理しました <span id="id21">[<a class="reference internal" href="../references.html#id19" title="S. S. Stevens. On the theory of scales of measurement. Science, 103(2684):677–680, 1946. doi:10.1126/science.103.2684.677.">Stevens, 1946</a>]</span>．</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>尺度水準</p></th>
+<th class="head"><p>意味</p></th>
+<th class="head"><p>例</p></th>
+<th class="head"><p>できること</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>名義尺度</strong></p></td>
+<td><p>値は分類のラベルにすぎず，順序もない</p></td>
+<td><p>学部，血液型，会員番号</p></td>
+<td><p>同じか違うかの区別，度数を数える</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>順序尺度</strong></p></td>
+<td><p>値に順序はあるが，間隔は等しいとは限らない</p></td>
+<td><p>満足度（5段階），成績評価（S/A/B/C），服のサイズ（S/M/L）</p></td>
+<td><p>上と同じ＋大小の比較，並べ替え</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>間隔尺度</strong></p></td>
+<td><p>値の間隔（差）に意味があるが，ゼロは便宜的な位置にすぎない</p></td>
+<td><p>摂氏の気温，西暦年</p></td>
+<td><p>上と同じ＋差の計算（平均など）</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>比率尺度</strong></p></td>
+<td><p>間隔に加え，ゼロが「何もない」ことを表す</p></td>
+<td><p>身長，金額，参加人数，時間</p></td>
+<td><p>上と同じ＋比の計算（「2倍」が言える）</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>名義尺度と順序尺度が質的変数に，間隔尺度と比率尺度が量的変数に対応します．いくつか補足しましょう．</p>
+<ul class="simple">
+<li><p><strong>会員番号や学籍番号は名義尺度</strong>です．数字で書かれていますが，番号の平均を計算しても何の意味もありません．数字＝量的変数ではない，という典型例です．</p></li>
+<li><p><strong>順序尺度は「間隔」を保証しません</strong>．満足度の「5と4の差」と「2と1の差」が同じ大きさだという保証はないため，満足度の平均値は本来は慎重に扱うべき値です（実務では慣習的に平均が使われますが，その暗黙の仮定は意識しておきましょう）．</p></li>
+<li><p><strong>間隔尺度と比率尺度の違いはゼロの意味</strong>です．摂氏0度は「温度がない」ことを意味しない便宜的な基準点なので，「20度は10度の2倍暑い」とは言えません（間隔尺度）．一方，金額0円は「お金がない」ことを表すので，「2000円は1000円の2倍」と言えます（比率尺度）．</p></li>
+</ul>
+</section>
+<section id="id22">
+<h3>尺度水準が分析と可視化を決める<a class="headerlink" href="#id22" title="Link to this heading">#</a></h3>
+<p>尺度水準をわざわざ学ぶのは，用語を暗記するためではありません．<strong>尺度水準が，その後の分析と可視化における道具選びの基準になる</strong>からです．</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="ch05-data-analysis.html"><span class="std std-doc">第5回「データの分析」</span></a>では，データを要約する統計量（平均値・中央値・最頻値など）を学びます．どの統計量が使えるかは尺度水準で決まります．たとえば名義尺度に使えるのは最頻値だけで，平均値が意味を持つのは間隔尺度以上です．</p></li>
+<li><p><a class="reference internal" href="ch06-data-visualization.html"><span class="std std-doc">第6回「データの可視化」</span></a>では，データの型に応じたグラフの使い分けを学びます．質的変数の分布は棒グラフ，量的変数の分布はヒストグラム，量的変数同士の関係は散布図——というように，グラフ選びの出発点も変数の型です．</p></li>
+</ul>
+<p>前処理の段階で「この列は何尺度か」を一度確認しておくことは，次回以降のすべての作業の土台になります．変数の型の確認までを含めて前処理，と覚えておいてください．</p>
+</section>
+</section>
+<section id="id23">
+<h2>活用事例：政府統計の「機械判読可能なデータ」ルール<a class="headerlink" href="#id23" title="Link to this heading">#</a></h2>
+<p>マシンリーダブルの考え方は，個人の作業のコツにとどまらず，国のデータ整備の方針にもなっています．</p>
+<p>日本の政府統計は，政府統計の総合窓口「e-Stat」などを通じて，誰でも無料でダウンロードできるオープンデータとして公開されています．ところが従来，公開されるExcelファイルの多くは，セルの結合，1つのセルに詰め込まれた注釈，飾りのための空行・空列など，「人間が印刷して読む」ことを前提とした見た目重視の表になっており，プログラムで読み込んで分析しようとすると大量の前処理が必要になることが，データ利用者から長く指摘されてきました．本章で学んだ「人間に読みやすい表と機械が読める表は違う」という問題が，国の統計というスケールで起きていたわけです．</p>
+<p>これを受けて総務省は2020年12月，統計表をmachine-readableにするための表記方法のルール（「統計表における機械判読可能なデータ作成に関する表記方法」）を取りまとめました．その内容は，1つのセルには1つのデータのみを入れる，セルを結合しない，数値のセルに単位や注釈の文字を混ぜない，など，本章で紹介したBromanとWooの推奨 <span id="id24">[<a class="reference internal" href="../references.html#id18" title="Karl W. Broman and Kara H. Woo. Data organization in spreadsheets. The American Statistician, 72(1):2–10, 2018. doi:10.1080/00031305.2017.1375989.">Broman and Woo, 2018</a>]</span> と驚くほど重なっています．つまり，みなさんが本章で学んだ表づくりのルールは，一人ひとりのExcel作業から国のオープンデータ政策まで共通する，データ社会の基本的な約束事なのです．データを「作って公開する側」がマシンリーダブルを心がければ，社会全体で費やされる前処理の時間が減り，データの価値はそれだけ大きくなります．</p>
+</section>
+<section id="id25">
+<h2>まとめ<a class="headerlink" href="#id25" title="Link to this heading">#</a></h2>
+<p>本章では，データ分析の土台となる前処理について学びました．要点を振り返ります．</p>
+<ul class="simple">
+<li><p>現実のデータはほぼ例外なく汚れており，分析の作業時間のおおむね5〜8割は前処理に費やされると言われます（New York Timesの報道 <span id="id26">[<a class="reference internal" href="../references.html#id20" title="Steve Lohr. For big-data scientists, `janitor work' is key hurdle to insights. The New York Times, 2014. 報道記事（2014年8月17日）. URL: https://www.nytimes.com/2014/08/18/technology/for-big-data-scientists-hurdle-to-insights-is-janitor-work.html.">Lohr, 2014</a>]</span> や産業調査に基づく経験則です）．</p></li>
+<li><p>バッドデータの代表的な型は<strong>欠損値・外れ値・表記ゆれ・重複データ</strong>の4つです．機械は人間と違い，文脈を読んでくれません．</p></li>
+<li><p>目指すべき状態は<strong>マシンリーダブル（機械可読）</strong> なデータです．一貫性・YYYY-MM-DD形式・1セル1項目・セル結合の回避といった表づくりのルール <span id="id27">[<a class="reference internal" href="../references.html#id18" title="Karl W. Broman and Kara H. Woo. Data organization in spreadsheets. The American Statistician, 72(1):2–10, 2018. doi:10.1080/00031305.2017.1375989.">Broman and Woo, 2018</a>]</span> を守り，<strong>データクレンジング</strong>で値を整え，<strong>tidy data</strong>（1列＝1変数，1行＝1観測，1表＝1観測単位）<span id="id28">[<a class="reference internal" href="../references.html#id17" title="Hadley Wickham. Tidy data. Journal of Statistical Software, 59(10):1–23, 2014. doi:10.18637/jss.v059.i10.">Wickham, 2014</a>]</span> の形に構造を整えます．</p></li>
+<li><p>変数には<strong>尺度水準</strong>（名義・順序・間隔・比率）<span id="id29">[<a class="reference internal" href="../references.html#id19" title="S. S. Stevens. On the theory of scales of measurement. Science, 103(2684):677–680, 1946. doi:10.1126/science.103.2684.677.">Stevens, 1946</a>]</span> があり，使える統計量やグラフを決めます．これは<a class="reference internal" href="ch05-data-analysis.html"><span class="std std-doc">第5回</span></a>・<a class="reference internal" href="ch06-data-visualization.html"><span class="std std-doc">第6回</span></a>への橋渡しとなる重要な視点です．</p></li>
+<li><p>前処理には分析者の判断（<strong>恣意性</strong>）が入り込みます．生データを残し，処理の内容を記録・明記する透明性が不可欠です．</p></li>
+</ul>
+<p>次回の<a class="reference internal" href="ch05-data-analysis.html"><span class="std std-doc">第5回「データの分析」</span></a>では，きれいに整えたデータから意味を読み取る方法——統計量による要約と，相関と因果の区別——を学びます．</p>
+</section>
+<section id="id30">
+<h2>確認問題<a class="headerlink" href="#id30" title="Link to this heading">#</a></h2>
+<div class="admonition- admonition">
+<p class="admonition-title">問1（事例判断）</p>
+<p>あるサークルの会計係が作った会計簿の表です．この表を後輩がプログラムで集計しようとしたところ，うまくいきませんでした．<strong>マシンリーダブルの観点から，この表の問題点をできるだけ多く指摘してください．</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>日付</p></th>
+<th class="head"><p>項目</p></th>
+<th class="head"><p>金額</p></th>
+<th class="head"><p>備考</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>4/6</p></td>
+<td><p>新歓BBQ食材</p></td>
+<td><p>8,500円</p></td>
+<td><p>佐藤が立て替え</p></td>
+</tr>
+<tr class="row-odd"><td><p>4月13日</p></td>
+<td><p>会場費</p></td>
+<td><p>3000</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>同上</p></td>
+<td><p>ジュース代</p></td>
+<td><p>1,200円（うち200円は私費）</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>2026-04-20</p></td>
+<td><p>コピー代</p></td>
+<td><p>¥400</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>4/27</p></td>
+<td><p>打ち上げ</p></td>
+<td><p>未定</p></td>
+<td><p>5月に精算予定</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">解答と解説</p>
+<p>主な問題点は次のとおりです．</p>
+<ol class="arabic simple">
+<li><p><strong>日付の表記ゆれ</strong>：「4/6」「4月13日」「2026-04-20」と形式がバラバラです．年の情報が欠けている行もあります．すべて「2026-04-06」のようなYYYY-MM-DD形式に統一すべきです．</p></li>
+<li><p><strong>「同上」</strong>：人間には「4月13日」の意味だと分かりますが，機械には「同上」という文字列としか読めません．各行に値そのものを書くべきです．</p></li>
+<li><p><strong>金額の表記ゆれと単位の混在</strong>：「8,500円」「3000」「¥400」と形式が不統一なうえ，「円」「¥」「,（桁区切り）」が混ざったセルは数値として計算できません．数値（8500，3000，400）だけを入れ，単位は列名（例：金額（円））で示します．</p></li>
+<li><p><strong>1セルに複数の情報</strong>：「1,200円（うち200円は私費）」は，金額と注記という2つの情報が1セルに入っています．私費の情報は別の列に分けるべきです．</p></li>
+<li><p><strong>数値の列への文字の混入</strong>：「未定」という文字列が金額の列に入っているため，この列全体が数値として扱えなくなります．未確定なら欠損の印（NAなど）を入れ，事情は備考に書きます．</p></li>
+<li><p><strong>空セル</strong>：備考の空欄は「特記事項なし」なのか「書き忘れ」なのか区別がつきません（備考のような自由記述欄では許容されることもありますが，データとして使う列では欠損の印を明示すべきです）．</p></li>
+</ol>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">問2（尺度水準の判定）</p>
+<p>次の(a)〜(e)の変数は，名義尺度・順序尺度・間隔尺度・比率尺度のどれにあたるか答えてください．</p>
+<p>(a) 学籍番号　(b) アンケートの満足度（1〜5の5段階）　(c) 摂氏で測った気温　(d) アルバイトの時給　(e) Tシャツのサイズ（S・M・L）</p>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">解答と解説</p>
+<p>(a) <strong>名義尺度</strong>．数字で書かれていますが，番号は個人を区別するラベルにすぎず，大小や平均に意味はありません．
+(b) <strong>順序尺度</strong>．5が4より高い満足を表す順序はありますが，「5と4の差」と「2と1の差」が等しい保証はありません．
+(c) <strong>間隔尺度</strong>．差（今日は昨日より3度高い）には意味がありますが，0度は便宜的な基準点であり，「20度は10度の2倍暑い」とは言えません．
+(d) <strong>比率尺度</strong>．0円が「対価なし」を意味する絶対的なゼロを持ち，「時給1200円は600円の2倍」という比が意味を持ちます．
+(e) <strong>順序尺度</strong>．S＜M＜Lという順序はありますが，サイズ間の間隔が等しいとは言えません．</p>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">問3（事例判断：前処理の恣意性）</p>
+<p>ある学生団体が，イベント参加者100人に満足度アンケート（1〜5の5段階）を配り，60人から回答を得ました．担当者は無回答の40人を除外して「平均満足度4.2！大好評でした」と報告しようとしています．この報告のどこに注意が必要か，前処理の観点から説明してください．</p>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">解答と解説</p>
+<p>注意すべき点は主に2つあります．</p>
+<p>第一に，<strong>欠損（無回答）の扱い</strong>です．無回答の40人は「たまたま出し忘れた」のではなく，「不満だったので回答する気になれなかった」人たちかもしれません．もしそうなら，回答者だけで計算した平均4.2は実際の満足度より高く偏った値になります．無回答を除外するという前処理の判断が，結果を（意図せず）押し上げている可能性があるのです．</p>
+<p>第二に，<strong>処理の透明性</strong>です．少なくとも「100人中60人の回答に基づく平均であること（回答率60%）」を報告に明記すべきです．そのうえで，無回答者に偏りがないか（たとえば途中退場した人が多くないか）を検討し，可能なら理由を添えるのが誠実な報告です．なお，このような「回答してくれる人の偏り」は，<a class="reference internal" href="ch02-data-collection.html"><span class="std std-doc">第2回「データの収集」</span></a>で学んだ選択バイアスの問題ともつながっています．</p>
+</div>
+</section>
+<section id="id31">
+<h2>さらに学ぶために<a class="headerlink" href="#id31" title="Link to this heading">#</a></h2>
+<p>本章のテーマを深めたい人のための文献です．事例→解説→原典の順に読み進めるのがおすすめです．</p>
+<ul class="simple">
+<li><p>【事例】Steve Lohr, &quot;For Big-Data Scientists, 'Janitor Work' Is Key Hurdle to Insights,&quot; <em>The New York Times</em>, 2014年8月17日. <span id="id32">[<a class="reference internal" href="../references.html#id20" title="Steve Lohr. For big-data scientists, `janitor work' is key hurdle to insights. The New York Times, 2014. 報道記事（2014年8月17日）. URL: https://www.nytimes.com/2014/08/18/technology/for-big-data-scientists-hurdle-to-insights-is-janitor-work.html.">Lohr, 2014</a>]</span>
+「分析時間の5〜8割は前処理」の典拠としてよく引かれる報道記事（査読論文ではありません）．データサイエンティストの仕事の実像が現場の声とともに描かれています．
+記事：<a class="reference external" href="https://www.nytimes.com/2014/08/18/technology/for-big-data-scientists-hurdle-to-insights-is-janitor-work.html">https://www.nytimes.com/2014/08/18/technology/for-big-data-scientists-hurdle-to-insights-is-janitor-work.html</a></p></li>
+<li><p>【解説・サーベイ】Karl W. Broman &amp; Kara H. Woo, &quot;Data Organization in Spreadsheets,&quot; <em>The American Statistician</em>, 72(1), 2–10, 2018. <span id="id33">[<a class="reference internal" href="../references.html#id18" title="Karl W. Broman and Kara H. Woo. Data organization in spreadsheets. The American Statistician, 72(1):2–10, 2018. doi:10.1080/00031305.2017.1375989.">Broman and Woo, 2018</a>]</span>
+Excelなどでのデータ整理の実務的な推奨事項（一貫性，YYYY-MM-DD，1セル1項目，セル結合の回避など）を，豊富な失敗例とともにまとめた解説論文．本章の表づくりのルールの出典です．DOI: <a class="reference external" href="https://doi.org/10.1080/00031305.2017.1375989">https://doi.org/10.1080/00031305.2017.1375989</a>（プレプリント版がPeerJ Preprintsで無料公開されています：<a class="reference external" href="https://doi.org/10.7287/peerj.preprints.3183v2">https://doi.org/10.7287/peerj.preprints.3183v2</a>）</p></li>
+<li><p>【原典】Hadley Wickham, &quot;Tidy Data,&quot; <em>Journal of Statistical Software</em>, 59(10), 1–23, 2014. <span id="id34">[<a class="reference internal" href="../references.html#id17" title="Hadley Wickham. Tidy data. Journal of Statistical Software, 59(10):1–23, 2014. doi:10.18637/jss.v059.i10.">Wickham, 2014</a>]</span>
+整然データの3条件を提唱した原典．完全オープンアクセスで，雑然データを整然化する実例が多数掲載されています．全文：<a class="reference external" href="https://www.jstatsoft.org/article/view/v059i10">https://www.jstatsoft.org/article/view/v059i10</a></p></li>
+<li><p>【原典】S. S. Stevens, &quot;On the Theory of Scales of Measurement,&quot; <em>Science</em>, 103(2684), 677–680, 1946. <span id="id35">[<a class="reference internal" href="../references.html#id19" title="S. S. Stevens. On the theory of scales of measurement. Science, 103(2684):677–680, 1946. doi:10.1126/science.103.2684.677.">Stevens, 1946</a>]</span>
+名義・順序・間隔・比率の4つの尺度水準を提唱した原典．わずか4ページの古典論文です．DOI: <a class="reference external" href="https://doi.org/10.1126/science.103.2684.677">https://doi.org/10.1126/science.103.2684.677</a></p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="ch03-database.html"
+       title="前のページ">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">前へ</p>
+        <p class="prev-next-title">第3回：データの保存と検索</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="ch05-data-analysis.html"
+       title="次ページ">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">次へ</p>
+        <p class="prev-next-title">第5回：データの分析</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目次
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">この回で学ぶこと</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">導入：集計が合わない新歓アンケート</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">バッドデータ——現実のデータは汚れている</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">欠損値</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">外れ値</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">表記ゆれ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">重複データ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">データを機械が読める形に整える</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">マシンリーダブル（機械可読）とは</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">表づくりの基本ルール</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">データクレンジング</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">前処理は中立な作業ではない——前処理の恣意性</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tidy-data">tidy data（整然データ）——分析しやすい表のかたち</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tidy-data3">tidy dataの3つの条件</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tidy">「横持ち」の表をtidyに変換する</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">変数の型と尺度水準</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">質的変数と量的変数</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">4つの尺度水準</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">尺度水準が分析と可視化を決める</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">活用事例：政府統計の「機械判読可能なデータ」ルール</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">まとめ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">確認問題</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">さらに学ぶために</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+著者 名古屋市立大学 大学院データサイエンス研究科 山本祐輔
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

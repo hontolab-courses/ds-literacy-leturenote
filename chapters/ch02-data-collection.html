@@ -1,0 +1,790 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ja" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>第2回：データの収集 &#8212; データサイエンス・リテラシー</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=1cf7f4d9"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'クリックして表示';</script>
+    <script>let toggleHintHide = 'クリックして非表示';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script src="../_static/translations.js?v=91613774"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/ch02-data-collection';</script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="第3回：データの保存と検索" href="ch03-database.html" />
+    <link rel="prev" title="第1回：データサイエンスとは何か——ビッグデータとThick・Thinデータ" href="ch01-what-is-ds.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ja"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">本文へスキップ</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>トップに戻る</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="バージョン警告"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../introduction.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">データサイエンス・リテラシー</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">検索</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../introduction.html">
+                    データサイエンス・リテラシー
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ch01-what-is-ds.html">第1回：データサイエンスとは何か——ビッグデータとThick・Thinデータ</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">第2回：データの収集</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch03-database.html">第3回：データの保存と検索</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch04-preprocessing.html">第4回：データの前処理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch05-data-analysis.html">第5回：データの分析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch06-data-visualization.html">第6回：データの可視化とコミュニケーション</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch07-data-law.html">第7回：データと法——情報法の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch08-genai.html">第8回：生成AIの基礎と知的活動への利用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">参考文献</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="このページをダウンロード">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/ch02-data-collection.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="ソースファイルをダウンロード"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="PDFに印刷"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="全画面モード"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="ライト"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="ダーク"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>第2回：データの収集</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目次 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">この回で学ぶこと</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">導入：240万人に聞いたのに大外れした世論調査</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">データはどこから来るのか</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">集め方の4つの型：調査・実験・センサー・ログ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#web">すでにあるデータを使う：オープンデータとWebスクレイピング</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">誰が集めたのか：一次データと二次データ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">どんな形をしているか：構造化データと非構造化データ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">一部から全体を知る：標本と母集団</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">母集団と標本</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">標本の偏りと選択バイアス</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#literary-digest">Literary Digestの失敗を数字で読み解く</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">郵送1,000万枚，返送240万枚</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">予測と結果はどれだけ違ったか</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">なぜ外れたのか：二重の偏り</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">活用事例：選挙の「当確」速報を支える出口調査</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">まとめ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">確認問題</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">さらに学ぶために</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>第2回：データの収集<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<section id="id2">
+<h2>この回で学ぶこと<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>この回の学習目標は，次の5点です．</p>
+<ul class="simple">
+<li><p>データの主な集め方（<strong>調査・実験・センサー・ログ</strong>）と，それぞれの特徴を説明できる</p></li>
+<li><p><strong>オープンデータ</strong>や<strong>Webスクレイピング</strong>など，すでにあるデータを入手する方法を知る</p></li>
+<li><p><strong>一次データと二次データ</strong>，<strong>構造化データと非構造化データ</strong>の違いを，身近な例で説明できる</p></li>
+<li><p><strong>標本と母集団</strong>の関係を理解し，「一部から全体を知る」ために何が必要かを説明できる</p></li>
+<li><p><strong>標本の偏り</strong>・<strong>選択バイアス</strong>がなぜ起こるのかを，1936年の世論調査の失敗例に即して説明できる</p></li>
+</ul>
+</section>
+<section id="id3">
+<h2>導入：240万人に聞いたのに大外れした世論調査<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>データ分析と聞くと，「集めたあとの計算やグラフ」が主役だと思うかもしれません．しかし実は，勝負の大半は<strong>データを集める段階</strong>で決まっています．どんなに高度な分析をしても，元のデータが偏っていれば，結論も偏るからです．そのことを歴史上もっとも劇的に示したのが，今回の中心事例である1936年のアメリカ大統領選挙の世論調査です．</p>
+<div class="tip admonition">
+<p class="admonition-title">事例：1936年，Literary Digest誌の世論調査の失敗</p>
+<p>1936年のアメリカ大統領選挙は，現職のルーズベルト候補（民主党）と，対抗馬のランドン候補（共和党）の争いでした．当時の人気雑誌Literary Digest（リテラリー・ダイジェスト）誌は，読者らに向けて<strong>約1,000万枚</strong>もの模擬投票用紙を郵送し，<strong>約240万枚</strong>の回答を回収するという，空前の規模の世論調査を行いました．240万人分の回答というのは，現代の世論調査（多くは千〜数千人規模）と比べても桁違いの大きさです．</p>
+<p>この膨大なデータをもとに，同誌は「<strong>ランドン候補が57%の得票率で勝利する</strong>」と予測しました．ところが選挙の結果は正反対でした．実際に勝ったのはルーズベルト候補で，得票率は<strong>約60.8%</strong>．ランドン候補が勝てたのはメイン州とバーモント州の<strong>わずか2州</strong>だけで，勝敗を決める選挙人団の数は<strong>523対8</strong>という歴史的な大差でした <span id="id4">[<a class="reference internal" href="../references.html#id11" title="Peverill Squire. Why the 1936 Literary Digest poll failed. Public Opinion Quarterly, 52(1):125–133, 1988. doi:10.1086/269085.">Squire, 1988</a>]</span>．</p>
+<p>240万人という膨大な人数に聞いたのに，なぜ予測は大外れしたのでしょうか．</p>
+</div>
+<p>この「なぜ」の答えは，この章を読み終える頃には自分の言葉で説明できるようになっているはずです．そして重要なのは，これが90年前の昔話ではないということです．「SNSのアンケートで10万人が回答した」「レビューサイトで星4.5の高評価」——みなさんが毎日目にするこうした数字にも，Literary Digest誌とまったく同じ落とし穴がひそんでいます．今回は，データがどこから来るのかを整理したうえで，「集め方」が結果をどう歪めるのかを学びます．</p>
+</section>
+<section id="id5">
+<h2>データはどこから来るのか<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>第1回で見たように，現代社会ではあらゆる場面でデータが生まれています．では，分析に使われるデータは，そもそもどうやって集められているのでしょうか．まずは集め方の代表的な型を整理します．集め方の違いは，そのデータの<strong>性質</strong>（何が分かって，何が分からないか）を決める，とても重要なポイントです．</p>
+<section id="id6">
+<h3>集め方の4つの型：調査・実験・センサー・ログ<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>データの集め方は，大きく4つの型に分けて考えると見通しがよくなります．</p>
+<p>1つめは<strong>調査</strong>（survey）です．人に質問して答えてもらう方法で，アンケートやインタビューがその代表です．みなさんも，授業後の授業評価アンケートに答えたり，駅前で街頭インタビューを受けたり，SNS上の「どっち派？」投票に参加したりしたことがあるでしょう．国が5年ごとに行う国勢調査も，全国民を対象とした巨大な調査です．調査の強みは「人の意見や意識など，外から見えないこと」を直接聞ける点ですが，後で見るように「誰に聞いたか」「誰が答えてくれたか」によって結果が大きく変わるという弱点があります．</p>
+<p>2つめは<strong>実験</strong>（experiment）です．条件を人為的に変えて，結果を比較する方法です．たとえば新薬の開発では，薬を飲むグループと飲まないグループに分けて効果を比べます．身近なところでは，ネットショッピングのサイトが「購入ボタンの色を赤にした画面と緑にした画面をユーザーにランダムに見せて，どちらがよく押されるか比べる」という実験（A/Bテストと呼ばれます）を日常的に行っています．実験の強みは，条件をそろえて比較するので「何が原因で結果が変わったのか」を調べやすい点です．この設計の考え方は，実験計画法という分野で深く学べます．</p>
+<p>3つめは<strong>センサー</strong>（sensor）です．機械が自動的に測定して記録する方法です．スマートフォンには，GPS（位置），加速度センサー（歩数や動き），気圧センサーなど多くのセンサーが入っていて，持ち歩くだけでデータが生まれています．ほかにも，気象観測，交通量の計測，スマートウォッチの心拍数など，例は無数にあります．センサーの強みは，人手をかけずに大量・高頻度でデータを集められる点です．</p>
+<p>4つめは<strong>ログ</strong>（log）です．サービスやシステムの利用の記録で，人が活動した「足あと」が自動的にたまっていくものです．検索エンジンの検索履歴，動画サイトの視聴履歴，ネットショッピングの購買履歴，コンビニのレジ（POS）の販売記録などがログの例です．みなさんが動画サイトで「おすすめ」される動画は，膨大な視聴ログの分析から選ばれています．</p>
+<p>前半の2つ（調査・実験）は，「知りたいことのために，設計して集める」データです．一方，後半の2つ（センサー・ログ）は，「活動の副産物として，自動的にたまる」データだといえます．センサーやログのデータは量が膨大で魅力的ですが，「そのサービスを使っている人の記録しか残らない」という点で，やはり偏りと無縁ではありません．この点は後ほど詳しく見ます．</p>
+</section>
+<section id="web">
+<h3>すでにあるデータを使う：オープンデータとWebスクレイピング<a class="headerlink" href="#web" title="Link to this heading">#</a></h3>
+<p>データは，自分でゼロから集めるだけでなく，「すでに誰かが集めたもの」を入手して使うこともできます．その代表的な入手経路を2つ紹介します．</p>
+<p>1つめは<strong>オープンデータ</strong>（open data）です．オープンデータとは，誰でも無償で入手でき，利用や再配布が認められた形で公開されているデータのことです．特に，国や自治体が公開する統計データが有名で，日本では政府統計のポータルサイト「e-Stat」から，人口・産業・家計など膨大な公的統計をダウンロードできます．名古屋市をはじめ多くの自治体も，避難所の場所や施設の一覧などのデータを公開しています．レポートや卒業研究で「データがほしい」と思ったとき，まずオープンデータを探してみるのは非常によい習慣です．</p>
+<p>2つめは<strong>Webスクレイピング</strong>（web scraping）です．これは，プログラムを使ってWebページから情報を自動的に収集する技術です．たとえば「レビューサイトから飲食店の評価とクチコミを自動で集める」「ニュースサイトから記事の見出しを毎日集める」といったことができます．人手でコピー＆ペーストしていたら何日もかかる作業を，プログラムなら短時間でこなせます．</p>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>Webスクレイピングは便利な技術ですが，<strong>何でも自由に集めてよいわけではありません</strong>．Webサイトには利用規約があり，自動収集を禁止しているサイトも多くあります．また，集めた文章や画像には著作権があり，短時間に大量のアクセスを行えばWebサイトに迷惑（サーバへの過剰な負荷）をかけることにもなります．「技術的にできること」と「やってよいこと」は別問題です．このルールの話は，<a class="reference internal" href="ch07-data-law.html"><span class="std std-doc">第7回「データと法」</span></a>で詳しく扱います．</p>
+</div>
+</section>
+<section id="id7">
+<h3>誰が集めたのか：一次データと二次データ<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>ここまでの集め方を，「誰が集めたのか」という視点で整理し直してみましょう．</p>
+<p><strong>一次データ</strong>（primary data）とは，自分（自分の組織）が，自分の目的のために直接集めたデータのことです．たとえば，学園祭の模擬店の出店計画のために，自分たちで学生100人にアンケートをとったら，それは一次データです．目的に合わせて質問や対象を設計できるので，知りたいことにぴったり合ったデータが得られます．そのかわり，集めるのに手間・時間・費用がかかります．</p>
+<p><strong>二次データ</strong>（secondary data）とは，他の誰かが（多くの場合，別の目的で）集めたデータを，再利用するものです．先ほどのオープンデータや，企業が販売する市場調査データ，Webスクレイピングで集めた情報などは，使う側から見れば二次データです．手間をかけずに大規模なデータを使えるのが強みですが，注意も必要です．<strong>そのデータが「いつ・誰を対象に・どんな方法で・どんな定義で」集められたのかを，必ず確認しなければなりません</strong>．たとえば「若者のSNS利用率」という二次データがあっても，「若者」が13〜19歳を指すのか18〜29歳を指すのか，調査が5年前のものか去年のものかで，意味はまったく変わります．二次データを使うことは，「集め方を他人に任せる」ことでもあるのです．</p>
+</section>
+<section id="id8">
+<h3>どんな形をしているか：構造化データと非構造化データ<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>集まったデータを，今度は「形」の視点で分類してみましょう．</p>
+<p><strong>構造化データ</strong>（structured data）とは，表の形（行と列）に整理されたデータのことです．行が1件1件の記録（たとえば学生1人）に対応し，列が項目（学籍番号・氏名・学部など）に対応します．履修者名簿，売上の一覧表，アンケートの選択式回答の集計表などが典型例です．構造化データは，表計算ソフトやプログラムでそのまま集計・分析しやすいという大きな利点があります．</p>
+<p>一方，<strong>非構造化データ</strong>（unstructured data）とは，表の形に収まらないデータのことです．SNSの投稿文，レビューサイトのクチコミの本文，写真や動画，音声などがその例です．第1回で学んだビッグデータの3Vのひとつ「Variety（多様性）」は，まさにこうした非構造化データの増加を指していました．現代のデータの多くは非構造化データだといわれており，たとえば「クチコミの星の数」（構造化データ）だけでなく「クチコミの文章そのもの」（非構造化データ）を分析できれば，「星3つだけど実は好意的な感想」といった深い情報が読み取れます．ただし，非構造化データはそのままでは集計できないため，保存のしかたにも分析の前の準備にも工夫が必要です．この話は第3回（保存と検索）と第4回（前処理）で改めて登場します．</p>
+</section>
+</section>
+<section id="id9">
+<h2>一部から全体を知る：標本と母集団<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
+<p>ここからが今回の後半の主役です．データを集めるとき，私たちはほとんどの場合，「知りたい対象の全員・全部」を調べることはできません．そこで登場するのが，<strong>標本</strong>と<strong>母集団</strong>という考え方です．</p>
+<section id="id10">
+<h3>母集団と標本<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p><strong>母集団</strong>（population）とは，本当に知りたい対象の全体のことです．そして<strong>標本</strong>（sample）とは，母集団の中から実際に調べるために取り出した一部のことです．</p>
+<p>たとえば「名市大の1年生は，1日にどれくらいSNSを使っているか」を知りたいとします．このとき母集団は「名市大の1年生全員」です．全員に答えてもらえれば理想的ですが，現実には難しいので，たとえば100人を選んで調べます．この100人が標本です．母集団の全員を調べる調査を<strong>全数調査</strong>と呼び（国勢調査が代表例です），一部だけを調べる調査を<strong>標本調査</strong>と呼びます．世の中の調査のほとんどは標本調査です．</p>
+<p>「一部しか調べていないのに，全体のことが分かるの？」と思うかもしれません．実は，日常生活でもみなさんは同じことをしています．味噌汁の味見です．鍋全体（母集団）を飲み干さなくても，一口（標本）で味は分かります．ただし，そのためには大事な条件があります．<strong>味見の前に，鍋をよくかき混ぜること</strong>です．かき混ぜずに上澄みだけをすくえば，味噌が沈んだ鍋の味は正しく分かりません．</p>
+<p>調査における「かき混ぜる」に当たるのが，<strong>無作為抽出</strong>（random sampling）です．母集団の全員が同じ確率で選ばれるように，くじ引きのようにランダムに標本を選ぶ方法です．無作為に選ばれた標本は，母集団の「縮図」になることが期待できます．驚くべきことに，母集団が何千万人であっても，きちんと無作為に選ばれた数千人程度の標本があれば，全体の傾向をかなり正確に推定できることが統計学で知られています．この「一部から全体を推し量る」理論は，第5回で紹介する推測統計や，統計学の科目で本格的に学びます．</p>
+</section>
+<section id="id11">
+<h3>標本の偏りと選択バイアス<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<p>問題は，標本が母集団の縮図になっていないとき，つまり「かき混ぜが足りない」ときです．</p>
+<p><strong>標本の偏り</strong>（sampling bias）とは，標本の性質が母集団の性質からずれてしまっていることをいいます．偏った標本からどんなに丁寧に計算しても，得られる結論は母集団の姿を正しく映しません．</p>
+<p>標本の偏りを生む代表的な原因が，<strong>選択バイアス</strong>（selection bias）です．選択バイアスとは，「誰がデータに入り，誰が入らないか」が偶然ではなく何らかの仕組みで決まってしまい，その結果として標本が偏ることをいいます（世論調査やビッグデータにおける選択バイアスの概説として，<a class="reference external" href="https://arxiv.org/abs/1803.00897">こちらの解説論文</a>があります．そこでは1936年の事例に加えて，1948年の「デューイ，トルーマンを破る」という有名な誤報の事例も紹介されています）．選択バイアスは，大きく2つの場面で生まれます．</p>
+<p>1つめは，<strong>調べる側の選び方の偏り</strong>です．たとえば「市民の意見」を知るために平日の昼間に駅前で街頭インタビューをすると，その時間にその場所を通れる人——通勤・通学者や買い物客など——しか標本に入りません．平日昼間に工場や病院で働いている人の声は，最初から入りようがないのです．</p>
+<p>2つめは，<strong>答える側の偏り</strong>です．こちらは特に，答えるかどうかを本人が決められる調査で起こるため，<strong>自己選択バイアス</strong>（self-selection bias）とも呼ばれます．SNSのアンケートに答えるのは「そのアカウントをフォローしていて，かつ答えたいと思った人」だけです．レビューサイトに投稿するのは「わざわざ書き込みたいほど，強い感想を持った人」に偏りがちです．とても満足した人と，とても不満だった人は書き込みますが，「普通だった」大多数の人は何も書きません．星の平均点が，利用者全体の平均的な満足度とずれるのはこのためです．</p>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p><strong>「回答数が多い」ことと「正しい」ことは別問題です</strong>．SNSで10万人が回答したアンケートよりも，無作為に選ばれた千人への調査のほうが，母集団の姿を正しく映すことは珍しくありません．データの価値は量だけでは決まらず，<strong>どう集められたか</strong>で決まります．ニュースやSNSで「〇万人が回答！」という調査結果を見たら，回答数に感心する前に「誰が対象で，誰が答えたのか」を考える習慣をつけてください．</p>
+</div>
+<p>センサーやログのデータも例外ではありません．たとえばスマートフォンのアプリから集めた人流データには，「スマートフォンを持ち，そのアプリを入れている人」の動きしか記録されません．高齢者や子どもの動きは実際より少なく見えるかもしれないのです．「自動的に集まった膨大なデータ」は一見客観的に見えますが，<strong>そこに誰が入っていないか</strong>を常に問う必要があります．</p>
+</section>
+</section>
+<section id="literary-digest">
+<h2>Literary Digestの失敗を数字で読み解く<a class="headerlink" href="#literary-digest" title="Link to this heading">#</a></h2>
+<p>それでは，導入で紹介したLiterary Digest誌の失敗を，ここまで学んだ言葉を使って読み解いていきましょう．あわせて，実際の数値を簡単なプログラムでグラフにして確かめてみます（この事例を実際にデータ分析の教材として深く活用する試みも報告されています <span id="id12">[<a class="reference internal" href="../references.html#id13" title="Beth Chance, Andrew Kerr, and Jett Palmer. Taking the next step in exploring the Literary Digest 1936 poll. Journal of Statistics and Data Science Education, 2024. doi:10.1080/26939169.2024.2395505.">Chance <em>et al.</em>, 2024</a>]</span>）．コードは読んで眺めるだけで大丈夫です．できあがったグラフは，マウスを重ねると正確な値を確かめられます．</p>
+<p>まず，ライブラリを読み込む準備をします．</p>
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 準備：ライブラリの読み込み</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.graph_objects</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">go</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">plotly.subplots</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_subplots</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<section id="id13">
+<h3>郵送1,000万枚，返送240万枚<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<p>Literary Digest誌は約1,000万枚の模擬投票用紙を郵送し，返送されたのは約240万枚でした．まず，この2つの数を並べて，回答率を計算してみましょう．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 郵送した枚数と返送された枚数（単位：万枚）</span>
+<span class="n">digest</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span><span class="s2">&quot;枚数（万枚）&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">240</span><span class="p">]},</span>
+    <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;郵送した投票用紙&quot;</span><span class="p">,</span> <span class="s2">&quot;返送された投票用紙&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+
+<span class="c1"># 回答率（返送 ÷ 郵送）を計算する</span>
+<span class="n">kaito_ritsu</span> <span class="o">=</span> <span class="mi">240</span> <span class="o">/</span> <span class="mi">1000</span> <span class="o">*</span> <span class="mi">100</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;回答率：</span><span class="si">{</span><span class="n">kaito_ritsu</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+
+<span class="c1"># 棒グラフで比べる</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span>
+    <span class="n">go</span><span class="o">.</span><span class="n">Bar</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">digest</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="n">digest</span><span class="p">[</span><span class="s2">&quot;枚数（万枚）&quot;</span><span class="p">],</span>
+        <span class="n">marker_color</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;#4C72B0&quot;</span><span class="p">,</span> <span class="s2">&quot;#DD8452&quot;</span><span class="p">],</span>
+        <span class="n">text</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">万枚&quot;</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">digest</span><span class="p">[</span><span class="s2">&quot;枚数（万枚）&quot;</span><span class="p">]],</span>  <span class="c1"># 棒の上に枚数を表示</span>
+        <span class="n">textposition</span><span class="o">=</span><span class="s2">&quot;outside&quot;</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Literary Digest誌の模擬投票（1936年）：郵送数と返送数&quot;</span><span class="p">,</span>
+    <span class="n">yaxis_title</span><span class="o">=</span><span class="s2">&quot;枚数（万枚）&quot;</span><span class="p">,</span>
+    <span class="n">yaxis_range</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1150</span><span class="p">],</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTML</span>
+<span class="n">HTML</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="n">include_plotlyjs</span><span class="o">=</span><span class="s2">&quot;cdn&quot;</span><span class="p">,</span> <span class="n">full_html</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>回答率：24%
+</pre></div>
+</div>
+<div class="output text_html"><div>                        <script>window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.4.0.min.js" integrity="sha256-KEmPoupLpFyGMyGAiOsiNDbKDKAvxXAn/W+oQa0ZAfk=" crossorigin="anonymous"></script>                <div id="f39c7bac-9707-4ac6-acd0-f4b0ed32d64d" class="plotly-graph-div" style="height:400px; width:600px;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("f39c7bac-9707-4ac6-acd0-f4b0ed32d64d")) {                    Plotly.newPlot(                        "f39c7bac-9707-4ac6-acd0-f4b0ed32d64d",                        [{"marker":{"color":["#4C72B0","#DD8452"]},"text":["1000万枚","240万枚"],"textposition":"outside","width":0.5,"x":["郵送した投票用紙","返送された投票用紙"],"y":{"dtype":"i2","bdata":"6APwAA=="},"type":"bar"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"yaxis":{"title":{"text":"枚数（万枚）"},"range":[0,1150]},"title":{"text":"Literary Digest誌の模擬投票（1936年）：郵送数と返送数"},"width":600,"height":400},                        {"responsive": true}                    )                };            </script>        </div></div></div>
+</div>
+<p>返送されたのは，郵送した枚数の<strong>24%</strong> にすぎません．裏を返せば，<strong>76%の人は答えなかった</strong>ということです．240万人という数字だけを見ると圧倒的ですが，「答えなかった760万人はどんな人たちだったのか」という視点を持つと，見え方が変わってきます．</p>
+</section>
+<section id="id14">
+<h3>予測と結果はどれだけ違ったか<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<p>次に，予測と実際の選挙結果を並べてみます．同誌の予測は「ランドン候補が得票率57%で勝利」，実際の結果は「ルーズベルト候補が得票率約60.8%で大勝」でした．勝敗を決める選挙人団の数では，523対8という大差です．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 2つのグラフを横に並べる</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">make_subplots</span><span class="p">(</span>
+    <span class="n">rows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">cols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">subplot_titles</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;予測と実際で勝者が入れ替わった&quot;</span><span class="p">,</span> <span class="s2">&quot;実際の結果は523対8の歴史的大差&quot;</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># 左：予測された勝者と実際の勝者の得票率</span>
+<span class="n">labels1</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;予測での勝者&lt;br&gt;ランドン候補&quot;</span><span class="p">,</span> <span class="s2">&quot;実際の勝者&lt;br&gt;ルーズベルト候補&quot;</span><span class="p">]</span>
+<span class="n">values1</span> <span class="o">=</span> <span class="p">[</span><span class="mf">57.0</span><span class="p">,</span> <span class="mf">60.8</span><span class="p">]</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span>
+    <span class="n">go</span><span class="o">.</span><span class="n">Bar</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">labels1</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="n">values1</span><span class="p">,</span>
+        <span class="n">marker_color</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;#DD8452&quot;</span><span class="p">,</span> <span class="s2">&quot;#4C72B0&quot;</span><span class="p">],</span>
+        <span class="n">text</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">%&quot;</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values1</span><span class="p">],</span>
+        <span class="n">textposition</span><span class="o">=</span><span class="s2">&quot;outside&quot;</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">col</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">add_hline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">line_dash</span><span class="o">=</span><span class="s2">&quot;dash&quot;</span><span class="p">,</span> <span class="n">line_color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># 過半数の目安（50%）</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">title_text</span><span class="o">=</span><span class="s2">&quot;得票率（%）&quot;</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">75</span><span class="p">],</span> <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 右：選挙人団の獲得数（勝敗を決める数）</span>
+<span class="n">labels2</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ルーズベルト候補&quot;</span><span class="p">,</span> <span class="s2">&quot;ランドン候補&quot;</span><span class="p">]</span>
+<span class="n">values2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">523</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span>
+    <span class="n">go</span><span class="o">.</span><span class="n">Bar</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">labels2</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="n">values2</span><span class="p">,</span>
+        <span class="n">marker_color</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;#4C72B0&quot;</span><span class="p">,</span> <span class="s2">&quot;#DD8452&quot;</span><span class="p">],</span>
+        <span class="n">text</span><span class="o">=</span><span class="n">values2</span><span class="p">,</span>
+        <span class="n">textposition</span><span class="o">=</span><span class="s2">&quot;outside&quot;</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">col</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">title_text</span><span class="o">=</span><span class="s2">&quot;選挙人団の獲得数&quot;</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">600</span><span class="p">],</span> <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">900</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">showlegend</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTML</span>
+<span class="n">HTML</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="n">include_plotlyjs</span><span class="o">=</span><span class="s2">&quot;cdn&quot;</span><span class="p">,</span> <span class="n">full_html</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>                        <script>window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.4.0.min.js" integrity="sha256-KEmPoupLpFyGMyGAiOsiNDbKDKAvxXAn/W+oQa0ZAfk=" crossorigin="anonymous"></script>                <div id="67da2556-0a95-4850-ac7f-9ca181610bca" class="plotly-graph-div" style="height:400px; width:900px;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("67da2556-0a95-4850-ac7f-9ca181610bca")) {                    Plotly.newPlot(                        "67da2556-0a95-4850-ac7f-9ca181610bca",                        [{"marker":{"color":["#DD8452","#4C72B0"]},"text":["57.0%","60.8%"],"textposition":"outside","width":0.5,"x":["予測での勝者\u003cbr\u003eランドン候補","実際の勝者\u003cbr\u003eルーズベルト候補"],"y":[57.0,60.8],"type":"bar","xaxis":"x","yaxis":"y"},{"marker":{"color":["#4C72B0","#DD8452"]},"text":["523","8"],"textposition":"outside","width":0.5,"x":["ルーズベルト候補","ランドン候補"],"y":[523,8],"type":"bar","xaxis":"x2","yaxis":"y2"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,0.45]},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"得票率（%）"},"range":[0,75]},"xaxis2":{"anchor":"y2","domain":[0.55,1.0]},"yaxis2":{"anchor":"x2","domain":[0.0,1.0],"title":{"text":"選挙人団の獲得数"},"range":[0,600]},"annotations":[{"font":{"size":16},"showarrow":false,"text":"予測と実際で勝者が入れ替わった","x":0.225,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"size":16},"showarrow":false,"text":"実際の結果は523対8の歴史的大差","x":0.775,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"}],"shapes":[{"line":{"color":"gray","dash":"dash","width":1},"type":"line","x0":0,"x1":1,"xref":"x domain","y0":50,"y1":50,"yref":"y"}],"width":900,"height":400,"showlegend":false},                        {"responsive": true}                    )                };            </script>        </div></div></div>
+</div>
+<p>左のグラフを見ると，「勝者が入れ替わった」という失敗の大きさが分かります．予測では「ランドン候補が57%で勝つ」はずだったのに，実際にはルーズベルト候補が約60.8%を得て勝ちました．単に数%外れたのではなく，<strong>勝敗の予想そのものが正反対だった</strong>のです．</p>
+</section>
+<section id="id15">
+<h3>なぜ外れたのか：二重の偏り<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<p>失敗の原因は，今回学んだ言葉でいえば<strong>選択バイアスによる標本の偏り</strong>です．しかも，偏りは二重に生じていました <span id="id16">[<a class="reference internal" href="../references.html#id11" title="Peverill Squire. Why the 1936 Literary Digest poll failed. Public Opinion Quarterly, 52(1):125–133, 1988. doi:10.1086/269085.">Squire, 1988</a>]</span>．</p>
+<p>第一に，<strong>調べる側の選び方の偏り</strong>です．同誌が投票用紙の送り先を選ぶのに使ったのは，自誌の読者名簿に加えて，自動車の登録名簿や電話帳などでした．現代の感覚では気づきにくいのですが，1936年のアメリカは世界恐慌のまっただ中で，自動車や電話を持てたのは比較的裕福な人々でした．そして当時，裕福な層は共和党のランドン候補を支持する傾向がありました．つまり，1,000万枚という膨大な郵送先は，そもそも<strong>有権者全体の縮図になっていなかった</strong>のです．</p>
+<p>第二に，<strong>答える側の偏り</strong>です．返送するかどうかは受け取った人の自由でしたから，これは自己選択の状況です．返送率は24%にとどまり，返送した人々と返送しなかった人々のあいだで支持傾向が異なっていました．Squireの分析によれば，この<strong>回答した人の偏り（非回答の偏り）</strong> は，名簿の偏りと並ぶ——むしろそれ以上に深刻な——失敗の原因でした <span id="id17">[<a class="reference internal" href="../references.html#id11" title="Peverill Squire. Why the 1936 Literary Digest poll failed. Public Opinion Quarterly, 52(1):125–133, 1988. doi:10.1086/269085.">Squire, 1988</a>]</span>．</p>
+<p>ここから得られる教訓は明快です．<strong>偏った集め方は，量では救えない</strong>．240万という空前の回答数をもってしても，偏りの影響は消えるどころか，「大規模だから信頼できそう」という誤った安心感を生む分，かえって危険でした．皮肉なことに，同じ選挙で，ギャラップという調査者ははるかに少人数の，しかし偏りを抑える工夫をした調査でルーズベルト候補の勝利を言い当てています．この対比が，現代まで続く「量より集め方」という世論調査の大原則を打ち立てました．</p>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p><strong>発展：偏りは補正できるか——「悪い標本」で終わらせない</strong></p>
+<p>この事例は長らく「偏った標本の失敗例」として語られてきましたが，話はそれで終わりではありません．LohrとBrickは2017年の論文で，当時のデータを掘り起こして再分析し，<strong>回答者の構成のずれを重み付け（weighting）で補正すれば，同じデータからでも予測を大きく改善できた</strong>ことを示しました <span id="id18">[<a class="reference internal" href="../references.html#id12" title="Sharon L. Lohr and J. Michael Brick. Roosevelt predicted to win: revisiting the 1936 Literary Digest poll. Statistics, Politics and Policy, 8(1):65–84, 2017. doi:10.1515/spp-2016-0006.">Lohr and Brick, 2017</a>]</span>．たとえば「標本の中で裕福な層が実際の有権者の構成より多すぎるなら，その層の回答の重みを軽くして集計し直す」という考え方です．</p>
+<p>実際，現代の世論調査では，回答者の性別・年齢・地域などの構成を母集団に合わせて調整する補正が標準的に行われています．ただし，補正は万能ではありません．何がどう偏っているかが分からなければ補正のしようがなく，補正には「偏り方についての仮定」が必要だからです．<strong>まず集め方の設計で偏りを防ぎ，防ぎきれない分を補正で補う</strong>——これが現代のデータ収集の基本姿勢です．</p>
+</div>
+</section>
+</section>
+<section id="id19">
+<h2>活用事例：選挙の「当確」速報を支える出口調査<a class="headerlink" href="#id19" title="Link to this heading">#</a></h2>
+<p>「集め方の設計」が社会で活きている代表例として，選挙の開票速報を見てみましょう．</p>
+<p>選挙の夜，テレビの開票速報では，開票がほとんど進んでいない段階で「当選確実」の速報が次々と出ます．開票率がまだ数%なのに，なぜ当選が分かるのでしょうか．これを支えているのが<strong>出口調査</strong>です．出口調査とは，投票を終えた人に投票所の出口で「どの候補に投票しましたか」と尋ねる標本調査です．</p>
+<p>ポイントは，その集め方が偏りを抑えるように設計されていることです．報道機関は，都合のよい投票所だけでなく，地域の投票傾向を代表するように投票所を選び，そこで「何人おきに1人」といった機械的なルールで対象者に声をかけます．「話しかけやすそうな人にだけ聞く」と偏りが生じるため，調査員の好みが入らないようにするのです．こうして得られた標本は有権者全体の縮図に近くなり，開票を待たずに結果を高い精度で推定できます．まさに，Literary Digest誌の失敗の教訓——量より集め方——を裏返しにした成功例といえます．</p>
+<p>もっとも，出口調査にも現代ならではの課題があります．期日前投票をする人が増えると，投票日当日の出口調査だけでは有権者全体を捉えきれませんし，回答を断る人が特定の傾向を持てば，そこにも偏りが生まれます．そのため報道機関は，期日前投票者への調査や電話調査を組み合わせ，補正を重ねて精度を保とうとしています．データの集め方は，一度確立したら終わりではなく，社会の変化に合わせて設計し直し続けるものなのです．</p>
+</section>
+<section id="id20">
+<h2>まとめ<a class="headerlink" href="#id20" title="Link to this heading">#</a></h2>
+<p>今回は，データのライフサイクルの出発点である「収集」を学びました．要点を振り返ります．</p>
+<ul class="simple">
+<li><p>データの集め方には<strong>調査・実験・センサー・ログ</strong>という代表的な型があり，集め方の違いがデータの性質を決める．また，<strong>オープンデータ</strong>の入手や<strong>Webスクレイピング</strong>による自動収集という経路もある</p></li>
+<li><p>データは，自分で集めた<strong>一次データ</strong>と他者が集めた<strong>二次データ</strong>，表形式の<strong>構造化データ</strong>と表に収まらない<strong>非構造化データ</strong>という視点で整理できる．二次データを使うときは「いつ・誰を・どう」集めたかの確認が欠かせない</p></li>
+<li><p>多くの調査は，<strong>母集団</strong>（知りたい全体）から<strong>標本</strong>（実際に調べる一部）を取り出す標本調査である．標本が母集団の縮図になるためには，無作為抽出のような「かき混ぜる」工夫が必要である</p></li>
+<li><p>「誰がデータに入るか」が仕組みによって偏る<strong>選択バイアス</strong>は，<strong>標本の偏り</strong>を生む．1936年のLiterary Digest世論調査は，約240万人分という空前の量のデータを集めながら，名簿の偏りと回答者の偏りという二重の選択バイアスによって予測を大きく外した <span id="id21">[<a class="reference internal" href="../references.html#id11" title="Peverill Squire. Why the 1936 Literary Digest poll failed. Public Opinion Quarterly, 52(1):125–133, 1988. doi:10.1086/269085.">Squire, 1988</a>]</span>．<strong>偏った集め方は量では救えない</strong>．ただし，偏り方が分かれば重み付けによる補正で改善の余地があることも知られている <span id="id22">[<a class="reference internal" href="../references.html#id12" title="Sharon L. Lohr and J. Michael Brick. Roosevelt predicted to win: revisiting the 1936 Literary Digest poll. Statistics, Politics and Policy, 8(1):65–84, 2017. doi:10.1515/spp-2016-0006.">Lohr and Brick, 2017</a>]</span></p></li>
+</ul>
+<p>「誰に・どう聞くか」を設計する方法論は<strong>社会調査法</strong>で，「条件をどう割り付けて比較するか」は<strong>実験計画法</strong>で，「標本から母集団をどこまで正確に推し量れるか」は<strong>統計学</strong>で，それぞれ本格的に学ぶことができます．興味を持った人は，これらの科目への入口として今回の内容を思い出してください．</p>
+<p>集めたデータは，次に「貯めて，引き出せる」ようにしなければ活用できません．次回（第3回）は，データの保存と検索を扱います．また，今回は「どう集めるか」の技術的な話に絞りましたが，そもそも<strong>集めてよいデータなのか，集め方のルール（同意・プライバシー）はどうなっているのか</strong>という重要な問題が残っています．これは<a class="reference internal" href="ch07-data-law.html"><span class="std std-doc">第7回「データと法」</span></a>で扱います．</p>
+</section>
+<section id="id23">
+<h2>確認問題<a class="headerlink" href="#id23" title="Link to this heading">#</a></h2>
+<p>理解の確認のために，3問用意しました．小テストと同じ形式の問い（事例の問題点を考える問題）を含んでいます．まず自分で考えてから，解答を開いてください．</p>
+<p><strong>問1</strong>．次の(a)〜(d)のデータを，「一次データ／二次データ」と「構造化データ／非構造化データ」の両方の観点で分類しなさい．</p>
+<ul class="simple">
+<li><p>(a) 自分のゼミで実施し，表計算ソフトに整理した選択式アンケートの回答一覧</p></li>
+<li><p>(b) e-Statからダウンロードした人口統計の表</p></li>
+<li><p>(c) レビューサイトからWebスクレイピングで収集したクチコミの本文</p></li>
+<li><p>(d) 自分でインタビューして録音した音声データ</p></li>
+</ul>
+<div class="dropdown admonition">
+<p class="admonition-title">解答と解説</p>
+<ul class="simple">
+<li><p>(a) <strong>一次データ・構造化データ</strong>．自分たちが目的のために集め（一次），行と列の表に整理されている（構造化）</p></li>
+<li><p>(b) <strong>二次データ・構造化データ</strong>．国（他者）が集めた統計を再利用し（二次），表の形をしている（構造化）</p></li>
+<li><p>(c) <strong>二次データ・非構造化データ</strong>．他者（投稿者・サイト）のもとにあるデータを収集して使い（二次），本文は表に収まらない文章（非構造化）</p></li>
+<li><p>(d) <strong>一次データ・非構造化データ</strong>．自分で集め（一次），音声は表形式ではない（非構造化）</p></li>
+</ul>
+<p>「誰が集めたか」（一次／二次）と「どんな形か」（構造化／非構造化）は独立した分類であり，組み合わせは4通りすべてあり得る，という点がポイントです．</p>
+</div>
+<p><strong>問2</strong>［事例判断型］．ある大学の学食が，メニューの満足度を調べるために，学食の公式SNSアカウントでアンケートを実施し，1,200件の回答を集めました．結果は「満足・やや満足が合計85%」でした．学食はこの結果から「学生のほとんどが学食に満足している」と結論づけようとしています．この調査の問題点を，「母集団」「標本」「選択バイアス」という言葉を使って説明しなさい．</p>
+<div class="dropdown admonition">
+<p class="admonition-title">解答と解説</p>
+<p>知りたい対象（<strong>母集団</strong>）は「その大学の学生全体」です．しかし実際に回答した1,200人（<strong>標本</strong>）は，「学食の公式SNSをフォローしており，かつ自分から回答しようと思った人」に限られます．公式アカウントをフォローするのはもともと学食をよく利用し好意的な学生に偏っている可能性が高く，さらに回答するかどうかを本人が決める自己選択の仕組みも働いています．つまり，標本に「誰が入るか」が偶然ではなく仕組みによって偏る<strong>選択バイアス</strong>が生じており，標本は母集団の縮図になっていません．したがって「85%が満足」という数字を学生全体の満足度と解釈することはできません．学食をほとんど使わない学生や不満で離れた学生の声は，この集め方では最初から標本に入りにくいのです．回答数が1,200件と多いことは，この偏りを解消しません．</p>
+<p>改善するなら，たとえば全学生から無作為に選んだ学生に回答を依頼する，学食の利用頻度も尋ねて回答者の構成を確認する，といった「集め方の設計」が必要です．</p>
+</div>
+<p><strong>問3</strong>［事例判断型］．1936年のLiterary Digest世論調査は，約1,000万枚の投票用紙を郵送し約240万枚を回収したにもかかわらず，選挙結果の予測を大きく外しました．(1) 失敗の原因となった「二重の偏り」とは何か，説明しなさい．(2) 「もっと多くの回答を集めていれば予測は当たったはずだ」という意見は正しいか，理由とともに答えなさい．</p>
+<div class="dropdown admonition">
+<p class="admonition-title">解答と解説</p>
+<p>(1) 第一の偏りは<strong>調べる側の選び方の偏り</strong>です．郵送先の名簿（自誌の読者・自動車の登録名簿・電話帳など）が，世界恐慌下で自動車や電話を持てる比較的裕福な層に偏っており，郵送先の時点で有権者全体の縮図になっていませんでした．第二の偏りは<strong>答える側の偏り（非回答の偏り）</strong> です．回答率は24%にとどまり，返送した人々の支持傾向は返送しなかった人々と異なっていました <span id="id24">[<a class="reference internal" href="../references.html#id11" title="Peverill Squire. Why the 1936 Literary Digest poll failed. Public Opinion Quarterly, 52(1):125–133, 1988. doi:10.1086/269085.">Squire, 1988</a>]</span>．</p>
+<p>(2) 正しくありません．偏りは標本の「選ばれ方の仕組み」から生じているため，同じ集め方のまま回答数を増やしても，偏った標本が大きくなるだけで，母集団とのずれは解消されないからです．<strong>偏った集め方は量では救えない</strong>——これがこの事例の最大の教訓です．なお，偏りの構造が分かっている場合には，重み付けによる補正で予測を改善できた可能性が後の研究で示されていますが <span id="id25">[<a class="reference internal" href="../references.html#id12" title="Sharon L. Lohr and J. Michael Brick. Roosevelt predicted to win: revisiting the 1936 Literary Digest poll. Statistics, Politics and Policy, 8(1):65–84, 2017. doi:10.1515/spp-2016-0006.">Lohr and Brick, 2017</a>]</span>，それは「量を増やす」こととは別の対処である点に注意してください．</p>
+</div>
+</section>
+<section id="id26">
+<h2>さらに学ぶために<a class="headerlink" href="#id26" title="Link to this heading">#</a></h2>
+<p>今回のテーマを深めるための文献です．事例 → 解説 → 原典の順に読み進めるのがおすすめです．</p>
+<ul class="simple">
+<li><p>【事例】Beth Chance, Andrew Kerr &amp; Jett Palmer, &quot;Taking the Next Step in Exploring the Literary Digest 1936 Poll,&quot; <em>Journal of Statistics and Data Science Education</em>, 32(4), 2024 <span id="id27">[<a class="reference internal" href="../references.html#id13" title="Beth Chance, Andrew Kerr, and Jett Palmer. Taking the next step in exploring the Literary Digest 1936 poll. Journal of Statistics and Data Science Education, 2024. doi:10.1080/26939169.2024.2395505.">Chance <em>et al.</em>, 2024</a>]</span>．Literary Digest調査のデータを実際に取得・整形・可視化しながら標本の偏りと補正を学ぶ授業活動の設計例です．オープンアクセスで全文を読めます：<a class="reference external" href="https://www.tandfonline.com/doi/full/10.1080/26939169.2024.2395505">https://www.tandfonline.com/doi/full/10.1080/26939169.2024.2395505</a></p></li>
+<li><p>【解説・サーベイ】&quot;Impact of Biases in Big Data,&quot; arXiv:1803.00897, 2018．1936年のLiterary Digest事例と1948年の「デューイ，トルーマンを破る」誤報事例を含む，選択バイアスとビッグデータの偏りの概説です．全文：<a class="reference external" href="https://arxiv.org/abs/1803.00897">https://arxiv.org/abs/1803.00897</a></p></li>
+<li><p>【解説・サーベイ】Sharon L. Lohr &amp; J. Michael Brick, &quot;Roosevelt Predicted to Win: Revisiting the 1936 Literary Digest Poll,&quot; <em>Statistics, Politics and Policy</em>, 8(1), 65–84, 2017 <span id="id28">[<a class="reference internal" href="../references.html#id12" title="Sharon L. Lohr and J. Michael Brick. Roosevelt predicted to win: revisiting the 1936 Literary Digest poll. Statistics, Politics and Policy, 8(1):65–84, 2017. doi:10.1515/spp-2016-0006.">Lohr and Brick, 2017</a>]</span>．「悪い標本の失敗例」という単純な教訓を超えて，重み付け補正による改善可能性まで踏み込んだ再分析です．DOI: <a class="reference external" href="https://doi.org/10.1515/spp-2016-0006">https://doi.org/10.1515/spp-2016-0006</a></p></li>
+<li><p>【原典】Peverill Squire, &quot;Why the 1936 Literary Digest Poll Failed,&quot; <em>Public Opinion Quarterly</em>, 52(1), 125–133, 1988 <span id="id29">[<a class="reference internal" href="../references.html#id11" title="Peverill Squire. Why the 1936 Literary Digest poll failed. Public Opinion Quarterly, 52(1):125–133, 1988. doi:10.1086/269085.">Squire, 1988</a>]</span>．失敗の原因を名簿の偏りと非回答の偏りに分けて実証的に分析した古典です．DOI: <a class="reference external" href="https://doi.org/10.1086/269085">https://doi.org/10.1086/269085</a></p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="ch01-what-is-ds.html"
+       title="前のページ">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">前へ</p>
+        <p class="prev-next-title">第1回：データサイエンスとは何か——ビッグデータとThick・Thinデータ</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="ch03-database.html"
+       title="次ページ">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">次へ</p>
+        <p class="prev-next-title">第3回：データの保存と検索</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目次
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">この回で学ぶこと</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">導入：240万人に聞いたのに大外れした世論調査</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">データはどこから来るのか</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">集め方の4つの型：調査・実験・センサー・ログ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#web">すでにあるデータを使う：オープンデータとWebスクレイピング</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">誰が集めたのか：一次データと二次データ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">どんな形をしているか：構造化データと非構造化データ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">一部から全体を知る：標本と母集団</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">母集団と標本</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">標本の偏りと選択バイアス</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#literary-digest">Literary Digestの失敗を数字で読み解く</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">郵送1,000万枚，返送240万枚</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">予測と結果はどれだけ違ったか</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">なぜ外れたのか：二重の偏り</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">活用事例：選挙の「当確」速報を支える出口調査</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">まとめ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">確認問題</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">さらに学ぶために</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+著者 名古屋市立大学 大学院データサイエンス研究科 山本祐輔
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

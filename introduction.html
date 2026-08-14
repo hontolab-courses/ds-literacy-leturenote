@@ -1,0 +1,620 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ja" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>データサイエンス・リテラシー &#8212; データサイエンス・リテラシー</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=1cf7f4d9"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'クリックして表示';</script>
+    <script>let toggleHintHide = 'クリックして非表示';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script src="_static/translations.js?v=91613774"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'introduction';</script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="第1回：データサイエンスとは何か——ビッグデータとThick・Thinデータ" href="chapters/ch01-what-is-ds.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ja"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">本文へスキップ</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>トップに戻る</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="バージョン警告"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="#">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">データサイエンス・リテラシー</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">検索</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1 current active">
+                <a class="reference internal" href="#">
+                    データサイエンス・リテラシー
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapters/ch01-what-is-ds.html">第1回：データサイエンスとは何か——ビッグデータとThick・Thinデータ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/ch02-data-collection.html">第2回：データの収集</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/ch03-database.html">第3回：データの保存と検索</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/ch04-preprocessing.html">第4回：データの前処理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/ch05-data-analysis.html">第5回：データの分析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/ch06-data-visualization.html">第6回：データの可視化とコミュニケーション</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/ch07-data-law.html">第7回：データと法——情報法の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/ch08-genai.html">第8回：生成AIの基礎と知的活動への利用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">参考文献</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="このページをダウンロード">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/introduction.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="ソースファイルをダウンロード"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="PDFに印刷"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="全画面モード"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="ライト"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="ダーク"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>データサイエンス・リテラシー</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目次 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">開講情報</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">科目概要</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">小テストについて</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">授業の予定とコンテンツ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">この講義ノートの使い方</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">問い合わせ</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>データサイエンス・リテラシー<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<p>ようこそ．このウェブサイトは，名古屋市立大学の一般教養科目「データサイエンス・リテラシー」の<strong>講義ノート</strong>です．</p>
+<p>本科目は，授業動画の視聴と小テストによって進めるオンデマンド型の科目です．この講義ノートは，授業動画の内容をより詳しく説明した<strong>補助資料</strong>という位置づけです．単位の認定は授業動画と小テストで行いますので，講義ノートを隅々まで読まなくても小テストには解答できます．そのうえで，「動画で聞いた話をもう一度確かめたい」「もう少し詳しく知りたい」と思ったときに，この講義ノートを開いてみてください．</p>
+<section id="id2">
+<h2>開講情報<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>項目</p></th>
+<th class="head"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>実施時期</p></td>
+<td><p>2026年度後期</p></td>
+</tr>
+<tr class="row-odd"><td><p>科目区分</p></td>
+<td><p>共通-情報（一般教養科目・必修）</p></td>
+</tr>
+<tr class="row-even"><td><p>対象</p></td>
+<td><p>データサイエンス学部を除く全学部の学部1年生</p></td>
+</tr>
+<tr class="row-odd"><td><p>日時</p></td>
+<td><p>時間割外</p></td>
+</tr>
+<tr class="row-even"><td><p>実施方法</p></td>
+<td><p>遠隔授業（オンデマンド動画の視聴＋小テスト）</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="id3">
+<h2>科目概要<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>私たちの身のまわりでは，買い物の履歴，スマートフォンの位置情報，SNSへの投稿など，毎日たくさんのデータが生まれています．そして，医療での画像診断の支援，災害時の被害予測，ネットショッピングのおすすめ表示，電車やバスの需要予測など，データを活用したサービスは，学部を問わずみなさんの生活や将来の仕事に深く関わるようになっています．このような社会では，データを専門的に扱う人だけでなく，<strong>すべての人がデータとの正しい付き合い方＝データサイエンス・リテラシーを身につけること</strong>が大切になります．</p>
+<p>本科目では，データが生まれてから価値を生むまでの一連の流れ（<strong>データのライフサイクル</strong>）に沿って，データサイエンスの基礎を全8回で概観します．各回のテーマの詳しい技術には立ち入らず，「なぜそのテーマが重要なのか」を実社会の事例とともに理解することを目指します．</p>
+<div class="tip admonition">
+<p class="admonition-title">本科目の地図：データのライフサイクル</p>
+<p><strong>第1回</strong>でデータサイエンスの全体像をつかんだあと，<strong>第2〜6回</strong>でデータのライフサイクルを順にたどります．</p>
+<blockquote>
+<div><p><strong>収集</strong>（第2回）→ <strong>保存・検索</strong>（第3回）→ <strong>前処理</strong>（第4回）→ <strong>分析</strong>（第5回）→ <strong>可視化</strong>（第6回）</p>
+</div></blockquote>
+<p>終盤の2回では，ライフサイクル全体に関わる横断的なテーマとして，<strong>データと法</strong>（第7回）と<strong>生成AI</strong>（第8回）を扱います．</p>
+</div>
+</section>
+<section id="id4">
+<h2>小テストについて<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>小テストの実施方法と合格の基準は次のとおりです．</p>
+<ul class="simple">
+<li><p>各回の授業ごとに，学習内容を確認する<strong>小テスト</strong>を実施します．</p></li>
+<li><p>小テストの実施期間は<strong>授業開始日から2週間</strong>です．締切は締切日の<strong>23:59</strong>です．</p></li>
+<li><p>小テストは<strong>60点以上</strong>で合格です．</p></li>
+<li><p><strong>全8回のうち5回以上合格点</strong>を取ることで，単位を認定します．</p></li>
+<li><p>小テストの結果は，<strong>授業開始日の3週間後</strong>に発表する予定です．</p></li>
+<li><p>60点未満だった場合は，<strong>再試</strong>を受験できます．再試は結果の発表後に実施します（締切は別途案内します）．</p></li>
+</ul>
+</section>
+<section id="id5">
+<h2>授業の予定とコンテンツ<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>授業動画は，各回の<strong>授業開始日の1〜2日前に公開</strong>します．小テストは前節のとおり，授業開始日から2週間の間に受験してください．</p>
+<p>動画の配信から小テスト・結果公開・再試までの流れは，次の図のようなスケジュールで毎回繰り返されます．たとえば第1回では，第1週に動画の配信と小テストが始まり，第2週の終わりに小テストが締め切られ，第3週の終わりに結果が公開されます．60点未満だった場合は，そのあとに実施される再試小テストを受験できます．第2回以降も，1週間ずつずれながら同じ流れで進みます．</p>
+<figure class="align-default" id="fig-schedule">
+<a class="reference internal image-reference" href="_images/schedule.png"><img alt="動画配信・小テスト・結果公開・再試小テストの週ごとのスケジュール" src="_images/schedule.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">図 1 </span><span class="caption-text">各回の動画配信と小テストのスケジュール</span><a class="headerlink" href="#fig-schedule" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>各回の開始日・小テスト締切と，授業動画・資料へのリンクは，決まり次第この表に掲載します．</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>回</p></th>
+<th class="head"><p>開始日</p></th>
+<th class="head"><p>タイトル</p></th>
+<th class="head"><p>講義ノート</p></th>
+<th class="head"><p>動画・資料</p></th>
+<th class="head"><p>小テスト締切</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>後日掲載</p></td>
+<td><p>データサイエンスとは何か——ビッグデータとThick・Thinデータ</p></td>
+<td><p><a class="reference internal" href="chapters/ch01-what-is-ds.html"><span class="std std-doc">第1回</span></a></p></td>
+<td><p>準備中</p></td>
+<td><p>後日掲載</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>後日掲載</p></td>
+<td><p>データの収集</p></td>
+<td><p><a class="reference internal" href="chapters/ch02-data-collection.html"><span class="std std-doc">第2回</span></a></p></td>
+<td><p>準備中</p></td>
+<td><p>後日掲載</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>後日掲載</p></td>
+<td><p>データの保存と検索</p></td>
+<td><p><a class="reference internal" href="chapters/ch03-database.html"><span class="std std-doc">第3回</span></a></p></td>
+<td><p>準備中</p></td>
+<td><p>後日掲載</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>後日掲載</p></td>
+<td><p>データの前処理</p></td>
+<td><p><a class="reference internal" href="chapters/ch04-preprocessing.html"><span class="std std-doc">第4回</span></a></p></td>
+<td><p>準備中</p></td>
+<td><p>後日掲載</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>後日掲載</p></td>
+<td><p>データの分析</p></td>
+<td><p><a class="reference internal" href="chapters/ch05-data-analysis.html"><span class="std std-doc">第5回</span></a></p></td>
+<td><p>準備中</p></td>
+<td><p>後日掲載</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>後日掲載</p></td>
+<td><p>データの可視化とコミュニケーション</p></td>
+<td><p><a class="reference internal" href="chapters/ch06-data-visualization.html"><span class="std std-doc">第6回</span></a></p></td>
+<td><p>準備中</p></td>
+<td><p>後日掲載</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>後日掲載</p></td>
+<td><p>データと法——情報法の基礎</p></td>
+<td><p><a class="reference internal" href="chapters/ch07-data-law.html"><span class="std std-doc">第7回</span></a></p></td>
+<td><p>準備中</p></td>
+<td><p>後日掲載</p></td>
+</tr>
+<tr class="row-odd"><td><p>8</p></td>
+<td><p>後日掲載</p></td>
+<td><p>生成AIの基礎と知的活動への利用</p></td>
+<td><p><a class="reference internal" href="chapters/ch08-genai.html"><span class="std std-doc">第8回</span></a></p></td>
+<td><p>準備中</p></td>
+<td><p>後日掲載</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="id6">
+<h2>この講義ノートの使い方<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<p>この講義ノートは，次のことを意識して作られています．学習の際の参考にしてください．</p>
+<ul class="simple">
+<li><p><strong>どの章から読んでも構いません</strong>．ただし，第2〜6回はデータのライフサイクルの順につながっているため，順番に読むとより理解しやすくなっています．</p></li>
+<li><p>各章の最初にある「この回で学ぶこと」で要点を確認し，最後の「まとめ」と「確認問題」で理解を確かめる，という使い方がおすすめです．確認問題は小テストと同じ形式の問いを含んでいます．</p></li>
+<li><p>一部の章（特に第5回・第6回）には，<strong>プログラム（コード）とその実行結果</strong>が載っています．本科目ではプログラムを書けるようになる必要はありません．コードは「読んで，動かして，実感するための材料」ですので，眺めるだけで大丈夫です．</p></li>
+<li><p>ページ上のグラフの一部は，マウスを重ねると値が表示されたり，拡大したりできる<strong>操作できるグラフ</strong>になっています．ぜひ自分の手で動かしてみてください．</p></li>
+<li><p>もっと試してみたい人は，コードが載っているページの上部にあるボタンから<strong>Google Colaboratory</strong>を開くと，ブラウザ上でコードを書き換えて実行できます（準備ができ次第，利用できるようになります）．</p></li>
+<li><p>各章の「さらに学ぶために」には，その回のテーマの元になった文献を紹介しています．興味を持ったテーマを深掘りする入口として活用してください．</p></li>
+</ul>
+</section>
+<section id="id7">
+<h2>問い合わせ<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<p>本科目に関する質問は，担当教員までお問い合わせください．</p>
+<ul class="simple">
+<li><p>担当教員：山本 祐輔（名古屋市立大学 大学院データサイエンス研究科）</p></li>
+<li><p>E-mail：yusuke_yamamoto (at) <a class="reference external" href="http://acm.org">acm.org</a></p></li>
+</ul>
+</section>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="right-next"
+       href="chapters/ch01-what-is-ds.html"
+       title="次ページ">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">次へ</p>
+        <p class="prev-next-title">第1回：データサイエンスとは何か——ビッグデータとThick・Thinデータ</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目次
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">開講情報</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">科目概要</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">小テストについて</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">授業の予定とコンテンツ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">この講義ノートの使い方</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">問い合わせ</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+著者 名古屋市立大学 大学院データサイエンス研究科 山本祐輔
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

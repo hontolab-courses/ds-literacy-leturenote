@@ -1,0 +1,1006 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ja" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>第8回：生成AIの基礎と知的活動への利用 &#8212; データサイエンス・リテラシー</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=1cf7f4d9"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'クリックして表示';</script>
+    <script>let toggleHintHide = 'クリックして非表示';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script src="../_static/translations.js?v=91613774"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/ch08-genai';</script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="参考文献" href="../references.html" />
+    <link rel="prev" title="第7回：データと法——情報法の基礎" href="ch07-data-law.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ja"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">本文へスキップ</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>トップに戻る</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="バージョン警告"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../introduction.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">データサイエンス・リテラシー</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">検索</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../introduction.html">
+                    データサイエンス・リテラシー
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ch01-what-is-ds.html">第1回：データサイエンスとは何か——ビッグデータとThick・Thinデータ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch02-data-collection.html">第2回：データの収集</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch03-database.html">第3回：データの保存と検索</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch04-preprocessing.html">第4回：データの前処理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch05-data-analysis.html">第5回：データの分析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch06-data-visualization.html">第6回：データの可視化とコミュニケーション</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch07-data-law.html">第7回：データと法——情報法の基礎</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">第8回：生成AIの基礎と知的活動への利用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">参考文献</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="このページをダウンロード">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/ch08-genai.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="ソースファイルをダウンロード"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="PDFに印刷"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="全画面モード"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="ライト"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="ダーク"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>第8回：生成AIの基礎と知的活動への利用</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目次 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">この回で学ぶこと</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">導入：その参考文献，本当に存在しますか？</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aiai-ai">AIの全体像——「AI＝生成AI」ではない</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">第1回で見たAIたちを思い出す</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">生成AIとは何か</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">大規模言語モデルの仕組み——「次の語の予測」</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">スマホの予測変換から考える</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">小さなコーパスで「次の語の予測」を体験する</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">予測を繰り返して文を作ってみる</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">生成AIにできること・できないこと</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">得意なこと：言葉のパターン処理</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">ハルシネーション——もっともらしい誤り</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">知識の鮮度——「いつまでの知識か」</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">学習データに由来するバイアス</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">大学での生成AIとの付き合い方</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">プロンプトの基本——指示は具体的に</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">適切な使い方の例——学びを増やす使い方</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">学術的誠実性——なぜ「丸写し」がいけないのか</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">生成AI検索と情報アクセスの変容</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">活用事例：教育の現場に入り始めた生成AI</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">まとめ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">科目全体の総括——データサイエンスと生成AI</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">確認問題</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">さらに学ぶために</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="ai">
+<h1>第8回：生成AIの基礎と知的活動への利用<a class="headerlink" href="#ai" title="Link to this heading">#</a></h1>
+<section id="id1">
+<h2>この回で学ぶこと<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>AIの全体像（識別・予測系AIと生成AI）を整理し，「AI＝生成AI」ではないことを説明できるようになる</p></li>
+<li><p>生成AIの中核である大規模言語モデル（LLM）の仕組みを，「次の語の予測」という考え方で直感的に説明できるようになる</p></li>
+<li><p>生成AIにできること・できないこと（ハルシネーション・知識の鮮度・バイアス）を理解し，出力を批判的に確認する姿勢を身につける</p></li>
+<li><p>大学での適切な生成AIの使い方（レポート作成支援・文献調査・アイデア出し）と，学術的誠実性の考え方を理解する</p></li>
+<li><p>データサイエンスと生成AIの関係を整理し，本科目全体（データのライフサイクルと法）を振り返る</p></li>
+</ul>
+</section>
+<section id="id2">
+<h2>導入：その参考文献，本当に存在しますか？<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>いよいよ最終回です．最終回のテーマは，みなさんにとってもっとも身近なデータサイエンスの話題かもしれない<strong>生成AI</strong>です．まずは，大学の授業で実際に起こりうる場面から考えてみましょう．</p>
+<div class="admonition-ai admonition">
+<p class="admonition-title">事例：AIが挙げた「存在しない論文」</p>
+<p>ある大学1年生が，教養科目のレポート課題に取り組んでいました．締切が迫っていたため，対話型の生成AIサービス（ChatGPTなど）に「このテーマに関するレポートを書いて，参考文献も挙げてください」と頼んだところ，数分で，もっともらしい文章と，著者名・論文タイトル・雑誌名・年まで整った参考文献リストが出力されました．</p>
+<p>ところが，提出前に念のため図書館のデータベースで参考文献を検索してみると，<strong>リストにあった論文のいくつかが，どこを探しても見つかりません</strong>．著者名は実在する研究者，雑誌名も実在する雑誌なのに，その組み合わせの論文は存在しなかったのです．つまり生成AIは，「それらしい参考文献」を<strong>作り出して</strong>いました．</p>
+<p>実は，生成AIが事実と異なる内容をもっともらしく出力してしまう現象は世界中で数多く報告されており，研究の世界でも大きな課題として盛んに研究されています．なぜこんなことが起こるのでしょうか．そして，こんな性質を持つ道具と，私たちはどう付き合えばよいのでしょうか．</p>
+</div>
+<p>この事例は，生成AIが「使えない道具」だということを意味しません．生成AIは，使い方しだいでみなさんの学びを大きく助けてくれる強力な道具です．しかし，強力な道具ほど，<strong>その仕組みと限界を知らずに使うと危険</strong>です．車の運転に交通ルールと車の特性の理解が必要なのと同じです．</p>
+<p>この回では，まずAI全体の中での生成AIの位置づけを整理したうえで，生成AIの中身である大規模言語モデルの仕組みを「次の語の予測」というキーワードで直感的に理解します．そのうえで，生成AIにできること・できないことを押さえ，大学での適切な使い方を考えます．最後に，データサイエンスと生成AIの関係を整理して，本科目全体のまとめとします．</p>
+</section>
+<section id="aiai-ai">
+<h2>AIの全体像——「AI＝生成AI」ではない<a class="headerlink" href="#aiai-ai" title="Link to this heading">#</a></h2>
+<section id="id3">
+<h3>第1回で見たAIたちを思い出す<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>「AI」と聞くと，いまでは多くの人がChatGPTのような対話型の生成AIを思い浮かべます．しかし，<a class="reference internal" href="ch01-what-is-ds.html"><span class="std std-doc">第1回「データサイエンスとは何か」</span></a>で紹介した社会のAI・データ活用事例を思い出してみてください．</p>
+<ul class="simple">
+<li><p><strong>医療</strong>：レントゲンやCTの画像から病変の疑いがある箇所を見つける「画像診断支援」</p></li>
+<li><p><strong>防災</strong>：気象や地形のデータから災害の被害を予測する「被害予測」</p></li>
+<li><p><strong>マーケティング</strong>：ネットショッピングや動画サイトの「おすすめ表示（推薦システム）」</p></li>
+<li><p><strong>交通</strong>：電車やバス，タクシーの「需要予測」</p></li>
+</ul>
+<p>これらはすべてAIの活用事例ですが，どれも文章や画像を「作り出す」AIではありません．画像診断支援は画像を「病変あり／なし」に<strong>見分ける</strong>AI，被害予測や需要予測は将来の数値を<strong>予測する</strong>AI，推薦システムは「この人はこの商品を好みそうだ」と<strong>予測する</strong>AIです．</p>
+<p>このように，入力されたデータを<strong>分類したり，数値を予測したりする</strong>タイプのAIを，本講義では<strong>識別・予測系AI</strong>と呼ぶことにします．世の中で長く活躍してきたAIの多くは，この識別・予測系AIです．迷惑メールの自動振り分け，スマホの顔認証，音声認識なども識別・予測系AIの仲間です．</p>
+</section>
+<section id="id4">
+<h3>生成AIとは何か<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>これに対して，<strong>生成AI</strong>（generative AI）は，文章・画像・音声・プログラムコードなどの<strong>新しいコンテンツを作り出す（生成する）</strong> タイプのAIです．質問に対して文章で答える対話型AI，指示文から画像を描くAI，メロディを作るAIなどがこれにあたります．</p>
+<p>ここで大切なのは，識別・予測系AIと生成AIは対立するものではなく，<strong>どちらも「データから学ぶ」という共通の土台（機械学習）の上に立っている</strong>ということです．第5回で機械学習の入口として学んだように，機械学習とは，人間がルールを一つひとつ書き込むのではなく，大量のデータからコンピュータ自身がパターンを見つけ出す方法でした．識別・予測系AIはデータから「見分け方・予測の仕方」のパターンを学び，生成AIはデータから「コンテンツの作り方」のパターンを学びます．違うのは出力の形であって，データから学ぶという原理は共通なのです．</p>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>ニュースや日常会話では「AI」という言葉が生成AIだけを指して使われることが増えていますが，<strong>AI＝生成AIではありません</strong>．社会を支えているAIの多くは識別・予測系AIであり，生成AIはAIという大きな家族の中の（急成長中の）一員です．「AIを使った」という話を聞いたら，「それは何かを見分ける・予測するAIなのか，何かを作り出すAIなのか」を区別して考える習慣をつけましょう．</p>
+</div>
+<p>では，生成AI，特に文章を生成するAIは，どうやって「新しい文章」を作り出しているのでしょうか．次の節で，その心臓部をのぞいてみます．</p>
+</section>
+</section>
+<section id="id5">
+<h2>大規模言語モデルの仕組み——「次の語の予測」<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<section id="id6">
+<h3>スマホの予測変換から考える<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>文章を生成するAIの中身は，<strong>大規模言語モデル</strong>（Large Language Model; <strong>LLM</strong>）と呼ばれるモデルです．「モデル」という言葉は難しく聞こえますが，ここでは「データから学んだパターンのかたまり」くらいに考えてください．</p>
+<p>LLMの仕組みを直感的に理解する鍵は，みなさんが毎日使っているスマホの<strong>予測変換</strong>にあります．スマホで「おはよう」と打つと，次の候補として「ございます」が上位に出てきます．「明日の」と打てば「予定」「天気」などが出てきます．これは，スマホが「『おはよう』の後には『ございます』が続くことが多い」という<strong>言葉のつながりのパターン</strong>を知っているからです．</p>
+<p>LLMがやっていることは，本質的にはこの予測変換の超強力版です．すなわち，LLMの基本動作は，<strong>ここまでの文章に続く「次の語」を確率的に予測する</strong>ことです．これを本講義では<strong>次の語の予測</strong>と呼びます．たとえば「吾輩は猫で」という文章が与えられたら，次に来る語として「ある」に高い確率を，「いる」「す」などにより低い確率を割り当てる，という具合です．そして，予測した語を文章の末尾に付け足し，また次の語を予測する——これを何度も繰り返すことで，長い文章が一語ずつ生成されていきます．対話型の生成AIがすらすらと答えを「書いている」ように見えるのは，この「次の語の予測」を高速に繰り返している姿なのです．</p>
+<p>では，LLMはこの「言葉のつながりのパターン」をどこから学んだのでしょうか．答えは<strong>学習データ</strong>です．LLMは，ウェブページ・書籍・記事など，人間がこれまでに書いた<strong>膨大な量の文章</strong>を学習データとして読み込み，「どんな文脈の後にどんな語が続きやすいか」というパターンを統計的に学習しています．つまりLLMの賢さの源は，人間が書き溜めてきた文章の巨大な集まりなのです．この「学習データから学ぶ」という点は，あとで見る生成AIの弱点（知識の鮮度・バイアス）にも直結するので，覚えておいてください．</p>
+</section>
+<section id="id7">
+<h3>小さなコーパスで「次の語の予測」を体験する<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>「次の語の予測」がどういうものか，実際にごく小さな仕組みを作って確かめてみましょう．ここでは，本物のLLMの代わりに，わずか24文の小さな日本語の文章集（<strong>コーパス</strong>と呼びます）を使います．やることは単純で，<strong>コーパスの中で「ある語の直後にどの語が何回現れたか」を数える</strong>だけです．</p>
+<p>まず，準備として使用するライブラリを読み込みます．</p>
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 準備：ライブラリの読み込み</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<p>次に，小さなコーパスを用意します．コンピュータで扱いやすいように，各文はあらかじめ単語ごとにスペースで区切ってあります（文の終わりには「．」を付けています）．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 小さな日本語コーパス（自作の24文．単語ごとにスペースで区切ってある）</span>
+<span class="n">corpus</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;私 は 大学 で データサイエンス を 学ぶ ．&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;私 は 図書館 で レポート を 書く ．&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;私 は スマホ で 動画 を 見る ．&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;私 は カフェ で 課題 を する ．&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;私 は 電車 で 音楽 を 聴く ．&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;私 は 大学 で 友達 と 話す ．&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;学生 は 大学 で 統計学 を 学ぶ ．&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;学生 は 図書館 で 本 を 読む ．&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;学生 は スマホ で ニュース を 読む ．&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;先生 は 大学 で 講義 を する ．&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;データ は 社会 を 変える ．&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;データ を 集める ．&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;データ を 分析 する ．&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;データ を 可視化 する ．&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;データ を 保存 する ．&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;データ の 前処理 は 大切 だ ．&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;データ の 分析 は 面白い ．&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;データ の 可視化 は 大切 だ ．&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;大学 で データ を 学ぶ ．&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;AI は データ を 学習 する ．&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;AI は 文章 を 生成 する ．&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;AI は 社会 を 変える ．&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;生成AI は 次 の 語 を 予測 する ．&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;モデル は 大量 の データ を 学習 する ．&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="c1"># コーパス中の「直前の語 → 次の語」のペアをすべて取り出す</span>
+<span class="n">pairs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">corpus</span><span class="p">:</span>
+    <span class="n">words</span> <span class="o">=</span> <span class="n">sentence</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>           <span class="c1"># スペースで区切って単語のリストにする</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">words</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">pairs</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">words</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">words</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]))</span>
+
+<span class="c1"># ペアの一覧を表（データフレーム）にする</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pairs</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;直前の語&quot;</span><span class="p">,</span> <span class="s2">&quot;次の語&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ペアの総数：</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ペアの総数：145
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>直前の語</th>
+      <th>次の語</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>私</td>
+      <td>は</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>は</td>
+      <td>大学</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>大学</td>
+      <td>で</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>で</td>
+      <td>データサイエンス</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>データサイエンス</td>
+      <td>を</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>これで，「直前の語 → 次の語」のペアの一覧表ができました．あとは，<strong>ある語の直後にどの語が何回現れたかを数え，割合（確率）に直す</strong>だけで，ミニ版の「次の語の予測」ができあがります．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">next_word_table</span><span class="p">(</span><span class="n">word</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;指定した語の直後に現れる語を数え，出現回数と確率の表を返す&quot;&quot;&quot;</span>
+    <span class="n">counts</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;直前の語&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">word</span><span class="p">][</span><span class="s2">&quot;次の語&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s2">&quot;出現回数&quot;</span><span class="p">:</span> <span class="n">counts</span><span class="p">,</span>
+        <span class="s2">&quot;確率&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">counts</span> <span class="o">/</span> <span class="n">counts</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+    <span class="p">})</span>
+    <span class="k">return</span> <span class="n">table</span>
+
+<span class="c1"># 「データ」の次に来る語の予測</span>
+<span class="n">next_word_table</span><span class="p">(</span><span class="s2">&quot;データ&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>出現回数</th>
+      <th>確率</th>
+    </tr>
+    <tr>
+      <th>次の語</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>を</th>
+      <td>7</td>
+      <td>0.64</td>
+    </tr>
+    <tr>
+      <th>の</th>
+      <td>3</td>
+      <td>0.27</td>
+    </tr>
+    <tr>
+      <th>は</th>
+      <td>1</td>
+      <td>0.09</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>このコーパスでは，「データ」の直後には「を」がもっとも多く現れ，次いで「の」「は」が続いています．つまりこのミニモデルは，「データ」の次の語として「を」を約6割の確率で予測します．「私」ではどうでしょうか．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 「私」の次に来る語の予測</span>
+<span class="n">next_word_table</span><span class="p">(</span><span class="s2">&quot;私&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>出現回数</th>
+      <th>確率</th>
+    </tr>
+    <tr>
+      <th>次の語</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>は</th>
+      <td>6</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>コーパス中で「私」の後には必ず「は」が来ていたので，「は」が確率1.0で予測されます．これが「次の語の予測」の正体です．<strong>過去の文章の中で，その語の後にどの語がどれくらいの割合で続いたかを数えているだけ</strong>なのです．</p>
+</section>
+<section id="id8">
+<h3>予測を繰り返して文を作ってみる<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>次に，この予測を繰り返して文を生成してみましょう．やり方は単純で，最初の語を与えたら，予測された確率にしたがって次の語をくじ引きのように選び，選んだ語を末尾に付け足して，また次の語を選ぶ——これを文末記号「．」が出るまで繰り返します．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># 乱数のもと（結果を再現できるよう固定）</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_sentence</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">max_len</span><span class="o">=</span><span class="mi">15</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;startから始めて，「次の語の予測」を繰り返して文を生成する&quot;&quot;&quot;</span>
+    <span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="n">start</span><span class="p">]</span>
+    <span class="n">current</span> <span class="o">=</span> <span class="n">start</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_len</span><span class="p">):</span>
+        <span class="n">candidates</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;直前の語&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">current</span><span class="p">][</span><span class="s2">&quot;次の語&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">candidates</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>       <span class="c1"># 続く語がなければ終了</span>
+            <span class="k">break</span>
+        <span class="n">counts</span> <span class="o">=</span> <span class="n">candidates</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+        <span class="n">probs</span> <span class="o">=</span> <span class="p">(</span><span class="n">counts</span> <span class="o">/</span> <span class="n">counts</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">counts</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">p</span><span class="o">=</span><span class="n">probs</span><span class="p">)</span>  <span class="c1"># 確率に従い抽選</span>
+        <span class="k">if</span> <span class="n">current</span> <span class="o">==</span> <span class="s2">&quot;．&quot;</span><span class="p">:</span>            <span class="c1"># 文末記号が出たら終了</span>
+            <span class="k">break</span>
+        <span class="n">words</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+
+<span class="c1"># 「私」「データ」「AI」から始めて文を生成してみる</span>
+<span class="k">for</span> <span class="n">start</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;私&quot;</span><span class="p">,</span> <span class="s2">&quot;データ&quot;</span><span class="p">,</span> <span class="s2">&quot;AI&quot;</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">generate_sentence</span><span class="p">(</span><span class="n">start</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>私 は 大量 の データ を 変える
+データ を 学習 する
+AI は スマホ で 課題 を 学ぶ
+</pre></div>
+</div>
+</div>
+</div>
+<p>生成された文をよく見てください．たとえば1つ目の「私 は 大量 の データ を 変える」という文は，<strong>元の24文のどこにも存在しません</strong>．「私 は」「は 大量」「大量 の」「データ を」「を 変える」という，<strong>別々の文から学ばれた語のつながりが，くじ引きでつなぎ合わされて生まれた新しい文</strong>なのです．3つ目の「AI は スマホ で 課題 を 学ぶ」も同様です．これはまさに，生成AIが「学習データにない新しい文章」を作り出す様子の超ミニチュア版です．</p>
+<p>同時に，この仕組みの危うさも見えてきます．「私 は 大量 の データ を 変える」は，語のつながりとしてはそれらしいのに，<strong>意味を考えるとどこか変な文</strong>です．それもそのはずで，このミニモデルは文の意味をまったく理解しておらず，ただ「つながりやすい語」を数えて選んでいるだけだからです．意味の通る文も，意味の怪しい文も，同じ仕組みから同じ顔をして生成されます．この点は，次の節で見るハルシネーションの理解に直結します．</p>
+<p>本物のLLMとこのミニモデルの違いは，主に規模と洗練度です．このミニモデルは直前の1語だけを手がかりにしましたが，LLMは<strong>何千語にもおよぶ長い文脈全体</strong>を手がかりに次の語を予測します．また，学習データは24文ではなく，ウェブや書籍から集めた膨大な文章です．しかし，<strong>「過去の文章から言葉のつながりのパターンを学び，次の語を確率的に予測する」という原理そのものは共通</strong>です．この直感を持っておくだけで，生成AIの得意・不得意がぐっと理解しやすくなります．</p>
+<div class="note dropdown admonition">
+<p class="admonition-title">発展：Transformer——LLMを支える仕組み</p>
+<p>現在のLLMの多くは，<strong>Transformer</strong>（トランスフォーマー）と呼ばれる仕組みをもとに作られています <span id="id9">[<a class="reference internal" href="../references.html#id32" title="Ashish Vaswani and others. Attention is all you need. In Advances in Neural Information Processing Systems 30 (NeurIPS 2017). 2017. URL: https://arxiv.org/abs/1706.03762.">Vaswani and others, 2017</a>]</span>．Transformerは2017年に提案されたニューラルネットワークの構造で，「文章の中のどの語に注目すべきか」を自動的に判断する仕組み（自己注意機構，self-attention）を持ち，長い文脈を効率よく扱えることが特長です．ChatGPTの「GPT」の「T」はTransformerの頭文字です．本講義では名前の紹介にとどめますが，興味のある人は章末の文献を参照してください．</p>
+</div>
+</section>
+</section>
+<section id="id10">
+<h2>生成AIにできること・できないこと<a class="headerlink" href="#id10" title="Link to this heading">#</a></h2>
+<p>仕組みが分かったところで，生成AIの得意・不得意を整理しましょう．道具の限界を知ることは，道具を責めるためではなく，上手に使うためです．</p>
+<section id="id11">
+<h3>得意なこと：言葉のパターン処理<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<p>LLMは「言葉のつながりのパターン」の達人ですから，<strong>パターンの変換や再構成で解決できる作業</strong>が得意です．たとえば次のような作業です．</p>
+<ul class="simple">
+<li><p><strong>要約</strong>：長い文章の要点を短くまとめる</p></li>
+<li><p><strong>言い換え・推敲</strong>：文章をより自然に，より丁寧に書き直す</p></li>
+<li><p><strong>翻訳</strong>：ある言語の文章を別の言語に置き換える</p></li>
+<li><p><strong>たたき台の作成</strong>：文章の構成案や下書き，アイデアの候補を素早く大量に出す</p></li>
+<li><p><strong>説明の調整</strong>：難しい説明を「高校生にも分かるように」かみくだく</p></li>
+</ul>
+<p>これらはいずれも，みなさんの学習やレポート作成を助けてくれる場面が多い機能です．具体的な活用方法は次の節で扱います．</p>
+</section>
+<section id="id12">
+<h3>ハルシネーション——もっともらしい誤り<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<p>一方で，冒頭の事例で見たように，生成AIは<strong>事実と異なる内容を，もっともらしい自然な文章で出力してしまう</strong>ことがあります．この現象を<strong>ハルシネーション</strong>（hallucination，幻覚）と呼びます <span id="id13">[<a class="reference internal" href="../references.html#id35" title="Ziwei Ji and others. Survey of hallucination in natural language generation. ACM Computing Surveys, 55(12):248:1–248:38, 2023. doi:10.1145/3571730.">Ji and others, 2023</a>]</span>．存在しない論文や書籍を挙げる，実在の人物に架空の経歴を付け加える，誤った統計の数値を自信満々に示す，といった形で現れます．</p>
+<p>なぜハルシネーションが起こるのでしょうか．ここで「次の語の予測」の直感が役に立ちます．LLMは，<strong>事実のデータベースを調べて答えているのではなく，「この文脈ならこういう語が続きそうだ」という確率にもとづいて文章を組み立てています</strong>．参考文献を求められれば，「参考文献リストらしい語の並び」——実在しそうな著者名，それらしい論文タイトル，実在する雑誌名——を生成することはできますが，その組み合わせが実在するかどうかを確かめる仕組みは，基本の動作には含まれていません．つまりハルシネーションは，バグや故障というより，<strong>「もっともらしい文章を作る」という仕組みそのものの副作用</strong>なのです <span id="id14">[<a class="reference internal" href="../references.html#id34" title="Lei Huang and others. A survey on hallucination in large language models: principles, taxonomy, challenges, and open questions. ACM Transactions on Information Systems, 43(2):42:1–42:55, 2025. doi:10.1145/3703155.">Huang and others, 2025</a>]</span>．</p>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>ハルシネーションのやっかいな点は，<strong>間違いが間違いらしい顔をしていない</strong>ことです．人間が書いた不正確な文章は，どこかたどたどしくなることが多いのに対し，生成AIの誤りは流ちょうで自信に満ちた文章で出力されます．「文章がしっかりしているから内容も正しいだろう」という判断は，生成AIの出力には通用しません．<strong>事実に関わる内容（数値・固有名詞・出典など）は，必ず信頼できる情報源で確認する</strong>ことを習慣にしてください．</p>
+</div>
+</section>
+<section id="id15">
+<h3>知識の鮮度——「いつまでの知識か」<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<p>LLMの知識の源は学習データでした．ここから，もう一つの限界が生まれます．学習データは<strong>ある時点までに集められた文章</strong>ですから，LLMが持っている知識にも「賞味期限」のような区切りがあります．これを本講義では<strong>知識の鮮度</strong>の問題と呼びます．</p>
+<p>たとえば，学習データの収集後に起こったニュース，改正された制度や法律，新しく発表された研究成果などについて，LLMはそのままでは知りません．知らないだけならまだよいのですが，ハルシネーションと組み合わさると，<strong>古い知識をもとに，さも最新の事実であるかのような答えを生成してしまう</strong>ことがあります．最新の情報や，時間とともに変わる情報（制度・価格・担当者・締切など）を調べる用途では，生成AIの答えを鵜呑みにせず，公式サイトなどの一次情報を確認する必要があります．</p>
+</section>
+<section id="id16">
+<h3>学習データに由来するバイアス<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<p>第2回で，データの「集め方」が結果を歪めることを学びました．1936年のLiterary Digest誌の世論調査は，偏った標本から誤った予測を導いてしまいました．実は，まったく同じ構図の問題が生成AIにも存在します．</p>
+<p>LLMの学習データは，ウェブや書籍など人間が書いた文章の集まりです．そこには，人間社会が持つ<strong>偏見や固定観念（バイアス，bias）</strong> も一緒に書き込まれています．たとえば特定の職業と性別を結びつける表現，特定の集団に対する否定的な表現などが学習データに多く含まれていれば，LLMはそのパターンも「言葉のつながり」として学習し，出力に再現してしまいます．また，ウェブ上の文章は，そもそも「インターネットで発信する人々」が書いたものに偏っており，世界中のあらゆる人々の声を均等に反映しているわけではありません．</p>
+<p>この問題を早くから指摘した研究者たちは，LLMを「<strong>確率的なオウム</strong>（stochastic parrots）」にたとえました <span id="id17">[<a class="reference internal" href="../references.html#id33" title="Emily M. Bender, Timnit Gebru, Angelina McMillan-Major, and Shmargaret Shmitchell. On the dangers of stochastic parrots: can language models be too big? In Proceedings of the 2021 ACM Conference on Fairness, Accountability, and Transparency (FAccT 2021), 610–623. 2021. doi:10.1145/3442188.3445922.">Bender <em>et al.</em>, 2021</a>]</span>．オウムが言葉の意味を理解せずに人間の発話をまねるように，LLMは<strong>意味を理解しないまま，学習データの中の言葉のパターンを統計的に模倣している</strong>にすぎない——だからこそ，学習データに含まれる偏りをそのまま，ときには増幅して繰り返してしまう，という批判的な視座です．LLMが本当に「理解していない」と言い切れるかについては研究者の間でも議論が続いていますが，<strong>生成AIの出力は中立でも公平でもなく，学習データの偏りを引き継いでいる</strong>という指摘は，利用者として必ず心に留めておくべき点です．第7回で学んだアルゴリズムの公平性の問題は，生成AIの時代にますます重要になっているのです．</p>
+</section>
+</section>
+<section id="id18">
+<h2>大学での生成AIとの付き合い方<a class="headerlink" href="#id18" title="Link to this heading">#</a></h2>
+<p>仕組みと限界を押さえたところで，いよいよ本題です．大学での学びの中で，生成AIをどう使えばよいのでしょうか．</p>
+<section id="id19">
+<h3>プロンプトの基本——指示は具体的に<a class="headerlink" href="#id19" title="Link to this heading">#</a></h3>
+<p>生成AIへの指示や質問の文章を<strong>プロンプト</strong>（prompt）と呼びます．LLMは「ここまでの文脈」をもとに次の語を予測するのですから，<strong>文脈＝プロンプトが具体的であるほど，目的に合った出力が得られやすくなります</strong>．難しいテクニックを覚える必要はありません．人に仕事を頼むときと同じで，次のような点を意識するだけで結果は大きく変わります．</p>
+<ul class="simple">
+<li><p><strong>目的を伝える</strong>：「レポートの構成を考えたい」「概念の意味を確認したい」など，何のための出力かを書く</p></li>
+<li><p><strong>条件を具体的に</strong>：「大学1年生向けに」「300字程度で」「箇条書きで」など，形式や水準を指定する</p></li>
+<li><p><strong>前提や資料を与える</strong>：自分の書いた下書きや要約したい文章など，判断材料をプロンプトに含める</p></li>
+<li><p><strong>一度で終わらせない</strong>：出力に対して「ここをもっと詳しく」「別の案を」と対話を重ねて絞り込む</p></li>
+</ul>
+<p>たとえば「経済について教えて」と聞くより，「大学1年生です．レポートで地域経済の課題を扱います．テーマの候補を，身近なデータで調べられそうなものに絞って5つ挙げてください」と聞く方が，はるかに役に立つ答えが返ってきます．</p>
+</section>
+<section id="id20">
+<h3>適切な使い方の例——学びを増やす使い方<a class="headerlink" href="#id20" title="Link to this heading">#</a></h3>
+<p>大学での生成AIの使い方を考えるときの軸は，<strong>「その使い方は自分の学びを増やすか，減らすか」</strong> です．教育分野の研究では，生成AIは使い方しだいで学習を強力に支援しうることが報告されています <span id="id21">[<a class="reference internal" href="../references.html#id36" title="Enkelejda Kasneci and others. ChatGPT for good? on opportunities and challenges of large language models for education. Learning and Individual Differences, 103:102274, 2023. doi:10.1016/j.lindif.2023.102274.">Kasneci and others, 2023</a>]</span>．学びを増やす方向の使い方の例を挙げます．</p>
+<ul class="simple">
+<li><p><strong>レポート作成支援</strong>：レポートの<strong>構成のたたき台</strong>を出してもらう，自分で書いた文章の<strong>推敲</strong>（誤字脱字・分かりにくい表現の指摘）を頼む，自分の主張への<strong>反論を挙げてもらって</strong>議論を鍛える．いずれも「書くのは自分，AIは壁打ち相手」という使い方です</p></li>
+<li><p><strong>文献調査</strong>：テーマに関連する<strong>検索キーワードや学術用語</strong>を挙げてもらう，見つけた論文の英語の要旨をかみくだいて説明してもらう．ただし，冒頭の事例のとおり，<strong>生成AIが挙げた文献は実在しないことがある</strong>ため，必ず図書館のデータベースや学術検索サービスで実物を確認します</p></li>
+<li><p><strong>アイデア出し</strong>：テーマの候補や切り口を大量に挙げてもらい，そこから自分で選び，自分で深める</p></li>
+<li><p><strong>学習の伴走</strong>：授業で分からなかった概念を「例え話で説明して」と頼む，語学学習で英作文の添削や会話練習の相手をしてもらう</p></li>
+</ul>
+<p>これらに共通するのは，<strong>最終的に考え，判断し，書くのは自分自身</strong>であり，生成AIはそのための材料や刺激を提供する道具だ，という関係です．</p>
+</section>
+<section id="id22">
+<h3>学術的誠実性——なぜ「丸写し」がいけないのか<a class="headerlink" href="#id22" title="Link to this heading">#</a></h3>
+<p>一方で，生成AIが出力した文章を<strong>そのまま自分のレポートとして提出する</strong>のは，まったく別の話です．ここで関わるのが<strong>学術的誠実性</strong>（academic integrity）という考え方です．学術的誠実性とは，学問の世界での正直さのルール，すなわち<strong>自分の成果と他者（他のもの）の成果を明確に区別し，他者の成果を使うときは出典を示す</strong>という原則です．他人の文章を出典を示さずに写す行為（剽窃）が不正とされるのと同じ理由で，生成AIの出力を自分が書いたものとして提出することは，多くの大学で不正行為にあたりうるとされています．</p>
+<p>「AIの文章なら誰の著作でもないから写してもよいのでは？」と思うかもしれません．しかし問題の本質は，著作権よりもむしろ<strong>評価と学びの仕組みが壊れる</strong>ことにあります．レポート課題は，みなさんが自分で調べ，考え，文章にまとめる力を鍛えるための訓練です．その過程を生成AIに丸投げすれば，成績評価は実力を反映しないものになり，何より<strong>鍛えられるはずだった自分の力が鍛えられません</strong>．研究の世界でも，生成AIの利用を透明にすること（どう使ったかを明示すること）や，最終的な責任は人間の著者が負うことが，国際的な原則として確認されつつあります <span id="id23">[<a class="reference internal" href="../references.html#id37" title="Eva A. M. van Dis, Johan Bollen, Willem Zuidema, Robert van Rooij, and Claudi L. Bockting. ChatGPT: five priorities for research. Nature, 614(7947):224–226, 2023. doi:10.1038/d41586-023-00288-7.">van Dis <em>et al.</em>, 2023</a>]</span>．教育の場でも，禁止一辺倒ではなく，適切な使い方を学生が身につけられるようにルールと指導を整えるべきだという議論が進んでいます <span id="id24">[<a class="reference internal" href="../references.html#id36" title="Enkelejda Kasneci and others. ChatGPT for good? on opportunities and challenges of large language models for education. Learning and Individual Differences, 103:102274, 2023. doi:10.1016/j.lindif.2023.102274.">Kasneci and others, 2023</a>]</span>．</p>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>生成AIの利用ルールは，<strong>大学ごと・授業ごとに異なります</strong>．同じ大学でも，「構成の相談はよいが文章生成は不可」「利用した場合は明記せよ」「一切不可」など，授業の目的に応じて方針はさまざまです．レポートや課題で生成AIを使う前に，<strong>所属大学の方針と，その授業のシラバス・担当教員の指示を必ず確認してください</strong>．本章で述べたのはあくまで一般的な考え方であり，個々の授業でのルールに置き換わるものではありません．迷ったら担当教員に質問するのが確実です．</p>
+</div>
+</section>
+<section id="id25">
+<h3>生成AI検索と情報アクセスの変容<a class="headerlink" href="#id25" title="Link to this heading">#</a></h3>
+<p>最後に，少し視野を広げておきます．従来，インターネットで調べ物をするといえば，検索エンジンにキーワードを入れ，表示されたリンクの一覧から自分でページを選んで読む，という流れでした．近年は，検索エンジンにも生成AIが組み込まれ，<strong>質問に対して要約された「答え」そのものが直接生成されて表示される</strong>ようになりつつあります．これを<strong>生成AI検索</strong>と呼びます．</p>
+<p>これは，リンクの一覧から自分で情報を選び読み比べるスタイルから，AIがまとめた答えを受け取るスタイルへの，<strong>情報アクセスの変容</strong>といえます．便利になる一方で，答えの根拠がどのページにあるのか，要約の過程で情報が歪んでいないか，ハルシネーションが混ざっていないかが見えにくくなる，という新しい課題も生まれています．どちらのスタイルで調べるにせよ，<strong>出典（一次情報）にさかのぼって確かめる</strong>という本科目で繰り返し強調してきた姿勢は，むしろこれまで以上に重要になっています．</p>
+</section>
+</section>
+<section id="id26">
+<h2>活用事例：教育の現場に入り始めた生成AI<a class="headerlink" href="#id26" title="Link to this heading">#</a></h2>
+<div class="admonition-ai admonition">
+<p class="admonition-title">事例：学びを支える道具としての生成AI</p>
+<p>生成AIの社会での活用が特に議論されている分野の一つが，みなさんの足元でもある<strong>教育</strong>です．教育研究の分野では，LLMが教育にもたらす機会と課題を整理する研究が進んでいます <span id="id27">[<a class="reference internal" href="../references.html#id36" title="Enkelejda Kasneci and others. ChatGPT for good? on opportunities and challenges of large language models for education. Learning and Individual Differences, 103:102274, 2023. doi:10.1016/j.lindif.2023.102274.">Kasneci and others, 2023</a>]</span>．</p>
+<p>機会の側面としては，学習者一人ひとりの理解度や進度に合わせて説明や練習問題を変える<strong>個別最適化された学習支援</strong>，24時間いつでも質問できる相手としての利用，外国語の作文添削や会話練習といった<strong>語学学習</strong>への応用，さらに教員側でも教材や小テストの下書き作成の支援などが挙げられています．家庭の事情などで塾や個別指導を受けにくい学習者にも学習支援を届けられる可能性がある，という公平性の観点からの期待もあります．</p>
+<p>一方，課題の側面としては，本章で学んだとおり，出力の誤り（ハルシネーション）を学習者が見抜けないリスク，学習データ由来のバイアス，そして課題の丸投げによる学術的誠実性の問題や，考える力が育たなくなる懸念が指摘されています．研究者たちの結論は明快で，<strong>問題は「使うか，禁止するか」ではなく「どう使う力を育てるか」</strong> である，というものです．道具の仕組みと限界を理解したうえで使いこなすリテラシー——まさに本章で学んできたこと——が，教員にも学生にも求められているのです．</p>
+</div>
+</section>
+<section id="id28">
+<h2>まとめ<a class="headerlink" href="#id28" title="Link to this heading">#</a></h2>
+<p>この回では，生成AIの基礎と，大学での知的活動への利用について学びました．要点を振り返ります．</p>
+<ul class="simple">
+<li><p>AIには，データを分類・予測する<strong>識別・予測系AI</strong>と，新しいコンテンツを作り出す<strong>生成AI</strong>があり，「AI＝生成AI」ではない．どちらもデータから学ぶ機械学習という共通の土台の上にある</p></li>
+<li><p>文章生成AIの中身は<strong>大規模言語モデル（LLM）</strong> であり，その基本動作は膨大な<strong>学習データ</strong>から学んだパターンにもとづく<strong>次の語の予測</strong>の繰り返しである</p></li>
+<li><p>LLMは事実を照合しているわけではないため，もっともらしい誤り（<strong>ハルシネーション</strong>）を出力しうる．また，<strong>知識の鮮度</strong>に限界があり，学習データに由来する<strong>バイアス</strong>を引き継ぐ．「意味を理解せず統計的に模倣しているだけ」という批判的視座も提起されている</p></li>
+<li><p>生成AIへの指示（<strong>プロンプト</strong>）は，目的・条件・前提を具体的に伝えるほど役に立つ</p></li>
+<li><p>大学では，レポートの壁打ち・推敲，文献調査の入口，アイデア出しなど<strong>自分の学びを増やす使い方</strong>が適切であり，出力の丸写し提出は<strong>学術的誠実性</strong>に反しうる．<strong>所属大学・各授業のルールを必ず確認する</strong>こと</p></li>
+</ul>
+<section id="id29">
+<h3>科目全体の総括——データサイエンスと生成AI<a class="headerlink" href="#id29" title="Link to this heading">#</a></h3>
+<p>最後に，本科目全体を振り返って締めくくりましょう．本科目では，データが価値を生むまでの流れ（データのライフサイクル）に沿って，<strong>収集</strong>（第2回）→<strong>保存・検索</strong>（第3回）→<strong>前処理</strong>（第4回）→<strong>分析</strong>（第5回）→<strong>可視化</strong>（第6回）を順にたどり，横断的なテーマとして<strong>データと法</strong>（第7回）を学びました．</p>
+<p>実は，本章で学んだ生成AIは，このライフサイクル全体の<strong>巨大な実例</strong>でもあります．LLMは，ウェブや書籍から膨大な文章を<strong>収集</strong>し，<strong>保存</strong>し，学習に適した形に<strong>前処理</strong>し，統計的なパターンを<strong>学習（分析）</strong> した成果物です．だからこそ，第2回で学んだ「集め方の偏りが結果を歪める」という教訓はLLMのバイアスの問題としてそのまま現れ，第7回で学んだ著作権や個人情報の問題は「AI学習にデータを使ってよいか」という現在進行形の論点につながっています．生成AIは魔法ではなく，<strong>データサイエンスの技術と課題の集大成</strong>なのです．</p>
+<p>そして，生成AIが調べ物や文章作成の風景を変えつつある時代だからこそ，本科目で学んだリテラシー——データの集め方を疑う目，相関と因果を区別する目，グラフにだまされない目，出典にさかのぼって確かめる姿勢，法と倫理の視点——は，一部の専門家だけでなく，<strong>すべての人にとっての基礎教養</strong>になっています．この科目が，みなさんがデータとAIの時代を賢く生きていくための最初の一歩になれば幸いです．</p>
+</section>
+</section>
+<section id="id30">
+<h2>確認問題<a class="headerlink" href="#id30" title="Link to this heading">#</a></h2>
+<p><strong>問1（事例判断型）</strong>：ある学生が，レポート課題を次の方法で仕上げて提出しました．「対話型の生成AIにレポートのテーマを伝えて本文をすべて書かせ，出力された文章をそのままコピーして提出した．参考文献リストも生成AIが挙げたものをそのまま載せた．生成AIを使ったことはどこにも書かなかった．」この使い方の問題点を，本章で学んだ観点から3つ挙げてください．</p>
+<div class="dropdown admonition">
+<p class="admonition-title">解答と解説</p>
+<p>主な問題点は次の3つです．</p>
+<ol class="arabic simple">
+<li><p><strong>学術的誠実性への違反のおそれ</strong>：生成AIの出力を自分が書いたものとして提出することは，自他の成果を区別するという学術的誠実性の原則に反し，多くの大学で不正行為にあたりえます．また，レポートで鍛えるはずだった自分の力（調べ，考え，書く力）を育てる機会も失われます．</p></li>
+<li><p><strong>ハルシネーションの未確認</strong>：生成AIは実在しない文献をもっともらしく挙げることがあります（ハルシネーション）．参考文献を実物で確認せずに載せると，存在しない文献を引用したレポートになるおそれがあります．本文中の事実（数値・固有名詞など）も同様に未確認です．</p></li>
+<li><p><strong>利用ルールの未確認・利用の不透明さ</strong>：生成AIの利用可否や条件は大学・授業ごとに異なるため，事前にルールを確認する必要があります．また，利用した場合にその旨を明示することが求められる場合もあり，黙って使うことは透明性の点でも問題です．</p></li>
+</ol>
+<p>適切な使い方に直すなら，たとえば「授業のルールを確認したうえで，構成のたたき台や推敲の相談相手として使い，本文は自分で書き，文献は必ずデータベースで実物を確認し，求められる形で利用方法を明記する」となります．</p>
+</div>
+<p><strong>問2（知識確認型）</strong>：次の（ア）〜（エ）のAIの活用例のうち，<strong>生成AI</strong>に分類されるものをすべて選んでください．また，残りのものは何と呼ばれるタイプのAIか答えてください．</p>
+<ul class="simple">
+<li><p>（ア）レントゲン画像から病変の疑いのある箇所を検出するAI</p></li>
+<li><p>（イ）指示文にもとづいてポスター用のイラストを描くAI</p></li>
+<li><p>（ウ）過去の乗車データからバスの利用者数を予測するAI</p></li>
+<li><p>（エ）質問に対して文章で回答を作成する対話型AI</p></li>
+</ul>
+<div class="dropdown admonition">
+<p class="admonition-title">解答と解説</p>
+<p>生成AIに分類されるのは <strong>（イ）と（エ）</strong> です．どちらも新しいコンテンツ（画像・文章）を作り出すAIです．</p>
+<p>（ア）と（ウ）は，入力データを分類したり数値を予測したりする<strong>識別・予測系AI</strong>です．（ア）は画像を「病変の疑いあり／なし」に見分ける識別のAI，（ウ）は将来の数値を予測するAIです．</p>
+<p>「AI＝生成AI」ではなく，社会で活躍するAIの多くは識別・予測系AIであること，そして両者はどちらも「データから学ぶ」機械学習の土台を共有していることを押さえておきましょう．</p>
+</div>
+<p><strong>問3（記述型）</strong>：生成AIがハルシネーション（もっともらしい誤りの出力）を起こす理由を，「次の語の予測」という仕組みにふれながら，2〜3文で説明してください．</p>
+<div class="dropdown admonition">
+<p class="admonition-title">解答と解説</p>
+<p><strong>解答例</strong>：大規模言語モデルは，事実のデータベースを照合して答えているのではなく，学習データから学んだ言葉のつながりのパターンにもとづいて「次に続きそうな語」を確率的に選ぶことで文章を生成している．そのため，「もっともらしい語の並び」を作ることはできても，その内容が事実かどうかを確かめる仕組みは基本動作に含まれていない．結果として，実在しない文献や誤った事実を，流ちょうで自信に満ちた文章として出力してしまうことがある．</p>
+<p>ポイントは，(1) 仕組みが「事実の照合」ではなく「次の語の確率的予測」であること，(2) ゆえにハルシネーションは故障ではなく仕組みの副作用であること，の2点が説明に含まれていることです．</p>
+</div>
+</section>
+<section id="id31">
+<h2>さらに学ぶために<a class="headerlink" href="#id31" title="Link to this heading">#</a></h2>
+<p>本章の内容をさらに深めたい人のために，参考文献を「原典」「解説・サーベイ」「事例」の三層で紹介します．まずは事例から読み，興味が深まったら解説・サーベイ，原典へと進むのがおすすめです．</p>
+<ul class="simple">
+<li><p>【原典】Vaswani et al., &quot;Attention Is All You Need&quot; (NeurIPS 2017) <span id="id32">[<a class="reference internal" href="../references.html#id32" title="Ashish Vaswani and others. Attention is all you need. In Advances in Neural Information Processing Systems 30 (NeurIPS 2017). 2017. URL: https://arxiv.org/abs/1706.03762.">Vaswani and others, 2017</a>]</span>．現在のLLMの土台であるTransformerを提案した原典．技術的に高度ですが，歴史的な一本として名前を知っておく価値があります．全文：<a class="reference external" href="https://arxiv.org/abs/1706.03762">https://arxiv.org/abs/1706.03762</a></p></li>
+<li><p>【原典】Bender et al., &quot;On the Dangers of Stochastic Parrots: Can Language Models Be Too Big?&quot; (ACM FAccT 2021) <span id="id33">[<a class="reference internal" href="../references.html#id33" title="Emily M. Bender, Timnit Gebru, Angelina McMillan-Major, and Shmargaret Shmitchell. On the dangers of stochastic parrots: can language models be too big? In Proceedings of the 2021 ACM Conference on Fairness, Accountability, and Transparency (FAccT 2021), 610–623. 2021. doi:10.1145/3442188.3445922.">Bender <em>et al.</em>, 2021</a>]</span>．LLMを「確率的なオウム」にたとえ，学習データのバイアスや「意味を理解しない統計的模倣」という批判的視座を提起した重要論文．オープンアクセスです．全文：<a class="reference external" href="https://dl.acm.org/doi/10.1145/3442188.3445922">https://dl.acm.org/doi/10.1145/3442188.3445922</a></p></li>
+<li><p>【解説・サーベイ】Huang et al., &quot;A Survey on Hallucination in Large Language Models&quot; (ACM Transactions on Information Systems, 2025) <span id="id34">[<a class="reference internal" href="../references.html#id34" title="Lei Huang and others. A survey on hallucination in large language models: principles, taxonomy, challenges, and open questions. ACM Transactions on Information Systems, 43(2):42:1–42:55, 2025. doi:10.1145/3703155.">Huang and others, 2025</a>]</span>．ハルシネーションの原因と分類，対策を体系的に整理したサーベイ．arXiv版がオープンアクセスです．全文：<a class="reference external" href="https://arxiv.org/abs/2311.05232">https://arxiv.org/abs/2311.05232</a></p></li>
+<li><p>【解説・サーベイ】Ji et al., &quot;Survey of Hallucination in Natural Language Generation&quot; (ACM Computing Surveys, 2023) <span id="id35">[<a class="reference internal" href="../references.html#id35" title="Ziwei Ji and others. Survey of hallucination in natural language generation. ACM Computing Surveys, 55(12):248:1–248:38, 2023. doi:10.1145/3571730.">Ji and others, 2023</a>]</span>．自然言語生成におけるハルシネーション研究のもう一つの標準的サーベイ．DOI：<a class="reference external" href="https://doi.org/10.1145/3571730">https://doi.org/10.1145/3571730</a></p></li>
+<li><p>【事例】Kasneci et al., &quot;ChatGPT for Good? On Opportunities and Challenges of Large Language Models for Education&quot; (Learning and Individual Differences, 2023) <span id="id36">[<a class="reference internal" href="../references.html#id36" title="Enkelejda Kasneci and others. ChatGPT for good? on opportunities and challenges of large language models for education. Learning and Individual Differences, 103:102274, 2023. doi:10.1016/j.lindif.2023.102274.">Kasneci and others, 2023</a>]</span>．教育分野での生成AIの機会と課題を，学生・教員双方の視点から整理した査読論文．オープンアクセスです．全文：<a class="reference external" href="https://doi.org/10.1016/j.lindif.2023.102274">https://doi.org/10.1016/j.lindif.2023.102274</a></p></li>
+<li><p>【事例】van Dis et al., &quot;ChatGPT: Five Priorities for Research&quot; (Nature, 2023) <span id="id37">[<a class="reference internal" href="../references.html#id37" title="Eva A. M. van Dis, Johan Bollen, Willem Zuidema, Robert van Rooij, and Claudi L. Bockting. ChatGPT: five priorities for research. Nature, 614(7947):224–226, 2023. doi:10.1038/d41586-023-00288-7.">van Dis <em>et al.</em>, 2023</a>]</span>．研究の世界で生成AIとどう向き合うべきかを論じたNatureのコメント記事．学術的誠実性・情報アクセスの変容を考える入口に．DOI：<a class="reference external" href="https://doi.org/10.1038/d41586-023-00288-7">https://doi.org/10.1038/d41586-023-00288-7</a></p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="ch07-data-law.html"
+       title="前のページ">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">前へ</p>
+        <p class="prev-next-title">第7回：データと法——情報法の基礎</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../references.html"
+       title="次ページ">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">次へ</p>
+        <p class="prev-next-title">参考文献</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目次
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">この回で学ぶこと</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">導入：その参考文献，本当に存在しますか？</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aiai-ai">AIの全体像——「AI＝生成AI」ではない</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">第1回で見たAIたちを思い出す</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">生成AIとは何か</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">大規模言語モデルの仕組み——「次の語の予測」</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">スマホの予測変換から考える</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">小さなコーパスで「次の語の予測」を体験する</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">予測を繰り返して文を作ってみる</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">生成AIにできること・できないこと</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">得意なこと：言葉のパターン処理</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">ハルシネーション——もっともらしい誤り</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">知識の鮮度——「いつまでの知識か」</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">学習データに由来するバイアス</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">大学での生成AIとの付き合い方</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">プロンプトの基本——指示は具体的に</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">適切な使い方の例——学びを増やす使い方</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">学術的誠実性——なぜ「丸写し」がいけないのか</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">生成AI検索と情報アクセスの変容</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">活用事例：教育の現場に入り始めた生成AI</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">まとめ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">科目全体の総括——データサイエンスと生成AI</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">確認問題</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">さらに学ぶために</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+著者 名古屋市立大学 大学院データサイエンス研究科 山本祐輔
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
