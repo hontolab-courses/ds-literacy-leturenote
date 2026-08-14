@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 520" font-family="'Hiragino Sans','Noto Sans JP',sans-serif">
+<defs>
+<marker id="ac" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#DD8452"/></marker>
+</defs>
+<rect x="0" y="0" width="1060" height="520" fill="white"/>
+
+<!-- ===== 左：アイスクリーム×水難事故の三角構造 ===== -->
+<!-- 頂点：気温（交絡因子） -->
+<rect x="180" y="60" width="200" height="72" rx="8" fill="#FBEEE4" stroke="#DD8452" stroke-width="2"/>
+<text x="280" y="92" text-anchor="middle" font-size="20" font-weight="bold" fill="#333333">気温</text>
+<text x="280" y="116" text-anchor="middle" font-size="14" fill="#DD8452">交絡因子（黒幕）</text>
+
+<!-- 因果の矢印（実線） -->
+<line x1="238" y1="136" x2="155" y2="304" stroke="#DD8452" stroke-width="2" marker-end="url(#ac)"/>
+<line x1="322" y1="136" x2="405" y2="304" stroke="#DD8452" stroke-width="2" marker-end="url(#ac)"/>
+<text x="135" y="225" text-anchor="middle" font-size="14" fill="#DD8452">因果あり</text>
+<text x="430" y="225" text-anchor="middle" font-size="14" fill="#DD8452">因果あり</text>
+
+<!-- 左下：アイスクリームの売上 -->
+<rect x="30" y="310" width="220" height="56" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="140" y="344" text-anchor="middle" font-size="18" fill="#333333">アイスクリームの売上</text>
+
+<!-- 右下：水難事故の件数 -->
+<rect x="340" y="310" width="210" height="56" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="445" y="344" text-anchor="middle" font-size="18" fill="#333333">水難事故の件数</text>
+
+<!-- 見かけの相関（点線・両向き） -->
+<line x1="266" y1="338" x2="324" y2="338" stroke="#8C8C8C" stroke-width="2" stroke-dasharray="6 4"/>
+<polygon points="256,338 268,332 268,344" fill="#8C8C8C"/>
+<polygon points="334,338 322,332 322,344" fill="#8C8C8C"/>
+<text x="295" y="392" text-anchor="middle" font-size="14" fill="#8C8C8C">見かけの相関（因果はない）</text>
+
+<!-- ===== 右：朝食×成績も同じ構図 ===== -->
+<rect x="620" y="50" width="416" height="370" rx="8" fill="white" stroke="#8C8C8C" stroke-width="1.5"/>
+<text x="828" y="84" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">「朝食と成績」も同じ構図</text>
+
+<!-- 頂点：家庭の生活習慣・教育環境 -->
+<rect x="728" y="104" width="200" height="86" rx="8" fill="#FBEEE4" stroke="#DD8452" stroke-width="2"/>
+<text x="828" y="132" text-anchor="middle" font-size="15" fill="#333333">家庭の生活習慣・</text>
+<text x="828" y="152" text-anchor="middle" font-size="15" fill="#333333">教育環境</text>
+<text x="828" y="176" text-anchor="middle" font-size="13" fill="#DD8452">交絡因子</text>
+
+<!-- 因果の矢印（実線） -->
+<line x1="790" y1="192" x2="730" y2="306" stroke="#DD8452" stroke-width="2" marker-end="url(#ac)"/>
+<line x1="866" y1="192" x2="935" y2="306" stroke="#DD8452" stroke-width="2" marker-end="url(#ac)"/>
+
+<!-- 左下：朝食を食べる習慣 -->
+<rect x="640" y="310" width="170" height="52" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="725" y="342" text-anchor="middle" font-size="15" fill="#333333">朝食を食べる習慣</text>
+
+<!-- 右下：成績 -->
+<rect x="880" y="310" width="120" height="52" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="940" y="342" text-anchor="middle" font-size="16" fill="#333333">成績</text>
+
+<!-- 見かけの相関（点線・両向き） -->
+<line x1="826" y1="336" x2="864" y2="336" stroke="#8C8C8C" stroke-width="2" stroke-dasharray="6 4"/>
+<polygon points="816,336 828,330 828,342" fill="#8C8C8C"/>
+<polygon points="874,336 862,330 862,342" fill="#8C8C8C"/>
+<text x="845" y="388" text-anchor="middle" font-size="13" fill="#8C8C8C">見かけの相関</text>
+
+<!-- ===== 凡例 ===== -->
+<line x1="30" y1="466" x2="82" y2="466" stroke="#DD8452" stroke-width="2" marker-end="url(#ac)"/>
+<text x="98" y="471" font-size="15" fill="#333333">実線＝因果関係</text>
+<line x1="270" y1="466" x2="326" y2="466" stroke="#8C8C8C" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="338" y="471" font-size="15" fill="#333333">点線＝見かけの相関（因果はない）</text>
+</svg>

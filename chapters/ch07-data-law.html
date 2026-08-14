@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -328,21 +328,21 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#netflix">「匿名化すれば安全」の限界——Netflix再識別事例</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">創作物とデータを守るしくみ——著作権</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">創作物とデータを守るしくみ——著作権</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sns">著作権とは何か——SNSの投稿も著作物</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">データやデータベースは守られるのか——データベースの権利</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">データやデータベースは守られるのか——データベースの権利</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ai">AI学習と著作権——いま最も熱い論点</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">法だけでは足りない——データ倫理とアルゴリズムの社会的影響</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">データ倫理・公平性・アルゴリズムによる差別</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">フィルターバブル——懸念と実証のあいだ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">法だけでは足りない——データ倫理とアルゴリズムの社会的影響</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">データ倫理・公平性・アルゴリズムによる差別</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">フィルターバブル——懸念と実証のあいだ</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">活用事例：匿名加工情報が広げるデータ利活用</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">まとめ</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">確認問題</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">さらに学ぶために</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">活用事例：匿名加工情報が広げるデータ利活用</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">まとめ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">確認問題</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id33">さらに学ぶために</a></li>
 </ul>
             </nav>
         </div>
@@ -408,6 +408,13 @@
 <p class="admonition-title">警告</p>
 <p>身近な落とし穴として「目的外利用」に注意してください．たとえば，サークルの新歓で「連絡用」として集めた新入生の連絡先リストを，本人に断りなくアルバイト先の勧誘に使ったり，他団体に渡したりするのは，集めたときの目的を超えた利用です．企業であれば法律上の問題になり得る行為であり，学生団体でも信頼を根本から損ないます．「集めたときに伝えた目的の範囲で使う」は，規模の大小を問わずデータを扱う人の基本動作です．</p>
 </div>
+<p>この基本ルールの流れと，サークルの名簿の例との対応を <a class="reference internal" href="#fig-ch07-purpose-flow"><span class="std std-numref">図 33</span></a> に整理しました．「目的を決めて，本人に伝えて，その範囲で使う」という流れが基本であり，範囲を超えて使いたいときには本人の同意という迂回路を通る必要があることを確認してください．</p>
+<figure class="align-default" id="fig-ch07-purpose-flow">
+<img alt="利用目的の基本ルールを示すフロー図．上段に，①利用目的を決める，②本人に伝える（通知するか，あらかじめ公表），③その範囲で使う，の3ステップが左から矢印で並ぶ．③からは，範囲を超えて使いたいときに本人の同意が必要という分岐の迂回路が伸び，同意を得れば使えるという矢印で③に戻る．下段にはサークルの新歓で集めた名簿の例があり，連絡用として集めた新入生の連絡先リストから，サークルの連絡に使うのは目的の範囲内でOK（上の③に対応），アルバイト先の塾の勧誘に使うのは集めたときの目的を超えた利用で本人の同意が必要（上の同意が必要に対応），という2方向の矢印が伸びる．" src="../_images/ch07-purpose-flow.svg" />
+<figcaption>
+<p><span class="caption-number">図 33 </span><span class="caption-text">利用目的の基本ルール——「目的を決めて，伝えて，その範囲で使う」とサークル名簿の例</span><a class="headerlink" href="#fig-ch07-purpose-flow" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 <section id="id8">
 <h3>加工すれば使ってよいのか——仮名加工情報と匿名加工情報<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
@@ -417,6 +424,13 @@
 <li><p><strong>匿名加工情報</strong>（anonymized information）は，さらに加工を進めて，<strong>特定の個人を識別できず，元の個人情報を復元できない</strong>ようにしたデータです．こちらは一定のルール（加工方法の基準を守る，作成や第三者提供の際に公表するなど）のもとで，<strong>本人の同意なしに第三者へ提供して利活用できる</strong>ことが大きな特徴です．</p></li>
 </ul>
 <p>直感的には，<strong>仮名加工情報は「名札を裏返した状態」，匿名加工情報は「名札を外して，元に戻せないよう作り直した状態」</strong> とイメージすると分かりやすいでしょう．前者は内部利用向け，後者は外部への提供・流通も視野に入れた区分です．この二つの区分の存在は，「守るべきものは守りつつ，データの利活用も進める」という個人情報保護法の設計思想をよく表しています．なお，加工の具体的な基準や義務の詳細は個人情報保護委員会のガイドラインに定められていますので，実務で扱う際は必ず公式資料（<a class="reference external" href="https://www.ppc.go.jp/">https://www.ppc.go.jp/</a>）を確認してください．</p>
+<p>この3つの区分の関係を <a class="reference internal" href="#fig-ch07-personal-info-levels"><span class="std std-numref">図 34</span></a> に整理しました．右へ進むほど加工の程度が進み，「名札」の状態と使い方が変わっていくことを確認してください．</p>
+<figure class="align-default" id="fig-ch07-personal-info-levels">
+<img alt="個人情報・仮名加工情報・匿名加工情報の3区分を左から順に並べた段階図．個人情報は山田太郎という名前つきのデータで名札そのまま，特定の個人を識別できる．仮名加工情報はユーザーAに置き換えたデータで名札を裏返した状態，照合すれば元に戻り得るため主に組織の内部での分析に使う．匿名加工情報は元の個人情報に復元できないデータで名札を外して作り直した状態，本人の同意なしに第三者へ提供できる．右へ行くほど加工の程度が進む．" src="../_images/ch07-personal-info-levels.svg" />
+<figcaption>
+<p><span class="caption-number">図 34 </span><span class="caption-text">個人情報・仮名加工情報・匿名加工情報——加工の程度に応じた3つの区分</span><a class="headerlink" href="#fig-ch07-personal-info-levels" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 <section id="netflix">
 <h3>「匿名化すれば安全」の限界——Netflix再識別事例<a class="headerlink" href="#netflix" title="Link to this heading">#</a></h3>
@@ -428,11 +442,18 @@
 <p>「どの映画をいつ観たか」は一見ささいな情報ですが，人によっては思想・信条や性的指向を推測させる映画の視聴記録が含まれ得ます．名前を消したはずのデータから個人が浮かび上がるこの結果は，世界中のデータ公開のあり方に大きな影響を与えました．</p>
 </div>
 <p>この事例が教えてくれるのは，<strong>「名前を消す」ことと「個人を特定できなくする」ことの間には大きな隔たりがある</strong>という事実です．一人ひとりの行動履歴（視聴履歴・購買履歴・位置情報など）は，それ自体が指紋のようにユニークなパターンを持つため，外部の情報と突き合わせる（照合する）ことで個人が<strong>再識別</strong>（re-identification）されてしまうことがあるのです．</p>
+<p>この照合のしくみを <a class="reference internal" href="#fig-ch07-netflix-reid"><span class="std std-numref">図 35</span></a> に示します．評価と日付という一見ささいな情報の組み合わせが，実名の情報と突き合わせるための手がかりになることが分かります．</p>
+<figure class="align-default" id="fig-ch07-netflix-reid">
+<img alt="匿名化された視聴データと実名のレビューサイトの2枚のカードを左右に並べた照合の仕組み図．映画の評価と日付が一致する行同士を線で結び，下にある1人の人型アイコンへ収束させて，照合により個人が再識別されることを示す．64%の加入者はわずか2件の評価とその日付だけで完全に再識別でき，89%は約50万件の中から8件以下にまで絞り込めたという注記つき．" src="../_images/ch07-netflix-reid.svg" />
+<figcaption>
+<p><span class="caption-number">図 35 </span><span class="caption-text">Netflix再識別事例における照合のしくみ <span id="id11">[<a class="reference internal" href="../references.html#id28" title="Arvind Narayanan and Vitaly Shmatikov. Robust de-anonymization of large sparse datasets. In Proceedings of the 2008 IEEE Symposium on Security and Privacy, 111–125. 2008. doi:10.1109/SP.2008.33.">Narayanan and Shmatikov, 2008</a>]</span>．映画名・人名は説明用の架空の例</span><a class="headerlink" href="#fig-ch07-netflix-reid" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 <p>前節で学んだ匿名加工情報の制度が，単に「名前を消す」ではなく「復元できないように加工する」ことを求め，しかも詳細な加工基準をガイドラインで定めているのは，まさにこうした再識別のリスクを踏まえてのことです．データを公開・提供する側に立ったとき，「匿名化したから大丈夫」と安易に考えてはいけない——これは，データサイエンスを学ぶ人が最初に身につけるべき慎重さの一つです．</p>
 </section>
 </section>
-<section id="id11">
-<h2>創作物とデータを守るしくみ——著作権<a class="headerlink" href="#id11" title="Link to this heading">#</a></h2>
+<section id="id12">
+<h2>創作物とデータを守るしくみ——著作権<a class="headerlink" href="#id12" title="Link to this heading">#</a></h2>
 <section id="sns">
 <h3>著作権とは何か——SNSの投稿も著作物<a class="headerlink" href="#sns" title="Link to this heading">#</a></h3>
 <p>個人情報保護法が「人に関するデータ」のルールだとすれば，もう一つの主軸である<strong>著作権</strong>（copyright）は「人が創作した表現」のルールです．著作権は，小説・音楽・絵画・写真・映画・プログラムなど，<strong>思想や感情を創作的に表現したもの（著作物）</strong> を保護する権利で，著作物を創作した時点で自動的に発生します．特許のような登録手続きは不要です．</p>
@@ -440,8 +461,8 @@
 <p>一方で，著作権法は「保護」一辺倒の法律ではありません．文化の発展のためには，先人の作品を学び，引用し，批評できることも重要です．そのため著作権法には，一定の条件を満たせば許諾なく著作物を利用できる例外規定が数多く置かれています．たとえば，本講義ノートが他の文献の図や文章を出典を明記して<strong>引用</strong>しているのも，こうした例外規定に基づく利用です．著作権制度の全体像や最新の動向については，制度を所管する<strong>文化庁</strong>の公式サイト（<a class="reference external" href="https://www.bunka.go.jp/">https://www.bunka.go.jp/</a>）が信頼できる情報源です．</p>
 <p>ここで注意してほしいのは，<strong>事実やデータそのものは著作物ではない</strong>という点です．著作権が守るのは「創作的な表現」であって，アイデアや事実は保護しません．たとえば「2026年8月の名古屋の平均気温は◯度だった」という事実，実験で得られた測定値そのものには著作権は発生しません．では，データサイエンスの主役である「データの集まり」は，法的にどう扱われるのでしょうか．</p>
 </section>
-<section id="id12">
-<h3>データやデータベースは守られるのか——データベースの権利<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<section id="id13">
+<h3>データやデータベースは守られるのか——データベースの権利<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
 <p>大量のデータを集め，整理したものをデータベースと呼ぶことは第3回で学びました．著作権法は，このデータベースについても一定の保護を用意しています．すなわち，<strong>情報の選び方や体系的な構成に創作性があるデータベースは，「データベースの著作物」として保護される</strong>のです．本章ではこれを<strong>データベースの権利</strong>と呼んでおきます．</p>
 <p>ポイントは，保護されるのが「中身のデータ一つひとつ」ではなく「<strong>選択や構成の創作性</strong>」だという点です．たとえば，ある観点から情報を独自に選び抜き，独自の分類体系で整理した辞典型のデータベースは保護の対象になり得ます．一方で，機械的に網羅しただけで選択にも構成にも創作性がないデータの集積は，データベースの著作物とは認められにくいと考えられています．つまり，<strong>手間やお金をかけて集めたデータであっても，法的に必ず保護されるとは限らない</strong>のです（悪質なコピー行為が別の法理で違法とされた裁判例はありますが，個別の事案ごとの判断になります）．</p>
 <p>このことは，データ利活用の実務に大きな示唆を与えます．データそのものの法的保護が限定的だからこそ，現実の世界では，データの提供条件を<strong>契約</strong>（利用規約・ライセンス）で細かく定めるのが一般的です．第2回で学んだオープンデータに「CC BY（出典を表示すれば自由に使える）」のようなライセンスが付いているのも，Webスクレイピングの可否がサイトの利用規約で定められているのも，この文脈で理解できます．<strong>データを使うときは，著作権の有無だけでなく，利用規約・ライセンスを確認する</strong>——これが実務上の基本動作です．</p>
@@ -457,26 +478,40 @@
 </div>
 </section>
 </section>
-<section id="id13">
-<h2>法だけでは足りない——データ倫理とアルゴリズムの社会的影響<a class="headerlink" href="#id13" title="Link to this heading">#</a></h2>
-<p>ここまで，個人情報保護法と著作権という二つの法制度を学んできました．最後に視野を広げて，<strong>法律を守っているだけでは防げない問題</strong>の世界を紹介します．ここからは深入りせず，「こういう問題があるのか」という事例紹介のレベルに留めます（本格的な議論は上級学年の科目や参考文献に委ねます）．</p>
 <section id="id14">
-<h3>データ倫理・公平性・アルゴリズムによる差別<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<h2>法だけでは足りない——データ倫理とアルゴリズムの社会的影響<a class="headerlink" href="#id14" title="Link to this heading">#</a></h2>
+<p>ここまで，個人情報保護法と著作権という二つの法制度を学んできました．最後に視野を広げて，<strong>法律を守っているだけでは防げない問題</strong>の世界を紹介します．ここからは深入りせず，「こういう問題があるのか」という事例紹介のレベルに留めます（本格的な議論は上級学年の科目や参考文献に委ねます）．</p>
+<section id="id15">
+<h3>データ倫理・公平性・アルゴリズムによる差別<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
 <p><strong>データ倫理</strong>（data ethics）とは，データやアルゴリズムの利用が人や社会に与える影響について，「適法かどうか」の一歩先——<strong>「やってよいことか，公正なことか」</strong>——を問う考え方です．導入の就活サービスの事例で見たように，法律の形式を満たしていても人々の信頼を裏切る使い方はあり得ます．データを扱う者には，法律とあわせて倫理的な判断が求められるのです．</p>
 <p>データ倫理の中心的なテーマの一つが<strong>公平性</strong>（fairness）です．近年，採用の書類選考，ローンの審査（与信），保険料の算定など，人の人生を左右する判断に機械学習アルゴリズムが使われる場面が増えています．アルゴリズムは人間と違って感情や偏見がないから公平だ——と思いたくなりますが，現実はそう単純ではありません．機械学習は<strong>過去のデータからパターンを学ぶ</strong>技術です．もし過去のデータに社会の偏りや過去の差別の痕跡が含まれていれば，アルゴリズムはそれを忠実に学び，再生産してしまいます．これが<strong>アルゴリズムによる差別</strong>（algorithmic discrimination）と呼ばれる問題です．</p>
-<p>たとえば，過去に男性ばかりを採用してきた組織の採用データで「優秀な応募者」を予測するモデルを学習させれば，モデルは女性に不利な判断を学んでしまうかもしれません．実際，海外の大手企業がAI採用ツールの開発において特定の性別に不利な傾向が見つかり運用を取りやめた，と報じられた事例や，与信の審査で属性による不公平が疑われて議論になった事例が知られています（報道ベースの事例であり，ここでは一般化して紹介しています）．機械学習におけるバイアスの発生源と公平性の定義については，体系的なサーベイ論文があり，データの偏り・アルゴリズムの設計・人間とシステムの相互作用など，バイアスが入り込む経路が多岐にわたることが整理されています <span id="id15">[<a class="reference internal" href="../references.html#id29" title="Ninareh Mehrabi, Fred Morstatter, Nripsuta Saxena, Kristina Lerman, and Aram Galstyan. A survey on bias and fairness in machine learning. ACM Computing Surveys, 54(6):115:1–115:35, 2021. doi:10.1145/3457607.">Mehrabi <em>et al.</em>, 2021</a>]</span>．</p>
+<p>たとえば，過去に男性ばかりを採用してきた組織の採用データで「優秀な応募者」を予測するモデルを学習させれば，モデルは女性に不利な判断を学んでしまうかもしれません．実際，海外の大手企業がAI採用ツールの開発において特定の性別に不利な傾向が見つかり運用を取りやめた，と報じられた事例や，与信の審査で属性による不公平が疑われて議論になった事例が知られています（報道ベースの事例であり，ここでは一般化して紹介しています）．機械学習におけるバイアスの発生源と公平性の定義については，体系的なサーベイ論文があり，データの偏り・アルゴリズムの設計・人間とシステムの相互作用など，バイアスが入り込む経路が多岐にわたることが整理されています <span id="id16">[<a class="reference internal" href="../references.html#id29" title="Ninareh Mehrabi, Fred Morstatter, Nripsuta Saxena, Kristina Lerman, and Aram Galstyan. A survey on bias and fairness in machine learning. ACM Computing Surveys, 54(6):115:1–115:35, 2021. doi:10.1145/3457607.">Mehrabi <em>et al.</em>, 2021</a>]</span>．</p>
+<p>こうした偏りの再生産の構造を <a class="reference internal" href="#fig-ch07-bias-loop"><span class="std std-numref">図 36</span></a> に示します．過去の偏ったデータから学んだモデルが偏った判断を下し，その結果がさらに偏ったデータとして蓄積されて次の学習に使われる——という循環が生じ得るのです．</p>
+<figure class="align-default" id="fig-ch07-bias-loop">
+<img alt="アルゴリズムのバイアスの循環を示す円環図．過去の偏ったデータ，機械学習モデルがパターンを学習，偏った判断（例：採用で特定の属性に不利），結果がさらに偏ったデータとして蓄積，の4ステップが時計回りの矢印でつながり，最初へ戻る．中央に偏りの再生産（アルゴリズムによる差別）と書かれている．円の外には，データの偏りとの関連として，第2回の標本の偏りと第4回の前処理の恣意性を挙げた注記がある．" src="../_images/ch07-bias-loop.svg" />
+<figcaption>
+<p><span class="caption-number">図 36 </span><span class="caption-text">アルゴリズムのバイアスの循環——偏ったデータが偏った判断を生み，偏りが再生産される</span><a class="headerlink" href="#fig-ch07-bias-loop" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 <p>第2回で学んだ「標本の偏り」や第4回の「前処理の恣意性」を思い出してください．<strong>データの偏りは，分析結果の偏りとなり，それが社会に実装されると現実の不公平になる</strong>——データのライフサイクル全体が，実は公平性の問題とつながっているのです．</p>
 </section>
-<section id="id16">
-<h3>フィルターバブル——懸念と実証のあいだ<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<section id="id17">
+<h3>フィルターバブル——懸念と実証のあいだ<a class="headerlink" href="#id17" title="Link to this heading">#</a></h3>
 <p>アルゴリズムの社会的影響としてもう一つ有名なのが<strong>フィルターバブル</strong>（filter bubble）です．SNSや動画サイト，ニュースアプリは，あなたの閲覧履歴から「あなたが好みそうな情報」を推薦アルゴリズムで選んで表示します．その結果，<strong>自分の好みや意見に合う情報ばかりに囲まれ，異なる意見に触れる機会が減って，泡（バブル）の中に閉じ込められたようになる</strong>のではないか——という懸念です．みなさんも，動画サイトのおすすめ欄が「いつもの傾向」で埋まっている経験があるでしょう．</p>
-<p>ただし，この問題については<strong>均衡の取れた見方</strong>が大切です．フィルターバブルという言葉のインパクトは強いのですが，実証研究を批判的にレビューした論文は，現時点で <strong>「深刻に懸念すべきことを示す明確な実証的証拠は乏しい」</strong> と指摘しています <span id="id17">[<a class="reference internal" href="../references.html#id30" title="Frederik J. Zuiderveen Borgesius, Damian Trilling, Judith Möller, Balázs Bodó, Claes H. de Vreese, and Natali Helberger. Should we worry about filter bubbles? Internet Policy Review, 2016. doi:10.14763/2016.1.401.">Zuiderveen Borgesius <em>et al.</em>, 2016</a>]</span>．また，Facebook上の約1,010万人のユーザーを対象にした大規模な実証研究では，自分と異なる立場のニュースへの接触を最も強く減らしていたのはアルゴリズムではなく，<strong>「何をクリックして読むか」という個人の選択</strong>の方だったと報告されています <span id="id18">[<a class="reference internal" href="../references.html#id31" title="Eytan Bakshy, Solomon Messing, and Lada A. Adamic. Exposure to ideologically diverse news and opinion on facebook. Science, 348(6239):1130–1132, 2015. doi:10.1126/science.aaa1160.">Bakshy <em>et al.</em>, 2015</a>]</span>（ただしこの研究は同社の研究者によるもので，対象も政治的立場を明示したユーザーに限られる点には留意が必要です）．</p>
+<p>ただし，この問題については<strong>均衡の取れた見方</strong>が大切です．フィルターバブルという言葉のインパクトは強いのですが，実証研究を批判的にレビューした論文は，現時点で <strong>「深刻に懸念すべきことを示す明確な実証的証拠は乏しい」</strong> と指摘しています <span id="id18">[<a class="reference internal" href="../references.html#id30" title="Frederik J. Zuiderveen Borgesius, Damian Trilling, Judith Möller, Balázs Bodó, Claes H. de Vreese, and Natali Helberger. Should we worry about filter bubbles? Internet Policy Review, 2016. doi:10.14763/2016.1.401.">Zuiderveen Borgesius <em>et al.</em>, 2016</a>]</span>．また，Facebook上の約1,010万人のユーザーを対象にした大規模な実証研究では，自分と異なる立場のニュースへの接触を最も強く減らしていたのはアルゴリズムではなく，<strong>「何をクリックして読むか」という個人の選択</strong>の方だったと報告されています <span id="id19">[<a class="reference internal" href="../references.html#id31" title="Eytan Bakshy, Solomon Messing, and Lada A. Adamic. Exposure to ideologically diverse news and opinion on facebook. Science, 348(6239):1130–1132, 2015. doi:10.1126/science.aaa1160.">Bakshy <em>et al.</em>, 2015</a>]</span>（ただしこの研究は同社の研究者によるもので，対象も政治的立場を明示したユーザーに限られる点には留意が必要です）．</p>
+<p>この「懸念のイメージ」と「実証研究が示すこと」の対比を <a class="reference internal" href="#fig-ch07-filter-bubble"><span class="std std-numref">図 37</span></a> に整理しました．情報への接触を絞る要因はアルゴリズムの推薦だけではなく，私たち自身の選択も大きいという点がポイントです．</p>
+<figure class="align-default" id="fig-ch07-filter-bubble">
+<img alt="フィルターバブルの対比図．左の懸念のイメージでは，泡の中の人物が自分の好みや意見に合う情報アイコンだけに囲まれ，泡の外にある異なる意見の情報には×印がついて触れる機会が減る様子が描かれ，泡（バブル）の中に閉じ込められると説明されている．右の実証研究が示すことでは，情報への接触を絞る2つの要因として，アルゴリズムの推薦から伸びる細い矢印と，自分自身の選択（何をクリックして読むか）から伸びる太い矢印が，異なる立場の情報への接触が減るという結果に向かい，影響はこちらの方が大きいと自分自身の選択の側が強調されている．約1,010万人を対象にした大規模実証研究の報告に基づく．下段には，深刻に懸念すべきことを示す明確な実証的証拠は乏しいと指摘するレビューもある，という注記がある．" src="../_images/ch07-filter-bubble.svg" />
+<figcaption>
+<p><span class="caption-number">図 37 </span><span class="caption-text">フィルターバブル——懸念のイメージ（左）と実証研究が示すこと（右） <span id="id20">[<a class="reference internal" href="../references.html#id31" title="Eytan Bakshy, Solomon Messing, and Lada A. Adamic. Exposure to ideologically diverse news and opinion on facebook. Science, 348(6239):1130–1132, 2015. doi:10.1126/science.aaa1160.">Bakshy <em>et al.</em>, 2015</a>, <a class="reference internal" href="../references.html#id30" title="Frederik J. Zuiderveen Borgesius, Damian Trilling, Judith Möller, Balázs Bodó, Claes H. de Vreese, and Natali Helberger. Should we worry about filter bubbles? Internet Policy Review, 2016. doi:10.14763/2016.1.401.">Zuiderveen Borgesius <em>et al.</em>, 2016</a>]</span></span><a class="headerlink" href="#fig-ch07-filter-bubble" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 <p>つまり現時点での誠実なまとめは，こうなります．<strong>懸念には根拠がある一方で，「アルゴリズムのせいで社会が分断された」と断定できるほどの証拠はなく，私たち自身の選択の影響も大きい</strong>．「アルゴリズムが悪い」と単純化するのではなく，自分の情報環境を意識して，ときには検索語を変えたり，立場の異なる情報源をあえて見に行ったりする——そうした利用者側の行動も含めて考えるべき問題なのです．</p>
 <p>こうした公平性・差別・フィルターバブルの問題をまとめて，本章では<strong>アルゴリズムの社会的影響</strong>と呼びます．アルゴリズムはもはや，コンピュータの中だけの存在ではありません．何を推薦し，誰を選考に通し，どんな情報を見せるかを通じて，社会のあり方そのものに影響を与えています．だからこそ，アルゴリズムを作る側にも使う側にも，法と倫理の両方の視点が必要なのです．</p>
 </section>
 </section>
-<section id="id19">
-<h2>活用事例：匿名加工情報が広げるデータ利活用<a class="headerlink" href="#id19" title="Link to this heading">#</a></h2>
+<section id="id21">
+<h2>活用事例：匿名加工情報が広げるデータ利活用<a class="headerlink" href="#id21" title="Link to this heading">#</a></h2>
 <p>法律は「ブレーキ」の話ばかりに見えたかもしれませんが，最後に，法制度が利活用の「アクセル」としても機能している例を紹介します．</p>
 <div class="admonition- admonition">
 <p class="admonition-title">事例：加工されたデータが社会で活きる</p>
@@ -486,24 +521,24 @@
 <li><p><strong>移動・人流データの分析</strong>：携帯電話の位置情報などを集計・加工した人流データを，まちづくりや観光振興，災害時の避難計画の検討に活用する．</p></li>
 <li><p><strong>医療・健康データの研究利用</strong>：医療機関の診療データを適切に加工・管理したうえで研究に用い，治療法の改善や薬の安全性の検証に役立てる（医療分野では専用の法制度も整備されています）．</p></li>
 </ul>
-<p>ここで思い出してほしいのが，本章で学んだNetflixの再識別事例です <span id="id20">[<a class="reference internal" href="../references.html#id28" title="Arvind Narayanan and Vitaly Shmatikov. Robust de-anonymization of large sparse datasets. In Proceedings of the 2008 IEEE Symposium on Security and Privacy, 111–125. 2008. doi:10.1109/SP.2008.33.">Narayanan and Shmatikov, 2008</a>]</span>．行動履歴は個人の指紋のようにユニークだからこそ，こうした利活用は「名前を消せばよい」という素朴な発想ではなく，<strong>再識別リスクを踏まえた加工基準と法的義務のセット</strong>の上に成り立っています．過去には，交通機関の乗降履歴データの外部提供が，利用者への説明が不十分だとして社会的な批判を受け，計画の見直しに至った出来事もありました（ここでは一般化して紹介します）．データ利活用の成否は，技術だけでなく，<strong>法制度の遵守と，本人の納得感（プライバシーへの配慮）</strong> にかかっている——本章の内容が凝縮された好例と言えるでしょう．</p>
+<p>ここで思い出してほしいのが，本章で学んだNetflixの再識別事例です <span id="id22">[<a class="reference internal" href="../references.html#id28" title="Arvind Narayanan and Vitaly Shmatikov. Robust de-anonymization of large sparse datasets. In Proceedings of the 2008 IEEE Symposium on Security and Privacy, 111–125. 2008. doi:10.1109/SP.2008.33.">Narayanan and Shmatikov, 2008</a>]</span>．行動履歴は個人の指紋のようにユニークだからこそ，こうした利活用は「名前を消せばよい」という素朴な発想ではなく，<strong>再識別リスクを踏まえた加工基準と法的義務のセット</strong>の上に成り立っています．過去には，交通機関の乗降履歴データの外部提供が，利用者への説明が不十分だとして社会的な批判を受け，計画の見直しに至った出来事もありました（ここでは一般化して紹介します）．データ利活用の成否は，技術だけでなく，<strong>法制度の遵守と，本人の納得感（プライバシーへの配慮）</strong> にかかっている——本章の内容が凝縮された好例と言えるでしょう．</p>
 </div>
 </section>
-<section id="id21">
-<h2>まとめ<a class="headerlink" href="#id21" title="Link to this heading">#</a></h2>
+<section id="id23">
+<h2>まとめ<a class="headerlink" href="#id23" title="Link to this heading">#</a></h2>
 <p>この回では，データ利活用を支える法制度の基礎と，その先にあるデータ倫理を学びました．要点を振り返ります．</p>
 <ul class="simple">
 <li><p><strong>個人情報保護法</strong>は，生存する個人を識別できる情報（<strong>個人情報</strong>）について，利用目的の特定・通知や目的外利用の制限などのルールを定め，保護と利活用のバランスを図る法律です．一次資料は個人情報保護委員会（<a class="reference external" href="https://www.ppc.go.jp/">https://www.ppc.go.jp/</a>）の公式資料です．</p></li>
 <li><p>加工の程度に応じて<strong>仮名加工情報</strong>（主に内部分析向け．照合すれば個人に戻り得る）と<strong>匿名加工情報</strong>（復元できないよう加工し，同意なしの第三者提供も可能）という区分があります．</p></li>
-<li><p>ただし，Netflixの再識別事例——64%の加入者が2件の評価と日付だけで再識別された——が示すように，<strong>「匿名化すれば安全」という直感には限界があります</strong> <span id="id22">[<a class="reference internal" href="../references.html#id28" title="Arvind Narayanan and Vitaly Shmatikov. Robust de-anonymization of large sparse datasets. In Proceedings of the 2008 IEEE Symposium on Security and Privacy, 111–125. 2008. doi:10.1109/SP.2008.33.">Narayanan and Shmatikov, 2008</a>]</span>．</p></li>
+<li><p>ただし，Netflixの再識別事例——64%の加入者が2件の評価と日付だけで再識別された——が示すように，<strong>「匿名化すれば安全」という直感には限界があります</strong> <span id="id24">[<a class="reference internal" href="../references.html#id28" title="Arvind Narayanan and Vitaly Shmatikov. Robust de-anonymization of large sparse datasets. In Proceedings of the 2008 IEEE Symposium on Security and Privacy, 111–125. 2008. doi:10.1109/SP.2008.33.">Narayanan and Shmatikov, 2008</a>]</span>．</p></li>
 <li><p><strong>著作権</strong>は創作的な表現を保護します．SNSの投稿も著作物になり得る一方，事実やデータそのものは保護されず，創作性のあるデータベースが<strong>データベースの権利</strong>（データベースの著作物）として保護されます．だからこそ実務では利用規約・ライセンスの確認が基本動作になります．</p></li>
 <li><p><strong>AI学習と著作権</strong>は現在進行形の論点であり，文化庁「AIと著作権に関する考え方について」などの一次資料に当たる姿勢が重要です．</p></li>
-<li><p>法律を守るだけでは足りない場面を扱うのが<strong>データ倫理</strong>です．<strong>公平性</strong>をめぐる<strong>アルゴリズムによる差別</strong>の懸念 <span id="id23">[<a class="reference internal" href="../references.html#id29" title="Ninareh Mehrabi, Fred Morstatter, Nripsuta Saxena, Kristina Lerman, and Aram Galstyan. A survey on bias and fairness in machine learning. ACM Computing Surveys, 54(6):115:1–115:35, 2021. doi:10.1145/3457607.">Mehrabi <em>et al.</em>, 2021</a>]</span> や，<strong>フィルターバブル</strong>——ただし懸念を裏づける明確な証拠は乏しいとするレビュー <span id="id24">[<a class="reference internal" href="../references.html#id30" title="Frederik J. Zuiderveen Borgesius, Damian Trilling, Judith Möller, Balázs Bodó, Claes H. de Vreese, and Natali Helberger. Should we worry about filter bubbles? Internet Policy Review, 2016. doi:10.14763/2016.1.401.">Zuiderveen Borgesius <em>et al.</em>, 2016</a>]</span> や，個人の選択の影響の方が大きいとする大規模実証 <span id="id25">[<a class="reference internal" href="../references.html#id31" title="Eytan Bakshy, Solomon Messing, and Lada A. Adamic. Exposure to ideologically diverse news and opinion on facebook. Science, 348(6239):1130–1132, 2015. doi:10.1126/science.aaa1160.">Bakshy <em>et al.</em>, 2015</a>]</span> もある——など，<strong>アルゴリズムの社会的影響</strong>への視点が求められます．</p></li>
+<li><p>法律を守るだけでは足りない場面を扱うのが<strong>データ倫理</strong>です．<strong>公平性</strong>をめぐる<strong>アルゴリズムによる差別</strong>の懸念 <span id="id25">[<a class="reference internal" href="../references.html#id29" title="Ninareh Mehrabi, Fred Morstatter, Nripsuta Saxena, Kristina Lerman, and Aram Galstyan. A survey on bias and fairness in machine learning. ACM Computing Surveys, 54(6):115:1–115:35, 2021. doi:10.1145/3457607.">Mehrabi <em>et al.</em>, 2021</a>]</span> や，<strong>フィルターバブル</strong>——ただし懸念を裏づける明確な証拠は乏しいとするレビュー <span id="id26">[<a class="reference internal" href="../references.html#id30" title="Frederik J. Zuiderveen Borgesius, Damian Trilling, Judith Möller, Balázs Bodó, Claes H. de Vreese, and Natali Helberger. Should we worry about filter bubbles? Internet Policy Review, 2016. doi:10.14763/2016.1.401.">Zuiderveen Borgesius <em>et al.</em>, 2016</a>]</span> や，個人の選択の影響の方が大きいとする大規模実証 <span id="id27">[<a class="reference internal" href="../references.html#id31" title="Eytan Bakshy, Solomon Messing, and Lada A. Adamic. Exposure to ideologically diverse news and opinion on facebook. Science, 348(6239):1130–1132, 2015. doi:10.1126/science.aaa1160.">Bakshy <em>et al.</em>, 2015</a>]</span> もある——など，<strong>アルゴリズムの社会的影響</strong>への視点が求められます．</p></li>
 </ul>
 <p>次回はいよいよ最終回，<a class="reference internal" href="ch08-genai.html"><span class="std std-doc">第8回「生成AIの基礎と知的活動への利用」</span></a>です．生成AIは，本章で学んだ論点のいわば集大成です．学習データには他人の著作物や個人情報が含まれ得ます（AI学習と著作権・個人情報保護法），学習データの偏りは出力のバイアスにつながります（公平性）．本章で学んだ法と倫理のレンズを持って，生成AIの仕組みと付き合い方を学びましょう．</p>
 </section>
-<section id="id26">
-<h2>確認問題<a class="headerlink" href="#id26" title="Link to this heading">#</a></h2>
+<section id="id28">
+<h2>確認問題<a class="headerlink" href="#id28" title="Link to this heading">#</a></h2>
 <p><strong>問1（事例判断型）</strong>：あるサークルが新入生歓迎会で，「今後の連絡のため」と説明して新入生の氏名・LINE ID・メールアドレスを集めました．後日，幹部の一人が，このリストを（a）自分のアルバイト先の塾の勧誘メール送信に使い，さらに（b）他大学のイベントサークルに「新入生名簿」として渡しました．このデータの扱いの問題点を，本章で学んだ考え方を使って指摘してください．</p>
 <div class="dropdown admonition">
 <p class="admonition-title">解答と解説</p>
@@ -518,7 +553,7 @@
 <div class="dropdown admonition">
 <p class="admonition-title">解答と解説</p>
 <p>問題点は，<strong>「名前（ID）を消すこと」と「個人を特定できなくすること」を混同している</strong>点です．視聴履歴のような行動履歴データは，一人ひとりのパターンが指紋のようにユニークです．そのため，別の公開情報（たとえばレビューサイトに実名で投稿された評価）と照合することで，個人が<strong>再識別</strong>されるおそれがあります．</p>
-<p>実際，Netflixが公開した約50万人分の匿名映画評価データでは，<strong>64%の加入者はわずか2件の評価とその日付だけで完全に再識別でき，89%は8件以下にまで絞り込める</strong>ことが研究で示されました <span id="id27">[<a class="reference internal" href="../references.html#id28" title="Arvind Narayanan and Vitaly Shmatikov. Robust de-anonymization of large sparse datasets. In Proceedings of the 2008 IEEE Symposium on Security and Privacy, 111–125. 2008. doi:10.1109/SP.2008.33.">Narayanan and Shmatikov, 2008</a>]</span>．</p>
+<p>実際，Netflixが公開した約50万人分の匿名映画評価データでは，<strong>64%の加入者はわずか2件の評価とその日付だけで完全に再識別でき，89%は8件以下にまで絞り込める</strong>ことが研究で示されました <span id="id29">[<a class="reference internal" href="../references.html#id28" title="Arvind Narayanan and Vitaly Shmatikov. Robust de-anonymization of large sparse datasets. In Proceedings of the 2008 IEEE Symposium on Security and Privacy, 111–125. 2008. doi:10.1109/SP.2008.33.">Narayanan and Shmatikov, 2008</a>]</span>．</p>
 <p>日本の個人情報保護法の<strong>匿名加工情報</strong>の制度が，単なるIDの置き換えではなく「特定の個人を識別できず，復元もできない」水準の加工基準と法的義務を定めているのは，この再識別リスクを踏まえたものです．担当者は，定められた加工基準に従った加工と手続きを行う必要があります．</p>
 </div>
 <p><strong>問3（知識確認型）</strong>：次の記述のうち，本章の内容に照らして<strong>適切でないもの</strong>を1つ選んでください．</p>
@@ -531,25 +566,25 @@
 <div class="dropdown admonition">
 <p class="admonition-title">解答と解説</p>
 <p>適切でないのは <strong>3</strong> です．</p>
-<p>フィルターバブルは広く懸念されている問題ですが，実証研究のレビューは「深刻に懸念すべきことを示す明確な証拠は乏しい」と指摘しています <span id="id28">[<a class="reference internal" href="../references.html#id30" title="Frederik J. Zuiderveen Borgesius, Damian Trilling, Judith Möller, Balázs Bodó, Claes H. de Vreese, and Natali Helberger. Should we worry about filter bubbles? Internet Policy Review, 2016. doi:10.14763/2016.1.401.">Zuiderveen Borgesius <em>et al.</em>, 2016</a>]</span>．また，約1,010万人を対象とした大規模実証研究では，異なる立場の情報への接触を制限する要因として，アルゴリズムよりも<strong>個人の選択</strong>の影響の方が大きいと報告されています <span id="id29">[<a class="reference internal" href="../references.html#id31" title="Eytan Bakshy, Solomon Messing, and Lada A. Adamic. Exposure to ideologically diverse news and opinion on facebook. Science, 348(6239):1130–1132, 2015. doi:10.1126/science.aaa1160.">Bakshy <em>et al.</em>, 2015</a>]</span>．「明確に証明されている」という記述は誤りです．</p>
-<p>1と2は著作権・データベースの権利の説明として適切です．4は<strong>アルゴリズムによる差別</strong>の説明として適切であり，バイアスの発生源はサーベイ論文に体系的に整理されています <span id="id30">[<a class="reference internal" href="../references.html#id29" title="Ninareh Mehrabi, Fred Morstatter, Nripsuta Saxena, Kristina Lerman, and Aram Galstyan. A survey on bias and fairness in machine learning. ACM Computing Surveys, 54(6):115:1–115:35, 2021. doi:10.1145/3457607.">Mehrabi <em>et al.</em>, 2021</a>]</span>．</p>
+<p>フィルターバブルは広く懸念されている問題ですが，実証研究のレビューは「深刻に懸念すべきことを示す明確な証拠は乏しい」と指摘しています <span id="id30">[<a class="reference internal" href="../references.html#id30" title="Frederik J. Zuiderveen Borgesius, Damian Trilling, Judith Möller, Balázs Bodó, Claes H. de Vreese, and Natali Helberger. Should we worry about filter bubbles? Internet Policy Review, 2016. doi:10.14763/2016.1.401.">Zuiderveen Borgesius <em>et al.</em>, 2016</a>]</span>．また，約1,010万人を対象とした大規模実証研究では，異なる立場の情報への接触を制限する要因として，アルゴリズムよりも<strong>個人の選択</strong>の影響の方が大きいと報告されています <span id="id31">[<a class="reference internal" href="../references.html#id31" title="Eytan Bakshy, Solomon Messing, and Lada A. Adamic. Exposure to ideologically diverse news and opinion on facebook. Science, 348(6239):1130–1132, 2015. doi:10.1126/science.aaa1160.">Bakshy <em>et al.</em>, 2015</a>]</span>．「明確に証明されている」という記述は誤りです．</p>
+<p>1と2は著作権・データベースの権利の説明として適切です．4は<strong>アルゴリズムによる差別</strong>の説明として適切であり，バイアスの発生源はサーベイ論文に体系的に整理されています <span id="id32">[<a class="reference internal" href="../references.html#id29" title="Ninareh Mehrabi, Fred Morstatter, Nripsuta Saxena, Kristina Lerman, and Aram Galstyan. A survey on bias and fairness in machine learning. ACM Computing Surveys, 54(6):115:1–115:35, 2021. doi:10.1145/3457607.">Mehrabi <em>et al.</em>, 2021</a>]</span>．</p>
 </div>
 </section>
-<section id="id31">
-<h2>さらに学ぶために<a class="headerlink" href="#id31" title="Link to this heading">#</a></h2>
+<section id="id33">
+<h2>さらに学ぶために<a class="headerlink" href="#id33" title="Link to this heading">#</a></h2>
 <p>事例 → 解説 → 原典の順で読み進めるのがおすすめです．あわせて，日本法については政府の公式資料を一次資料として参照してください．</p>
 <ul class="simple">
 <li><p>【政府公式資料】<strong>個人情報保護委員会</strong>：<a class="reference external" href="https://www.ppc.go.jp/">https://www.ppc.go.jp/</a>
 個人情報保護法を所管する行政機関の公式サイト．法律の概要，ガイドライン，仮名加工情報・匿名加工情報の解説資料などが公開されています．本章の日本法パートの一次資料です．</p></li>
 <li><p>【政府公式資料】<strong>文化庁「AIと著作権」関連ページ</strong>：<a class="reference external" href="https://www.bunka.go.jp/seisaku/chosakuken/aiandcopyright.html">https://www.bunka.go.jp/seisaku/chosakuken/aiandcopyright.html</a>
 著作権制度を所管する文化庁による，「AIと著作権に関する考え方について」をはじめとする公式資料．AI学習と著作権の論点の最新動向はここで確認できます．</p></li>
-<li><p>【原典・事例】Narayanan, A. &amp; Shmatikov, V., &quot;Robust De-anonymization of Large Sparse Datasets,&quot; IEEE S&amp;P 2008 <span id="id32">[<a class="reference internal" href="../references.html#id28" title="Arvind Narayanan and Vitaly Shmatikov. Robust de-anonymization of large sparse datasets. In Proceedings of the 2008 IEEE Symposium on Security and Privacy, 111–125. 2008. doi:10.1109/SP.2008.33.">Narayanan and Shmatikov, 2008</a>]</span>．
+<li><p>【原典・事例】Narayanan, A. &amp; Shmatikov, V., &quot;Robust De-anonymization of Large Sparse Datasets,&quot; IEEE S&amp;P 2008 <span id="id34">[<a class="reference internal" href="../references.html#id28" title="Arvind Narayanan and Vitaly Shmatikov. Robust de-anonymization of large sparse datasets. In Proceedings of the 2008 IEEE Symposium on Security and Privacy, 111–125. 2008. doi:10.1109/SP.2008.33.">Narayanan and Shmatikov, 2008</a>]</span>．
 Netflixデータ再識別の原典．「匿名化すれば安全」の限界を示した決定的な研究で，後にTest of Time Awardを受賞しています．全文：<a class="reference external" href="https://arxiv.org/abs/cs/0610105">https://arxiv.org/abs/cs/0610105</a></p></li>
-<li><p>【解説・サーベイ】Mehrabi, N. et al., &quot;A Survey on Bias and Fairness in Machine Learning,&quot; ACM Computing Surveys, 2021 <span id="id33">[<a class="reference internal" href="../references.html#id29" title="Ninareh Mehrabi, Fred Morstatter, Nripsuta Saxena, Kristina Lerman, and Aram Galstyan. A survey on bias and fairness in machine learning. ACM Computing Surveys, 54(6):115:1–115:35, 2021. doi:10.1145/3457607.">Mehrabi <em>et al.</em>, 2021</a>]</span>．
+<li><p>【解説・サーベイ】Mehrabi, N. et al., &quot;A Survey on Bias and Fairness in Machine Learning,&quot; ACM Computing Surveys, 2021 <span id="id35">[<a class="reference internal" href="../references.html#id29" title="Ninareh Mehrabi, Fred Morstatter, Nripsuta Saxena, Kristina Lerman, and Aram Galstyan. A survey on bias and fairness in machine learning. ACM Computing Surveys, 54(6):115:1–115:35, 2021. doi:10.1145/3457607.">Mehrabi <em>et al.</em>, 2021</a>]</span>．
 機械学習におけるバイアスの発生源と公平性の定義を体系的に整理したサーベイ．全文（arXiv版）：<a class="reference external" href="https://arxiv.org/abs/1908.09635">https://arxiv.org/abs/1908.09635</a></p></li>
-<li><p>【解説・サーベイ】Zuiderveen Borgesius, F. J. et al., &quot;Should We Worry About Filter Bubbles?,&quot; Internet Policy Review, 2016 <span id="id34">[<a class="reference internal" href="../references.html#id30" title="Frederik J. Zuiderveen Borgesius, Damian Trilling, Judith Möller, Balázs Bodó, Claes H. de Vreese, and Natali Helberger. Should we worry about filter bubbles? Internet Policy Review, 2016. doi:10.14763/2016.1.401.">Zuiderveen Borgesius <em>et al.</em>, 2016</a>]</span>．
+<li><p>【解説・サーベイ】Zuiderveen Borgesius, F. J. et al., &quot;Should We Worry About Filter Bubbles?,&quot; Internet Policy Review, 2016 <span id="id36">[<a class="reference internal" href="../references.html#id30" title="Frederik J. Zuiderveen Borgesius, Damian Trilling, Judith Möller, Balázs Bodó, Claes H. de Vreese, and Natali Helberger. Should we worry about filter bubbles? Internet Policy Review, 2016. doi:10.14763/2016.1.401.">Zuiderveen Borgesius <em>et al.</em>, 2016</a>]</span>．
 フィルターバブルの実証的根拠を批判的に検討したオープンアクセスのレビュー．全文：<a class="reference external" href="https://doi.org/10.14763/2016.1.401">https://doi.org/10.14763/2016.1.401</a></p></li>
-<li><p>【原典・事例】Bakshy, E., Messing, S. &amp; Adamic, L. A., &quot;Exposure to Ideologically Diverse News and Opinion on Facebook,&quot; Science, 2015 <span id="id35">[<a class="reference internal" href="../references.html#id31" title="Eytan Bakshy, Solomon Messing, and Lada A. Adamic. Exposure to ideologically diverse news and opinion on facebook. Science, 348(6239):1130–1132, 2015. doi:10.1126/science.aaa1160.">Bakshy <em>et al.</em>, 2015</a>]</span>．
+<li><p>【原典・事例】Bakshy, E., Messing, S. &amp; Adamic, L. A., &quot;Exposure to Ideologically Diverse News and Opinion on Facebook,&quot; Science, 2015 <span id="id37">[<a class="reference internal" href="../references.html#id31" title="Eytan Bakshy, Solomon Messing, and Lada A. Adamic. Exposure to ideologically diverse news and opinion on facebook. Science, 348(6239):1130–1132, 2015. doi:10.1126/science.aaa1160.">Bakshy <em>et al.</em>, 2015</a>]</span>．
 約1,010万人を対象に，アルゴリズムより個人の選択の影響が大きいことを示した大規模実証研究．DOI：<a class="reference external" href="https://doi.org/10.1126/science.aaa1160">https://doi.org/10.1126/science.aaa1160</a></p></li>
 </ul>
 </section>
@@ -631,21 +666,21 @@ Netflixデータ再識別の原典．「匿名化すれば安全」の限界を�
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#netflix">「匿名化すれば安全」の限界——Netflix再識別事例</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">創作物とデータを守るしくみ——著作権</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">創作物とデータを守るしくみ——著作権</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sns">著作権とは何か——SNSの投稿も著作物</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">データやデータベースは守られるのか——データベースの権利</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">データやデータベースは守られるのか——データベースの権利</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ai">AI学習と著作権——いま最も熱い論点</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">法だけでは足りない——データ倫理とアルゴリズムの社会的影響</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">データ倫理・公平性・アルゴリズムによる差別</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">フィルターバブル——懸念と実証のあいだ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">法だけでは足りない——データ倫理とアルゴリズムの社会的影響</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">データ倫理・公平性・アルゴリズムによる差別</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">フィルターバブル——懸念と実証のあいだ</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">活用事例：匿名加工情報が広げるデータ利活用</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">まとめ</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">確認問題</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">さらに学ぶために</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">活用事例：匿名加工情報が広げるデータ利活用</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">まとめ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">確認問題</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id33">さらに学ぶために</a></li>
 </ul>
   </nav></div>
 

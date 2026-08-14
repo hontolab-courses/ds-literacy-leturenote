@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 845" font-family="'Hiragino Sans','Noto Sans JP',sans-serif">
+<defs>
+<marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto">
+  <path d="M0,0 L8,4 L0,8 Z" fill="#4C72B0"/>
+</marker>
+<marker id="arrow-orange" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto">
+  <path d="M0,0 L8,4 L0,8 Z" fill="#DD8452"/>
+</marker>
+<marker id="arrow-green" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto">
+  <path d="M0,0 L8,4 L0,8 Z" fill="#55A868"/>
+</marker>
+</defs>
+<rect x="0" y="0" width="1000" height="845" fill="white"/>
+
+<!-- ============ 上段：tidy dataの3つの条件 ============ -->
+<text x="500" y="42" text-anchor="middle" font-size="20" font-weight="bold" fill="#333333">tidy data（整然データ）の3つの条件</text>
+
+<!-- 条件③：表全体を囲む緑の枠 -->
+<rect x="106" y="70" width="398" height="190" rx="8" fill="none" stroke="#55A868" stroke-width="2"/>
+
+<!-- 条件①：縦の色帯（「学年」の列＝1つの変数） -->
+<rect x="270" y="76" width="110" height="176" rx="6" fill="#EAF0F8"/>
+<!-- 条件②：横の色帯（1つの行＝1つの観測） -->
+<rect x="112" y="164" width="386" height="40" rx="6" fill="#FBEEE4" fill-opacity="0.75"/>
+
+<!-- 表の罫線 -->
+<rect x="120" y="84" width="370" height="160" fill="none" stroke="#8C8C8C" stroke-width="1.5"/>
+<line x1="120" y1="124" x2="490" y2="124" stroke="#8C8C8C" stroke-width="1.5"/>
+<line x1="120" y1="164" x2="490" y2="164" stroke="#BBBBBB" stroke-width="1"/>
+<line x1="120" y1="204" x2="490" y2="204" stroke="#BBBBBB" stroke-width="1"/>
+<line x1="270" y1="84" x2="270" y2="244" stroke="#BBBBBB" stroke-width="1"/>
+<line x1="380" y1="84" x2="380" y2="244" stroke="#BBBBBB" stroke-width="1"/>
+
+<!-- 表のテキスト -->
+<text x="195" y="110" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">イベント名</text>
+<text x="325" y="110" text-anchor="middle" font-size="16" font-weight="bold" fill="#4C72B0">学年</text>
+<text x="435" y="110" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">参加人数</text>
+<text x="195" y="150" text-anchor="middle" font-size="16" fill="#333333">新歓BBQ</text>
+<text x="325" y="150" text-anchor="middle" font-size="16" fill="#333333">1年生</text>
+<text x="435" y="150" text-anchor="middle" font-size="16" fill="#333333">18</text>
+<text x="195" y="190" text-anchor="middle" font-size="16" fill="#333333">春合宿</text>
+<text x="325" y="190" text-anchor="middle" font-size="16" fill="#333333">2年生</text>
+<text x="435" y="190" text-anchor="middle" font-size="16" fill="#333333">8</text>
+<text x="195" y="230" text-anchor="middle" font-size="16" fill="#333333">七夕ライブ</text>
+<text x="325" y="230" text-anchor="middle" font-size="16" fill="#333333">3年生</text>
+<text x="435" y="230" text-anchor="middle" font-size="16" fill="#333333">4</text>
+
+<!-- 条件ラベル -->
+<text x="545" y="92" font-size="16" font-weight="bold" fill="#4C72B0">① 各変数が1つの列をなす</text>
+<text x="545" y="114" font-size="14" fill="#333333">（1列＝1変数．例：「学年」の列）</text>
+<line x1="540" y1="88" x2="386" y2="80" stroke="#4C72B0" stroke-width="1.5"/>
+
+<text x="545" y="172" font-size="16" font-weight="bold" fill="#DD8452">② 各観測が1つの行をなす</text>
+<text x="545" y="194" font-size="14" fill="#333333">（1行＝1観測）</text>
+<line x1="540" y1="172" x2="504" y2="182" stroke="#DD8452" stroke-width="1.5"/>
+
+<text x="545" y="248" font-size="16" font-weight="bold" fill="#55A868">③ 各観測単位の類型が1つの表をなす</text>
+<text x="545" y="270" font-size="14" fill="#333333">（1表＝1種類．種類の違うデータは別の表に）</text>
+<line x1="540" y1="248" x2="508" y2="252" stroke="#55A868" stroke-width="1.5"/>
+
+<!-- 区切り線 -->
+<line x1="40" y1="300" x2="960" y2="300" stroke="#DDDDDD" stroke-width="1.5"/>
+
+<!-- ============ 下段：横持ち→縦持ちの変換 ============ -->
+<text x="500" y="340" text-anchor="middle" font-size="20" font-weight="bold" fill="#333333">横持ち → 縦持ち（tidy data）への変換</text>
+
+<text x="242" y="580" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">横持ちの表（df_wide）＝見せる表</text>
+<text x="767" y="762" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">tidy data（df_tidy）＝分析する表</text>
+
+<!-- 左：横持ちの表 -->
+<!-- ヘッダの色付きセル（学年の値が「列名」になっている） -->
+<rect x="40" y="386" width="150" height="40" fill="#F2F2F2"/>
+<rect x="190" y="386" width="85" height="40" fill="#EAF0F8"/>
+<rect x="275" y="386" width="85" height="40" fill="#FBEEE4"/>
+<rect x="360" y="386" width="85" height="40" fill="#EAF5EC"/>
+<!-- データセルの薄い色付け -->
+<rect x="190" y="426" width="85" height="120" fill="#EAF0F8" fill-opacity="0.45"/>
+<rect x="275" y="426" width="85" height="120" fill="#FBEEE4" fill-opacity="0.45"/>
+<rect x="360" y="426" width="85" height="120" fill="#EAF5EC" fill-opacity="0.45"/>
+<!-- 罫線 -->
+<rect x="40" y="386" width="405" height="160" fill="none" stroke="#8C8C8C" stroke-width="1.5"/>
+<line x1="40" y1="426" x2="445" y2="426" stroke="#8C8C8C" stroke-width="1.5"/>
+<line x1="40" y1="466" x2="445" y2="466" stroke="#BBBBBB" stroke-width="1"/>
+<line x1="40" y1="506" x2="445" y2="506" stroke="#BBBBBB" stroke-width="1"/>
+<line x1="190" y1="386" x2="190" y2="546" stroke="#BBBBBB" stroke-width="1"/>
+<line x1="275" y1="386" x2="275" y2="546" stroke="#BBBBBB" stroke-width="1"/>
+<line x1="360" y1="386" x2="360" y2="546" stroke="#BBBBBB" stroke-width="1"/>
+<!-- テキスト -->
+<text x="115" y="412" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">イベント名</text>
+<text x="232" y="412" text-anchor="middle" font-size="16" font-weight="bold" fill="#4C72B0">1年生</text>
+<text x="317" y="412" text-anchor="middle" font-size="16" font-weight="bold" fill="#DD8452">2年生</text>
+<text x="402" y="412" text-anchor="middle" font-size="16" font-weight="bold" fill="#55A868">3年生</text>
+<text x="115" y="452" text-anchor="middle" font-size="16" fill="#333333">新歓BBQ</text>
+<text x="232" y="452" text-anchor="middle" font-size="16" fill="#333333">18</text>
+<text x="317" y="452" text-anchor="middle" font-size="16" fill="#333333">7</text>
+<text x="402" y="452" text-anchor="middle" font-size="16" fill="#333333">3</text>
+<text x="115" y="492" text-anchor="middle" font-size="16" fill="#333333">春合宿</text>
+<text x="232" y="492" text-anchor="middle" font-size="16" fill="#333333">10</text>
+<text x="317" y="492" text-anchor="middle" font-size="16" fill="#333333">8</text>
+<text x="402" y="492" text-anchor="middle" font-size="16" fill="#333333">5</text>
+<text x="115" y="532" text-anchor="middle" font-size="16" fill="#333333">七夕ライブ</text>
+<text x="232" y="532" text-anchor="middle" font-size="16" fill="#333333">12</text>
+<text x="317" y="532" text-anchor="middle" font-size="16" fill="#333333">6</text>
+<text x="402" y="532" text-anchor="middle" font-size="16" fill="#333333">4</text>
+
+<!-- 右：tidy dataの表 -->
+<!-- 学年列の色付け（列名だった値がここに移動） -->
+<rect x="740" y="426" width="95" height="102" fill="#EAF0F8"/>
+<rect x="740" y="528" width="95" height="102" fill="#FBEEE4"/>
+<rect x="740" y="630" width="95" height="102" fill="#EAF5EC"/>
+<!-- ヘッダ背景 -->
+<rect x="590" y="386" width="355" height="40" fill="#F2F2F2"/>
+<!-- 罫線 -->
+<rect x="590" y="386" width="355" height="346" fill="none" stroke="#8C8C8C" stroke-width="1.5"/>
+<line x1="590" y1="426" x2="945" y2="426" stroke="#8C8C8C" stroke-width="1.5"/>
+<line x1="590" y1="460" x2="945" y2="460" stroke="#BBBBBB" stroke-width="1"/>
+<line x1="590" y1="494" x2="945" y2="494" stroke="#BBBBBB" stroke-width="1"/>
+<line x1="590" y1="528" x2="945" y2="528" stroke="#8C8C8C" stroke-width="1"/>
+<line x1="590" y1="562" x2="945" y2="562" stroke="#BBBBBB" stroke-width="1"/>
+<line x1="590" y1="596" x2="945" y2="596" stroke="#BBBBBB" stroke-width="1"/>
+<line x1="590" y1="630" x2="945" y2="630" stroke="#8C8C8C" stroke-width="1"/>
+<line x1="590" y1="664" x2="945" y2="664" stroke="#BBBBBB" stroke-width="1"/>
+<line x1="590" y1="698" x2="945" y2="698" stroke="#BBBBBB" stroke-width="1"/>
+<line x1="740" y1="386" x2="740" y2="732" stroke="#BBBBBB" stroke-width="1"/>
+<line x1="835" y1="386" x2="835" y2="732" stroke="#BBBBBB" stroke-width="1"/>
+<!-- ヘッダ -->
+<text x="665" y="412" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">イベント名</text>
+<text x="787" y="412" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">学年</text>
+<text x="890" y="412" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">参加人数</text>
+<!-- 行データ -->
+<text x="665" y="448" text-anchor="middle" font-size="15" fill="#333333">新歓BBQ</text>
+<text x="787" y="448" text-anchor="middle" font-size="15" font-weight="bold" fill="#4C72B0">1年生</text>
+<text x="890" y="448" text-anchor="middle" font-size="15" fill="#333333">18</text>
+<text x="665" y="482" text-anchor="middle" font-size="15" fill="#333333">春合宿</text>
+<text x="787" y="482" text-anchor="middle" font-size="15" font-weight="bold" fill="#4C72B0">1年生</text>
+<text x="890" y="482" text-anchor="middle" font-size="15" fill="#333333">10</text>
+<text x="665" y="516" text-anchor="middle" font-size="15" fill="#333333">七夕ライブ</text>
+<text x="787" y="516" text-anchor="middle" font-size="15" font-weight="bold" fill="#4C72B0">1年生</text>
+<text x="890" y="516" text-anchor="middle" font-size="15" fill="#333333">12</text>
+<text x="665" y="550" text-anchor="middle" font-size="15" fill="#333333">新歓BBQ</text>
+<text x="787" y="550" text-anchor="middle" font-size="15" font-weight="bold" fill="#DD8452">2年生</text>
+<text x="890" y="550" text-anchor="middle" font-size="15" fill="#333333">7</text>
+<text x="665" y="584" text-anchor="middle" font-size="15" fill="#333333">春合宿</text>
+<text x="787" y="584" text-anchor="middle" font-size="15" font-weight="bold" fill="#DD8452">2年生</text>
+<text x="890" y="584" text-anchor="middle" font-size="15" fill="#333333">8</text>
+<text x="665" y="618" text-anchor="middle" font-size="15" fill="#333333">七夕ライブ</text>
+<text x="787" y="618" text-anchor="middle" font-size="15" font-weight="bold" fill="#DD8452">2年生</text>
+<text x="890" y="618" text-anchor="middle" font-size="15" fill="#333333">6</text>
+<text x="665" y="652" text-anchor="middle" font-size="15" fill="#333333">新歓BBQ</text>
+<text x="787" y="652" text-anchor="middle" font-size="15" font-weight="bold" fill="#55A868">3年生</text>
+<text x="890" y="652" text-anchor="middle" font-size="15" fill="#333333">3</text>
+<text x="665" y="686" text-anchor="middle" font-size="15" fill="#333333">春合宿</text>
+<text x="787" y="686" text-anchor="middle" font-size="15" font-weight="bold" fill="#55A868">3年生</text>
+<text x="890" y="686" text-anchor="middle" font-size="15" fill="#333333">5</text>
+<text x="665" y="720" text-anchor="middle" font-size="15" fill="#333333">七夕ライブ</text>
+<text x="787" y="720" text-anchor="middle" font-size="15" font-weight="bold" fill="#55A868">3年生</text>
+<text x="890" y="720" text-anchor="middle" font-size="15" fill="#333333">4</text>
+
+<!-- 変換の矢印：列名が「学年」列の値へ移動する -->
+<path d="M 232 382 C 232 348, 500 356, 583 470" fill="none" stroke="#4C72B0" stroke-width="2" marker-end="url(#arrow-blue)"/>
+<path d="M 317 382 C 317 350, 552 420, 583 574" fill="none" stroke="#DD8452" stroke-width="2" marker-end="url(#arrow-orange)"/>
+<path d="M 402 382 C 402 352, 566 470, 583 676" fill="none" stroke="#55A868" stroke-width="2" marker-end="url(#arrow-green)"/>
+
+<!-- 注記 -->
+<text x="500" y="798" text-anchor="middle" font-size="15" font-weight="bold" fill="#333333">列名だった「1年生」「2年生」「3年生」が，「学年」という変数の値になる</text>
+<text x="500" y="824" text-anchor="middle" font-size="14" fill="#8C8C8C">変換（melt）後は，1行が「あるイベントの，ある学年の，参加人数」という1つの観測になる</text>
+</svg>

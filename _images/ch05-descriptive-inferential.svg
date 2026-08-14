@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 530" font-family="'Hiragino Sans','Noto Sans JP',sans-serif">
+<defs>
+<marker id="ag" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#8C8C8C"/></marker>
+</defs>
+<rect x="0" y="0" width="1060" height="530" fill="white"/>
+
+<!-- ===== 左パネル：記述統計 ===== -->
+<rect x="30" y="40" width="480" height="390" rx="8" fill="white" stroke="#8C8C8C" stroke-width="1.5"/>
+<text x="270" y="80" text-anchor="middle" font-size="20" font-weight="bold" fill="#4C72B0">記述統計</text>
+<text x="270" y="108" text-anchor="middle" font-size="15" fill="#333333">手元のデータを要約して記述する</text>
+
+<!-- 手元のデータ（表） -->
+<rect x="80" y="170" width="160" height="160" fill="white" stroke="#4C72B0" stroke-width="2"/>
+<rect x="80" y="170" width="160" height="32" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<line x1="80" y1="234" x2="240" y2="234" stroke="#4C72B0" stroke-width="1.5"/>
+<line x1="80" y1="266" x2="240" y2="266" stroke="#4C72B0" stroke-width="1.5"/>
+<line x1="80" y1="298" x2="240" y2="298" stroke="#4C72B0" stroke-width="1.5"/>
+<line x1="133" y1="170" x2="133" y2="330" stroke="#4C72B0" stroke-width="1.5"/>
+<line x1="187" y1="170" x2="187" y2="330" stroke="#4C72B0" stroke-width="1.5"/>
+<text x="160" y="360" text-anchor="middle" font-size="15" font-weight="bold" fill="#333333">手元のデータ</text>
+<text x="160" y="382" text-anchor="middle" font-size="13" fill="#8C8C8C">例：800人分の試験の点数</text>
+
+<!-- 要約の矢印 -->
+<line x1="255" y1="250" x2="298" y2="250" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ag)"/>
+<text x="277" y="236" text-anchor="middle" font-size="14" fill="#8C8C8C">要約</text>
+
+<!-- 統計量カード -->
+<rect x="310" y="180" width="170" height="140" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="395" y="212" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">統計量</text>
+<text x="395" y="244" text-anchor="middle" font-size="15" fill="#333333">平均（代表値）</text>
+<text x="395" y="272" text-anchor="middle" font-size="15" fill="#333333">ばらつき</text>
+<text x="395" y="294" text-anchor="middle" font-size="13" fill="#4C72B0">（分散・標準偏差）</text>
+<text x="395" y="360" text-anchor="middle" font-size="15" font-weight="bold" fill="#333333">少数の数字に要約</text>
+
+<!-- ===== 右パネル：推測統計 ===== -->
+<rect x="550" y="40" width="480" height="390" rx="8" fill="white" stroke="#8C8C8C" stroke-width="1.5"/>
+<text x="790" y="80" text-anchor="middle" font-size="20" font-weight="bold" fill="#DD8452">推測統計</text>
+<text x="790" y="108" text-anchor="middle" font-size="15" fill="#333333">手元の標本から母集団を推し量る</text>
+
+<!-- 鍋（母集団）：第2回の図と共通の描き方 -->
+<path d="M579,178 L579,208 Q579,224 595,224 L655,224 Q671,224 671,208 L671,178 Z" fill="#FBEEE4" stroke="#DD8452" stroke-width="2"/>
+<line x1="569" y1="186" x2="579" y2="186" stroke="#DD8452" stroke-width="3" stroke-linecap="round"/>
+<line x1="671" y1="186" x2="681" y2="186" stroke="#DD8452" stroke-width="3" stroke-linecap="round"/>
+<ellipse cx="625" cy="178" rx="46" ry="11" fill="#FBEEE4" stroke="#DD8452" stroke-width="2"/>
+<text x="625" y="258" text-anchor="middle" font-size="15" font-weight="bold" fill="#333333">鍋のみそ汁</text>
+<text x="625" y="280" text-anchor="middle" font-size="13" font-weight="bold" fill="#4C72B0">＝母集団（全体）</text>
+
+<!-- かき混ぜて一口の矢印 -->
+<line x1="692" y1="200" x2="736" y2="200" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ag)"/>
+<text x="718" y="168" text-anchor="middle" font-size="13" fill="#8C8C8C">よくかき混ぜて</text>
+
+<!-- おたまで一口（標本）：第2回の図と共通の描き方 -->
+<line x1="816" y1="166" x2="774" y2="210" stroke="#4C72B0" stroke-width="3.5" stroke-linecap="round"/>
+<ellipse cx="770" cy="216" rx="21" ry="11" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<ellipse cx="770" cy="214" rx="13" ry="5.5" fill="#FBEEE4" stroke="#DD8452" stroke-width="1.5"/>
+<text x="770" y="258" text-anchor="middle" font-size="15" font-weight="bold" fill="#333333">一口味見</text>
+<text x="770" y="280" text-anchor="middle" font-size="13" font-weight="bold" fill="#4C72B0">＝標本（一部）</text>
+
+<!-- 推し量る矢印 -->
+<line x1="800" y1="205" x2="852" y2="205" stroke="#8C8C8C" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ag)"/>
+<text x="830" y="230" text-anchor="middle" font-size="13" fill="#8C8C8C">推し量る</text>
+
+<!-- 推定の結果 -->
+<rect x="860" y="165" width="150" height="80" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="935" y="198" text-anchor="middle" font-size="15" fill="#333333">全体（母集団）の</text>
+<text x="935" y="222" text-anchor="middle" font-size="15" fill="#333333">味が分かる</text>
+
+<!-- 偏りの注記 -->
+<text x="790" y="360" text-anchor="middle" font-size="13" fill="#8C8C8C">かき混ぜずに上澄みだけを味見すれば判断を誤る</text>
+<text x="790" y="382" text-anchor="middle" font-size="13" fill="#8C8C8C">（＝第2回で学んだ「標本の偏り」）</text>
+
+<!-- 下部の注記 -->
+<text x="530" y="478" text-anchor="middle" font-size="14" fill="#8C8C8C">どちらも出発点は手元のデータ．「そのまま記述する」か「背後の全体を推し量る」かが役割の違い</text>
+</svg>

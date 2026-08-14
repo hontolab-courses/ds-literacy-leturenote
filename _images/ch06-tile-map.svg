@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1010 716" font-family="'Hiragino Sans','Noto Sans JP',sans-serif">
+<rect x="0" y="0" width="1010" height="716" fill="white"/>
+
+<text x="505" y="46" text-anchor="middle" font-size="20" font-weight="bold" fill="#333333">地方別の1人あたり月間図書館貸出冊数（架空データ）</text>
+
+<!-- タイル（日本地図を模した簡略配置） -->
+<!-- 北海道 3.2冊 → レベル2 -->
+<rect x="620" y="100" width="85" height="85" rx="8" fill="#C5D4E8" stroke="#8C8C8C" stroke-width="1.5"/>
+<text x="662.5" y="140" text-anchor="middle" font-size="17" font-weight="bold" fill="#333333">北海道</text>
+<text x="662.5" y="162" text-anchor="middle" font-size="13" fill="#333333">3.2冊</text>
+<!-- 東北 4.1冊 → レベル3 -->
+<rect x="620" y="195" width="85" height="85" rx="8" fill="#9FB8DA" stroke="#8C8C8C" stroke-width="1.5"/>
+<text x="662.5" y="235" text-anchor="middle" font-size="17" font-weight="bold" fill="#333333">東北</text>
+<text x="662.5" y="257" text-anchor="middle" font-size="13" fill="#333333">4.1冊</text>
+<!-- 北陸 5.8冊 → レベル5 -->
+<rect x="525" y="290" width="85" height="85" rx="8" fill="#4C72B0" stroke="#8C8C8C" stroke-width="1.5"/>
+<text x="567.5" y="330" text-anchor="middle" font-size="17" font-weight="bold" fill="white">北陸</text>
+<text x="567.5" y="352" text-anchor="middle" font-size="13" fill="white">5.8冊</text>
+<!-- 関東 2.4冊 → レベル1 -->
+<rect x="620" y="290" width="85" height="85" rx="8" fill="#EAF0F8" stroke="#8C8C8C" stroke-width="1.5"/>
+<text x="662.5" y="330" text-anchor="middle" font-size="17" font-weight="bold" fill="#333333">関東</text>
+<text x="662.5" y="352" text-anchor="middle" font-size="13" fill="#333333">2.4冊</text>
+<!-- 中国 4.6冊 → レベル4 -->
+<rect x="335" y="385" width="85" height="85" rx="8" fill="#7495C5" stroke="#8C8C8C" stroke-width="1.5"/>
+<text x="377.5" y="425" text-anchor="middle" font-size="17" font-weight="bold" fill="white">中国</text>
+<text x="377.5" y="447" text-anchor="middle" font-size="13" fill="white">4.6冊</text>
+<!-- 近畿 2.9冊 → レベル2 -->
+<rect x="430" y="385" width="85" height="85" rx="8" fill="#C5D4E8" stroke="#8C8C8C" stroke-width="1.5"/>
+<text x="472.5" y="425" text-anchor="middle" font-size="17" font-weight="bold" fill="#333333">近畿</text>
+<text x="472.5" y="447" text-anchor="middle" font-size="13" fill="#333333">2.9冊</text>
+<!-- 東海 3.9冊 → レベル3 -->
+<rect x="525" y="385" width="85" height="85" rx="8" fill="#9FB8DA" stroke="#8C8C8C" stroke-width="1.5"/>
+<text x="567.5" y="425" text-anchor="middle" font-size="17" font-weight="bold" fill="#333333">東海</text>
+<text x="567.5" y="447" text-anchor="middle" font-size="13" fill="#333333">3.9冊</text>
+<!-- 九州 3.8冊 → レベル3 -->
+<rect x="240" y="480" width="85" height="85" rx="8" fill="#9FB8DA" stroke="#8C8C8C" stroke-width="1.5"/>
+<text x="282.5" y="520" text-anchor="middle" font-size="17" font-weight="bold" fill="#333333">九州</text>
+<text x="282.5" y="542" text-anchor="middle" font-size="13" fill="#333333">3.8冊</text>
+<!-- 四国 5.2冊 → レベル4 -->
+<rect x="335" y="480" width="85" height="85" rx="8" fill="#7495C5" stroke="#8C8C8C" stroke-width="1.5"/>
+<text x="377.5" y="520" text-anchor="middle" font-size="17" font-weight="bold" fill="white">四国</text>
+<text x="377.5" y="542" text-anchor="middle" font-size="13" fill="white">5.2冊</text>
+<!-- 沖縄 2.1冊 → レベル1 -->
+<rect x="145" y="575" width="85" height="85" rx="8" fill="#EAF0F8" stroke="#8C8C8C" stroke-width="1.5"/>
+<text x="187.5" y="615" text-anchor="middle" font-size="17" font-weight="bold" fill="#333333">沖縄</text>
+<text x="187.5" y="637" text-anchor="middle" font-size="13" fill="#333333">2.1冊</text>
+
+<!-- 凡例 -->
+<text x="740" y="118" font-size="16" font-weight="bold" fill="#333333">色の濃淡＝値の大小</text>
+<text x="740" y="140" font-size="13" fill="#8C8C8C">（1人あたり月間貸出冊数）</text>
+<rect x="740" y="158" width="26" height="26" fill="#EAF0F8" stroke="#8C8C8C" stroke-width="1"/>
+<text x="776" y="177" font-size="14" fill="#333333">2.5冊未満（少ない）</text>
+<rect x="740" y="192" width="26" height="26" fill="#C5D4E8" stroke="#8C8C8C" stroke-width="1"/>
+<text x="776" y="211" font-size="14" fill="#333333">2.5〜3.5冊</text>
+<rect x="740" y="226" width="26" height="26" fill="#9FB8DA" stroke="#8C8C8C" stroke-width="1"/>
+<text x="776" y="245" font-size="14" fill="#333333">3.5〜4.5冊</text>
+<rect x="740" y="260" width="26" height="26" fill="#7495C5" stroke="#8C8C8C" stroke-width="1"/>
+<text x="776" y="279" font-size="14" fill="#333333">4.5〜5.5冊</text>
+<rect x="740" y="294" width="26" height="26" fill="#4C72B0" stroke="#8C8C8C" stroke-width="1"/>
+<text x="776" y="313" font-size="14" fill="#333333">5.5冊以上（多い）</text>
+
+<!-- 注記：ヒートマップと同じ原理 -->
+<rect x="740" y="360" width="246" height="164" rx="8" fill="#F2F2F2" stroke="#8C8C8C" stroke-width="2"/>
+<text x="752" y="388" font-size="15" font-weight="bold" fill="#333333">ヒートマップと同じ原理</text>
+<text x="752" y="414" font-size="13" fill="#333333">行×列の表のマスを色の濃淡</text>
+<text x="752" y="434" font-size="13" fill="#333333">で塗り分けるのがヒートマップ．</text>
+<text x="752" y="454" font-size="13" fill="#333333">そのマスを地図上の位置に</text>
+<text x="752" y="474" font-size="13" fill="#333333">並べたものがコロプレス図．</text>
+<text x="752" y="494" font-size="13" fill="#333333">「どこで」大きいかが分かる．</text>
+
+<text x="50" y="690" font-size="13" fill="#8C8C8C">※タイルの配置はおおまかな位置関係を示した模式図で，正確な地形・面積ではありません</text>
+</svg>

@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -405,6 +405,13 @@
 <h3>生成AIとは何か<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
 <p>これに対して，<strong>生成AI</strong>（generative AI）は，文章・画像・音声・プログラムコードなどの<strong>新しいコンテンツを作り出す（生成する）</strong> タイプのAIです．質問に対して文章で答える対話型AI，指示文から画像を描くAI，メロディを作るAIなどがこれにあたります．</p>
 <p>ここで大切なのは，識別・予測系AIと生成AIは対立するものではなく，<strong>どちらも「データから学ぶ」という共通の土台（機械学習）の上に立っている</strong>ということです．第5回で機械学習の入口として学んだように，機械学習とは，人間がルールを一つひとつ書き込むのではなく，大量のデータからコンピュータ自身がパターンを見つけ出す方法でした．識別・予測系AIはデータから「見分け方・予測の仕方」のパターンを学び，生成AIはデータから「コンテンツの作り方」のパターンを学びます．違うのは出力の形であって，データから学ぶという原理は共通なのです．</p>
+<p>ここまでのAIの全体像を <a class="reference internal" href="#fig-ch08-ai-taxonomy"><span class="std std-numref">図 38</span></a> に整理します．第1回で見た活用事例が，この図のどこに位置づくかを確かめてみてください．</p>
+<figure class="align-default" id="fig-ch08-ai-taxonomy">
+<img alt="AIの全体像の分類図．AI（人工知能）という大きな枠の中に，機械学習という共通の土台があり，その上に2本の柱が並ぶ．左の柱は識別・予測系AIで，出力はラベルや数値．例として画像診断支援，需要予測・被害予測，おすすめ表示（推薦システム），迷惑メールの振り分け・顔認証，音声認識．右の柱は生成AIで，出力は新しいコンテンツ．例として質問に文章で答える対話型AI，指示文から画像を描くAI，メロディを作るAI，プログラムコードの生成．図の下に，AI＝生成AIではないという注記がある．" src="../_images/ch08-ai-taxonomy.svg" />
+<figcaption>
+<p><span class="caption-number">図 38 </span><span class="caption-text">AIの全体像——識別・予測系AIと生成AIは，どちらも機械学習という共通の土台の上に立つ</span><a class="headerlink" href="#fig-ch08-ai-taxonomy" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 <div class="admonition warning">
 <p class="admonition-title">警告</p>
 <p>ニュースや日常会話では「AI」という言葉が生成AIだけを指して使われることが増えていますが，<strong>AI＝生成AIではありません</strong>．社会を支えているAIの多くは識別・予測系AIであり，生成AIはAIという大きな家族の中の（急成長中の）一員です．「AIを使った」という話を聞いたら，「それは何かを見分ける・予測するAIなのか，何かを作り出すAIなのか」を区別して考える習慣をつけましょう．</p>
@@ -418,7 +425,13 @@
 <h3>スマホの予測変換から考える<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
 <p>文章を生成するAIの中身は，<strong>大規模言語モデル</strong>（Large Language Model; <strong>LLM</strong>）と呼ばれるモデルです．「モデル」という言葉は難しく聞こえますが，ここでは「データから学んだパターンのかたまり」くらいに考えてください．</p>
 <p>LLMの仕組みを直感的に理解する鍵は，みなさんが毎日使っているスマホの<strong>予測変換</strong>にあります．スマホで「おはよう」と打つと，次の候補として「ございます」が上位に出てきます．「明日の」と打てば「予定」「天気」などが出てきます．これは，スマホが「『おはよう』の後には『ございます』が続くことが多い」という<strong>言葉のつながりのパターン</strong>を知っているからです．</p>
-<p>LLMがやっていることは，本質的にはこの予測変換の超強力版です．すなわち，LLMの基本動作は，<strong>ここまでの文章に続く「次の語」を確率的に予測する</strong>ことです．これを本講義では<strong>次の語の予測</strong>と呼びます．たとえば「吾輩は猫で」という文章が与えられたら，次に来る語として「ある」に高い確率を，「いる」「す」などにより低い確率を割り当てる，という具合です．そして，予測した語を文章の末尾に付け足し，また次の語を予測する——これを何度も繰り返すことで，長い文章が一語ずつ生成されていきます．対話型の生成AIがすらすらと答えを「書いている」ように見えるのは，この「次の語の予測」を高速に繰り返している姿なのです．</p>
+<p>LLMがやっていることは，本質的にはこの予測変換の超強力版です．すなわち，LLMの基本動作は，<strong>ここまでの文章に続く「次の語」を確率的に予測する</strong>ことです．これを本講義では<strong>次の語の予測</strong>と呼びます．たとえば「吾輩は猫で」という文章が与えられたら，次に来る語として「ある」に高い確率を，「いる」「す」などにより低い確率を割り当てる，という具合です．そして，予測した語を文章の末尾に付け足し，また次の語を予測する——これを何度も繰り返すことで，長い文章が一語ずつ生成されていきます．対話型の生成AIがすらすらと答えを「書いている」ように見えるのは，この「次の語の予測」を高速に繰り返している姿なのです．この繰り返しの様子を <a class="reference internal" href="#fig-ch08-next-word-loop"><span class="std std-numref">図 39</span></a> に示します．</p>
+<figure class="align-default" id="fig-ch08-next-word-loop">
+<img alt="次の語の予測の循環図．ここまでの文章（例：「データ」）から，次の語の候補と確率（を0.64，の0.27，は0.09の横棒グラフ）を予測し，確率にしたがってくじ引きのように1語（を）を選んで文末に追加する．追加した文章を新しい「ここまでの文章」として最初に戻る循環矢印があり，文末記号が出るまで繰り返すことで長い文章が一語ずつ生成される．" src="../_images/ch08-next-word-loop.svg" />
+<figcaption>
+<p><span class="caption-number">図 39 </span><span class="caption-text">「次の語の予測」の繰り返しで文章が生成される様子（候補と確率の数値は，この後の節で作るミニモデルの「データ」に続く語の例）</span><a class="headerlink" href="#fig-ch08-next-word-loop" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 <p>では，LLMはこの「言葉のつながりのパターン」をどこから学んだのでしょうか．答えは<strong>学習データ</strong>です．LLMは，ウェブページ・書籍・記事など，人間がこれまでに書いた<strong>膨大な量の文章</strong>を学習データとして読み込み，「どんな文脈の後にどんな語が続きやすいか」というパターンを統計的に学習しています．つまりLLMの賢さの源は，人間が書き溜めてきた文章の巨大な集まりなのです．この「学習データから学ぶ」という点は，あとで見る生成AIの弱点（知識の鮮度・バイアス）にも直結するので，覚えておいてください．</p>
 </section>
 <section id="id7">
@@ -718,7 +731,13 @@ AI は スマホ で 課題 を 学ぶ
 <section id="id12">
 <h3>ハルシネーション——もっともらしい誤り<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
 <p>一方で，冒頭の事例で見たように，生成AIは<strong>事実と異なる内容を，もっともらしい自然な文章で出力してしまう</strong>ことがあります．この現象を<strong>ハルシネーション</strong>（hallucination，幻覚）と呼びます <span id="id13">[<a class="reference internal" href="../references.html#id35" title="Ziwei Ji and others. Survey of hallucination in natural language generation. ACM Computing Surveys, 55(12):248:1–248:38, 2023. doi:10.1145/3571730.">Ji and others, 2023</a>]</span>．存在しない論文や書籍を挙げる，実在の人物に架空の経歴を付け加える，誤った統計の数値を自信満々に示す，といった形で現れます．</p>
-<p>なぜハルシネーションが起こるのでしょうか．ここで「次の語の予測」の直感が役に立ちます．LLMは，<strong>事実のデータベースを調べて答えているのではなく，「この文脈ならこういう語が続きそうだ」という確率にもとづいて文章を組み立てています</strong>．参考文献を求められれば，「参考文献リストらしい語の並び」——実在しそうな著者名，それらしい論文タイトル，実在する雑誌名——を生成することはできますが，その組み合わせが実在するかどうかを確かめる仕組みは，基本の動作には含まれていません．つまりハルシネーションは，バグや故障というより，<strong>「もっともらしい文章を作る」という仕組みそのものの副作用</strong>なのです <span id="id14">[<a class="reference internal" href="../references.html#id34" title="Lei Huang and others. A survey on hallucination in large language models: principles, taxonomy, challenges, and open questions. ACM Transactions on Information Systems, 43(2):42:1–42:55, 2025. doi:10.1145/3703155.">Huang and others, 2025</a>]</span>．</p>
+<p>なぜハルシネーションが起こるのでしょうか．ここで「次の語の予測」の直感が役に立ちます．LLMは，<strong>事実のデータベースを調べて答えているのではなく，「この文脈ならこういう語が続きそうだ」という確率にもとづいて文章を組み立てています</strong>．参考文献を求められれば，「参考文献リストらしい語の並び」——実在しそうな著者名，それらしい論文タイトル，実在する雑誌名——を生成することはできますが，その組み合わせが実在するかどうかを確かめる仕組みは，基本の動作には含まれていません．つまりハルシネーションは，バグや故障というより，<strong>「もっともらしい文章を作る」という仕組みそのものの副作用</strong>なのです <span id="id14">[<a class="reference internal" href="../references.html#id34" title="Lei Huang and others. A survey on hallucination in large language models: principles, taxonomy, challenges, and open questions. ACM Transactions on Information Systems, 43(2):42:1–42:55, 2025. doi:10.1145/3703155.">Huang and others, 2025</a>]</span>．冒頭の事例で「存在しない参考文献」ができあがった仕組みを，よくある誤解と対比して <a class="reference internal" href="#fig-ch08-hallucination"><span class="std std-numref">図 40</span></a> に示します．</p>
+<figure class="align-default" id="fig-ch08-hallucination">
+<img alt="ハルシネーションの仕組みの対比図．上段はよくある誤解で，質問「参考文献を挙げて」に対して事実のデータベースを検索して照合し正しい答えが返る，という流れに大きな赤い×印が付き，実際はこうではない（事実を照合する仕組みはない）と注記されている．下段は実際のLLMで，質問から「参考文献リストらしい語の並び」を次の語の予測の繰り返しで生成し，実在する著者名，それらしい論文タイトル，実在する雑誌名が部品として組み合わされて，見た目はもっともらしい存在しない参考文献ができあがる．組み合わせが実在するかを確かめる仕組みは基本の動作に含まれていない．" src="../_images/ch08-hallucination.svg" />
+<figcaption>
+<p><span class="caption-number">図 40 </span><span class="caption-text">ハルシネーションが起こる仕組み——事実の照合ではなく，それらしい語の並びの確率的な組み立て</span><a class="headerlink" href="#fig-ch08-hallucination" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 <div class="admonition warning">
 <p class="admonition-title">警告</p>
 <p>ハルシネーションのやっかいな点は，<strong>間違いが間違いらしい顔をしていない</strong>ことです．人間が書いた不正確な文章は，どこかたどたどしくなることが多いのに対し，生成AIの誤りは流ちょうで自信に満ちた文章で出力されます．「文章がしっかりしているから内容も正しいだろう」という判断は，生成AIの出力には通用しません．<strong>事実に関わる内容（数値・固有名詞・出典など）は，必ず信頼できる情報源で確認する</strong>ことを習慣にしてください．</p>
@@ -732,7 +751,13 @@ AI は スマホ で 課題 を 学ぶ
 <section id="id16">
 <h3>学習データに由来するバイアス<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
 <p>第2回で，データの「集め方」が結果を歪めることを学びました．1936年のLiterary Digest誌の世論調査は，偏った標本から誤った予測を導いてしまいました．実は，まったく同じ構図の問題が生成AIにも存在します．</p>
-<p>LLMの学習データは，ウェブや書籍など人間が書いた文章の集まりです．そこには，人間社会が持つ<strong>偏見や固定観念（バイアス，bias）</strong> も一緒に書き込まれています．たとえば特定の職業と性別を結びつける表現，特定の集団に対する否定的な表現などが学習データに多く含まれていれば，LLMはそのパターンも「言葉のつながり」として学習し，出力に再現してしまいます．また，ウェブ上の文章は，そもそも「インターネットで発信する人々」が書いたものに偏っており，世界中のあらゆる人々の声を均等に反映しているわけではありません．</p>
+<p>LLMの学習データは，ウェブや書籍など人間が書いた文章の集まりです．そこには，人間社会が持つ<strong>偏見や固定観念（バイアス，bias）</strong> も一緒に書き込まれています．たとえば特定の職業と性別を結びつける表現，特定の集団に対する否定的な表現などが学習データに多く含まれていれば，LLMはそのパターンも「言葉のつながり」として学習し，出力に再現してしまいます．また，ウェブ上の文章は，そもそも「インターネットで発信する人々」が書いたものに偏っており，世界中のあらゆる人々の声を均等に反映しているわけではありません．1936年の世論調査と生成AIが「集め方の偏り→結果の偏り」という同じ構造を持つことを，<a class="reference internal" href="#fig-ch08-bias-analogy"><span class="std std-numref">図 41</span></a> で確かめてください．</p>
+<figure class="align-default" id="fig-ch08-bias-analogy">
+<img alt="偏りの同型対比図．左パネルは1936年のLiterary Digest誌の世論調査で，有権者全体から，自動車や電話を持つ比較的裕福な層に偏った標本へと絞り込まれ，偏った標本にもとづく世論調査は選挙の予測を誤った，という誤った予測に至る．右パネルは大規模言語モデルで，世界中のあらゆる人々の声から，インターネットで発信する人々が書いた文章に偏った学習データへと絞り込まれ，学習データの偏りをそのまま，ときには増幅して繰り返す偏った出力に至る．下部に共通の構造として「集め方の偏り→結果の偏り」が示され，第2回で学んだ集め方の偏りとまったく同じ構図の問題が生成AIにも存在すると注記されている．" src="../_images/ch08-bias-analogy.svg" />
+<figcaption>
+<p><span class="caption-number">図 41 </span><span class="caption-text">Literary Digest誌の世論調査と大規模言語モデルの同型対比——どちらも「集め方の偏り」が「結果の偏り」を生む</span><a class="headerlink" href="#fig-ch08-bias-analogy" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 <p>この問題を早くから指摘した研究者たちは，LLMを「<strong>確率的なオウム</strong>（stochastic parrots）」にたとえました <span id="id17">[<a class="reference internal" href="../references.html#id33" title="Emily M. Bender, Timnit Gebru, Angelina McMillan-Major, and Shmargaret Shmitchell. On the dangers of stochastic parrots: can language models be too big? In Proceedings of the 2021 ACM Conference on Fairness, Accountability, and Transparency (FAccT 2021), 610–623. 2021. doi:10.1145/3442188.3445922.">Bender <em>et al.</em>, 2021</a>]</span>．オウムが言葉の意味を理解せずに人間の発話をまねるように，LLMは<strong>意味を理解しないまま，学習データの中の言葉のパターンを統計的に模倣している</strong>にすぎない——だからこそ，学習データに含まれる偏りをそのまま，ときには増幅して繰り返してしまう，という批判的な視座です．LLMが本当に「理解していない」と言い切れるかについては研究者の間でも議論が続いていますが，<strong>生成AIの出力は中立でも公平でもなく，学習データの偏りを引き継いでいる</strong>という指摘は，利用者として必ず心に留めておくべき点です．第7回で学んだアルゴリズムの公平性の問題は，生成AIの時代にますます重要になっているのです．</p>
 </section>
 </section>
@@ -759,7 +784,13 @@ AI は スマホ で 課題 を 学ぶ
 <li><p><strong>アイデア出し</strong>：テーマの候補や切り口を大量に挙げてもらい，そこから自分で選び，自分で深める</p></li>
 <li><p><strong>学習の伴走</strong>：授業で分からなかった概念を「例え話で説明して」と頼む，語学学習で英作文の添削や会話練習の相手をしてもらう</p></li>
 </ul>
-<p>これらに共通するのは，<strong>最終的に考え，判断し，書くのは自分自身</strong>であり，生成AIはそのための材料や刺激を提供する道具だ，という関係です．</p>
+<p>これらに共通するのは，<strong>最終的に考え，判断し，書くのは自分自身</strong>であり，生成AIはそのための材料や刺激を提供する道具だ，という関係です．学びを増やす使い方と，逆に学びを減らしてしまう使い方の対比を <a class="reference internal" href="#fig-ch08-good-bad-use"><span class="std std-numref">図 42</span></a> に整理します．</p>
+<figure class="align-default" id="fig-ch08-good-bad-use">
+<img alt="生成AIの使い方の対比パネル．上部に判断の軸として「その使い方は自分の学びを増やすか，減らすか」が示されている．左の緑のパネルは丸印付きの「学びを増やす使い方」で，レポートの構成のたたき台を出してもらう，自分で書いた文章の推敲を頼む，自分の主張への反論を挙げてもらう（壁打ち相手），文献調査の検索キーワードや学術用語を挙げてもらう，の4項目と，最終的に考え，判断し，書くのは自分自身，という注記がある．右の赤のパネルはバツ印付きの「学びを減らす使い方」で，出力された文章をそのまま自分のレポートとして提出する，挙げられた参考文献を実物で確認せずに載せる，利用したことを書かずに黙って使う，の3項目と，評価と学びの仕組みが壊れ，自分の力が鍛えられない，という注記がある．下部の帯に，生成AIを使う前に所属大学の方針と授業のシラバス・担当教員の指示を必ず確認する，とある．" src="../_images/ch08-good-bad-use.svg" />
+<figcaption>
+<p><span class="caption-number">図 42 </span><span class="caption-text">生成AIの「学びを増やす使い方」と「学びを減らす使い方」——判断の軸は，自分の学びを増やすかどうか</span><a class="headerlink" href="#fig-ch08-good-bad-use" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 <section id="id22">
 <h3>学術的誠実性——なぜ「丸写し」がいけないのか<a class="headerlink" href="#id22" title="Link to this heading">#</a></h3>

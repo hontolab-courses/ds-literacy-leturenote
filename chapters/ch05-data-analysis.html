@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -340,15 +340,15 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">因果を確かめるには——介入と比較の発想</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">分析のその先へ：推測統計と機械学習の入口</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">推測統計の入口：一部から全体を推し量る</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">機械学習の入口：予測というタスク</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">分析のその先へ：推測統計と機械学習の入口</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">推測統計の入口：一部から全体を推し量る</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">機械学習の入口：予測というタスク</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-b">活用事例：A/Bテスト——「比較」の発想でサービスを磨く</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">まとめ</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">確認問題</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">さらに学ぶために</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">まとめ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">確認問題</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">さらに学ぶために</a></li>
 </ul>
             </nav>
         </div>
@@ -372,6 +372,13 @@
 <li><p>推測統計と機械学習という「分析のその先」の世界を概観し，統計学や各学部の専門科目への見通しを持つ</p></li>
 </ul>
 <p>この章には，Pythonのコードとその実行結果が多く登場します．序章でも述べたとおり，本科目ではコードを書けるようになる必要はありません．コードは「読んで，動かして，実感するための材料」です．グラフや数値の変化を眺めるだけでも，この回の学習目標は達成できます．</p>
+<p>はじめに，<a class="reference internal" href="#fig-ch05-lifecycle"><span class="std std-numref">図 23</span></a> で本科目における現在地を確認しておきましょう．データのライフサイクルのうち，今回は集めて整えたデータを<strong>分析</strong>する段階です．</p>
+<figure class="align-default" id="fig-ch05-lifecycle">
+<img alt="データのライフサイクルの図．収集，保存・検索，前処理，分析，可視化の流れのうち，今回の内容である「分析（第5回）」が現在地としてハイライトされている．" src="../_images/common-lifecycle-ch05.svg" />
+<figcaption>
+<p><span class="caption-number">図 23 </span><span class="caption-text">本科目における現在地．データのライフサイクルのうち，今回は「分析」（第5回）を扱う．</span><a class="headerlink" href="#fig-ch05-lifecycle" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 <section id="id3">
 <h2>導入：「朝ごはんを食べる学生は成績が良い」は本当か<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
@@ -467,6 +474,13 @@
 <p>たった1人加わっただけで，平均は約1076円から約1566円へと，500円近くも跳ね上がりました．「友人たちの時給はだいたい1500円くらい」と言われたら，多くの人の実態とかけ離れた印象を与えてしまいます．一方，中央値は1050円から1075円へとわずかに動いただけで，最頻値は変わっていません．</p>
 <p>このように，平均は<strong>外れ値</strong>（他の値から大きく離れた値，第4回で学びました）に強く引っ張られるという弱点を持ちます．逆に，中央値は外れ値の影響を受けにくい<strong>頑健</strong>（ロバスト）な代表値です．</p>
 <p>この性質は，実社会のデータを読むときにとても重要です．たとえば「平均年収」や「平均貯蓄額」のニュースを見て，「自分のまわりの実感より高すぎないか？」と感じたことはないでしょうか．年収や貯蓄額のデータには，ごく少数の非常に大きな値（高所得者・高額資産家）が含まれるため，平均はその方向に引っ張られ，「ふつうの人」の姿からずれてしまうのです．こうしたデータでは，中央値をあわせて見ることで実態に近い理解ができます．</p>
+<p>この様子を模式的に描いたのが <a class="reference internal" href="#fig-ch05-skewed-mean"><span class="std std-numref">図 24</span></a> です．年収や貯蓄額のように一部の大きな値に偏った（右に裾を引いた）分布では，多くの人が集まる山のあたりに最頻値と中央値が位置する一方，平均だけが外れ値（裾）の方向に引っ張られます．</p>
+<figure class="align-default" id="fig-ch05-skewed-mean">
+<img alt="右に裾を引いた分布の模式図．横軸は金額（時給・年収・貯蓄額など），縦軸は人数．山のいちばん高いところに最頻値，その右に中央値，さらに右に平均の3本の縦線が色分けして引かれ，最頻値＜中央値＜平均の順に並んでいる．山のあたりには「多くの人はこのあたり」，右に長く伸びる裾には「ごく少数の非常に大きな値（外れ値）」の注記があり，「平均は外れ値（裾）の方向に引っ張られる」という右向きの矢印が描かれている．" src="../_images/ch05-skewed-mean.svg" />
+<figcaption>
+<p><span class="caption-number">図 24 </span><span class="caption-text">右に裾を引いた分布と3つの代表値の位置関係．最頻値＜中央値＜平均の順に並び，平均だけが外れ値（裾）の方向に引っ張られて，「多くの人」の実感からずれていく．</span><a class="headerlink" href="#fig-ch05-skewed-mean" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 <div class="admonition warning">
 <p class="admonition-title">警告</p>
 <p>「平均＝ふつう・真ん中」と思い込むのは危険です．平均が「真ん中」の実感と一致するのは，データが左右対称に近い形で分布しているときだけです．年収・貯蓄・SNSのフォロワー数のように一部の大きな値に偏ったデータでは，平均と中央値は大きくずれます．ニュースで「平均◯◯円」という数字を見たら，「中央値はいくつだろう？」「外れ値に引っ張られていないか？」と考える習慣をつけましょう．</p>
@@ -799,6 +813,13 @@
 <li><p>気温が高い日は，海やプールに行く人が増え，水難事故も増える（気温 → 事故）</p></li>
 </ul>
 <p>つまり，気温という交絡因子が両方を同時に動かしているために，アイスクリームと水難事故の間に「見かけの相関」が生まれているのです．アイスクリームの販売を禁止しても，水難事故は減りません．</p>
+<p>この構図を図解したものが <a class="reference internal" href="#fig-ch05-confounding-triangle"><span class="std std-numref">図 25</span></a> です．気温から売上へ，気温から事故へは因果の矢印（実線）が伸びていますが，売上と事故の間に直接の矢印はなく，点線の「見かけの相関」で結ばれているだけです．</p>
+<figure class="align-default" id="fig-ch05-confounding-triangle">
+<img alt="交絡の三角構造図．頂点の「気温（交絡因子・黒幕）」から「アイスクリームの売上」と「水難事故の件数」へ実線の矢印（因果あり）が伸び，売上と事故の間は点線の両向き矢印で「見かけの相関（因果はない）」と示されている．右には「朝食を食べる習慣」と「成績」を「家庭の生活習慣・教育環境」が動かす同じ構図が併記されている．" src="../_images/ch05-confounding-triangle.svg" />
+<figcaption>
+<p><span class="caption-number">図 25 </span><span class="caption-text">交絡の三角構造．交絡因子（気温）が両方を動かすため，直接の因果がない2つの量の間に見かけの相関が生まれる．右は「朝食と成績」を同じ構図で表したもの．</span><a class="headerlink" href="#fig-ch05-confounding-triangle" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 <p>この構図を，乱数でつくったデータで実際に再現してみましょう．次のコードでは，「気温が両方を動かす」という仕組みをそのままプログラムにしています．<strong>アイスクリームの売上と水難事故の間には，直接の関係をいっさい入れていない</strong>ことに注目してください．</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -933,6 +954,13 @@
 <li><p>一定期間後に，2つのグループの成績を比較する</p></li>
 </ol>
 <p>ポイントは「くじ引きで分ける」ところです．ランダムに分ければ，家庭環境も生活習慣も学力も，2つのグループの間でおおよそ均等にばらけます．つまり，交絡因子ごと2つのグループを「同じ条件」にそろえたうえで，朝食の有無<strong>だけ</strong>を変えられるのです．この状態で成績に差が出れば，それは朝食の効果だと考えてよい，という理屈です．このような方法は<strong>ランダム化比較試験</strong>（RCT）と呼ばれ，新薬の効果の確認などで実際に使われています．医療のニュースで「治験」という言葉を聞いたことがあるかもしれませんが，あれはまさにこの発想の実践です．</p>
+<p>この実験の流れを <a class="reference internal" href="#fig-ch05-rct-flow"><span class="std std-numref">図 26</span></a> に示します．参加者の背景はバラバラですが，くじ引きでランダムに分けることで，どちらのグループにも背景の違いが均等に混ざり，2つのグループの違いは朝食の有無だけになります．</p>
+<figure class="align-default" id="fig-ch05-rct-flow">
+<img alt="ランダム化比較試験のフロー図．背景の違いを色分けした参加者の集団を，くじ引き（サイコロのアイコン）でランダムに2つのグループに分ける．「朝食を提供する群（介入するグループ）」と「今までどおり過ごす群（比較するグループ）」のどちらにも色が均等に混ざっており，「ランダムに分けたので，違いは朝食の有無だけ」という注記とともに，一定期間後に成績を比較する流れが示されている．" src="../_images/ch05-rct-flow.svg" />
+<figcaption>
+<p><span class="caption-number">図 26 </span><span class="caption-text">ランダム化比較試験（RCT）の流れ．くじ引き（ランダム）で分けることで，背景の違い（人の色）が2つの群に均等にばらけ，群の間の違いは朝食の有無だけになる．</span><a class="headerlink" href="#fig-ch05-rct-flow" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 <p>もちろん，実社会では倫理的・費用的に実験できないことも多くあります（「喫煙が健康に与える影響」を調べるために，くじ引きで人に喫煙させるわけにはいきません）．実験ができない状況で観察データから因果に迫るための方法論も発展していますが，それはこの科目の範囲を超えるので，「そういう分野がある」ということだけ知っておいてください．</p>
 <div class="admonition note">
 <p class="admonition-title">注釈</p>
@@ -943,21 +971,35 @@
 <li><p><strong>介入</strong>（する）：「Aを変えたらBはどうなるか？」——実験・介入の世界</p></li>
 <li><p><strong>反事実</strong>（想像する）：「もしあのときAが違っていたら，Bはどうなっていたか？」——起こらなかった世界との比較</p></li>
 </ol>
+<p>この3段の関係を図解したのが <a class="reference internal" href="#fig-ch05-causal-ladder"><span class="std std-numref">図 27</span></a> です．</p>
+<figure class="align-default" id="fig-ch05-causal-ladder">
+<img alt="因果のはしごの図解．3段の階段状に，1段目「関連（見る）：AとBは一緒に動くか？（相関の世界・観察だけで分かる）」，2段目「介入（する）：Aを変えたらBはどうなるか？（実験・介入の世界）」，3段目「反事実（想像する）：もしあのときAが違っていたら，Bはどうなっていたか？（起こらなかった世界との比較）」が並ぶ．1段目には人が立ち，1段目と2段目の間には点線の壁が引かれ，「データを眺めるだけで到達できるのはここまで」，その先へは「因果の知識（モデル）を組み合わせて初めて2段目・3段目に登れる」と注記されている．" src="../_images/ch05-causal-ladder.svg" />
+<figcaption>
+<p><span class="caption-number">図 27 </span><span class="caption-text">因果のはしご．データを眺めるだけで到達できるのは1段目（関連）までで，2段目・3段目には因果の知識（モデル）を組み合わせて初めて登れる．Pearlの「因果のはしご」<span id="id22">[<a class="reference internal" href="../references.html#id22" title="Judea Pearl. The seven tools of causal inference, with reflections on machine learning. Communications of the ACM, 62(3):54–60, 2019. doi:10.1145/3241036.">Pearl, 2019</a>]</span> を参考に作成．</span><a class="headerlink" href="#fig-ch05-causal-ladder" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 <p>Pearlは，データだけをいくら眺めても1段目から上には登れず，因果の知識（何が何に影響しうるかというモデル）を組み合わせて初めて2段目・3段目の問いに答えられる，と論じています．機械学習の限界を考えるうえでも重要な視点です．興味のある人は，章末の「さらに学ぶために」から原典をたどってみてください．</p>
 </div>
 </section>
 </section>
-<section id="id22">
-<h2>分析のその先へ：推測統計と機械学習の入口<a class="headerlink" href="#id22" title="Link to this heading">#</a></h2>
-<p>ここまで学んできた記述統計と相関は，「<strong>手元にあるデータ</strong>を要約し，関係をとらえる」ための道具でした．この章の締めくくりとして，その先に広がる2つの世界を覗いておきましょう．どちらも「入口」の紹介にとどめます．</p>
 <section id="id23">
-<h3>推測統計の入口：一部から全体を推し量る<a class="headerlink" href="#id23" title="Link to this heading">#</a></h3>
+<h2>分析のその先へ：推測統計と機械学習の入口<a class="headerlink" href="#id23" title="Link to this heading">#</a></h2>
+<p>ここまで学んできた記述統計と相関は，「<strong>手元にあるデータ</strong>を要約し，関係をとらえる」ための道具でした．この章の締めくくりとして，その先に広がる2つの世界を覗いておきましょう．どちらも「入口」の紹介にとどめます．</p>
+<section id="id24">
+<h3>推測統計の入口：一部から全体を推し量る<a class="headerlink" href="#id24" title="Link to this heading">#</a></h3>
 <p>第2回（データの収集）で，<strong>母集団</strong>（知りたい対象の全体）と<strong>標本</strong>（実際に集められたその一部）という言葉を学んだのを覚えているでしょうか．世論調査が数千人への調査から有権者全体の支持率を推し量るように，私たちが手にできるデータはほとんどの場合，全体のごく一部です．</p>
 <p><strong>手元の標本から，その背後にある母集団の性質を推し量る</strong>ための統計学の分野を<strong>推測統計</strong>（inferential statistics）と呼びます．鍋いっぱいのみそ汁の味を，よくかき混ぜてから一口味見して判断する——推測統計がやっていることは，本質的にはこれと同じです．よくかき混ぜてあれば（＝標本に偏りがなければ），一口で全体の味がかなり正確に分かります．逆に，かき混ぜずに上澄みだけを味見すれば判断を誤ります．第2回で学んだ「標本の偏り」が，ここで効いてくるわけです．</p>
+<p>記述統計と推測統計の役割の違いを，この味見の比喩とあわせて <a class="reference internal" href="#fig-ch05-descriptive-inferential"><span class="std std-numref">図 28</span></a> に整理しました．右側の鍋と一口の関係は，第2回の <a class="reference internal" href="ch02-data-collection.html#fig-ch02-miso-sampling"><span class="std std-numref">図 10</span></a> で見た母集団と標本の関係そのものです．</p>
+<figure class="align-default" id="fig-ch05-descriptive-inferential">
+<img alt="記述統計と推測統計の対比図．左パネルは記述統計で，手元のデータ（表．例：800人分の試験の点数）を「要約」の矢印で統計量（平均・ばらつき）のカードに変換し，「手元のデータを要約して記述する」と示されている．右パネルは推測統計で，鍋のみそ汁（＝母集団・全体）をよくかき混ぜて一口味見（＝標本・一部）し，そこから全体（母集団）の味を推し量る流れが描かれ，「かき混ぜずに上澄みだけを味見すれば判断を誤る（＝第2回で学んだ標本の偏り）」と注記されている．" src="../_images/ch05-descriptive-inferential.svg" />
+<figcaption>
+<p><span class="caption-number">図 28 </span><span class="caption-text">記述統計と推測統計の役割の違い．記述統計は手元のデータを少数の統計量に要約して記述し，推測統計は手元の標本（一口）から母集団（鍋全体）の性質を推し量る．鍋と一口の絵は，第2回の味噌汁の味見の図と共通のデザインで描いている．</span><a class="headerlink" href="#fig-ch05-descriptive-inferential" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 <p>推測統計には，「一部しか見ていないことによる誤差はどれくらいか」を見積もる道具（信頼区間）や，「観察された差は偶然の範囲か，それとも意味のある差か」を判定する道具（仮説検定）が用意されています．これらの中身は，統計学の入門科目で本格的に学ぶことになります．この章では，「<strong>記述統計＝手元のデータを記述する</strong>」「<strong>推測統計＝手元のデータから全体を推し量る</strong>」という役割の違いをつかんでおけば十分です．</p>
 </section>
-<section id="id24">
-<h3>機械学習の入口：予測というタスク<a class="headerlink" href="#id24" title="Link to this heading">#</a></h3>
+<section id="id25">
+<h3>機械学習の入口：予測というタスク<a class="headerlink" href="#id25" title="Link to this heading">#</a></h3>
 <p>もう1つの世界が<strong>機械学習</strong>（machine learning）です．機械学習とは，人間がルールを1つ1つ書き込む代わりに，<strong>大量のデータからコンピュータにパターンを学ばせて，未知のデータに対する予測や判別を行わせる</strong>技術の総称です．</p>
 <p>実は，みなさんは機械学習の恩恵を毎日受けています．</p>
 <ul class="simple">
@@ -966,7 +1008,7 @@
 <li><p>スマートフォンの顔認証（顔画像の特徴を学習して本人かどうかを判別）</p></li>
 </ul>
 <p>第1回で紹介した医療の画像診断支援や交通の需要予測も，機械学習の応用です．</p>
-<p>機械学習の中心的なタスクは<strong>予測</strong>です．そして予測の材料になっているのは，突き詰めれば，この章で学んだ「変数と変数の間の相関（関係のパターン）」です．ここで面白いのは，<strong>予測が目的なら，因果がなくても相関さえあれば役に立つ場合がある</strong>ということです．たとえば「傘を持って歩く人が多い日は，その日の遅くに道路が渋滞しがちだ」というパターンがあれば，傘が渋滞の原因でなくても（本当の原因は雨でも），渋滞の予測には使えます．一方で，「では渋滞を減らすにはどうすればよいか」という<strong>介入</strong>の問いに答えるには，因果の理解が必要になります <span id="id25">[<a class="reference internal" href="../references.html#id22" title="Judea Pearl. The seven tools of causal inference, with reflections on machine learning. Communications of the ACM, 62(3):54–60, 2019. doi:10.1145/3241036.">Pearl, 2019</a>]</span>．予測には相関で足りることがあるが，対策（介入）には因果がいる——この区別は，AIの結果を社会で使うときの重要な視点です．機械学習と生成AIの関係については，第8回であらためて扱います．</p>
+<p>機械学習の中心的なタスクは<strong>予測</strong>です．そして予測の材料になっているのは，突き詰めれば，この章で学んだ「変数と変数の間の相関（関係のパターン）」です．ここで面白いのは，<strong>予測が目的なら，因果がなくても相関さえあれば役に立つ場合がある</strong>ということです．たとえば「傘を持って歩く人が多い日は，その日の遅くに道路が渋滞しがちだ」というパターンがあれば，傘が渋滞の原因でなくても（本当の原因は雨でも），渋滞の予測には使えます．一方で，「では渋滞を減らすにはどうすればよいか」という<strong>介入</strong>の問いに答えるには，因果の理解が必要になります <span id="id26">[<a class="reference internal" href="../references.html#id22" title="Judea Pearl. The seven tools of causal inference, with reflections on machine learning. Communications of the ACM, 62(3):54–60, 2019. doi:10.1145/3241036.">Pearl, 2019</a>]</span>．予測には相関で足りることがあるが，対策（介入）には因果がいる——この区別は，AIの結果を社会で使うときの重要な視点です．機械学習と生成AIの関係については，第8回であらためて扱います．</p>
 </section>
 </section>
 <section id="a-b">
@@ -979,8 +1021,8 @@
 <p>みなさんが目にしているアプリの画面は，「なんとなく」ではなく「比較実験の結果」でつくられている——データ分析が社会で価値を生む，最も身近な現場の1つです．</p>
 </div>
 </section>
-<section id="id26">
-<h2>まとめ<a class="headerlink" href="#id26" title="Link to this heading">#</a></h2>
+<section id="id27">
+<h2>まとめ<a class="headerlink" href="#id27" title="Link to this heading">#</a></h2>
 <p>今回の内容を振り返りましょう．</p>
 <ul class="simple">
 <li><p><strong>記述統計</strong>は，データを少数の統計量に要約する方法です．データの真ん中を表す<strong>代表値</strong>には<strong>平均・中央値・最頻値</strong>があり，平均は外れ値に弱く，中央値は外れ値に対して頑健です．「平均◯◯円」のようなニュースの数字は，分布の偏りと外れ値を疑って読む必要があります．</p></li>
@@ -993,8 +1035,8 @@
 <p>この章で扱った内容は，いずれも入口にすぎません．代表値・ばらつき・相関係数の計算の理屈や，信頼区間・仮説検定の使い方は統計学の入門科目で，因果推論や実験計画の方法論は社会調査法・実験計画法・疫学・計量経済学など各学部の専門科目で，機械学習の仕組みは情報系の科目で，それぞれ本格的に学ぶことができます．この章が，それらの科目に出会ったときの「地図」になれば幸いです．</p>
 <p>そして，アンスコムの四重奏が教えてくれたように，分析とグラフは切っても切れない関係にあります．次回（第6回）は，データを「見せる」技術と，グラフにだまされないための技術——データの可視化とコミュニケーション——を学びます．</p>
 </section>
-<section id="id27">
-<h2>確認問題<a class="headerlink" href="#id27" title="Link to this heading">#</a></h2>
+<section id="id28">
+<h2>確認問題<a class="headerlink" href="#id28" title="Link to this heading">#</a></h2>
 <p><strong>問1．</strong> あるニュースが「わが国の世帯の平均貯蓄額は1500万円」と報じたところ，SNSでは「そんなに持っている家庭ばかりのはずがない」という声が多く上がりました．平均貯蓄額と多くの世帯の実感がずれる理由を，この章で学んだ言葉を使って説明してください．また，実感に近い数字を知るには，平均のほかにどの統計量を見るとよいでしょうか．</p>
 <div class="dropdown admonition">
 <p class="admonition-title">解答と解説</p>
@@ -1016,23 +1058,23 @@
 <p>正しい手順は，相関係数の計算と<strong>散布図の確認をセットで行う</strong>ことです．散布図を見て初めて，直線的な関係かどうか，外れ値の影響がないかを判断できます．</p>
 </div>
 </section>
-<section id="id28">
-<h2>さらに学ぶために<a class="headerlink" href="#id28" title="Link to this heading">#</a></h2>
+<section id="id29">
+<h2>さらに学ぶために<a class="headerlink" href="#id29" title="Link to this heading">#</a></h2>
 <p>この章の内容の元になった資料を紹介します．事例 → 解説 → 原典の順にたどるのがおすすめです．</p>
 <ul class="simple">
 <li><p>【原典】F. J. Anscombe, &quot;Graphs in Statistical Analysis,&quot; <em>The American Statistician</em>, 27(1), 17–21, 1973. <a class="reference external" href="https://doi.org/10.1080/00031305.1973.10478966">https://doi.org/10.1080/00031305.1973.10478966</a></p>
 <ul>
-<li><p>アンスコムの四重奏の原典です <span id="id29">[<a class="reference internal" href="../references.html#id21" title="F. J. Anscombe. Graphs in statistical analysis. The American Statistician, 27(1):17–21, 1973. doi:10.1080/00031305.1973.10478966.">Anscombe, 1973</a>]</span>．わずか5ページの論文で，「計算とグラフの両方を使え」というメッセージが50年にわたり読み継がれています．この章で使った4組のデータはこの論文のものです．</p></li>
+<li><p>アンスコムの四重奏の原典です <span id="id30">[<a class="reference internal" href="../references.html#id21" title="F. J. Anscombe. Graphs in statistical analysis. The American Statistician, 27(1):17–21, 1973. doi:10.1080/00031305.1973.10478966.">Anscombe, 1973</a>]</span>．わずか5ページの論文で，「計算とグラフの両方を使え」というメッセージが50年にわたり読み継がれています．この章で使った4組のデータはこの論文のものです．</p></li>
 </ul>
 </li>
 <li><p>【解説・サーベイ】Judea Pearl, &quot;The Seven Tools of Causal Inference, with Reflections on Machine Learning,&quot; <em>Communications of the ACM</em>, 62(3), 54–60, 2019. <a class="reference external" href="https://doi.org/10.1145/3241036">https://doi.org/10.1145/3241036</a></p>
 <ul>
-<li><p>因果推論の第一人者による解説記事です <span id="id30">[<a class="reference internal" href="../references.html#id22" title="Judea Pearl. The seven tools of causal inference, with reflections on machine learning. Communications of the ACM, 62(3):54–60, 2019. doi:10.1145/3241036.">Pearl, 2019</a>]</span>．「因果のはしご」（関連・介入・反事実）の3段階と，データだけからは因果に登れない理由，機械学習との関係が平易に論じられています．本文は購読が必要なため，DOIリンクを掲載します．</p></li>
+<li><p>因果推論の第一人者による解説記事です <span id="id31">[<a class="reference internal" href="../references.html#id22" title="Judea Pearl. The seven tools of causal inference, with reflections on machine learning. Communications of the ACM, 62(3):54–60, 2019. doi:10.1145/3241036.">Pearl, 2019</a>]</span>．「因果のはしご」（関連・介入・反事実）の3段階と，データだけからは因果に登れない理由，機械学習との関係が平易に論じられています．本文は購読が必要なため，DOIリンクを掲載します．</p></li>
 </ul>
 </li>
 <li><p>【事例】Tyler Vigen, <em>Spurious Correlations</em>（ウェブサイト．書籍版 Hachette, 2015）. <a class="reference external" href="https://www.tylervigen.com/spurious-correlations">https://www.tylervigen.com/spurious-correlations</a></p>
 <ul>
-<li><p>無関係な2つの量の「見かけの相関」を大量に集めたウェブサイトです <span id="id31">[<a class="reference internal" href="../references.html#id23" title="Tyler Vigen. Spurious correlations. tylervigen.com（書籍版 Hachette, 2015）, 2015. ウェブサイト（査読論文ではない）. URL: https://www.tylervigen.com/spurious-correlations.">Vigen, 2015</a>]</span>．査読された学術資料ではありませんが，「相関だけでは何も言えない」ことを一目で実感できる教材として広く知られています．眺めるだけでも楽しいので，ぜひ一度訪れてみてください．</p></li>
+<li><p>無関係な2つの量の「見かけの相関」を大量に集めたウェブサイトです <span id="id32">[<a class="reference internal" href="../references.html#id23" title="Tyler Vigen. Spurious correlations. tylervigen.com（書籍版 Hachette, 2015）, 2015. ウェブサイト（査読論文ではない）. URL: https://www.tylervigen.com/spurious-correlations.">Vigen, 2015</a>]</span>．査読された学術資料ではありませんが，「相関だけでは何も言えない」ことを一目で実感できる教材として広く知られています．眺めるだけでも楽しいので，ぜひ一度訪れてみてください．</p></li>
 </ul>
 </li>
 </ul>
@@ -1127,15 +1169,15 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">因果を確かめるには——介入と比較の発想</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">分析のその先へ：推測統計と機械学習の入口</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">推測統計の入口：一部から全体を推し量る</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">機械学習の入口：予測というタスク</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">分析のその先へ：推測統計と機械学習の入口</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">推測統計の入口：一部から全体を推し量る</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">機械学習の入口：予測というタスク</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-b">活用事例：A/Bテスト——「比較」の発想でサービスを磨く</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">まとめ</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">確認問題</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">さらに学ぶために</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">まとめ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">確認問題</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">さらに学ぶために</a></li>
 </ul>
   </nav></div>
 

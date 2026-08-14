@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1054 400" font-family="'Hiragino Sans','Noto Sans JP',sans-serif">
+<defs>
+<marker id="ah" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#8C8C8C"/></marker>
+<marker id="ahb" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 z" fill="#4C72B0"/></marker>
+</defs>
+<rect x="0" y="0" width="1054" height="400" fill="white"/>
+
+<!-- 左の行ラベル -->
+<text x="80" y="120" text-anchor="middle" font-size="17" font-weight="bold" fill="#DD8452">味噌汁の</text>
+<text x="80" y="142" text-anchor="middle" font-size="17" font-weight="bold" fill="#DD8452">味見</text>
+<text x="80" y="306" text-anchor="middle" font-size="17" font-weight="bold" fill="#4C72B0">調査</text>
+
+<!-- 上段：味噌汁の味見（たとえ） -->
+<rect x="150" y="60" width="190" height="140" rx="8" fill="white" stroke="#8C8C8C" stroke-width="2"/>
+<rect x="380" y="60" width="190" height="140" rx="8" fill="white" stroke="#8C8C8C" stroke-width="2"/>
+<rect x="610" y="60" width="190" height="140" rx="8" fill="white" stroke="#8C8C8C" stroke-width="2"/>
+<rect x="840" y="60" width="190" height="140" rx="8" fill="white" stroke="#8C8C8C" stroke-width="2"/>
+
+<!-- パネル1：鍋 -->
+<path d="M199,88 L199,118 Q199,134 215,134 L275,134 Q291,134 291,118 L291,88 Z" fill="#FBEEE4" stroke="#DD8452" stroke-width="2"/>
+<line x1="189" y1="96" x2="199" y2="96" stroke="#DD8452" stroke-width="3" stroke-linecap="round"/>
+<line x1="291" y1="96" x2="301" y2="96" stroke="#DD8452" stroke-width="3" stroke-linecap="round"/>
+<ellipse cx="245" cy="88" rx="46" ry="11" fill="#FBEEE4" stroke="#DD8452" stroke-width="2"/>
+<text x="245" y="172" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">鍋の味噌汁</text>
+
+<!-- パネル2：かき混ぜる -->
+<path d="M429,88 L429,118 Q429,134 445,134 L505,134 Q521,134 521,118 L521,88 Z" fill="#FBEEE4" stroke="#DD8452" stroke-width="2"/>
+<line x1="419" y1="96" x2="429" y2="96" stroke="#DD8452" stroke-width="3" stroke-linecap="round"/>
+<line x1="521" y1="96" x2="531" y2="96" stroke="#DD8452" stroke-width="3" stroke-linecap="round"/>
+<ellipse cx="475" cy="88" rx="46" ry="11" fill="#FBEEE4" stroke="#DD8452" stroke-width="2"/>
+<path d="M442,84 Q450,93 460,93" fill="none" stroke="#4C72B0" stroke-width="1.8" marker-end="url(#ahb)"/>
+<path d="M508,91 Q500,82 490,82" fill="none" stroke="#4C72B0" stroke-width="1.8" marker-end="url(#ahb)"/>
+<line x1="507" y1="54" x2="479" y2="94" stroke="#4C72B0" stroke-width="3.5" stroke-linecap="round"/>
+<ellipse cx="476" cy="99" rx="12" ry="7" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="475" y="172" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">よくかき混ぜる</text>
+
+<!-- パネル3：一口味見 -->
+<path d="M687,88 q-4,-7 0,-14" fill="none" stroke="#8C8C8C" stroke-width="1.5"/>
+<path d="M703,88 q-4,-7 0,-14" fill="none" stroke="#8C8C8C" stroke-width="1.5"/>
+<line x1="741" y1="56" x2="699" y2="100" stroke="#4C72B0" stroke-width="3.5" stroke-linecap="round"/>
+<ellipse cx="695" cy="106" rx="21" ry="11" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<ellipse cx="695" cy="104" rx="13" ry="5.5" fill="#FBEEE4" stroke="#DD8452" stroke-width="1.5"/>
+<text x="705" y="172" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">一口味見する</text>
+
+<!-- パネル4：鍋全体の味が分かる -->
+<path d="M901,95 L901,118 Q901,132 915,132 L955,132 Q969,132 969,118 L969,95 Z" fill="#FBEEE4" stroke="#DD8452" stroke-width="2"/>
+<line x1="893" y1="101" x2="901" y2="101" stroke="#DD8452" stroke-width="3" stroke-linecap="round"/>
+<line x1="969" y1="101" x2="977" y2="101" stroke="#DD8452" stroke-width="3" stroke-linecap="round"/>
+<ellipse cx="935" cy="95" rx="34" ry="8.5" fill="#FBEEE4" stroke="#DD8452" stroke-width="2"/>
+<circle cx="966" cy="74" r="15" fill="#EAF5EC" stroke="#55A868" stroke-width="2"/>
+<path d="M959,74 L965,81 L974,66" fill="none" stroke="#55A868" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="935" y="172" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">鍋全体の味が分かる</text>
+
+<!-- 上段の矢印 -->
+<line x1="344" y1="130" x2="372" y2="130" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+<line x1="574" y1="130" x2="602" y2="130" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+<line x1="804" y1="130" x2="832" y2="130" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+
+<!-- 対応線（点線） -->
+<line x1="245" y1="200" x2="245" y2="258" stroke="#8C8C8C" stroke-width="2" stroke-dasharray="6 4"/>
+<line x1="475" y1="200" x2="475" y2="258" stroke="#8C8C8C" stroke-width="2" stroke-dasharray="6 4"/>
+<line x1="705" y1="200" x2="705" y2="258" stroke="#8C8C8C" stroke-width="2" stroke-dasharray="6 4"/>
+<line x1="935" y1="200" x2="935" y2="258" stroke="#8C8C8C" stroke-width="2" stroke-dasharray="6 4"/>
+
+<!-- 下段：調査の用語 -->
+<rect x="150" y="258" width="190" height="84" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="245" y="290" text-anchor="middle" font-size="17" font-weight="bold" fill="#333333">母集団</text>
+<text x="245" y="314" text-anchor="middle" font-size="13" fill="#4C72B0">例：名市大の1年生全員</text>
+
+<rect x="380" y="258" width="190" height="84" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="475" y="290" text-anchor="middle" font-size="17" font-weight="bold" fill="#333333">無作為抽出</text>
+<text x="475" y="314" text-anchor="middle" font-size="13" fill="#4C72B0">くじ引きのように選ぶ</text>
+
+<rect x="610" y="258" width="190" height="84" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="705" y="290" text-anchor="middle" font-size="17" font-weight="bold" fill="#333333">標本</text>
+<text x="705" y="314" text-anchor="middle" font-size="13" fill="#4C72B0">実際に調べる一部</text>
+
+<rect x="840" y="258" width="190" height="84" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="935" y="290" text-anchor="middle" font-size="17" font-weight="bold" fill="#333333">全体の傾向を推定</text>
+<text x="935" y="314" text-anchor="middle" font-size="13" fill="#4C72B0">標本は母集団の縮図</text>
+
+<!-- 下段の矢印 -->
+<line x1="344" y1="300" x2="372" y2="300" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+<line x1="574" y1="300" x2="602" y2="300" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+<line x1="804" y1="300" x2="832" y2="300" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+
+<!-- 注記 -->
+<text x="150" y="374" font-size="13" fill="#8C8C8C">点線は「たとえ」と「調査の用語」の対応を表す</text>
+</svg>

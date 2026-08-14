@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 580" font-family="'Hiragino Sans','Noto Sans JP',sans-serif">
+<defs>
+<marker id="ah-gray" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#8C8C8C"/></marker>
+<marker id="ah-blue" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#4C72B0"/></marker>
+<marker id="ah-orange" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#DD8452"/></marker>
+</defs>
+<rect x="0" y="0" width="1000" height="580" fill="white"/>
+
+<!-- ===== 左パネル：懸念のイメージ ===== -->
+<rect x="32" y="44" width="452" height="430" rx="8" fill="white" stroke="#8C8C8C" stroke-width="1.5"/>
+<text x="258" y="78" text-anchor="middle" font-size="18" font-weight="bold" fill="#333333">懸念のイメージ</text>
+
+<!-- 凡例 -->
+<rect x="70" y="94" width="20" height="26" rx="2" fill="white" stroke="#4C72B0" stroke-width="2"/>
+<line x1="74" y1="102" x2="86" y2="102" stroke="#4C72B0" stroke-width="1.5"/>
+<line x1="74" y1="108" x2="86" y2="108" stroke="#4C72B0" stroke-width="1.5"/>
+<line x1="74" y1="114" x2="86" y2="114" stroke="#4C72B0" stroke-width="1.5"/>
+<text x="98" y="112" font-size="13" fill="#333333">好みや意見に合う情報</text>
+<rect x="260" y="94" width="20" height="26" rx="2" fill="white" stroke="#DD8452" stroke-width="2"/>
+<line x1="264" y1="102" x2="276" y2="102" stroke="#DD8452" stroke-width="1.5"/>
+<line x1="264" y1="108" x2="276" y2="108" stroke="#DD8452" stroke-width="1.5"/>
+<line x1="264" y1="114" x2="276" y2="114" stroke="#DD8452" stroke-width="1.5"/>
+<text x="288" y="112" font-size="13" fill="#333333">異なる意見の情報</text>
+
+<!-- 泡 -->
+<circle cx="238" cy="280" r="125" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+
+<!-- 泡の中の人物 -->
+<circle cx="238" cy="258" r="14" fill="#8C8C8C"/>
+<rect x="216" y="276" width="44" height="34" rx="16" fill="#8C8C8C"/>
+
+<!-- 泡の中の同系色（青）の情報アイコン -->
+<g stroke="#4C72B0" stroke-width="2" fill="white">
+<rect x="150" y="206" width="30" height="38" rx="3"/>
+<rect x="290" y="201" width="30" height="38" rx="3"/>
+<rect x="140" y="311" width="30" height="38" rx="3"/>
+<rect x="303" y="311" width="30" height="38" rx="3"/>
+<rect x="223" y="164" width="30" height="38" rx="3"/>
+</g>
+<g stroke="#4C72B0" stroke-width="1.5">
+<line x1="156" y1="216" x2="174" y2="216"/><line x1="156" y1="224" x2="174" y2="224"/><line x1="156" y1="232" x2="174" y2="232"/>
+<line x1="296" y1="211" x2="314" y2="211"/><line x1="296" y1="219" x2="314" y2="219"/><line x1="296" y1="227" x2="314" y2="227"/>
+<line x1="146" y1="321" x2="164" y2="321"/><line x1="146" y1="329" x2="164" y2="329"/><line x1="146" y1="337" x2="164" y2="337"/>
+<line x1="309" y1="321" x2="327" y2="321"/><line x1="309" y1="329" x2="327" y2="329"/><line x1="309" y1="337" x2="327" y2="337"/>
+<line x1="229" y1="174" x2="247" y2="174"/><line x1="229" y1="182" x2="247" y2="182"/><line x1="229" y1="190" x2="247" y2="190"/>
+</g>
+
+<!-- 泡の外の異なる意見（橙）の情報アイコン -->
+<rect x="53" y="231" width="30" height="38" rx="3" fill="white" stroke="#DD8452" stroke-width="2"/>
+<line x1="59" y1="241" x2="77" y2="241" stroke="#DD8452" stroke-width="1.5"/>
+<line x1="59" y1="249" x2="77" y2="249" stroke="#DD8452" stroke-width="1.5"/>
+<line x1="59" y1="257" x2="77" y2="257" stroke="#DD8452" stroke-width="1.5"/>
+<line x1="87" y1="254" x2="102" y2="261" stroke="#DD8452" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ah-orange)"/>
+<line x1="107" y1="259" x2="119" y2="271" stroke="#C44E52" stroke-width="2.5"/>
+<line x1="119" y1="259" x2="107" y2="271" stroke="#C44E52" stroke-width="2.5"/>
+
+<rect x="410" y="251" width="30" height="38" rx="3" fill="white" stroke="#DD8452" stroke-width="2"/>
+<line x1="416" y1="261" x2="434" y2="261" stroke="#DD8452" stroke-width="1.5"/>
+<line x1="416" y1="269" x2="434" y2="269" stroke="#DD8452" stroke-width="1.5"/>
+<line x1="416" y1="277" x2="434" y2="277" stroke="#DD8452" stroke-width="1.5"/>
+<line x1="406" y1="275" x2="376" y2="281" stroke="#DD8452" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ah-orange)"/>
+<line x1="362" y1="276" x2="374" y2="288" stroke="#C44E52" stroke-width="2.5"/>
+<line x1="374" y1="276" x2="362" y2="288" stroke="#C44E52" stroke-width="2.5"/>
+<text x="425" y="320" text-anchor="middle" font-size="12" fill="#333333">触れる機会が減る</text>
+
+<text x="258" y="432" text-anchor="middle" font-size="14" fill="#333333">自分の好みに合う情報ばかりに囲まれ，</text>
+<text x="258" y="454" text-anchor="middle" font-size="14" fill="#333333">泡（バブル）の中に閉じ込められる</text>
+
+<!-- ===== 右パネル：実証研究が示すこと ===== -->
+<rect x="516" y="44" width="452" height="430" rx="8" fill="white" stroke="#8C8C8C" stroke-width="1.5"/>
+<text x="742" y="78" text-anchor="middle" font-size="18" font-weight="bold" fill="#333333">実証研究が示すこと</text>
+<text x="742" y="104" text-anchor="middle" font-size="13" fill="#8C8C8C">情報への接触を絞る2つの要因</text>
+
+<!-- 要因A：アルゴリズムの推薦（細い矢印） -->
+<rect x="540" y="140" width="200" height="56" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="640" y="174" text-anchor="middle" font-size="15" font-weight="bold" fill="#333333">アルゴリズムの推薦</text>
+<line x1="746" y1="172" x2="794" y2="236" stroke="#4C72B0" stroke-width="2.5" marker-end="url(#ah-blue)"/>
+
+<!-- 要因B：自分自身の選択（太い矢印） -->
+<rect x="540" y="300" width="200" height="76" rx="8" fill="#FBEEE4" stroke="#DD8452" stroke-width="2"/>
+<text x="640" y="330" text-anchor="middle" font-size="15" font-weight="bold" fill="#333333">自分自身の選択</text>
+<text x="640" y="356" text-anchor="middle" font-size="12" fill="#333333">（何をクリックして読むか）</text>
+<path d="M 735,333 L 781,285 L 776,280 L 800,276 L 796,300 L 791,295 L 745,343 Z" fill="#DD8452"/>
+
+<!-- 帰結 -->
+<rect x="800" y="214" width="156" height="88" rx="8" fill="#F2F2F2" stroke="#8C8C8C" stroke-width="2"/>
+<text x="878" y="250" text-anchor="middle" font-size="14" fill="#333333">異なる立場の情報</text>
+<text x="878" y="274" text-anchor="middle" font-size="14" fill="#333333">への接触が減る</text>
+
+<text x="640" y="404" text-anchor="middle" font-size="14" font-weight="bold" fill="#DD8452">影響はこちらの方が大きい</text>
+<text x="742" y="438" text-anchor="middle" font-size="13" fill="#8C8C8C">約1,010万人を対象にした大規模実証研究の報告</text>
+
+<!-- 下段注記 -->
+<rect x="32" y="496" width="936" height="56" rx="8" fill="#F2F2F2" stroke="#8C8C8C" stroke-width="1.5"/>
+<text x="500" y="530" text-anchor="middle" font-size="13" fill="#333333">※「深刻に懸念すべきことを示す明確な実証的証拠は乏しい」と指摘するレビューもある</text>
+</svg>

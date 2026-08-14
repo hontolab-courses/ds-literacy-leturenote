@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 370" font-family="'Hiragino Sans','Noto Sans JP',sans-serif">
+<defs>
+<marker id="arrow-gray" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto">
+  <path d="M0,0 L8,4 L0,8 Z" fill="#8C8C8C"/>
+</marker>
+</defs>
+<rect x="0" y="0" width="1000" height="370" fill="white"/>
+<text x="500" y="42" text-anchor="middle" font-size="20" font-weight="bold" fill="#333333">分析の作業時間の多くは前処理に費やされる</text>
+
+<!-- パイプライン（横幅＝時間配分のイメージ） -->
+<rect x="60" y="120" width="81" height="80" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="100" y="167" text-anchor="middle" font-size="16" font-weight="bold" fill="#4C72B0">収集</text>
+
+<rect x="165" y="120" width="525" height="80" rx="8" fill="#FBEEE4" stroke="#DD8452" stroke-width="2"/>
+<text x="427" y="155" text-anchor="middle" font-size="20" font-weight="bold" fill="#DD8452">前処理</text>
+<text x="427" y="183" text-anchor="middle" font-size="14" fill="#333333">データの収集と準備という地味な労働（janitor work）</text>
+
+<rect x="714" y="120" width="97" height="80" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="762" y="167" text-anchor="middle" font-size="16" font-weight="bold" fill="#4C72B0">分析</text>
+
+<rect x="835" y="120" width="105" height="80" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="887" y="160" text-anchor="middle" font-size="15" font-weight="bold" fill="#4C72B0">可視化・</text>
+<text x="887" y="182" text-anchor="middle" font-size="15" font-weight="bold" fill="#4C72B0">報告</text>
+
+<!-- 工程間の矢印 -->
+<line x1="144" y1="160" x2="161" y2="160" stroke="#8C8C8C" stroke-width="2" marker-end="url(#arrow-gray)"/>
+<line x1="693" y1="160" x2="710" y2="160" stroke="#8C8C8C" stroke-width="2" marker-end="url(#arrow-gray)"/>
+<line x1="814" y1="160" x2="831" y2="160" stroke="#8C8C8C" stroke-width="2" marker-end="url(#arrow-gray)"/>
+
+<!-- 前処理の時間割合の注記 -->
+<path d="M 165 212 L 165 224 L 690 224 L 690 212" fill="none" stroke="#DD8452" stroke-width="2"/>
+<text x="427" y="254" text-anchor="middle" font-size="17" font-weight="bold" fill="#DD8452">分析の作業時間の50〜80%（おおむね5〜8割）</text>
+<text x="427" y="280" text-anchor="middle" font-size="14" fill="#333333">New York Timesの報道では50〜80%，産業界の調査では約60%</text>
+<text x="427" y="302" text-anchor="middle" font-size="13" fill="#8C8C8C">（報道・産業調査に基づく経験則であり，厳密な学術的推計ではない）</text>
+
+<!-- 図全体の注記 -->
+<text x="500" y="340" text-anchor="middle" font-size="13" fill="#8C8C8C">※横棒の幅は作業時間の配分のイメージを表す</text>
+</svg>

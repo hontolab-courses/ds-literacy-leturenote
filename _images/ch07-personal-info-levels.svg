@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 432" font-family="'Hiragino Sans','Noto Sans JP',sans-serif">
+<defs>
+<marker id="ah" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#8C8C8C"/></marker>
+</defs>
+<rect x="0" y="0" width="1060" height="432" fill="white"/>
+
+<!-- ===== カード1：個人情報 ===== -->
+<rect x="24" y="64" width="290" height="302" rx="8" fill="#FBEEE4" stroke="#DD8452" stroke-width="2"/>
+<text x="169" y="96" text-anchor="middle" font-size="20" font-weight="bold" fill="#333333">個人情報</text>
+<!-- データの見た目 -->
+<rect x="39" y="112" width="260" height="40" rx="4" fill="white" stroke="#8C8C8C" stroke-width="1.5"/>
+<line x1="139" y1="112" x2="139" y2="152" stroke="#8C8C8C" stroke-width="1.5"/>
+<text x="89" y="137" text-anchor="middle" font-size="14" font-weight="bold" fill="#333333">山田太郎</text>
+<text x="147" y="137" font-size="14" fill="#333333">視聴履歴…</text>
+<text x="169" y="174" text-anchor="middle" font-size="13" font-weight="bold" fill="#DD8452">特定の個人を識別できる</text>
+<!-- 名札アイコン：そのまま -->
+<rect x="161" y="190" width="16" height="10" rx="2" fill="#8C8C8C"/>
+<rect x="131" y="196" width="76" height="50" rx="6" fill="white" stroke="#DD8452" stroke-width="2"/>
+<text x="169" y="228" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">山田</text>
+<text x="169" y="272" text-anchor="middle" font-size="14" fill="#333333">名札そのまま</text>
+<!-- 用途 -->
+<rect x="39" y="290" width="260" height="60" rx="6" fill="white" stroke="#DD8452" stroke-width="1.5"/>
+<text x="169" y="314" text-anchor="middle" font-size="13" fill="#333333">利用目的の範囲内で利用</text>
+<text x="169" y="334" text-anchor="middle" font-size="13" fill="#333333">（目的外は本人の同意が必要）</text>
+
+<!-- 矢印1 -->
+<line x1="318" y1="218" x2="370" y2="218" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+<text x="346" y="206" text-anchor="middle" font-size="12" fill="#8C8C8C">加工</text>
+
+<!-- ===== カード2：仮名加工情報 ===== -->
+<rect x="378" y="64" width="290" height="302" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="523" y="96" text-anchor="middle" font-size="20" font-weight="bold" fill="#333333">仮名加工情報</text>
+<!-- データの見た目 -->
+<rect x="393" y="112" width="260" height="40" rx="4" fill="white" stroke="#8C8C8C" stroke-width="1.5"/>
+<line x1="493" y1="112" x2="493" y2="152" stroke="#8C8C8C" stroke-width="1.5"/>
+<text x="443" y="137" text-anchor="middle" font-size="14" font-weight="bold" fill="#333333">ユーザーA</text>
+<text x="501" y="137" font-size="14" fill="#333333">視聴履歴…</text>
+<text x="523" y="174" text-anchor="middle" font-size="13" font-weight="bold" fill="#4C72B0">照合すれば元に戻り得る</text>
+<!-- 名札アイコン：裏返す -->
+<rect x="515" y="190" width="16" height="10" rx="2" fill="#8C8C8C"/>
+<rect x="485" y="196" width="76" height="50" rx="6" fill="#F2F2F2" stroke="#4C72B0" stroke-width="2"/>
+<path d="M571,200 c20,8 20,34 2,42" fill="none" stroke="#8C8C8C" stroke-width="2"/>
+<path d="M581,238 L570,244 L575,232 z" fill="#8C8C8C"/>
+<text x="523" y="272" text-anchor="middle" font-size="14" fill="#333333">名札を裏返す</text>
+<!-- 用途 -->
+<rect x="393" y="290" width="260" height="60" rx="6" fill="white" stroke="#4C72B0" stroke-width="1.5"/>
+<text x="523" y="314" text-anchor="middle" font-size="13" fill="#333333">主に組織の内部での分析に利用</text>
+<text x="523" y="334" text-anchor="middle" font-size="13" fill="#333333">（本人特定のための照合は禁止）</text>
+
+<!-- 矢印2 -->
+<line x1="672" y1="218" x2="724" y2="218" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+<text x="700" y="206" text-anchor="middle" font-size="12" fill="#8C8C8C">さらに加工</text>
+
+<!-- ===== カード3：匿名加工情報 ===== -->
+<rect x="732" y="64" width="290" height="302" rx="8" fill="#EAF5EC" stroke="#55A868" stroke-width="2"/>
+<text x="877" y="96" text-anchor="middle" font-size="20" font-weight="bold" fill="#333333">匿名加工情報</text>
+<!-- データの見た目 -->
+<rect x="747" y="112" width="260" height="40" rx="4" fill="white" stroke="#8C8C8C" stroke-width="1.5"/>
+<line x1="847" y1="112" x2="847" y2="152" stroke="#8C8C8C" stroke-width="1.5"/>
+<text x="797" y="137" text-anchor="middle" font-size="14" font-weight="bold" fill="#8C8C8C">＊＊＊</text>
+<text x="855" y="137" font-size="14" fill="#333333">視聴履歴…</text>
+<text x="877" y="174" text-anchor="middle" font-size="13" font-weight="bold" fill="#55A868">元の個人情報に復元できない</text>
+<!-- 名札アイコン：外して作り直す -->
+<rect x="797" y="196" width="64" height="44" rx="6" fill="white" stroke="#8C8C8C" stroke-width="2" stroke-dasharray="6 4"/>
+<line x1="807" y1="204" x2="851" y2="232" stroke="#8C8C8C" stroke-width="2"/>
+<line x1="851" y1="204" x2="807" y2="232" stroke="#8C8C8C" stroke-width="2"/>
+<line x1="869" y1="218" x2="889" y2="218" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+<rect x="912" y="191" width="14" height="9" rx="2" fill="#8C8C8C"/>
+<rect x="897" y="196" width="64" height="44" rx="6" fill="#F2F2F2" stroke="#55A868" stroke-width="2"/>
+<text x="877" y="272" text-anchor="middle" font-size="14" fill="#333333">名札を外して作り直す</text>
+<!-- 用途 -->
+<rect x="747" y="290" width="260" height="60" rx="6" fill="white" stroke="#55A868" stroke-width="1.5"/>
+<text x="877" y="314" text-anchor="middle" font-size="13" fill="#333333">本人の同意なしに第三者へ提供できる</text>
+<text x="877" y="334" text-anchor="middle" font-size="13" fill="#333333">（一定のルールのもとで）</text>
+
+<!-- 下部の方向矢印 -->
+<line x1="100" y1="402" x2="960" y2="402" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+<text x="530" y="392" text-anchor="middle" font-size="15" font-weight="bold" fill="#333333">加工の程度が進む</text>
+</svg>

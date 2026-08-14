@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 540" font-family="'Hiragino Sans','Noto Sans JP',sans-serif">
+<rect x="0" y="0" width="1000" height="540" fill="white"/>
+<!-- 外枠：AI（人工知能） -->
+<rect x="24" y="24" width="952" height="448" rx="8" fill="white" stroke="#4C72B0" stroke-width="2"/>
+<text x="500" y="58" text-anchor="middle" font-size="20" font-weight="bold" fill="#4C72B0">AI（人工知能）</text>
+<!-- 左の柱：識別・予測系AI -->
+<rect x="56" y="84" width="430" height="280" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="271" y="118" text-anchor="middle" font-size="20" font-weight="bold" fill="#333333">識別・予測系AI</text>
+<text x="271" y="145" text-anchor="middle" font-size="15" fill="#4C72B0">出力＝ラベルや数値（見分ける・予測する）</text>
+<text x="80" y="185" font-size="16" fill="#333333">・画像診断支援（病変あり／なし）</text>
+<text x="80" y="215" font-size="16" fill="#333333">・需要予測・被害予測</text>
+<text x="80" y="245" font-size="16" fill="#333333">・おすすめ表示（推薦システム）</text>
+<text x="80" y="275" font-size="16" fill="#333333">・迷惑メールの振り分け・顔認証</text>
+<text x="80" y="305" font-size="16" fill="#333333">・音声認識</text>
+<text x="271" y="344" text-anchor="middle" font-size="14" fill="#8C8C8C">学ぶのは「見分け方・予測の仕方」</text>
+<!-- 右の柱：生成AI -->
+<rect x="514" y="84" width="430" height="280" rx="8" fill="#FBEEE4" stroke="#DD8452" stroke-width="2"/>
+<text x="729" y="118" text-anchor="middle" font-size="20" font-weight="bold" fill="#333333">生成AI</text>
+<text x="729" y="145" text-anchor="middle" font-size="15" fill="#DD8452">出力＝新しいコンテンツを作り出す</text>
+<text x="538" y="185" font-size="16" fill="#333333">・質問に文章で答える対話型AI</text>
+<text x="538" y="215" font-size="16" fill="#333333">・指示文から画像を描くAI</text>
+<text x="538" y="245" font-size="16" fill="#333333">・メロディを作るAI</text>
+<text x="538" y="275" font-size="16" fill="#333333">・プログラムコードの生成</text>
+<text x="729" y="344" text-anchor="middle" font-size="14" fill="#8C8C8C">学ぶのは「コンテンツの作り方」</text>
+<!-- 土台：機械学習 -->
+<rect x="56" y="376" width="888" height="76" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="500" y="408" text-anchor="middle" font-size="18" font-weight="bold" fill="#333333">機械学習——2つの柱に共通の土台</text>
+<text x="500" y="436" text-anchor="middle" font-size="15" fill="#4C72B0">大量のデータからコンピュータ自身がパターンを見つけ出す</text>
+<!-- 注記 -->
+<text x="500" y="508" text-anchor="middle" font-size="14" fill="#8C8C8C">※「AI＝生成AI」ではない——社会を支えるAIの多くは識別・予測系AIであり，生成AIはAIという家族の一員</text>
+</svg>

@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" font-family="'Hiragino Sans','Noto Sans JP',sans-serif">
+<rect x="0" y="0" width="960" height="480" fill="white"/>
+
+<defs>
+<path id="star" d="M0,-9 L2.23,-3.07 L8.56,-2.78 L3.61,1.17 L5.29,7.28 L0,3.8 L-5.29,7.28 L-3.61,1.17 L-8.56,-2.78 L-2.23,-3.07 Z"/>
+<marker id="ah-b" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#4C72B0"/></marker>
+<marker id="ah-o" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#DD8452"/></marker>
+</defs>
+
+<!-- 左：レビューサイトの画面（抽象的なイメージ） -->
+<text x="24" y="92" font-size="16" font-weight="bold" fill="#333333">レビューサイトのクチコミ（画面イメージ）</text>
+<rect x="24" y="110" width="300" height="240" rx="8" fill="white" stroke="#8C8C8C" stroke-width="2"/>
+<rect x="25.5" y="111.5" width="297" height="28" rx="7" fill="#F2F2F2"/>
+<rect x="25.5" y="127" width="297" height="14" fill="#F2F2F2"/>
+<line x1="24" y1="142" x2="324" y2="142" stroke="#8C8C8C" stroke-width="1.5"/>
+<circle cx="42" cy="127" r="4.5" fill="#8C8C8C"/>
+<circle cx="58" cy="127" r="4.5" fill="#8C8C8C"/>
+<circle cx="74" cy="127" r="4.5" fill="#8C8C8C"/>
+
+<text x="48" y="174" font-size="17" font-weight="bold" fill="#333333">〇〇食堂</text>
+<use href="#star" transform="translate(56,198)" fill="#DD8452"/>
+<use href="#star" transform="translate(78,198)" fill="#DD8452"/>
+<use href="#star" transform="translate(100,198)" fill="#DD8452"/>
+<use href="#star" transform="translate(122,198)" fill="none" stroke="#8C8C8C" stroke-width="1.5"/>
+<use href="#star" transform="translate(144,198)" fill="none" stroke="#8C8C8C" stroke-width="1.5"/>
+<text x="162" y="203" font-size="13" fill="#8C8C8C">星3つ</text>
+
+<text x="48" y="232" font-size="14" fill="#333333">星は3つにしたけれど，</text>
+<text x="48" y="254" font-size="14" fill="#333333">味は大満足．また来たい</text>
+<text x="48" y="276" font-size="14" fill="#333333">お店です！</text>
+
+<rect x="48" y="290" width="52" height="38" rx="4" fill="#F2F2F2" stroke="#8C8C8C" stroke-width="1.5"/>
+<circle cx="62" cy="302" r="4" fill="#8C8C8C"/>
+<path d="M51,325 L66,306 L76,318 L83,310 L96,325 Z" fill="#8C8C8C"/>
+
+<!-- 矢印 -->
+<line x1="334" y1="205" x2="458" y2="148" stroke="#4C72B0" stroke-width="2" marker-end="url(#ah-b)"/>
+<text x="356" y="152" font-size="13" fill="#8C8C8C">店名・星の数</text>
+<line x1="334" y1="258" x2="458" y2="322" stroke="#DD8452" stroke-width="2" marker-end="url(#ah-o)"/>
+<text x="344" y="316" font-size="13" fill="#8C8C8C">本文・写真</text>
+
+<!-- 右上：構造化データ -->
+<rect x="470" y="48" width="466" height="164" rx="8" fill="white" stroke="#4C72B0" stroke-width="2"/>
+<text x="494" y="82" font-size="19" font-weight="bold" fill="#333333">構造化データ</text>
+<text x="620" y="82" font-size="13" fill="#8C8C8C">structured data</text>
+
+<rect x="494" y="96" width="170" height="32" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<rect x="664" y="96" width="110" height="32" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<rect x="494" y="128" width="170" height="32" fill="white" stroke="#4C72B0" stroke-width="2"/>
+<rect x="664" y="128" width="110" height="32" fill="white" stroke="#4C72B0" stroke-width="2"/>
+<text x="579" y="117" text-anchor="middle" font-size="15" font-weight="bold" fill="#333333">店名</text>
+<text x="719" y="117" text-anchor="middle" font-size="15" font-weight="bold" fill="#333333">星の数</text>
+<text x="579" y="149" text-anchor="middle" font-size="15" fill="#333333">〇〇食堂</text>
+<text x="719" y="149" text-anchor="middle" font-size="15" fill="#333333">3</text>
+
+<text x="788" y="122" font-size="15" font-weight="bold" fill="#333333">表の形に収まる</text>
+<text x="788" y="146" font-size="13" fill="#8C8C8C">そのまま集計・</text>
+<text x="788" y="164" font-size="13" fill="#8C8C8C">分析しやすい</text>
+
+<!-- 右下：非構造化データ -->
+<rect x="470" y="252" width="466" height="164" rx="8" fill="white" stroke="#DD8452" stroke-width="2"/>
+<text x="494" y="286" font-size="19" font-weight="bold" fill="#333333">非構造化データ</text>
+<text x="640" y="286" font-size="13" fill="#8C8C8C">unstructured data</text>
+
+<!-- 表の枠（グレーの空の表） -->
+<rect x="494" y="302" width="150" height="76" fill="white" stroke="#8C8C8C" stroke-width="1.5"/>
+<line x1="569" y1="302" x2="569" y2="378" stroke="#8C8C8C" stroke-width="1.5"/>
+<line x1="494" y1="340" x2="644" y2="340" stroke="#8C8C8C" stroke-width="1.5"/>
+<text x="531" y="325" text-anchor="middle" font-size="12" fill="#8C8C8C">表の枠</text>
+
+<!-- 文章アイコン（枠の右にはみ出す） -->
+<rect x="624" y="300" width="36" height="48" rx="3" fill="#FBEEE4" stroke="#DD8452" stroke-width="2"/>
+<line x1="630" y1="312" x2="654" y2="312" stroke="#DD8452" stroke-width="1.5"/>
+<line x1="630" y1="322" x2="654" y2="322" stroke="#DD8452" stroke-width="1.5"/>
+<line x1="630" y1="332" x2="654" y2="332" stroke="#DD8452" stroke-width="1.5"/>
+<line x1="630" y1="342" x2="646" y2="342" stroke="#DD8452" stroke-width="1.5"/>
+<text x="666" y="330" font-size="13" fill="#8C8C8C">文章</text>
+
+<!-- 写真アイコン（枠の下にはみ出す） -->
+<rect x="530" y="352" width="50" height="38" rx="3" fill="#FBEEE4" stroke="#DD8452" stroke-width="2"/>
+<circle cx="543" cy="363" r="4" fill="#DD8452"/>
+<path d="M533,387 L548,368 L558,380 L565,372 L577,387 Z" fill="#DD8452"/>
+<text x="555" y="406" text-anchor="middle" font-size="13" fill="#8C8C8C">写真</text>
+
+<!-- 音声アイコン（枠の外） -->
+<path d="M700,324 L708,324 L718,315 L718,341 L708,332 L700,332 Z" fill="#FBEEE4" stroke="#DD8452" stroke-width="2" stroke-linejoin="round"/>
+<path d="M724,320 A10,10 0 0 1 724,336" fill="none" stroke="#DD8452" stroke-width="2"/>
+<path d="M730,314 A18,18 0 0 1 730,342" fill="none" stroke="#DD8452" stroke-width="2"/>
+<text x="716" y="362" text-anchor="middle" font-size="13" fill="#8C8C8C">音声</text>
+
+<text x="760" y="316" font-size="15" font-weight="bold" fill="#333333">表の枠に収まらない</text>
+<text x="760" y="340" font-size="13" fill="#8C8C8C">そのままでは集計できず</text>
+<text x="760" y="358" font-size="13" fill="#8C8C8C">分析の前に準備が必要</text>
+
+<!-- 注記 -->
+<text x="24" y="452" font-size="13" fill="#8C8C8C">注：同じ1件のクチコミから，表になる「構造化データ」と表に収まらない「非構造化データ」の2種類のデータが生まれる</text>
+</svg>

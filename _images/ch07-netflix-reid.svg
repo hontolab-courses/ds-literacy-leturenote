@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 520" font-family="'Hiragino Sans','Noto Sans JP',sans-serif">
+<defs>
+<marker id="ah" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#8C8C8C"/></marker>
+<marker id="ah-o" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#DD8452"/></marker>
+</defs>
+<rect x="0" y="0" width="1060" height="520" fill="white"/>
+
+<!-- ===== 左カード：匿名化された視聴データ ===== -->
+<rect x="24" y="64" width="430" height="176" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="239" y="90" text-anchor="middle" font-size="17" font-weight="bold" fill="#333333">匿名化された視聴データ</text>
+<text x="239" y="108" text-anchor="middle" font-size="12" fill="#4C72B0">氏名は削除し，無意味なIDに置き換え</text>
+<rect x="44" y="118" width="390" height="30" rx="4" fill="white" stroke="#DD8452" stroke-width="2"/>
+<text x="56" y="138" font-size="14" fill="#333333">ID: 12345｜映画X ★4｜○月○日</text>
+<rect x="44" y="154" width="390" height="30" rx="4" fill="white" stroke="#DD8452" stroke-width="2"/>
+<text x="56" y="174" font-size="14" fill="#333333">ID: 12345｜映画Y ★5｜△月△日</text>
+<rect x="44" y="190" width="390" height="30" rx="4" fill="white" stroke="#8C8C8C" stroke-width="1.5"/>
+<text x="56" y="210" font-size="14" fill="#8C8C8C">ID: 67890｜映画Z ★3｜…</text>
+
+<!-- ===== 右カード：実名のレビューサイト ===== -->
+<rect x="606" y="64" width="430" height="176" rx="8" fill="#FBEEE4" stroke="#DD8452" stroke-width="2"/>
+<text x="821" y="90" text-anchor="middle" font-size="17" font-weight="bold" fill="#333333">実名のレビューサイト</text>
+<text x="821" y="108" text-anchor="middle" font-size="12" fill="#DD8452">実名で映画の評価が投稿されている</text>
+<rect x="626" y="118" width="390" height="30" rx="4" fill="white" stroke="#DD8452" stroke-width="2"/>
+<text x="638" y="138" font-size="14" fill="#333333">山田さん｜映画X ★4｜同じ日</text>
+<rect x="626" y="154" width="390" height="30" rx="4" fill="white" stroke="#DD8452" stroke-width="2"/>
+<text x="638" y="174" font-size="14" fill="#333333">山田さん｜映画Y ★5｜同じ日</text>
+<rect x="626" y="190" width="390" height="30" rx="4" fill="white" stroke="#8C8C8C" stroke-width="1.5"/>
+<text x="638" y="210" font-size="14" fill="#8C8C8C">別のユーザーの投稿…</text>
+
+<!-- 一致する行を結ぶ線 -->
+<line x1="434" y1="133" x2="626" y2="133" stroke="#DD8452" stroke-width="2"/>
+<circle cx="434" cy="133" r="3.5" fill="#DD8452"/>
+<circle cx="626" cy="133" r="3.5" fill="#DD8452"/>
+<line x1="434" y1="169" x2="626" y2="169" stroke="#DD8452" stroke-width="2"/>
+<circle cx="434" cy="169" r="3.5" fill="#DD8452"/>
+<circle cx="626" cy="169" r="3.5" fill="#DD8452"/>
+<text x="530" y="122" text-anchor="middle" font-size="14" font-weight="bold" fill="#DD8452">評価と日付が一致</text>
+
+<!-- 収束の矢印 -->
+<line x1="530" y1="183" x2="530" y2="300" stroke="#DD8452" stroke-width="2.5" marker-end="url(#ah-o)"/>
+<text x="548" y="276" font-size="16" font-weight="bold" fill="#DD8452">照合 → 再識別</text>
+
+<!-- 人型アイコン -->
+<circle cx="530" cy="322" r="13" fill="#4C72B0"/>
+<path d="M506,364 c0,-20 48,-20 48,0 l0,4 l-48,0 z" fill="#4C72B0"/>
+<text x="530" y="392" text-anchor="middle" font-size="15" font-weight="bold" fill="#333333">名前を消したはずのデータから個人が浮かび上がる</text>
+
+<!-- 数値の注記 -->
+<rect x="180" y="416" width="700" height="68" rx="8" fill="#F2F2F2" stroke="#8C8C8C" stroke-width="1.5"/>
+<text x="530" y="442" text-anchor="middle" font-size="14" fill="#333333">64%の加入者は，わずか2件の評価とその日付だけで完全に再識別できた</text>
+<text x="530" y="464" text-anchor="middle" font-size="14" fill="#333333">89%は約50万件の中から8件以下にまで絞り込めた</text>
+</svg>

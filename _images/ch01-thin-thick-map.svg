@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" font-family="'Hiragino Sans','Noto Sans JP',sans-serif">
+<defs>
+<marker id="ah-g" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#8C8C8C"/></marker>
+</defs>
+<rect x="0" y="0" width="1000" height="640" fill="white"/>
+<!-- 軸 -->
+<line x1="110" y1="560" x2="110" y2="75" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah-g)"/>
+<line x1="110" y1="560" x2="950" y2="560" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah-g)"/>
+<text x="98" y="52" text-anchor="start" font-size="16" fill="#333333">文脈の厚さ（厚い↑）</text>
+<text x="945" y="594" text-anchor="end" font-size="16" fill="#333333">データの量（多い→）</text>
+<!-- Thickデータ（左上） -->
+<rect x="170" y="100" width="310" height="190" rx="8" fill="#FBEEE4" stroke="#DD8452" stroke-width="2"/>
+<text x="325" y="132" text-anchor="middle" font-size="19" font-weight="bold" fill="#333333">Thickデータ</text>
+<circle cx="265" cy="162" r="7" fill="#DD8452"/>
+<circle cx="305" cy="162" r="7" fill="#DD8452"/>
+<circle cx="345" cy="162" r="7" fill="#DD8452"/>
+<circle cx="385" cy="162" r="7" fill="#DD8452"/>
+<text x="325" y="196" text-anchor="middle" font-size="14" fill="#333333">インタビュー・観察記録など</text>
+<text x="325" y="220" text-anchor="middle" font-size="14" fill="#333333">少数だが文脈の厚い質的データ</text>
+<text x="325" y="252" text-anchor="middle" font-size="13" fill="#8C8C8C">例：学食で学生に話を聞く</text>
+<!-- Thinデータ（右下） -->
+<rect x="580" y="340" width="350" height="190" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="755" y="372" text-anchor="middle" font-size="19" font-weight="bold" fill="#333333">Thinデータ</text>
+<g fill="#4C72B0">
+<circle cx="630" cy="390" r="3"/><circle cx="650" cy="390" r="3"/><circle cx="670" cy="390" r="3"/><circle cx="690" cy="390" r="3"/><circle cx="710" cy="390" r="3"/><circle cx="730" cy="390" r="3"/><circle cx="750" cy="390" r="3"/><circle cx="770" cy="390" r="3"/><circle cx="790" cy="390" r="3"/><circle cx="810" cy="390" r="3"/><circle cx="830" cy="390" r="3"/><circle cx="850" cy="390" r="3"/><circle cx="870" cy="390" r="3"/><circle cx="890" cy="390" r="3"/>
+<circle cx="630" cy="406" r="3"/><circle cx="650" cy="406" r="3"/><circle cx="670" cy="406" r="3"/><circle cx="690" cy="406" r="3"/><circle cx="710" cy="406" r="3"/><circle cx="730" cy="406" r="3"/><circle cx="750" cy="406" r="3"/><circle cx="770" cy="406" r="3"/><circle cx="790" cy="406" r="3"/><circle cx="810" cy="406" r="3"/><circle cx="830" cy="406" r="3"/><circle cx="850" cy="406" r="3"/><circle cx="870" cy="406" r="3"/><circle cx="890" cy="406" r="3"/>
+<circle cx="630" cy="422" r="3"/><circle cx="650" cy="422" r="3"/><circle cx="670" cy="422" r="3"/><circle cx="690" cy="422" r="3"/><circle cx="710" cy="422" r="3"/><circle cx="730" cy="422" r="3"/><circle cx="750" cy="422" r="3"/><circle cx="770" cy="422" r="3"/><circle cx="790" cy="422" r="3"/><circle cx="810" cy="422" r="3"/><circle cx="830" cy="422" r="3"/><circle cx="850" cy="422" r="3"/><circle cx="870" cy="422" r="3"/><circle cx="890" cy="422" r="3"/>
+</g>
+<text x="755" y="454" text-anchor="middle" font-size="14" fill="#333333">視聴ログ・購買履歴など</text>
+<text x="755" y="478" text-anchor="middle" font-size="14" fill="#333333">大規模だが一つひとつの文脈が薄い</text>
+<text x="755" y="506" text-anchor="middle" font-size="13" fill="#8C8C8C">例：学食のレジの販売データ</text>
+<!-- 双方向矢印（補完関係） -->
+<line x1="488" y1="298" x2="572" y2="336" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah-g)"/>
+<line x1="572" y1="336" x2="488" y2="298" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah-g)"/>
+<line x1="424" y1="374" x2="506" y2="330" stroke="#8C8C8C" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="400" y="395" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">補完的に使う</text>
+<text x="400" y="420" text-anchor="middle" font-size="13" fill="#333333">広く数える（Thin）と深く聞く（Thick）の往復</text>
+</svg>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1170 330" font-family="'Hiragino Sans','Noto Sans JP',sans-serif">
+<defs><marker id="ah" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#8C8C8C"/></marker></defs>
+<rect x="0" y="0" width="1170" height="330" fill="white"/>
+<rect x="24" y="60" width="158" height="64" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="103.0" y="88" text-anchor="middle" font-family="'Hiragino Sans','Noto Sans JP',sans-serif" font-size="19" font-weight="bold" fill="#333333">収集</text>
+<text x="103.0" y="110" text-anchor="middle" font-family="'Hiragino Sans','Noto Sans JP',sans-serif" font-size="14" fill="#4C72B0">第2回</text>
+<line x1="182" y1="92.0" x2="206" y2="92.0" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+<rect x="216" y="60" width="158" height="64" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="295.0" y="88" text-anchor="middle" font-family="'Hiragino Sans','Noto Sans JP',sans-serif" font-size="19" font-weight="bold" fill="#333333">保存・検索</text>
+<text x="295.0" y="110" text-anchor="middle" font-family="'Hiragino Sans','Noto Sans JP',sans-serif" font-size="14" fill="#4C72B0">第3回</text>
+<line x1="374" y1="92.0" x2="398" y2="92.0" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+<rect x="408" y="60" width="158" height="64" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="487.0" y="88" text-anchor="middle" font-family="'Hiragino Sans','Noto Sans JP',sans-serif" font-size="19" font-weight="bold" fill="#333333">前処理</text>
+<text x="487.0" y="110" text-anchor="middle" font-family="'Hiragino Sans','Noto Sans JP',sans-serif" font-size="14" fill="#4C72B0">第4回</text>
+<line x1="566" y1="92.0" x2="590" y2="92.0" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+<rect x="600" y="60" width="158" height="64" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="679.0" y="88" text-anchor="middle" font-family="'Hiragino Sans','Noto Sans JP',sans-serif" font-size="19" font-weight="bold" fill="#333333">分析</text>
+<text x="679.0" y="110" text-anchor="middle" font-family="'Hiragino Sans','Noto Sans JP',sans-serif" font-size="14" fill="#4C72B0">第5回</text>
+<line x1="758" y1="92.0" x2="782" y2="92.0" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+<rect x="792" y="60" width="158" height="64" rx="8" fill="#FBEEE4" stroke="#DD8452" stroke-width="3"/>
+<text x="871.0" y="88" text-anchor="middle" font-family="'Hiragino Sans','Noto Sans JP',sans-serif" font-size="19" font-weight="bold" fill="#333333">可視化</text>
+<text x="871.0" y="110" text-anchor="middle" font-family="'Hiragino Sans','Noto Sans JP',sans-serif" font-size="14" fill="#DD8452">第6回</text>
+<text x="871.0" y="48" text-anchor="middle" font-family="'Hiragino Sans','Noto Sans JP',sans-serif" font-size="15" font-weight="bold" fill="#DD8452">▼ 現在地</text>
+<line x1="950" y1="92.0" x2="974" y2="92.0" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+<rect x="984" y="66" width="162" height="52" rx="26" fill="white" stroke="#8C8C8C" stroke-width="2" stroke-dasharray="6 4"/><text x="1065.0" y="88.0" text-anchor="middle" font-family="'Hiragino Sans','Noto Sans JP',sans-serif" font-size="15" fill="#333333">誰かの理解・</text><text x="1065.0" y="108.0" text-anchor="middle" font-family="'Hiragino Sans','Noto Sans JP',sans-serif" font-size="15" fill="#333333">意思決定へ</text>
+<rect x="24" y="164" width="926" height="36" rx="8" fill="#F2F2F2" stroke="#8C8C8C" stroke-width="2"/><text x="487.0" y="188" text-anchor="middle" font-family="'Hiragino Sans','Noto Sans JP',sans-serif" font-size="16" fill="#333333">データと法（第7回）——ライフサイクル全体に関わる横断テーマ</text>
+<rect x="24" y="210" width="926" height="36" rx="8" fill="#F2F2F2" stroke="#8C8C8C" stroke-width="2"/><text x="487.0" y="234" text-anchor="middle" font-family="'Hiragino Sans','Noto Sans JP',sans-serif" font-size="16" fill="#333333">生成AI（第8回）——ライフサイクル全体に関わる横断テーマ</text>
+</svg>

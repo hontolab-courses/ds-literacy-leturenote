@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 530" font-family="'Hiragino Sans','Noto Sans JP',sans-serif">
+<defs><marker id="ah-cf" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#DD8452"/></marker></defs>
+<rect x="0" y="0" width="1000" height="530" fill="white"/>
+<!-- 見出しの言い回し（本文より） -->
+<text x="500" y="46" text-anchor="middle" font-size="20" font-weight="bold" fill="#333333">「行動が似ている人どうしは，好みも似ているだろう」</text>
+<!-- 表の枠線 -->
+<line x1="230" y1="130" x2="780" y2="130" stroke="#CCCCCC" stroke-width="1"/>
+<line x1="230" y1="220" x2="780" y2="220" stroke="#CCCCCC" stroke-width="1"/>
+<line x1="230" y1="310" x2="780" y2="310" stroke="#CCCCCC" stroke-width="1"/>
+<line x1="340" y1="95" x2="340" y2="400" stroke="#CCCCCC" stroke-width="1"/>
+<line x1="450" y1="95" x2="450" y2="400" stroke="#CCCCCC" stroke-width="1"/>
+<line x1="560" y1="95" x2="560" y2="400" stroke="#CCCCCC" stroke-width="1"/>
+<line x1="670" y1="95" x2="670" y2="400" stroke="#CCCCCC" stroke-width="1"/>
+<rect x="230" y="95" width="550" height="305" fill="none" stroke="#B0B0B0" stroke-width="1.5"/>
+<!-- 列見出し -->
+<text x="285" y="118" text-anchor="middle" font-size="16" fill="#333333">商品1</text>
+<text x="395" y="118" text-anchor="middle" font-size="16" fill="#333333">商品2</text>
+<text x="505" y="118" text-anchor="middle" font-size="16" fill="#333333">商品3</text>
+<text x="615" y="118" text-anchor="middle" font-size="16" fill="#333333">商品4</text>
+<text x="725" y="118" text-anchor="middle" font-size="16" fill="#333333">商品5</text>
+<!-- 行ラベル -->
+<text x="205" y="181" text-anchor="end" font-size="18" font-weight="bold" fill="#DD8452">あなた</text>
+<text x="205" y="271" text-anchor="end" font-size="18" fill="#333333">ユーザーB</text>
+<text x="205" y="361" text-anchor="end" font-size="18" fill="#333333">ユーザーC</text>
+<!-- あなたの行：商品1・2・4を購入 -->
+<circle cx="285" cy="175" r="14" fill="#4C72B0"/>
+<circle cx="395" cy="175" r="14" fill="#4C72B0"/>
+<circle cx="505" cy="175" r="14" fill="white" stroke="#C8C8C8" stroke-width="2"/>
+<circle cx="615" cy="175" r="14" fill="#4C72B0"/>
+<circle cx="725" cy="175" r="14" fill="white" stroke="#C8C8C8" stroke-width="2"/>
+<!-- ユーザーBの行：商品1・2・4・5を購入 -->
+<circle cx="285" cy="265" r="14" fill="#4C72B0"/>
+<circle cx="395" cy="265" r="14" fill="#4C72B0"/>
+<circle cx="505" cy="265" r="14" fill="white" stroke="#C8C8C8" stroke-width="2"/>
+<circle cx="615" cy="265" r="14" fill="#4C72B0"/>
+<circle cx="725" cy="265" r="14" fill="#4C72B0"/>
+<!-- ユーザーCの行：商品3のみ購入 -->
+<circle cx="285" cy="355" r="14" fill="white" stroke="#C8C8C8" stroke-width="2"/>
+<circle cx="395" cy="355" r="14" fill="white" stroke="#C8C8C8" stroke-width="2"/>
+<circle cx="505" cy="355" r="14" fill="#4C72B0"/>
+<circle cx="615" cy="355" r="14" fill="white" stroke="#C8C8C8" stroke-width="2"/>
+<circle cx="725" cy="355" r="14" fill="white" stroke="#C8C8C8" stroke-width="2"/>
+<!-- 似ている2行を囲む枠 -->
+<rect x="70" y="133" width="724" height="174" rx="10" fill="none" stroke="#DD8452" stroke-width="2.5"/>
+<text x="72" y="126" text-anchor="start" font-size="15" font-weight="bold" fill="#DD8452">購買履歴がよく似ている</text>
+<!-- おすすめ：Bが買っていてあなたが未購入の商品5 -->
+<circle cx="725" cy="175" r="21" fill="none" stroke="#DD8452" stroke-width="2.5" stroke-dasharray="6 4"/>
+<line x1="725" y1="243" x2="725" y2="202" stroke="#DD8452" stroke-width="2.5" marker-end="url(#ah-cf)"/>
+<polygon points="800,166 752,175 800,186" fill="#FBEEE4" stroke="#DD8452" stroke-width="2"/>
+<rect x="798" y="150" width="172" height="48" rx="10" fill="#FBEEE4" stroke="#DD8452" stroke-width="2"/>
+<rect x="800" y="164" width="6" height="24" fill="#FBEEE4"/>
+<text x="884" y="182" text-anchor="middle" font-size="20" font-weight="bold" fill="#DD8452">おすすめ！</text>
+<text x="884" y="222" text-anchor="middle" font-size="13" fill="#8C8C8C">Bが買っていて</text>
+<text x="884" y="240" text-anchor="middle" font-size="13" fill="#8C8C8C">あなたが未購入の商品</text>
+<!-- 凡例 -->
+<circle cx="255" cy="431" r="10" fill="#4C72B0"/>
+<text x="272" y="437" text-anchor="start" font-size="14" fill="#333333">＝購入した商品</text>
+<circle cx="435" cy="431" r="10" fill="white" stroke="#C8C8C8" stroke-width="2"/>
+<text x="452" y="437" text-anchor="start" font-size="14" fill="#333333">＝未購入</text>
+<!-- まとめの一文（本文の言い回し） -->
+<text x="500" y="482" text-anchor="middle" font-size="15" fill="#333333">あなたと購買履歴がよく似たユーザーBが買っていて，あなたがまだ買っていない商品5——それが「おすすめ」の有力候補</text>
+</svg>

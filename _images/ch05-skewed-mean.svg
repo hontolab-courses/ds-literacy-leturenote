@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" font-family="'Hiragino Sans','Noto Sans JP',sans-serif">
+<defs>
+<marker id="axg" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#8C8C8C"/></marker>
+<marker id="axo" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#DD8452"/></marker>
+</defs>
+<rect x="0" y="0" width="1000" height="500" fill="white"/>
+
+<!-- 分布（右に裾を引いた形）：塗り -->
+<path d="M110,408 C160,400 200,145 290,140 C380,145 430,290 540,340 C660,388 800,400 910,404 L910,408 Z" fill="#EAF0F8"/>
+<!-- 分布：輪郭線 -->
+<path d="M110,406 C160,400 200,145 290,140 C380,145 430,290 540,340 C660,388 800,400 910,404" fill="none" stroke="#4C72B0" stroke-width="2.5"/>
+
+<!-- 3つの代表値の縦線 -->
+<line x1="290" y1="408" x2="290" y2="132" stroke="#55A868" stroke-width="3"/>
+<line x1="380" y1="408" x2="380" y2="162" stroke="#4C72B0" stroke-width="3"/>
+<line x1="470" y1="408" x2="470" y2="192" stroke="#DD8452" stroke-width="3"/>
+<text x="290" y="120" text-anchor="middle" font-size="16" font-weight="bold" fill="#55A868">最頻値</text>
+<text x="380" y="150" text-anchor="middle" font-size="16" font-weight="bold" fill="#4C72B0">中央値</text>
+<text x="470" y="180" text-anchor="middle" font-size="16" font-weight="bold" fill="#DD8452">平均</text>
+
+<!-- 大小関係 -->
+<text x="700" y="110" text-anchor="middle" font-size="17" font-weight="bold" fill="#333333">最頻値 ＜ 中央値 ＜ 平均</text>
+
+<!-- 多くの人がいるあたり（山の中） -->
+<text x="215" y="305" text-anchor="middle" font-size="14" fill="#333333">多くの人は</text>
+<text x="215" y="327" text-anchor="middle" font-size="14" fill="#333333">このあたり</text>
+
+<!-- 平均が引っ張られる向き -->
+<text x="700" y="215" text-anchor="middle" font-size="15" fill="#DD8452">平均は外れ値（裾）の方向に引っ張られる</text>
+<line x1="600" y1="238" x2="790" y2="238" stroke="#DD8452" stroke-width="2.5" marker-end="url(#axo)"/>
+
+<!-- 裾の注記 -->
+<text x="760" y="350" text-anchor="middle" font-size="14" fill="#8C8C8C">ごく少数の非常に大きな値（外れ値）</text>
+
+<!-- 軸 -->
+<line x1="90" y1="410" x2="940" y2="410" stroke="#8C8C8C" stroke-width="2" marker-end="url(#axg)"/>
+<line x1="90" y1="410" x2="90" y2="80" stroke="#8C8C8C" stroke-width="2" marker-end="url(#axg)"/>
+<text x="70" y="64" font-size="14" fill="#333333">人数</text>
+<text x="938" y="444" text-anchor="end" font-size="14" fill="#333333">金額（時給・年収・貯蓄額など）</text>
+</svg>

@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -375,6 +375,13 @@
 <p class="admonition-title">注釈</p>
 <p><strong>第4回との役割分担について</strong>：この章にも「データの品質管理」という言葉が出てきますが，ここで扱うのは<strong>組織としてデータを健全に保つための運用</strong>の話です．一方，分析者が目の前のデータの欠損や表記ゆれを整える話——いわば「自分の手元のデータの掃除」——は<a class="reference internal" href="ch04-preprocessing.html"><span class="std std-doc">第4回「データの前処理」</span></a>で扱います．同じ「データをきれいに保つ」というテーマでも，第3回は<strong>組織の仕組みの話</strong>，第4回は<strong>分析者の作業の話</strong>，と役割を分担していると考えてください．</p>
 </div>
+<p><a class="reference internal" href="#fig-ch03-lifecycle"><span class="std std-numref">図 12</span></a> に，本科目における現在地を示します．第2回で学んだ「収集」の次の段階である「保存・検索」が，この回のテーマです．</p>
+<figure class="align-default" id="fig-ch03-lifecycle">
+<img alt="データのライフサイクル（収集・保存・検索・前処理・分析・可視化）の横並びフロー図のうち，第3回で学ぶ「保存・検索」が現在地としてハイライトされている" src="../_images/common-lifecycle-ch03.svg" />
+<figcaption>
+<p><span class="caption-number">図 12 </span><span class="caption-text">本科目における現在地：データのライフサイクルのうち「保存・検索」（第3回）を学ぶ</span><a class="headerlink" href="#fig-ch03-lifecycle" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 <section id="id3">
 <h2>導入：アルバイト先の顧客名簿はなぜ「宝の持ち腐れ」になるのか<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
@@ -452,6 +459,13 @@
 </tbody>
 </table>
 </div>
+<p>この違いを絵にしたものが <a class="reference internal" href="#fig-ch03-file-vs-db"><span class="std std-numref">図 13</span></a> です．ファイルでは各自がコピーを直接触るため「どれが最新か分からない」事態に陥りがちですが，データベースでは全員が「管理人」（DBMS）を介して，1か所で一元管理されたデータにアクセスします．</p>
+<figure class="align-default" id="fig-ch03-file-vs-db">
+<img alt="左はファイル管理の様子．3人の利用者がそれぞれ「顧客リスト.xlsx」「顧客リスト（最新）.xlsx」「顧客リスト（最新）2.xlsx」というコピーを直接触り，「どれが最新？」と混乱している．右はデータベースの様子．利用者は全員，管理人（DBMS）を介して1つのデータベースにアクセスし，データは1か所で一元管理される" src="../_images/ch03-file-vs-db.svg" />
+<figcaption>
+<p><span class="caption-number">図 13 </span><span class="caption-text">ファイルとデータベースの違い．ファイルは「データの置き場所」で，コピーが増えて情報が食い違っていく．データベースは「管理人つきの倉庫」で，管理人（DBMS）がデータの出し入れをすべて取り仕切る</span><a class="headerlink" href="#fig-ch03-file-vs-db" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 <p>みなさんの身のまわりのサービス——履修管理システム，コンビニのレジ，銀行のATM，SNS，ネットショッピング——の裏側には，ほぼ例外なくデータベースがあります．ふだん目にすることはありませんが，データベースは現代社会の「見えないインフラ」なのです．</p>
 </section>
 </section>
@@ -515,6 +529,13 @@
 <li><p><strong>削除で情報が消える</strong>：佐藤さんが唯一履修していた科目を履修取消しすると，佐藤さんの行そのものがなくなり，佐藤さんの学部や連絡先という<strong>履修とは無関係の情報まで一緒に消えて</strong>しまいます</p></li>
 <li><p><strong>登録できない情報</strong>：まだ履修者が1人もいない新設科目は，どの行にも書く場所がなく，この表には登録できません</p></li>
 </ul>
+<p>このうち「重複」「更新時の矛盾」「削除で情報が消える」の3つの問題が，先ほどの表のどこでどのように起きるのかを <a class="reference internal" href="#fig-ch03-bad-design"><span class="std std-numref">図 14</span></a> に示します．</p>
+<figure class="align-default" id="fig-ch03-bad-design">
+<img alt="1枚に全部詰め込んだ悪い設計の表のアノテーション図．山田さんの学部とメールアドレスが3行にわたって繰り返される部分が橙色でハイライトされている（重複）．山田さんがメールアドレスを変更したとき，2行は新しいアドレスに変更済みだが1行だけ直し漏れて古いアドレスのまま残り，赤枠と「どちらが正しい？」の吹き出しが付いている（更新時の矛盾）．佐藤さんの唯一の行には取消し線が引かれ，学部・連絡先も一緒に消えるという注記が付いている（削除で消える情報）" src="../_images/ch03-bad-design.svg" />
+<figcaption>
+<p><span class="caption-number">図 14 </span><span class="caption-text">1枚に全部詰め込んだ「悪い設計」の表で起きる3つの問題．同じ情報の重複（橙のハイライト）は更新時の矛盾（赤枠：直し漏れ）の温床になり，唯一の行を削除すると（取消し線）履修とは無関係の学部・連絡先まで一緒に消えてしまう</span><a class="headerlink" href="#fig-ch03-bad-design" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 <p>冒頭のカフェの名簿で起きていた「同じ人が何度も登録される」「情報が食い違う」という問題は，実はこうした表設計の問題そのものだったのです．</p>
 </section>
 <section id="id12">
@@ -584,6 +605,13 @@
 </table>
 </div>
 <p>こうすると，先ほどの問題はすべて解消されます．山田さんのメールアドレスは学生表の1か所にしか書かれていないので，変更も1か所で済み，矛盾が生じる余地がありません．履修を取り消しても消えるのは履修表の1行だけで，学生の情報は無傷です．新設科目は科目表に1行追加するだけで登録できます．このように，重複や矛盾が生じないように表を分割・整理していく作業を，専門用語で正規化（normalization）と呼びます．</p>
+<p>3つの表がキーを介してどのようにつながっているかを <a class="reference internal" href="#fig-ch03-relational-keys"><span class="std std-numref">図 15</span></a> に示します．履修表には学生番号と科目番号しかありませんが，その1行が学生表の1行（誰が）と科目表の1行（何を）を橋渡しすることで，「誰が何を履修しているか」を復元できるのです．</p>
+<figure class="align-default" id="fig-ch03-relational-keys">
+<img alt="学生表・履修表・科目表の3つの表を並べた図．履修表の学生番号の列が学生表の主キー（学生番号）と，履修表の科目番号の列が科目表の主キー（科目番号）と，それぞれ色付きの線で結ばれている．履修表の1行は学生と科目の橋渡しをする" src="../_images/ch03-relational-keys.svg" />
+<figcaption>
+<p><span class="caption-number">図 15 </span><span class="caption-text">表を分けてキーでつなぐ．履修表の学生番号は学生表の主キーを，科目番号は科目表の主キーを指しており，履修表の1行が学生と科目の橋渡しをする（鍵マークは主キー）</span><a class="headerlink" href="#fig-ch03-relational-keys" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 <p>ここから分かる大事な教訓は，<strong>データベースは「どう表を設計するか」で使い勝手と信頼性が決まる</strong>ということです．これが<strong>データベース設計の重要性</strong>です．データベースは，作ったあとに設計を変更するのが非常に大変です（すでに大量のデータが入っているためです）．だからこそ，実務の現場では，データを貯め始める<strong>前に</strong>設計をじっくり検討することが重視されるのです．</p>
 </section>
 </section>
@@ -908,7 +936,13 @@
 <section id="id21">
 <h3>バックアップと長期保存<a class="headerlink" href="#id21" title="Link to this heading">#</a></h3>
 <p>3つ目は，データを事故や時間の経過から守ることです．</p>
-<p><strong>バックアップ</strong>（backup）とは，データの複製を別の場所に保存しておくことです．ハードディスクの故障，操作ミスによる削除，災害，そして近年ではデータを人質に金銭を要求するコンピュータウイルスの被害など，データが失われる原因はいくらでもあります．どんなに高性能なシステムでも故障はゼロにできないため，「失われる前提で備える」のがバックアップの発想です．実務では，「データのコピーを3つ持つ・2種類の異なる媒体に保存する・そのうち1つは離れた場所に置く」という目安（3-2-1ルールと呼ばれます）がよく知られています．卒業論文のファイルをノートパソコンの中だけに保存している人は，このルールに照らすとかなり危険な状態だと分かるはずです．</p>
+<p><strong>バックアップ</strong>（backup）とは，データの複製を別の場所に保存しておくことです．ハードディスクの故障，操作ミスによる削除，災害，そして近年ではデータを人質に金銭を要求するコンピュータウイルスの被害など，データが失われる原因はいくらでもあります．どんなに高性能なシステムでも故障はゼロにできないため，「失われる前提で備える」のがバックアップの発想です．実務では，「データのコピーを3つ持つ・2種類の異なる媒体に保存する・そのうち1つは離れた場所に置く」という目安（3-2-1ルールと呼ばれます）がよく知られています．卒業論文のファイルをノートパソコンの中だけに保存している人は，このルールに照らすとかなり危険な状態だと分かるはずです．<a class="reference internal" href="#fig-ch03-321-backup"><span class="std std-numref">図 16</span></a> に，卒業論文のファイルを例にした3-2-1ルールの考え方を示します．</p>
+<figure class="align-default" id="fig-ch03-321-backup">
+<img alt="3-2-1ルールのアイコン図．卒業論文のファイルのコピーが，ノートパソコン・外付けドライブ・クラウドの3か所に置かれている．3つ全体に「コピー3つ」，ノートパソコンと外付けドライブに「媒体2種類（異なる媒体に保存する）」，点線で囲まれたクラウドに「1つは離れた場所」のラベルが付いている．右側には対比として，ノートPC1台だけに保存してファイルに大きな×印が付いた図があり，「ノートPC1台だけ＝故障・紛失で全滅」と書かれている" src="../_images/ch03-321-backup.svg" />
+<figcaption>
+<p><span class="caption-number">図 16 </span><span class="caption-text">バックアップの3-2-1ルール（卒業論文のファイルを例に）．データのコピーを3つ持ち，2種類の異なる媒体に保存し，そのうち1つは離れた場所に置く．ノートパソコンの中だけに保存している状態（右）は，故障・紛失で全滅するかなり危険な状態である</span><a class="headerlink" href="#fig-ch03-321-backup" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 <p><strong>長期保存</strong>（long-term preservation）は，バックアップよりさらに長い時間軸——10年，50年，100年——でデータを読める状態に保ち続けるという課題です．これは単にコピーを取っておけば済む話ではありません．記録媒体は劣化しますし（CD-Rにも寿命があります），ファイル形式やソフトウェアも古びていきます．10年前のソフトでしか開けないファイルは，実質的に失われたのと同じです．そのため，劣化する前に新しい媒体へ移し替える，特定のソフトに依存しない標準的な形式で保存する，データの意味を説明する記録（どんな調査で得た，どんな項目のデータか）を添えておく，といった地道な取り組みが必要になります．</p>
 </section>
 <section id="fair">

@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 552" font-family="'Hiragino Sans','Noto Sans JP',sans-serif">
+<rect x="0" y="0" width="1000" height="552" fill="white"/>
+<text x="500" y="44" text-anchor="middle" font-size="20" font-weight="bold" fill="#333333">新歓アンケート表の「汚れの地図」</text>
+
+<!-- 表：ヘッダ背景と外枠 -->
+<rect x="40" y="84" width="590" height="44" fill="#F2F2F2"/>
+<rect x="40" y="84" width="590" height="352" fill="none" stroke="#8C8C8C" stroke-width="1.5"/>
+<!-- 縦罫線 -->
+<line x1="88" y1="84" x2="88" y2="436" stroke="#BBBBBB" stroke-width="1"/>
+<line x1="184" y1="84" x2="184" y2="436" stroke="#BBBBBB" stroke-width="1"/>
+<line x1="374" y1="84" x2="374" y2="436" stroke="#BBBBBB" stroke-width="1"/>
+<line x1="470" y1="84" x2="470" y2="436" stroke="#BBBBBB" stroke-width="1"/>
+<!-- 横罫線 -->
+<line x1="40" y1="128" x2="630" y2="128" stroke="#8C8C8C" stroke-width="1.5"/>
+<line x1="40" y1="172" x2="630" y2="172" stroke="#BBBBBB" stroke-width="1"/>
+<line x1="40" y1="216" x2="630" y2="216" stroke="#BBBBBB" stroke-width="1"/>
+<line x1="40" y1="260" x2="630" y2="260" stroke="#BBBBBB" stroke-width="1"/>
+<line x1="40" y1="304" x2="630" y2="304" stroke="#BBBBBB" stroke-width="1"/>
+<line x1="40" y1="348" x2="630" y2="348" stroke="#BBBBBB" stroke-width="1"/>
+<line x1="40" y1="392" x2="630" y2="392" stroke="#BBBBBB" stroke-width="1"/>
+
+<!-- ヘッダ -->
+<text x="136" y="112" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">名前</text>
+<text x="279" y="112" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">学部</text>
+<text x="422" y="112" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">学年</text>
+<text x="550" y="112" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">参加希望</text>
+
+<!-- 行番号（pandasのインデックス） -->
+<text x="64" y="156" text-anchor="middle" font-size="14" fill="#8C8C8C">0</text>
+<text x="64" y="200" text-anchor="middle" font-size="14" fill="#8C8C8C">1</text>
+<text x="64" y="244" text-anchor="middle" font-size="14" fill="#8C8C8C">2</text>
+<text x="64" y="288" text-anchor="middle" font-size="14" fill="#8C8C8C">3</text>
+<text x="64" y="332" text-anchor="middle" font-size="14" fill="#8C8C8C">4</text>
+<text x="64" y="376" text-anchor="middle" font-size="14" fill="#8C8C8C">5</text>
+<text x="64" y="420" text-anchor="middle" font-size="14" fill="#8C8C8C">6</text>
+
+<!-- 名前 -->
+<text x="136" y="156" text-anchor="middle" font-size="16" fill="#333333">佐藤</text>
+<text x="136" y="200" text-anchor="middle" font-size="16" fill="#333333">鈴木</text>
+<text x="136" y="244" text-anchor="middle" font-size="16" fill="#333333">高橋</text>
+<text x="136" y="288" text-anchor="middle" font-size="16" fill="#333333">田中</text>
+<text x="136" y="332" text-anchor="middle" font-size="16" fill="#333333">伊藤</text>
+<text x="136" y="376" text-anchor="middle" font-size="16" fill="#333333">高橋</text>
+<text x="136" y="420" text-anchor="middle" font-size="16" fill="#333333">渡辺</text>
+
+<!-- 学部 -->
+<text x="279" y="156" text-anchor="middle" font-size="16" fill="#333333">経済学部</text>
+<text x="279" y="200" text-anchor="middle" font-size="16" fill="#333333">経済</text>
+<text x="279" y="244" text-anchor="middle" font-size="16" fill="#333333">人文社会学部</text>
+<text x="279" y="288" text-anchor="middle" font-size="16" fill="#333333">けいざい</text>
+<text x="279" y="332" text-anchor="middle" font-size="16" fill="#333333">芸術工学部</text>
+<text x="279" y="376" text-anchor="middle" font-size="16" fill="#333333">人文社会学部</text>
+<text x="279" y="420" text-anchor="middle" font-size="16" font-style="italic" fill="#8C8C8C">None</text>
+
+<!-- 学年 -->
+<text x="422" y="156" text-anchor="middle" font-size="16" fill="#333333">1年</text>
+<text x="422" y="200" text-anchor="middle" font-size="16" fill="#333333">１年</text>
+<text x="422" y="244" text-anchor="middle" font-size="16" fill="#333333">一年</text>
+<text x="422" y="288" text-anchor="middle" font-size="16" fill="#333333">2</text>
+<text x="422" y="332" text-anchor="middle" font-size="16" fill="#333333">1年</text>
+<text x="422" y="376" text-anchor="middle" font-size="16" fill="#333333">一年</text>
+<text x="422" y="420" text-anchor="middle" font-size="16" fill="#333333">1年</text>
+
+<!-- 参加希望 -->
+<text x="550" y="156" text-anchor="middle" font-size="16" fill="#333333">参加</text>
+<text x="550" y="200" text-anchor="middle" font-size="16" fill="#333333">参加します</text>
+<text x="550" y="244" text-anchor="middle" font-size="16" fill="#333333">不参加</text>
+<text x="550" y="288" text-anchor="middle" font-size="16" fill="#333333">参加</text>
+<text x="550" y="376" text-anchor="middle" font-size="16" fill="#333333">不参加</text>
+<text x="550" y="420" text-anchor="middle" font-size="16" fill="#333333">参加</text>
+
+<!-- 重複行（緑の枠：行2と行5） -->
+<rect x="37" y="214" width="596" height="48" rx="4" fill="none" stroke="#55A868" stroke-width="2.5"/>
+<rect x="37" y="346" width="596" height="48" rx="4" fill="none" stroke="#55A868" stroke-width="2.5"/>
+
+<!-- 表記ゆれ（橙の枠） -->
+<rect x="187" y="131" width="184" height="38" rx="4" fill="none" stroke="#DD8452" stroke-width="2.5"/>
+<rect x="187" y="175" width="184" height="38" rx="4" fill="none" stroke="#DD8452" stroke-width="2.5"/>
+<rect x="187" y="263" width="184" height="38" rx="4" fill="none" stroke="#DD8452" stroke-width="2.5"/>
+<rect x="377" y="131" width="90" height="38" rx="4" fill="none" stroke="#DD8452" stroke-width="2.5"/>
+<rect x="377" y="175" width="90" height="38" rx="4" fill="none" stroke="#DD8452" stroke-width="2.5"/>
+<rect x="377" y="219" width="90" height="38" rx="4" fill="none" stroke="#DD8452" stroke-width="2.5"/>
+<rect x="377" y="263" width="90" height="38" rx="4" fill="none" stroke="#DD8452" stroke-width="2.5"/>
+<rect x="473" y="175" width="154" height="38" rx="4" fill="none" stroke="#DD8452" stroke-width="2.5"/>
+
+<!-- 欠損値（青の実線枠：行6の学部） -->
+<rect x="187" y="395" width="184" height="38" rx="4" fill="none" stroke="#4C72B0" stroke-width="2.5"/>
+
+<!-- 見えない欠損（青の点線枠：行4の参加希望） -->
+<rect x="473" y="307" width="154" height="38" rx="4" fill="none" stroke="#4C72B0" stroke-width="2.5" stroke-dasharray="6 4"/>
+
+<!-- 注記：表記ゆれ -->
+<text x="652" y="158" font-size="16" font-weight="bold" fill="#DD8452">表記ゆれ</text>
+<text x="652" y="180" font-size="14" fill="#333333">同じ意味なのに書き方がバラバラ</text>
+<line x1="648" y1="172" x2="634" y2="194" stroke="#DD8452" stroke-width="1.5"/>
+
+<!-- 注記：重複データ -->
+<text x="652" y="240" font-size="16" font-weight="bold" fill="#55A868">重複データ</text>
+<text x="652" y="262" font-size="14" fill="#333333">同じ回答（高橋さん）が2回</text>
+<line x1="648" y1="250" x2="637" y2="238" stroke="#55A868" stroke-width="1.5"/>
+<line x1="648" y1="254" x2="637" y2="368" stroke="#55A868" stroke-width="1.5"/>
+
+<!-- 注記：見えない欠損（点線ボックス） -->
+<rect x="646" y="290" width="330" height="84" rx="8" fill="white" stroke="#4C72B0" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="660" y="316" font-size="15" font-weight="bold" fill="#4C72B0">見えない欠損（空文字 ""）</text>
+<text x="660" y="338" font-size="14" fill="#333333">見た目は空欄でも，機械には</text>
+<text x="660" y="358" font-size="14" fill="#333333">「空文字という値」と読まれる</text>
+<line x1="646" y1="328" x2="634" y2="326" stroke="#4C72B0" stroke-width="1.5"/>
+
+<!-- 注記：欠損値（表の下） -->
+<line x1="279" y1="443" x2="279" y2="455" stroke="#4C72B0" stroke-width="1.5"/>
+<text x="279" y="474" text-anchor="middle" font-size="15" font-weight="bold" fill="#4C72B0">欠損値（None＝値が入っていない）</text>
+
+<!-- 凡例 -->
+<text x="48" y="515" font-size="15" font-weight="bold" fill="#333333">凡例：</text>
+<rect x="108" y="500" width="30" height="18" rx="3" fill="white" stroke="#4C72B0" stroke-width="2"/>
+<text x="146" y="515" font-size="15" fill="#333333">欠損値</text>
+<rect x="214" y="500" width="30" height="18" rx="3" fill="white" stroke="#4C72B0" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="252" y="515" font-size="15" fill="#333333">見えない欠損</text>
+<rect x="366" y="500" width="30" height="18" rx="3" fill="white" stroke="#DD8452" stroke-width="2"/>
+<text x="404" y="515" font-size="15" fill="#333333">表記ゆれ</text>
+<rect x="488" y="500" width="30" height="18" rx="3" fill="white" stroke="#55A868" stroke-width="2"/>
+<text x="526" y="515" font-size="15" fill="#333333">重複データ</text>
+<text x="632" y="515" font-size="13" fill="#8C8C8C">※4つめの型「外れ値」は睡眠時間の例で後述</text>
+</svg>

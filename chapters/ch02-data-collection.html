@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -365,6 +365,13 @@
 <li><p><strong>標本と母集団</strong>の関係を理解し，「一部から全体を知る」ために何が必要かを説明できる</p></li>
 <li><p><strong>標本の偏り</strong>・<strong>選択バイアス</strong>がなぜ起こるのかを，1936年の世論調査の失敗例に即して説明できる</p></li>
 </ul>
+<p>本題に入る前に，<a class="reference internal" href="#fig-ch02-lifecycle"><span class="std std-numref">図 7</span></a> で本科目における現在地を確認しておきましょう．今回学ぶ「収集」は，データのライフサイクルの出発点です．</p>
+<figure class="align-default" id="fig-ch02-lifecycle">
+<img alt="データのライフサイクルの流れ図．収集（第2回）から保存・検索，前処理，分析，可視化を経て誰かの理解・意思決定へ向かう流れのうち，今回扱う「収集」がハイライトされている．下には横断テーマとしてデータと法（第7回）と生成AI（第8回）の帯がある．" src="../_images/common-lifecycle-ch02.svg" />
+<figcaption>
+<p><span class="caption-number">図 7 </span><span class="caption-text">本科目における現在地：今回はデータのライフサイクルの出発点「収集」を学ぶ</span><a class="headerlink" href="#fig-ch02-lifecycle" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 <section id="id3">
 <h2>導入：240万人に聞いたのに大外れした世論調査<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
@@ -388,6 +395,13 @@
 <p>3つめは<strong>センサー</strong>（sensor）です．機械が自動的に測定して記録する方法です．スマートフォンには，GPS（位置），加速度センサー（歩数や動き），気圧センサーなど多くのセンサーが入っていて，持ち歩くだけでデータが生まれています．ほかにも，気象観測，交通量の計測，スマートウォッチの心拍数など，例は無数にあります．センサーの強みは，人手をかけずに大量・高頻度でデータを集められる点です．</p>
 <p>4つめは<strong>ログ</strong>（log）です．サービスやシステムの利用の記録で，人が活動した「足あと」が自動的にたまっていくものです．検索エンジンの検索履歴，動画サイトの視聴履歴，ネットショッピングの購買履歴，コンビニのレジ（POS）の販売記録などがログの例です．みなさんが動画サイトで「おすすめ」される動画は，膨大な視聴ログの分析から選ばれています．</p>
 <p>前半の2つ（調査・実験）は，「知りたいことのために，設計して集める」データです．一方，後半の2つ（センサー・ログ）は，「活動の副産物として，自動的にたまる」データだといえます．センサーやログのデータは量が膨大で魅力的ですが，「そのサービスを使っている人の記録しか残らない」という点で，やはり偏りと無縁ではありません．この点は後ほど詳しく見ます．</p>
+<p>ここまでの4つの型を，「設計して集めるか，副産物としてたまるか」という視点で整理したのが <a class="reference internal" href="#fig-ch02-collection-2x2"><span class="std std-numref">図 8</span></a> です．</p>
+<figure class="align-default" id="fig-ch02-collection-2x2">
+<img alt="データの集め方の4つの型の2かける2整理図．上段は知りたいことのために設計して集める調査と実験，下段は活動の副産物として自動的にたまるセンサーとログ．各セルに本文の例が添えられている．" src="../_images/ch02-collection-2x2.svg" />
+<figcaption>
+<p><span class="caption-number">図 8 </span><span class="caption-text">データの集め方の4つの型：「設計して集める」調査・実験と，「副産物として自動的にたまる」センサー・ログ</span><a class="headerlink" href="#fig-ch02-collection-2x2" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 <section id="web">
 <h3>すでにあるデータを使う：オープンデータとWebスクレイピング<a class="headerlink" href="#web" title="Link to this heading">#</a></h3>
@@ -410,6 +424,13 @@
 <p>集まったデータを，今度は「形」の視点で分類してみましょう．</p>
 <p><strong>構造化データ</strong>（structured data）とは，表の形（行と列）に整理されたデータのことです．行が1件1件の記録（たとえば学生1人）に対応し，列が項目（学籍番号・氏名・学部など）に対応します．履修者名簿，売上の一覧表，アンケートの選択式回答の集計表などが典型例です．構造化データは，表計算ソフトやプログラムでそのまま集計・分析しやすいという大きな利点があります．</p>
 <p>一方，<strong>非構造化データ</strong>（unstructured data）とは，表の形に収まらないデータのことです．SNSの投稿文，レビューサイトのクチコミの本文，写真や動画，音声などがその例です．第1回で学んだビッグデータの3Vのひとつ「Variety（多様性）」は，まさにこうした非構造化データの増加を指していました．現代のデータの多くは非構造化データだといわれており，たとえば「クチコミの星の数」（構造化データ）だけでなく「クチコミの文章そのもの」（非構造化データ）を分析できれば，「星3つだけど実は好意的な感想」といった深い情報が読み取れます．ただし，非構造化データはそのままでは集計できないため，保存のしかたにも分析の前の準備にも工夫が必要です．この話は第3回（保存と検索）と第4回（前処理）で改めて登場します．</p>
+<p>同じ1件のクチコミから「星の数」という構造化データと「本文や写真」という非構造化データの両方が生まれる様子を，<a class="reference internal" href="#fig-ch02-structured-unstructured"><span class="std std-numref">図 9</span></a> にまとめました．</p>
+<figure class="align-default" id="fig-ch02-structured-unstructured">
+<img alt="レビューサイトのクチコミ画面から2種類のデータが生まれる分岐図．星3つと好意的な本文のついた1件のクチコミのうち，店名と星の数は行と列の表にそのまま収まる構造化データになり，本文・写真・音声は表の枠に収まらない非構造化データになる．" src="../_images/ch02-structured-unstructured.svg" />
+<figcaption>
+<p><span class="caption-number">図 9 </span><span class="caption-text">同じ1件のクチコミから生まれる2種類のデータ：店名や星の数は表に収まり（構造化データ），本文や写真は表の枠に収まらない（非構造化データ）</span><a class="headerlink" href="#fig-ch02-structured-unstructured" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 </section>
 <section id="id9">
@@ -421,6 +442,13 @@
 <p>たとえば「名市大の1年生は，1日にどれくらいSNSを使っているか」を知りたいとします．このとき母集団は「名市大の1年生全員」です．全員に答えてもらえれば理想的ですが，現実には難しいので，たとえば100人を選んで調べます．この100人が標本です．母集団の全員を調べる調査を<strong>全数調査</strong>と呼び（国勢調査が代表例です），一部だけを調べる調査を<strong>標本調査</strong>と呼びます．世の中の調査のほとんどは標本調査です．</p>
 <p>「一部しか調べていないのに，全体のことが分かるの？」と思うかもしれません．実は，日常生活でもみなさんは同じことをしています．味噌汁の味見です．鍋全体（母集団）を飲み干さなくても，一口（標本）で味は分かります．ただし，そのためには大事な条件があります．<strong>味見の前に，鍋をよくかき混ぜること</strong>です．かき混ぜずに上澄みだけをすくえば，味噌が沈んだ鍋の味は正しく分かりません．</p>
 <p>調査における「かき混ぜる」に当たるのが，<strong>無作為抽出</strong>（random sampling）です．母集団の全員が同じ確率で選ばれるように，くじ引きのようにランダムに標本を選ぶ方法です．無作為に選ばれた標本は，母集団の「縮図」になることが期待できます．驚くべきことに，母集団が何千万人であっても，きちんと無作為に選ばれた数千人程度の標本があれば，全体の傾向をかなり正確に推定できることが統計学で知られています．この「一部から全体を推し量る」理論は，第5回で紹介する推測統計や，統計学の科目で本格的に学びます．</p>
+<p>味噌汁の味見と調査の対応関係を <a class="reference internal" href="#fig-ch02-miso-sampling"><span class="std std-numref">図 10</span></a> にまとめました．「鍋をよくかき混ぜる」ことが「無作為抽出」に当たる，という対応が最大のポイントです．</p>
+<figure class="align-default" id="fig-ch02-miso-sampling">
+<img alt="味噌汁の味見と標本調査の対応図．上段は鍋の味噌汁，よくかき混ぜる，一口味見する，鍋全体の味が分かるという味見の流れ．下段は母集団，無作為抽出，標本，全体の傾向を推定するという調査の流れ．上下の対応が点線で結ばれている．" src="../_images/ch02-miso-sampling.svg" />
+<figcaption>
+<p><span class="caption-number">図 10 </span><span class="caption-text">味噌汁の味見でつかむ標本調査：「よくかき混ぜる」が無作為抽出，「一口」が標本に当たる</span><a class="headerlink" href="#fig-ch02-miso-sampling" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 <section id="id11">
 <h3>標本の偏りと選択バイアス<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
@@ -570,6 +598,13 @@
 <p>失敗の原因は，今回学んだ言葉でいえば<strong>選択バイアスによる標本の偏り</strong>です．しかも，偏りは二重に生じていました <span id="id16">[<a class="reference internal" href="../references.html#id11" title="Peverill Squire. Why the 1936 Literary Digest poll failed. Public Opinion Quarterly, 52(1):125–133, 1988. doi:10.1086/269085.">Squire, 1988</a>]</span>．</p>
 <p>第一に，<strong>調べる側の選び方の偏り</strong>です．同誌が投票用紙の送り先を選ぶのに使ったのは，自誌の読者名簿に加えて，自動車の登録名簿や電話帳などでした．現代の感覚では気づきにくいのですが，1936年のアメリカは世界恐慌のまっただ中で，自動車や電話を持てたのは比較的裕福な人々でした．そして当時，裕福な層は共和党のランドン候補を支持する傾向がありました．つまり，1,000万枚という膨大な郵送先は，そもそも<strong>有権者全体の縮図になっていなかった</strong>のです．</p>
 <p>第二に，<strong>答える側の偏り</strong>です．返送するかどうかは受け取った人の自由でしたから，これは自己選択の状況です．返送率は24%にとどまり，返送した人々と返送しなかった人々のあいだで支持傾向が異なっていました．Squireの分析によれば，この<strong>回答した人の偏り（非回答の偏り）</strong> は，名簿の偏りと並ぶ——むしろそれ以上に深刻な——失敗の原因でした <span id="id17">[<a class="reference internal" href="../references.html#id11" title="Peverill Squire. Why the 1936 Literary Digest poll failed. Public Opinion Quarterly, 52(1):125–133, 1988. doi:10.1086/269085.">Squire, 1988</a>]</span>．</p>
+<p>この二重の偏りの構造を <a class="reference internal" href="#fig-ch02-double-bias-funnel"><span class="std std-numref">図 11</span></a> にまとめました．有権者全体から標本にいたる途中で，標本が二段階で偏っていったことが分かります．</p>
+<figure class="align-default" id="fig-ch02-double-bias-funnel">
+<img alt="Literary Digest誌の二重の偏りを示すファネル図．有権者全体（母集団）が，自動車や電話を持つ比較的裕福な層に偏った名簿（調べる側の偏り，約1,000万枚の郵送先）と，24%だけが返送した自己選択（答える側の偏り）という二段階の絞り込みを経て，約240万人の偏った標本になった．その予測はランドン候補が57%で勝利だったが，実際はルーズベルト候補が約60.8%で勝利した．" src="../_images/ch02-double-bias-funnel.svg" />
+<figcaption>
+<p><span class="caption-number">図 11 </span><span class="caption-text">二重の選択バイアス：有権者全体が「偏った名簿」と「自己選択」を経て約240万人の偏った標本になるまで</span><a class="headerlink" href="#fig-ch02-double-bias-funnel" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 <p>ここから得られる教訓は明快です．<strong>偏った集め方は，量では救えない</strong>．240万という空前の回答数をもってしても，偏りの影響は消えるどころか，「大規模だから信頼できそう」という誤った安心感を生む分，かえって危険でした．皮肉なことに，同じ選挙で，ギャラップという調査者ははるかに少人数の，しかし偏りを抑える工夫をした調査でルーズベルト候補の勝利を言い当てています．この対比が，現代まで続く「量より集め方」という世論調査の大原則を打ち立てました．</p>
 <div class="admonition note">
 <p class="admonition-title">注釈</p>

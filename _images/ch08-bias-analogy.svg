@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 660" font-family="'Hiragino Sans','Noto Sans JP',sans-serif">
+<defs>
+<marker id="ah" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#8C8C8C"/></marker>
+<g id="pp"><circle cx="0" cy="-10" r="5.5"/><path d="M-8,14 L-8,4 Q-8,-3 0,-3 Q8,-3 8,4 L8,14 Z"/></g>
+</defs>
+<rect x="0" y="0" width="1000" height="660" fill="white"/>
+
+<!-- ========== 左パネル：Literary Digest ========== -->
+<rect x="24" y="40" width="468" height="44" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="258" y="68" text-anchor="middle" font-size="18" font-weight="bold" fill="#333333">1936年 Literary Digest誌の世論調査</text>
+
+<!-- 段1：有権者全体 -->
+<rect x="40" y="96" width="436" height="124" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="258" y="124" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">有権者全体</text>
+<rect x="122" y="140" width="12" height="12" fill="#DD8452"/>
+<text x="140" y="151" font-size="13" fill="#333333">＝自動車や電話を持つ比較的裕福な層</text>
+<use href="#pp" x="90" y="188" fill="#4C72B0"/>
+<use href="#pp" x="138" y="188" fill="#4C72B0"/>
+<use href="#pp" x="186" y="188" fill="#DD8452"/>
+<use href="#pp" x="234" y="188" fill="#4C72B0"/>
+<use href="#pp" x="282" y="188" fill="#4C72B0"/>
+<use href="#pp" x="330" y="188" fill="#DD8452"/>
+<use href="#pp" x="378" y="188" fill="#4C72B0"/>
+<use href="#pp" x="426" y="188" fill="#4C72B0"/>
+
+<!-- 絞り込み -->
+<polygon points="40,220 476,220 398,292 118,292" fill="#F2F2F2"/>
+<line x1="258" y1="226" x2="258" y2="284" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+
+<!-- 段2：偏った標本 -->
+<rect x="118" y="292" width="280" height="118" rx="8" fill="#FBEEE4" stroke="#DD8452" stroke-width="2"/>
+<text x="258" y="320" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">偏った標本</text>
+<text x="258" y="342" text-anchor="middle" font-size="13" fill="#333333">自動車や電話を持つ層に偏る</text>
+<use href="#pp" x="170" y="388" fill="#DD8452"/>
+<use href="#pp" x="214" y="388" fill="#DD8452"/>
+<use href="#pp" x="258" y="388" fill="#DD8452"/>
+<use href="#pp" x="302" y="388" fill="#4C72B0"/>
+<use href="#pp" x="346" y="388" fill="#DD8452"/>
+
+<!-- 結果 -->
+<line x1="258" y1="416" x2="258" y2="444" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+<rect x="64" y="448" width="388" height="84" rx="8" fill="#F2F2F2" stroke="#8C8C8C" stroke-width="2"/>
+<text x="258" y="482" text-anchor="middle" font-size="18" font-weight="bold" fill="#C44E52">誤った予測</text>
+<text x="258" y="508" text-anchor="middle" font-size="13" fill="#333333">偏った標本にもとづく世論調査は，選挙の予測を誤った</text>
+
+<!-- ========== 右パネル：大規模言語モデル ========== -->
+<rect x="508" y="40" width="468" height="44" rx="8" fill="#FBEEE4" stroke="#DD8452" stroke-width="2"/>
+<text x="742" y="68" text-anchor="middle" font-size="18" font-weight="bold" fill="#333333">大規模言語モデル（LLM）</text>
+
+<!-- 段1：世界中の人々 -->
+<rect x="524" y="96" width="436" height="124" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="742" y="124" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">世界中のあらゆる人々の声</text>
+<rect x="618" y="140" width="12" height="12" fill="#DD8452"/>
+<text x="636" y="151" font-size="13" fill="#333333">＝インターネットで発信する人々</text>
+<use href="#pp" x="574" y="188" fill="#4C72B0"/>
+<use href="#pp" x="622" y="188" fill="#4C72B0"/>
+<use href="#pp" x="670" y="188" fill="#DD8452"/>
+<use href="#pp" x="718" y="188" fill="#4C72B0"/>
+<use href="#pp" x="766" y="188" fill="#4C72B0"/>
+<use href="#pp" x="814" y="188" fill="#DD8452"/>
+<use href="#pp" x="862" y="188" fill="#4C72B0"/>
+<use href="#pp" x="910" y="188" fill="#4C72B0"/>
+
+<!-- 絞り込み -->
+<polygon points="524,220 960,220 882,292 602,292" fill="#F2F2F2"/>
+<line x1="742" y1="226" x2="742" y2="284" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+
+<!-- 段2：偏った学習データ -->
+<rect x="602" y="292" width="280" height="118" rx="8" fill="#FBEEE4" stroke="#DD8452" stroke-width="2"/>
+<text x="742" y="320" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">偏った学習データ</text>
+<text x="742" y="340" text-anchor="middle" font-size="13" fill="#333333">「インターネットで発信する人々」が</text>
+<text x="742" y="358" text-anchor="middle" font-size="13" fill="#333333">書いた文章に偏る</text>
+<use href="#pp" x="654" y="390" fill="#DD8452"/>
+<use href="#pp" x="698" y="390" fill="#DD8452"/>
+<use href="#pp" x="742" y="390" fill="#DD8452"/>
+<use href="#pp" x="786" y="390" fill="#4C72B0"/>
+<use href="#pp" x="830" y="390" fill="#DD8452"/>
+
+<!-- 結果 -->
+<line x1="742" y1="416" x2="742" y2="444" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+<rect x="548" y="448" width="388" height="84" rx="8" fill="#F2F2F2" stroke="#8C8C8C" stroke-width="2"/>
+<text x="742" y="482" text-anchor="middle" font-size="18" font-weight="bold" fill="#C44E52">偏った出力</text>
+<text x="742" y="508" text-anchor="middle" font-size="13" fill="#333333">学習データの偏りをそのまま，ときには増幅して繰り返す</text>
+
+<!-- ========== 共通構造の帯 ========== -->
+<line x1="258" y1="536" x2="258" y2="554" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+<line x1="742" y1="536" x2="742" y2="554" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+<rect x="24" y="560" width="952" height="76" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="500" y="592" text-anchor="middle" font-size="18" font-weight="bold" fill="#333333">共通の構造：集め方の偏り → 結果の偏り</text>
+<text x="500" y="618" text-anchor="middle" font-size="14" fill="#4C72B0">第2回で学んだ「集め方の偏り」と，まったく同じ構図の問題が生成AIにも存在する</text>
+</svg>

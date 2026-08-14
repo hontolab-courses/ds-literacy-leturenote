@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 560" font-family="'Hiragino Sans','Noto Sans JP',sans-serif">
+<defs><marker id="ah" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#8C8C8C"/></marker></defs>
+<rect x="0" y="0" width="1100" height="560" fill="white"/>
+
+<!-- 起点：何を伝えたい？ -->
+<rect x="508" y="36" width="240" height="56" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="628" y="72" text-anchor="middle" font-size="20" font-weight="bold" fill="#333333">何を伝えたい？</text>
+
+<!-- 分岐線 -->
+<line x1="628" y1="92" x2="628" y2="112" stroke="#8C8C8C" stroke-width="2"/>
+<line x1="302.5" y1="112" x2="953.5" y2="112" stroke="#8C8C8C" stroke-width="2"/>
+<line x1="302.5" y1="112" x2="302.5" y2="146" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+<line x1="519.5" y1="112" x2="519.5" y2="146" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+<line x1="736.5" y1="112" x2="736.5" y2="146" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+<line x1="953.5" y1="112" x2="953.5" y2="146" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+
+<!-- 左レール：考える順番 -->
+<text x="24" y="188" font-size="14" font-weight="bold" fill="#8C8C8C">①何を伝えたいか</text>
+<text x="24" y="278" font-size="14" font-weight="bold" fill="#8C8C8C">②データの型は何か</text>
+<text x="24" y="298" font-size="12" fill="#8C8C8C">（第4回の尺度水準）</text>
+<text x="24" y="440" font-size="14" font-weight="bold" fill="#8C8C8C">③では，どのグラフか</text>
+
+<!-- 伝えたいこと（4分岐） -->
+<rect x="200" y="150" width="205" height="64" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="302.5" y="176" text-anchor="middle" font-size="16" fill="#333333">カテゴリごとの量を</text>
+<text x="302.5" y="198" text-anchor="middle" font-size="16" fill="#333333">比べたい</text>
+<rect x="417" y="150" width="205" height="64" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="519.5" y="176" text-anchor="middle" font-size="16" fill="#333333">時間に沿った</text>
+<text x="519.5" y="198" text-anchor="middle" font-size="16" fill="#333333">変化を見たい</text>
+<rect x="634" y="150" width="205" height="64" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="736.5" y="176" text-anchor="middle" font-size="16" fill="#333333">2つの量の</text>
+<text x="736.5" y="198" text-anchor="middle" font-size="16" fill="#333333">関係を見たい</text>
+<rect x="851" y="150" width="205" height="64" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="953.5" y="176" text-anchor="middle" font-size="16" fill="#333333">1つの量の</text>
+<text x="953.5" y="198" text-anchor="middle" font-size="16" fill="#333333">分布を見たい</text>
+
+<line x1="302.5" y1="214" x2="302.5" y2="246" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+<line x1="519.5" y1="214" x2="519.5" y2="246" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+<line x1="736.5" y1="214" x2="736.5" y2="246" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+<line x1="953.5" y1="214" x2="953.5" y2="246" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+
+<!-- データの型の確認（尺度水準） -->
+<rect x="200" y="250" width="205" height="60" rx="8" fill="#F2F2F2" stroke="#8C8C8C" stroke-width="2"/>
+<text x="302.5" y="274" text-anchor="middle" font-size="16" fill="#333333">質的（カテゴリ）</text>
+<text x="302.5" y="296" text-anchor="middle" font-size="16" fill="#333333">× 量的</text>
+<rect x="417" y="250" width="205" height="60" rx="8" fill="#F2F2F2" stroke="#8C8C8C" stroke-width="2"/>
+<text x="519.5" y="286" text-anchor="middle" font-size="16" fill="#333333">時間 × 量的</text>
+<rect x="634" y="250" width="205" height="60" rx="8" fill="#F2F2F2" stroke="#8C8C8C" stroke-width="2"/>
+<text x="736.5" y="286" text-anchor="middle" font-size="16" fill="#333333">量的 × 量的</text>
+<rect x="851" y="250" width="205" height="60" rx="8" fill="#F2F2F2" stroke="#8C8C8C" stroke-width="2"/>
+<text x="953.5" y="286" text-anchor="middle" font-size="16" fill="#333333">量的（1つ）</text>
+
+<line x1="302.5" y1="310" x2="302.5" y2="342" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+<line x1="519.5" y1="310" x2="519.5" y2="342" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+<line x1="736.5" y1="310" x2="736.5" y2="342" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+<line x1="953.5" y1="310" x2="953.5" y2="342" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
+
+<!-- 終端：棒グラフ -->
+<rect x="200" y="346" width="205" height="184" rx="8" fill="#EAF5EC" stroke="#55A868" stroke-width="2"/>
+<text x="302.5" y="378" text-anchor="middle" font-size="18" font-weight="bold" fill="#333333">棒グラフ</text>
+<line x1="224.5" y1="396" x2="224.5" y2="506" stroke="#8C8C8C" stroke-width="2"/>
+<line x1="224.5" y1="506" x2="382.5" y2="506" stroke="#8C8C8C" stroke-width="2"/>
+<rect x="238.5" y="461" width="30" height="45" fill="#4C72B0"/>
+<rect x="282.5" y="436" width="30" height="70" fill="#4C72B0"/>
+<rect x="326.5" y="411" width="30" height="95" fill="#4C72B0"/>
+
+<!-- 終端：折れ線グラフ -->
+<rect x="417" y="346" width="205" height="184" rx="8" fill="#EAF5EC" stroke="#55A868" stroke-width="2"/>
+<text x="519.5" y="378" text-anchor="middle" font-size="18" font-weight="bold" fill="#333333">折れ線グラフ</text>
+<line x1="441.5" y1="396" x2="441.5" y2="506" stroke="#8C8C8C" stroke-width="2"/>
+<line x1="441.5" y1="506" x2="599.5" y2="506" stroke="#8C8C8C" stroke-width="2"/>
+<polyline points="459.5,483 489.5,455 519.5,465 549.5,425 579.5,406" fill="none" stroke="#4C72B0" stroke-width="3"/>
+<circle cx="459.5" cy="483" r="4.5" fill="#4C72B0"/>
+<circle cx="489.5" cy="455" r="4.5" fill="#4C72B0"/>
+<circle cx="519.5" cy="465" r="4.5" fill="#4C72B0"/>
+<circle cx="549.5" cy="425" r="4.5" fill="#4C72B0"/>
+<circle cx="579.5" cy="406" r="4.5" fill="#4C72B0"/>
+
+<!-- 終端：散布図 -->
+<rect x="634" y="346" width="205" height="184" rx="8" fill="#EAF5EC" stroke="#55A868" stroke-width="2"/>
+<text x="736.5" y="378" text-anchor="middle" font-size="18" font-weight="bold" fill="#333333">散布図</text>
+<line x1="658.5" y1="396" x2="658.5" y2="506" stroke="#8C8C8C" stroke-width="2"/>
+<line x1="658.5" y1="506" x2="816.5" y2="506" stroke="#8C8C8C" stroke-width="2"/>
+<circle cx="674" cy="488" r="5" fill="#4C72B0"/>
+<circle cx="688" cy="470" r="5" fill="#4C72B0"/>
+<circle cx="700" cy="480" r="5" fill="#4C72B0"/>
+<circle cx="714" cy="455" r="5" fill="#4C72B0"/>
+<circle cx="728" cy="463" r="5" fill="#4C72B0"/>
+<circle cx="742" cy="440" r="5" fill="#4C72B0"/>
+<circle cx="756" cy="448" r="5" fill="#4C72B0"/>
+<circle cx="770" cy="425" r="5" fill="#4C72B0"/>
+<circle cx="784" cy="432" r="5" fill="#4C72B0"/>
+<circle cx="798" cy="412" r="5" fill="#4C72B0"/>
+
+<!-- 終端：ヒストグラム -->
+<rect x="851" y="346" width="205" height="184" rx="8" fill="#EAF5EC" stroke="#55A868" stroke-width="2"/>
+<text x="953.5" y="378" text-anchor="middle" font-size="18" font-weight="bold" fill="#333333">ヒストグラム</text>
+<line x1="875.5" y1="396" x2="875.5" y2="506" stroke="#8C8C8C" stroke-width="2"/>
+<line x1="875.5" y1="506" x2="1033.5" y2="506" stroke="#8C8C8C" stroke-width="2"/>
+<rect x="881.5" y="481" width="25" height="25" fill="#4C72B0" stroke="white" stroke-width="1"/>
+<rect x="906.5" y="456" width="25" height="50" fill="#4C72B0" stroke="white" stroke-width="1"/>
+<rect x="931.5" y="421" width="25" height="85" fill="#4C72B0" stroke="white" stroke-width="1"/>
+<rect x="956.5" y="411" width="25" height="95" fill="#4C72B0" stroke="white" stroke-width="1"/>
+<rect x="981.5" y="451" width="25" height="55" fill="#4C72B0" stroke="white" stroke-width="1"/>
+<rect x="1006.5" y="481" width="25" height="25" fill="#4C72B0" stroke="white" stroke-width="1"/>
+</svg>
