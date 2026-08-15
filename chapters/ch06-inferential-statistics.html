@@ -1,0 +1,1115 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ja" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>第6回：データの分析II——一部から全体を知る：推測統計の入口 &#8212; データサイエンス・リテラシー</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=1cf7f4d9"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'クリックして表示';</script>
+    <script>let toggleHintHide = 'クリックして非表示';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script src="../_static/translations.js?v=91613774"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/ch06-inferential-statistics';</script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="第7回：データの可視化とコミュニケーション" href="ch07-data-visualization.html" />
+    <link rel="prev" title="第5回：データの分析I——データを要約し，関係を読む" href="ch05-data-analysis.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ja"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">本文へスキップ</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>トップに戻る</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="バージョン警告"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">データサイエンス・リテラシー</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">検索</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    データサイエンス・リテラシー
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ch01-what-is-ds.html">第1回：データサイエンスとは何か——ビッグデータとThick・Thinデータ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch02-data-collection.html">第2回：データの収集</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch03-database.html">第3回：データの保存と検索</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch04-preprocessing.html">第4回：データの前処理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch05-data-analysis.html">第5回：データの分析I——データを要約し，関係を読む</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">第6回：データの分析II——一部から全体を知る：推測統計の入口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch07-data-visualization.html">第7回：データの可視化とコミュニケーション</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch08-machine-learning.html">第8回：機械学習と予測——AIはどう学ぶのか</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch09-data-law.html">第9回：データと法——情報法の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch10-genai.html">第10回：生成AIの基礎と知的活動への利用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">参考文献</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="このページをダウンロード">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/ch06-inferential-statistics.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="ソースファイルをダウンロード"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="PDFに印刷"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="全画面モード"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="ライト"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="ダーク"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>第6回：データの分析II——一部から全体を知る：推測統計の入口</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目次 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">この回で学ぶこと</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">導入：たった2,000人に聞いて，なぜ「日本全体」が分かるのか</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">標本から全体を推し量る——推測統計の考え方</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">第2回の復習：味噌汁の味見と標本調査</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">「偏りなく」の次の問い：「どれくらい正確か」</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">標本誤差を体感する——シミュレーション実験</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">実験の準備：本当の支持率が「40%」の母集団をつくる</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">2,000人の調査を1回やってみる</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">同じ調査を1,000回繰り返すと——誤差には「型」がある</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">標本サイズを変えると——4倍にしても誤差は半分</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">信頼区間——「誤差±2ポイント」の読み方</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">報道の「支持率44%（誤差±2ポイント）」とは</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">「2ポイント下がった」は下がったのか</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">仮説検定——その差は偶然でも起こりうるか</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">コイン投げの実験：10回中8回表は「偶然」で起こるか</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#p">帰無仮説とp値——「偶然だとしたら」と仮定してみる</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">p値の意味と誤用——「有意」は「重要」ではない</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">活用事例：テレビの視聴率——数千世帯で「全国」を測る</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">まとめ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">確認問題</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">さらに学ぶために</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="ii">
+<h1>第6回：データの分析II——一部から全体を知る：推測統計の入口<a class="headerlink" href="#ii" title="Link to this heading">#</a></h1>
+<section id="id1">
+<h2>この回で学ぶこと<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>この回の学習目標は，次の5点です．</p>
+<ul class="simple">
+<li><p>なぜ約2,000人への調査で「日本全体」の傾向が分かるのかを，<strong>推測統計</strong>の考え方で説明できる</p></li>
+<li><p>偏りなく集めた標本にも避けられない<strong>標本誤差</strong>があること，そして標本サイズを大きくすると誤差は縮むが「4倍にしても半分にしかならない」という限界があることを，シミュレーションで体感する</p></li>
+<li><p>世論調査報道の「支持率◯%（誤差±◯ポイント）」という表現（<strong>信頼区間</strong>）を正しく読める</p></li>
+<li><p>「その差は偶然でも起こりうるか」を確かめる<strong>仮説検定</strong>の発想と，<strong>p値</strong>の意味を直感的に説明できる</p></li>
+<li><p>「統計的に有意＝重要」ではないなど<strong>p値の誤用</strong>のパターンと<strong>再現性</strong>の問題を知り，調査や研究のニュースを鵜呑みにしない読み方を身につける</p></li>
+</ul>
+<p>この章にも，第5回と同じくPythonのコードとその実行結果が多く登場します．コードを書けるようになる必要はありません．「同じ調査を何度も繰り返したら，結果はどれくらい揺れるのか」——ふだんは絶対に見ることのできない光景を，シミュレーションで目撃することがこの章の目玉です．</p>
+<p>本題に入る前に，<a class="reference internal" href="#fig-ch06-lifecycle"><span class="std std-numref">図 29</span></a> で本科目における現在地を確認しておきましょう．今回はデータのライフサイクルのうち，分析の2回めにあたります．</p>
+<figure class="align-default" id="fig-ch06-lifecycle">
+<a class="reference internal image-reference" href="../_images/common-lifecycle-ch06.svg"><img alt="データのライフサイクルの図．収集（第2回），保存・検索（第3回），前処理（第4回），分析I（第5回），分析II（第6回），可視化（第7回）が矢印で順につながり，分析IIのボックスが現在地として橙色で強調されている．その先には「誰かの理解・意思決定へ」とあり，下には発展・横断テーマとして機械学習（第8回），データと法（第9回），生成AI（第10回）の帯が描かれている．" src="../_images/common-lifecycle-ch06.svg" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">図 29 </span><span class="caption-text">本科目における現在地——分析の2回め「分析II：推測統計」（第6回）</span><a class="headerlink" href="#fig-ch06-lifecycle" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id2">
+<h2>導入：たった2,000人に聞いて，なぜ「日本全体」が分かるのか<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<div class="tip admonition">
+<p class="admonition-title">事例：毎月のニュースでおなじみの「内閣支持率」</p>
+<p>テレビや新聞は，毎月のように世論調査の結果を報じています．「内閣支持率は44%で，前回の調査から3ポイント下がりました」——こうしたニュースを，みなさんも一度は目にしたことがあるでしょう．</p>
+<p>ここで，報道の末尾に小さく添えられている調査の概要に注目してください．そこには，たとえばこう書かれています．「全国の有権者から無作為に選んだ約2,000人を対象に調査を実施した」．</p>
+<p>日本の有権者はおよそ1億人です．2,000人というのは，そのうちの<strong>5万人に1人</strong>，割合にして0.002%にすぎません．みなさんの大学の学生全員どころか，1つの学部の人数にも届かない人数です．そんなわずかな人数への調査結果が，「日本全体の世論」として毎月堂々と報じられ，政治を動かす材料にまでなっているのです．</p>
+<p>たった2,000人に聞いただけで，本当に1億人のことが分かるのでしょうか？　分かるとしたら，どれくらい正確に分かるのでしょうか？</p>
+</div>
+<p>この「どれくらい正確に分かるのか」という問いに答えるのが，今回のテーマである推測統計です．実は<a class="reference internal" href="ch02-data-collection.html"><span class="std std-doc">第2回「データの収集」</span></a>で，この問いの前半にはすでに答えています．よくかき混ぜた味噌汁は一口で味が分かる——つまり，偏りなく選ばれた標本は母集団の縮図になる，という話でした．今回はその続きとして，「一口でどこまで正確に分かるのか」「その差は偶然の範囲ではないのか」という<strong>精度と偶然</strong>の問題に踏み込みます．そしてこの章の終わりには，世論調査だけでなく，「新しい勉強法で成績が上がった」「この食品で健康になった」といった，世の中にあふれる「差があった」という主張を見きわめる道具も手に入ります．</p>
+</section>
+<section id="id3">
+<h2>標本から全体を推し量る——推測統計の考え方<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<section id="id4">
+<h3>第2回の復習：味噌汁の味見と標本調査<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>まず，第2回で学んだ言葉を思い出しましょう．本当に知りたい対象の全体が<strong>母集団</strong>（今回の例では有権者約1億人），実際に調べるために取り出した一部が<strong>標本</strong>（調査に答えた約2,000人）でした．そして，鍋いっぱいの味噌汁（母集団）の味は，<strong>よくかき混ぜてから</strong>一口（標本）味見すれば分かる——この「かき混ぜる」にあたるのが，くじ引きのように標本を選ぶ<strong>無作為抽出</strong>でした．</p>
+<p>このように，手元の標本から，その背後にある母集団の性質を推し量る統計学の分野を<strong>推測統計</strong>（inferential statistics）と呼びます．第5回の最後に，「記述統計＝手元のデータを要約して記述する」「推測統計＝手元のデータから全体を推し量る」という役割の違いを紹介しました．今回はいよいよ推測統計の中身に入っていきます．</p>
+<p>第2回の中心事例だったLiterary Digest誌の失敗も思い出してください．約240万人分という空前の回答を集めながら，偏った名簿と回答者の自己選択という二重の選択バイアスのせいで，1936年の大統領選挙の予測を正反対に外した事例でした <span id="id5">[<a class="reference internal" href="../references.html#id11" title="Peverill Squire. Why the 1936 Literary Digest poll failed. Public Opinion Quarterly, 52(1):125–133, 1988. doi:10.1086/269085.">Squire, 1988</a>]</span>．<strong>偏った集め方は量では救えない</strong>——これが第2回の教訓です．一方，同じ選挙で，ギャラップははるかに少人数の，しかし偏りを抑えた調査で当選者を言い当てました．「2,000人で1億人が分かる」という現代の世論調査は，この教訓の上に成り立っています．</p>
+</section>
+<section id="id6">
+<h3>「偏りなく」の次の問い：「どれくらい正確か」<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>ただし，第2回の話には続きがあります．かき混ぜ方が完璧なら，一口の味見は<strong>いつでも鍋全体の味とぴったり同じ</strong>なのでしょうか．</p>
+<p>そんなことはありませんね．どんなによくかき混ぜても，すくった一口には，たまたま具が多めに入るかもしれないし，たまたま味噌が濃いめの部分をすくってしまうかもしれません．つまり，<strong>偏りのない選び方をしても，「たまたま」による小さなずれは避けられない</strong>のです．</p>
+<p>調査でも同じことが起こります．有権者1億人から完璧にくじ引きで2,000人を選んでも，選ばれた2,000人の中の支持率が，1億人全体の支持率とぴったり一致するとは限りません．たまたま支持者が少し多めに選ばれることも，少なめに選ばれることもあります．この，<strong>偏りのない標本にも偶然によって生じる，標本の値と母集団の本当の値とのずれ</strong>を，<strong>標本誤差</strong>（sampling error）と呼びます．</p>
+<p>ここで，第2回で学んだ「標本の偏り」と今回の「標本誤差」の違いを整理しておきましょう．どちらも「標本と母集団のずれ」ですが，性質がまったく違います．</p>
+<ul class="simple">
+<li><p><strong>標本の偏り</strong>（第2回）：集め方の仕組みが原因で生じる，<strong>方向の決まったずれ</strong>．量を増やしても消えない．防ぐには集め方の設計を直すしかない</p></li>
+<li><p><strong>標本誤差</strong>（今回）：偶然が原因で生じる，<strong>方向の決まらないずれ</strong>．標本サイズを大きくすれば小さくできる．そして——ここが重要なのですが——<strong>どれくらいの大きさになるかを理論的に見積もることができる</strong></p></li>
+</ul>
+<p>この2種類の「ずれ」の対比を <a class="reference internal" href="#fig-ch06-bias-vs-error"><span class="std std-numref">図 30</span></a> にまとめました．左の偏りでは，調査結果がいつも本当の値の同じ側にずれるのに対し，右の誤差では，ずれの方向は偶然しだいで，正解の近くほど出やすくなります．</p>
+<figure class="align-default" id="fig-ch06-bias-vs-error">
+<img alt="左右2パネルの対比図．左は「標本の偏り（第2回）」で，数直線上の調査結果の点がすべて本当の値（点線）の同じ側にずれており，原因は集め方の仕組み，量を増やしても消えない，防ぐには集め方の設計を直すしかないと注記されている．右は「標本誤差（今回）」で，点は本当の値の両側に散らばり，原因は偶然，標本サイズを4倍にすると誤差は半分になる，大きさを理論的に見積もれると注記されている．下部に「どちらも標本と母集団のずれだが，原因も対処法もまったく違う」とある．" src="../_images/ch06-bias-vs-error.svg" />
+<figcaption>
+<p><span class="caption-number">図 30 </span><span class="caption-text">標本の偏り（第2回）と標本誤差（今回）の対比．どちらも標本と母集団の「ずれ」だが，原因も対処法もまったく違う</span><a class="headerlink" href="#fig-ch06-bias-vs-error" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>「誤差の大きさを見積もれる」というのは，考えてみれば不思議な話です．本当の支持率が分からないのに，どうして「ずれの大きさ」が分かるのでしょうか．言葉で説明する代わりに，実際に実験して確かめてみましょう．ここからが今回の中心です．</p>
+</section>
+</section>
+<section id="id7">
+<h2>標本誤差を体感する——シミュレーション実験<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<p>現実の世論調査では，「本当の支持率」は誰にも分かりません．また，費用の面から，同じ調査を何百回も繰り返すこともできません．しかしコンピュータの中なら，<strong>本当の支持率が分かっている仮想的な母集団</strong>をつくり，そこから<strong>何度でも標本をとる</strong>という，現実には不可能な実験ができます．これが<strong>シミュレーション</strong>の強みです．</p>
+<p>まず，この章で使うライブラリを読み込みます（クリックすると中身が見られます）．</p>
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># この章で使うライブラリの読み込み</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.graph_objects</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">go</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">plotly.subplots</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_subplots</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTML</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<section id="id8">
+<h3>実験の準備：本当の支持率が「40%」の母集団をつくる<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>100万人の有権者からなる仮想的な母集団をつくります．一人ひとりを「支持する（1）」か「支持しない（0）」かの数字で表し，**本当の支持率はちょうど40%**になるように設定します．神様の視点で「正解」を知ったうえで，調査がどこまで正解に迫れるかを試すわけです．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>  <span class="c1"># 乱数の種を固定して，結果を再現可能にする</span>
+
+<span class="c1"># 仮想的な母集団：100万人の有権者（1 = 支持する，0 = 支持しない）</span>
+<span class="n">population_size</span> <span class="o">=</span> <span class="mi">1_000_000</span>
+<span class="n">true_rate</span> <span class="o">=</span> <span class="mf">0.40</span>  <span class="c1"># 母集団の本当の支持率を40%に設定する</span>
+<span class="n">population</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">population_size</span><span class="p">)</span>
+<span class="n">population</span><span class="p">[:</span> <span class="nb">int</span><span class="p">(</span><span class="n">population_size</span> <span class="o">*</span> <span class="n">true_rate</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;母集団の人数：&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">population</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;母集団の本当の支持率：</span><span class="si">{</span><span class="n">population</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>母集団の人数： 1000000
+母集団の本当の支持率：40.0%
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id9">
+<h3>2,000人の調査を1回やってみる<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p>この母集団から，無作為に2,000人を選んで支持率を調べてみます．現実の世論調査1回分に相当する操作です．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 母集団から無作為に2,000人を選び，その中の支持率を計算する</span>
+<span class="n">sample</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">population</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2000</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;標本2,000人の中の支持率：</span><span class="si">{</span><span class="n">sample</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>標本2,000人の中の支持率：41.4%
+</pre></div>
+</div>
+</div>
+</div>
+<p>結果は**41.4%**でした．本当の支持率40%とぴったり同じではありませんが，かなり近い値です．このずれ（+1.4ポイント）が標本誤差です．では，同じ調査をあと4回繰り返したらどうなるでしょうか．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 同じ調査（無作為に2,000人）をあと4回繰り返す</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+    <span class="n">sample_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">population</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2000</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="si">}</span><span class="s2">回めの調査：支持率 </span><span class="si">{</span><span class="n">sample_i</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2回めの調査：支持率 41.0%
+3回めの調査：支持率 40.8%
+4回めの調査：支持率 40.5%
+5回めの調査：支持率 38.5%
+</pre></div>
+</div>
+</div>
+</div>
+<p>41.0%，40.8%，40.5%，38.5%——<strong>調査のたびに結果が少しずつ違います</strong>．母集団は何ひとつ変わっていないのに，です．現実の世論調査で報道機関ごとに支持率が数ポイント食い違うのも，調査方法の違いに加えて，この標本誤差が効いています．</p>
+</section>
+<section id="id10">
+<h3>同じ調査を1,000回繰り返すと——誤差には「型」がある<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>ここからが本番です．同じ調査を<strong>1,000回</strong>繰り返して，得られた1,000個の支持率がどう散らばるかを見てみましょう．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 「無作為に2,000人を選んで支持率を調べる」調査を1,000回繰り返す</span>
+<span class="n">n_repeat</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">props_2000</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">population</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n_repeat</span><span class="p">,</span> <span class="mi">2000</span><span class="p">))</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;1,000回の調査で得られた支持率の最小値：</span><span class="si">{</span><span class="n">props_2000</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;1,000回の調査で得られた支持率の最大値：</span><span class="si">{</span><span class="n">props_2000</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1,000回の調査で得られた支持率の最小値：36.3%
+1,000回の調査で得られた支持率の最大値：43.3%
+</pre></div>
+</div>
+</div>
+</div>
+<p>1,000回の調査結果を，ヒストグラム（度数分布のグラフ）にしてみます（棒にマウスを重ねると，その範囲に入った調査の回数が表示されます）．</p>
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1,000回の調査結果の散らばりをヒストグラムで描く</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span>
+    <span class="n">go</span><span class="o">.</span><span class="n">Histogram</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">props_2000</span><span class="p">,</span>
+        <span class="n">xbins</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">),</span>
+        <span class="n">marker_color</span><span class="o">=</span><span class="s2">&quot;#4C72B0&quot;</span><span class="p">,</span>
+        <span class="n">hovertemplate</span><span class="o">=</span><span class="s2">&quot;支持率 %</span><span class="si">{x}</span><span class="s2">%の範囲：%</span><span class="si">{y}</span><span class="s2">回&lt;extra&gt;&lt;/extra&gt;&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">add_vline</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">line_dash</span><span class="o">=</span><span class="s2">&quot;dash&quot;</span><span class="p">,</span> <span class="n">line_color</span><span class="o">=</span><span class="s2">&quot;#DD8452&quot;</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">annotation_text</span><span class="o">=</span><span class="s2">&quot;本当の支持率 40%&quot;</span><span class="p">,</span> <span class="n">annotation_position</span><span class="o">=</span><span class="s2">&quot;top right&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;2,000人の調査を1,000回繰り返したら：支持率の散らばり&quot;</span><span class="p">,</span>
+    <span class="n">xaxis_title</span><span class="o">=</span><span class="s2">&quot;調査で得られた支持率（%）&quot;</span><span class="p">,</span>
+    <span class="n">yaxis_title</span><span class="o">=</span><span class="s2">&quot;調査の回数&quot;</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">700</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">430</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">HTML</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="n">include_plotlyjs</span><span class="o">=</span><span class="s2">&quot;cdn&quot;</span><span class="p">,</span> <span class="n">full_html</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>                        <script>window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.4.0.min.js" integrity="sha256-KEmPoupLpFyGMyGAiOsiNDbKDKAvxXAn/W+oQa0ZAfk=" crossorigin="anonymous"></script>                <div id="8180e49f-5557-4e32-930e-a30cac3ec676" class="plotly-graph-div" style="height:430px; width:700px;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("8180e49f-5557-4e32-930e-a30cac3ec676")) {                    Plotly.newPlot(                        "8180e49f-5557-4e32-930e-a30cac3ec676",                        [{"hovertemplate":"支持率 %{x}%の範囲：%{y}回\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":"#4C72B0"},"x":{"dtype":"f8","bdata":"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"},"xbins":{"size":0.5},"type":"histogram"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"shapes":[{"line":{"color":"#DD8452","dash":"dash","width":2},"type":"line","x0":40,"x1":40,"xref":"x","y0":0,"y1":1,"yref":"y domain"}],"annotations":[{"showarrow":false,"text":"本当の支持率 40%","x":40,"xanchor":"left","xref":"x","y":1,"yanchor":"top","yref":"y domain"}],"title":{"text":"2,000人の調査を1,000回繰り返したら：支持率の散らばり"},"xaxis":{"title":{"text":"調査で得られた支持率（%）"}},"yaxis":{"title":{"text":"調査の回数"}},"width":700,"height":430},                        {"responsive": true}                    )                };            </script>        </div></div></div>
+</div>
+<p>このグラフから，2つの大事なことが読み取れます．</p>
+<p>1つめは，散らばりに<strong>きれいな型がある</strong>ことです．1,000個の結果は，本当の支持率40%を中心とした左右対称の山の形に集まっています．でたらめに散らばるのではなく，正解の近くほど出やすく，正解から離れるほど出にくいのです．</p>
+<p>2つめは，<strong>散らばりの幅には限度がある</strong>ことです．1,000回のうち最も外れた回でも36.3%と43.3%で，正解から3ポイントあまりのずれに収まっています．大半の結果は，40%の±2ポイントほどの範囲に集まっています．</p>
+<p>つまり，標本誤差は「偶然」の産物でありながら，<strong>その大きさには規則性がある</strong>のです．統計学は，この規則性を理論的に計算できることを示しました（この章では立ち入りませんが，標本サイズが決まれば誤差の目安が計算で求まります）．「本当の値は分からなくても，ずれの大きさは見積もれる」という先ほどの不思議のからくりは，ここにあります．</p>
+</section>
+<section id="id11">
+<h3>標本サイズを変えると——4倍にしても誤差は半分<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<p>次に，1回の調査で選ぶ人数（<strong>標本サイズ</strong>，sample size）を変えると，散らばりがどう変わるかを実験します．100人・500人・2,000人・8,000人の4通りで，それぞれ1,000回ずつ調査を繰り返してみましょう．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 標本サイズを変えて，それぞれ1,000回ずつ調査を繰り返す</span>
+<span class="n">sizes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">2000</span><span class="p">,</span> <span class="mi">8000</span><span class="p">]</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">sizes</span><span class="p">:</span>
+    <span class="n">results</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">population</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n_repeat</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+
+<span class="c1"># 各標本サイズについて，結果の散らばり具合をまとめる</span>
+<span class="c1"># 「誤差の目安」＝1,000回の結果のうち中央95%が収まる幅の半分（±何ポイントか）</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">sizes</span><span class="p">:</span>
+    <span class="n">props</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+    <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">props</span><span class="p">,</span> <span class="p">[</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">97.5</span><span class="p">])</span>
+    <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s2">&quot;標本サイズ&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">n</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">人&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;最小値（%）&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">props</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="mi">1</span><span class="p">),</span>
+        <span class="s2">&quot;最大値（%）&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">props</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">1</span><span class="p">),</span>
+        <span class="s2">&quot;誤差の目安（±ポイント）&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">((</span><span class="n">upper</span> <span class="o">-</span> <span class="n">lower</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="p">})</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>標本サイズ</th>
+      <th>最小値（%）</th>
+      <th>最大値（%）</th>
+      <th>誤差の目安（±ポイント）</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>100人</td>
+      <td>22.0</td>
+      <td>55.0</td>
+      <td>9.5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>500人</td>
+      <td>32.2</td>
+      <td>46.6</td>
+      <td>4.4</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2,000人</td>
+      <td>35.9</td>
+      <td>43.8</td>
+      <td>2.1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>8,000人</td>
+      <td>38.2</td>
+      <td>41.8</td>
+      <td>1.1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>4つの標本サイズごとの散らばりを，同じ横軸で並べて描いてみます．</p>
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 標本サイズごとのヒストグラムを縦に並べて描く（横軸は共通）</span>
+<span class="n">bin_sizes</span> <span class="o">=</span> <span class="p">{</span><span class="mi">100</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">500</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2000</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">8000</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">}</span>  <span class="c1"># 見やすさのため棒の幅を調整</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">make_subplots</span><span class="p">(</span>
+    <span class="n">rows</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">shared_xaxes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">subplot_titles</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;標本サイズ </span><span class="si">{</span><span class="n">n</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">人&quot;</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">sizes</span><span class="p">],</span>
+    <span class="n">vertical_spacing</span><span class="o">=</span><span class="mf">0.07</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sizes</span><span class="p">):</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span>
+        <span class="n">go</span><span class="o">.</span><span class="n">Histogram</span><span class="p">(</span>
+            <span class="n">x</span><span class="o">=</span><span class="n">results</span><span class="p">[</span><span class="n">n</span><span class="p">],</span>
+            <span class="n">xbins</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">bin_sizes</span><span class="p">[</span><span class="n">n</span><span class="p">]),</span>
+            <span class="n">marker_color</span><span class="o">=</span><span class="s2">&quot;#4C72B0&quot;</span><span class="p">,</span>
+            <span class="n">hovertemplate</span><span class="o">=</span><span class="s2">&quot;支持率 %</span><span class="si">{x}</span><span class="s2">%の範囲：%</span><span class="si">{y}</span><span class="s2">回&lt;extra&gt;&lt;/extra&gt;&quot;</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">row</span><span class="o">=</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">add_vline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">line_dash</span><span class="o">=</span><span class="s2">&quot;dash&quot;</span><span class="p">,</span> <span class="n">line_color</span><span class="o">=</span><span class="s2">&quot;#DD8452&quot;</span><span class="p">,</span>
+                  <span class="n">line_width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span> <span class="n">title_text</span><span class="o">=</span><span class="s2">&quot;調査で得られた支持率（%）&quot;</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;標本サイズを大きくすると，散らばり（標本誤差）が縮んでいく（点線は本当の支持率40%）&quot;</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">750</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">showlegend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">HTML</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="n">include_plotlyjs</span><span class="o">=</span><span class="s2">&quot;cdn&quot;</span><span class="p">,</span> <span class="n">full_html</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>                        <script>window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.4.0.min.js" integrity="sha256-KEmPoupLpFyGMyGAiOsiNDbKDKAvxXAn/W+oQa0ZAfk=" crossorigin="anonymous"></script>                <div id="fe16a67c-2af4-4b16-86e8-5d0f51e3c45a" class="plotly-graph-div" style="height:800px; width:750px;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("fe16a67c-2af4-4b16-86e8-5d0f51e3c45a")) {                    Plotly.newPlot(                        "fe16a67c-2af4-4b16-86e8-5d0f51e3c45a",                        [{"hovertemplate":"支持率 %{x}%の範囲：%{y}回\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":"#4C72B0"},"x":{"dtype":"f8","bdata":"AAAAAAAARUAAAAAAAABEQAAAAAAAAEJAAAAAAACAREAAAAAAAABEQAAAAAAAAEBAAAAAAACAQUAAAAAAAIBEQAAAAAAAAEhAAAAAAAAAQkAAAAAAAIBIQAAAAAAAAERAAAAAAAAAREAAAAAAAIBBQAAAAAAAgEFAAAAAAACAQkAAAAAAAABDQAAAAAAAgENAAAAAAAAARUAAAAAAAABEQAAAAAAAgEVAAAAAAAAARUAAAAAAAABGQAAAAAAAAEhAAAAAAACAREAAAAAAAIBHQAAAAAAAAEBAAAAAAACAREAAAAAAAABIQAAAAAAAgERAAAAAAACAQ0AAAAAAAIBDQAAAAAAAgEFAAAAAAAAARkAAAAAAAABIQAAAAAAAgENAAAAAAACAQ0AAAAAAAIBGQAAAAAAAAEJAAAAAAACAQ0AAAAAAAABGQAAAAAAAgEVAAAAAAAAAR0AAAAAAAIBEQAAAAAAAgERAAAAAAACAQEAAAAAAAABGQAAAAAAAAEdAAAAAAAAARkAAAAAAAIBHQAAAAAAAgEVAAAAAAAAARUAAAAAAAABCQAAAAAAAgERAAAAAAACAREAAAAAAAABDQAAAAAAAAEhAAAAAAACAQEAAAAAAAIBDQAAAAAAAAENAAAAAAACARUAAAAAAAABGQAAAAAAAAEdAAAAAAACAR0AAAAAAAIBEQAAAAAAAgEBAAAAAAAAAP0AAAAAAAABFQAAAAAAAAEVAAAAAAAAAQkAAAAAAAIBFQAAAAAAAgEVAAAAAAAAARkAAAAAAAIBEQAAAAAAAAERAAAAAAAAARkAAAAAAAABGQAAAAAAAAElAAAAAAACASUAAAAAAAIBAQAAAAAAAAENAAAAAAAAARkAAAAAAAABJQAAAAAAAgEZAAAAAAAAASUAAAAAAAIBEQAAAAAAAAEZAAAAAAACAQUAAAAAAAABHQAAAAAAAAEdAAAAAAACARkAAAAAAAIBFQAAAAAAAAEdAAAAAAACAREAAAAAAAABGQAAAAAAAAEdAAAAAAAAASUAAAAAAAABIQAAAAAAAAERAAAAAAAAARUAAAAAAAABEQAAAAAAAgEVAAAAAAACARkAAAAAAAIBDQAAAAAAAAEdAAAAAAAAARUAAAAAAAABFQP\u002f\u002f\u002f\u002f\u002f\u002f\u002fzxAAAAAAAAAQEAAAAAAAABDQAAAAAAAAD5AAAAAAACARkAAAAAAAIBFQAAAAAAAAEdAAAAAAAAARUAAAAAAAIBFQAAAAAAAAEVAAAAAAACARUAAAAAAAIBEQAAAAAAAAEJAAAAAAACAREAAAAAAAIBBQAAAAAAAAEZAAAAAAAAAQkAAAAAAAABJQAAAAAAAgENAAAAAAACAQ0AAAAAAAABBQAAAAAAAgEZAAAAAAAAARkAAAAAAAIBCQAAAAAAAgEdAAAAAAAAAREAAAAAAAIBBQAAAAAAAgEVAAQAAAACAS0AAAAAAAABKQAAAAAAAgEBAAAAAAACAQUAAAAAAAABJQAAAAAAAAEVAAAAAAACAREAAAAAAAIBBQAAAAAAAgENAAAAAAACARUAAAAAAAABEQAAAAAAAAEBAAAAAAAAARUABAAAAAIBLQAAAAAAAAEhAAAAAAAAASEAAAAAAAIBAQAAAAAAAgEdAAAAAAAAAREAAAAAAAIBFQAAAAAAAgENAAAAAAACARkAAAAAAAIBHQAAAAAAAAEFAAAAAAACAQ0AAAAAAAABDQAAAAAAAgEVAAAAAAAAAQkAAAAAAAIBAQAAAAAAAgEFAAAAAAAAAQEAAAAAAAABFQAAAAAAAAEVAAAAAAAAAQUAAAAAAAABBQAAAAAAAAERAAAAAAAAAQUAAAAAAAIBDQAAAAAAAgEFAAAAAAAAARUAAAAAAAABFQAAAAAAAAERA\u002f\u002f\u002f\u002f\u002f\u002f\u002f\u002fPEAAAAAAAIBCQAAAAAAAgEVAAAAAAAAAQUAAAAAAAIBFQAAAAAAAAD9AAAAAAACAQEAAAAAAAABFQAAAAAAAAEZAAAAAAACAQUAAAAAAAIBFQAAAAAAAAEJAAAAAAACAQUAAAAAAAIBFQAAAAAAAAERAAAAAAAAAREAAAAAAAABHQAAAAAAAAENAAAAAAAAAQ0AAAAAAAIBBQAAAAAAAAEdAAAAAAACAQkAAAAAAAIBCQAAAAAAAAEZAAAAAAAAAQUAAAAAAAIBEQAAAAAAAgEhAAAAAAAAARkAAAAAAAIBAQAAAAAAAgEVAAAAAAAAARkABAAAAAAA8QAAAAAAAAEFAAAAAAACARkAAAAAAAIBHQAAAAAAAAEJAAAAAAACARkAAAAAAAABCQAAAAAAAAEVAAAAAAAAAQ0AAAAAAAABEQAAAAAAAgEhAAAAAAAAAQ0AAAAAAAABBQAAAAAAAgENAAAAAAAAAQUAAAAAAAIBGQAAAAAAAAEZAAAAAAAAARUAAAAAAAIBEQAAAAAAAgERAAAAAAACAR0AAAAAAAIBEQAAAAAAAgEBAAAAAAAAARUAAAAAAAABCQAAAAAAAgEZAAAAAAACAQEAAAAAAAABFQAAAAAAAgERAAAAAAAAARUAAAAAAAABEQAAAAAAAAEZAAAAAAACAREAAAAAAAIBCQAAAAAAAAENAAAAAAACARkAAAAAAAABEQAAAAAAAAENAAAAAAAAAQ0AAAAAAAABFQAAAAAAAAEdAAAAAAAAAQkAAAAAAAABFQAAAAAAAAERAAAAAAAAAQ0AAAAAAAABFQAAAAAAAAEFAAAAAAACARUAAAAAAAABEQAAAAAAAAENAAAAAAAAAQ0AAAAAAAABCQAAAAAAAAEJAAAAAAACAREAAAAAAAABEQAAAAAAAgENAAAAAAAAAREAAAAAAAABGQAAAAAAAAEJAAAAAAAAAQkAAAAAAAIBIQAAAAAAAAEJAAAAAAACARUAAAAAAAABGQAAAAAAAAEBAAAAAAAAASEAAAAAAAIBEQAAAAAAAAERAAAAAAACAQUAAAAAAAABHQAAAAAAAgEVAAAAAAACAQkAAAAAAAIBAQAAAAAAAgEZAAAAAAACASEAAAAAAAIBEQAAAAAAAAD9AAAAAAAAAQkAAAAAAAABCQAAAAAAAgEJAAAAAAAAAQ0AAAAAAAABEQAAAAAAAgEFAAAAAAAAAQ0AAAAAAAIBJQAAAAAAAgERAAAAAAAAARkAAAAAAAABBQAAAAAAAAEZAAAAAAAAAQ0AAAAAAAABEQAAAAAAAgEVAAAAAAAAASUAAAAAAAABAQAAAAAAAAERAAAAAAACAQUAAAAAAAIBCQAAAAAAAAD9AAAAAAACAQkAAAAAAAIBBQAAAAAAAAEVAAAAAAAAARkAAAAAAAIBCQAAAAAAAAERAAAAAAAAAQ0AAAAAAAABFQAAAAAAAgENAAAAAAACAR0AAAAAAAIBFQAAAAAAAAD9AAAAAAACAQEAAAAAAAIBEQAAAAAAAgEFAAAAAAAAAQ0AAAAAAAABEQAAAAAAAAEdAAAAAAAAAQkAAAAAAAABIQAAAAAAAgEFAAAAAAACAQUAAAAAAAABEQAAAAAAAAERAAAAAAAAAREAAAAAAAIBAQAAAAAAAgEZAAAAAAACAQkAAAAAAAABBQAAAAAAAAEhAAAAAAACAREAAAAAAAABKQAAAAAAAAEFAAAAAAAAAREAAAAAAAIBCQAAAAAAAAEdAAAAAAACAQ0AAAAAAAABEQAAAAAAAAEFAAAAAAAAASEAAAAAAAIBDQAAAAAAAgERAAAAAAACARUAAAAAAAIBIQAAAAAAAgERAAAAAAAAAREAAAAAAAIBFQAAAAAAAAEBAAAAAAAAARkAAAAAAAIBIQAAAAAAAAENAAAAAAACASUAAAAAAAIBBQAAAAAAAgEdAAAAAAACAQkAAAAAAAABDQAAAAAAAAEVAAAAAAAAAQUAAAAAAAIBDQAAAAAAAAD5AAAAAAAAARUAAAAAAAIBAQAAAAAAAgERAAAAAAAAAQ0AAAAAAAIBBQAAAAAAAgENAAAAAAAAAQEAAAAAAAABCQAAAAAAAAEZAAAAAAACAQUAAAAAAAIBDQAAAAAAAAERAAAAAAAAAQUAAAAAAAIBAQAAAAAAAgEJAAAAAAACAR0AAAAAAAIBEQAAAAAAAgENAAAAAAACARkAAAAAAAABEQAAAAAAAAEVAAAAAAAAARkAAAAAAAIBFQAAAAAAAgEVAAAAAAAAAQ0AAAAAAAABFQAAAAAAAgEZAAAAAAAAARUAAAAAAAIBEQAAAAAAAAEhAAAAAAAAAR0AAAAAAAIBHQAAAAAAAAEhAAAAAAACAQ0AAAAAAAABEQAAAAAAAAEZAAAAAAACARkAAAAAAAABCQAAAAAAAAENAAAAAAAAARUAAAAAAAABGQAAAAAAAAEJAAAAAAACAQEAAAAAAAABIQAAAAAAAAEFAAAAAAACARUAAAAAAAABDQAAAAAAAgENAAAAAAAAAQEAAAAAAAIBEQAAAAAAAAENAAAAAAAAAQUAAAAAAAABCQAAAAAAAgEZAAAAAAACAQkAAAAAAAABDQAAAAAAAAENAAAAAAAAAREAAAAAAAABAQAAAAAAAAENAAAAAAAAAQkAAAAAAAABBQAAAAAAAgEVAAAAAAAAAREAAAAAAAIBEQAAAAAAAAERAAAAAAAAARkAAAAAAAABDQAAAAAAAgENAAAAAAACAQ0AAAAAAAABJQAAAAAAAgENAAAAAAAAAQUAAAAAAAIBEQAAAAAAAAEZAAAAAAAAARUAAAAAAAABGQAAAAAAAgEFAAAAAAACARkAAAAAAAABBQAAAAAAAgENA\u002f\u002f\u002f\u002f\u002f\u002f\u002f\u002fPEAAAAAAAAA2QAAAAAAAAENAAAAAAAAAREAAAAAAAIBBQAAAAAAAAEdAAAAAAACAREAAAAAAAIBAQAAAAAAAgENAAAAAAAAAQEAAAAAAAAA\u002fQAAAAAAAAERAAAAAAAAASUAAAAAAAABBQAAAAAAAgEFAAAAAAACAQEAAAAAAAIBGQAAAAAAAAERAAAAAAACARUAAAAAAAABGQAAAAAAAgERAAAAAAAAAR0AAAAAAAIBFQAAAAAAAAENAAAAAAAAARkAAAAAAAIBDQAAAAAAAgENAAAAAAACARUAAAAAAAABBQAAAAAAAgEZAAAAAAAAAQkAAAAAAAIBBQAAAAAAAAEdAAAAAAACAQkAAAAAAAIBDQAAAAAAAgEJAAAAAAACAQ0AAAAAAAIBEQAAAAAAAAEZAAAAAAACAREAAAAAAAIBEQAAAAAAAgEdAAAAAAACAQ0AAAAAAAIBJQAAAAAAAgEVAAAAAAAAASEAAAAAAAABGQAAAAAAAgEJAAAAAAACAREAAAAAAAIBEQAAAAAAAAERAAAAAAAAAQkAAAAAAAABFQAAAAAAAAERAAAAAAAAAR0AAAAAAAIBAQAAAAAAAAEZAAAAAAACAQ0AAAAAAAABIQAAAAAAAgENAAAAAAACAREAAAAAAAIBFQAAAAAAAAEJAAAAAAAAAQkAAAAAAAABDQAAAAAAAgEVAAAAAAACAQkAAAAAAAIBBQAAAAAAAAD9AAAAAAACAQkAAAAAAAIBHQAAAAAAAAENAAAAAAAAAPkAAAAAAAABFQAAAAAAAAEhAAAAAAACAREAAAAAAAIBAQAAAAAAAAEZAAAAAAACAQUAAAAAAAABFQAAAAAAAAEZAAAAAAACAREAAAAAAAABIQAAAAAAAAEBAAAAAAAAARUAAAAAAAABAQAAAAAAAgERAAAAAAAAAQkAAAAAAAABDQAAAAAAAAEJAAAAAAAAAQUAAAAAAAABDQAAAAAAAAEBAAAAAAACAQkAAAAAAAIBDQAAAAAAAgEBAAAAAAACAQ0AAAAAAAIBBQAAAAAAAgEFAAAAAAAAARUAAAAAAAABBQAAAAAAAgENAAAAAAACAQED\u002f\u002f\u002f\u002f\u002f\u002f\u002f88QAAAAAAAgENAAAAAAACAQUAAAAAAAABEQAAAAAAAgEVAAAAAAAAAP0AAAAAAAIBDQP\u002f\u002f\u002f\u002f\u002f\u002f\u002fzxAAAAAAAAAREAAAAAAAIBDQAAAAAAAAERAAAAAAACAREAAAAAAAIBDQAAAAAAAgERAAAAAAACAQUAAAAAAAABFQAAAAAAAAERAAAAAAACAREAAAAAAAIBDQAAAAAAAgEJAAAAAAAAASEAAAAAAAIBCQAAAAAAAAEFAAAAAAACAQEAAAAAAAIBCQAAAAAAAgEFAAAAAAAAARUAAAAAAAIBBQAAAAAAAgEVAAAAAAAAAPkAAAAAAAIBAQAAAAAAAgEpAAAAAAAAAQUAAAAAAAIBDQAAAAAAAgEVAAAAAAACAR0AAAAAAAIBIQAAAAAAAgEJAAAAAAACASUAAAAAAAABEQAAAAAAAAERAAAAAAACAREAAAAAAAIBCQAAAAAAAAEVAAAAAAAAAQkAAAAAAAIBCQAAAAAAAgENAAAAAAAAAREAAAAAAAAA+QAAAAAAAAENAAAAAAACAREAAAAAAAABEQAAAAAAAAD9AAAAAAAAAQkAAAAAAAIBCQAAAAAAAAEFAAAAAAACAR0AAAAAAAABEQAAAAAAAgENAAAAAAAAAR0AAAAAAAABGQAAAAAAAAEZAAAAAAACAQ0AAAAAAAABGQAAAAAAAgEdAAAAAAAAAQkAAAAAAAABGQAAAAAAAAERAAAAAAAAAREAAAAAAAIBEQAAAAAAAAEVAAAAAAACAR0AAAAAAAABFQAAAAAAAAEdAAAAAAACASUAAAAAAAIBBQAAAAAAAAEhAAAAAAACAQ0AAAAAAAABFQAAAAAAAAEFAAAAAAAAARUAAAAAAAIBDQAAAAAAAgEdAAAAAAACAQUAAAAAAAAA\u002fQAAAAAAAgEBAAAAAAAAAQ0AAAAAAAABDQAAAAAAAAEZAAAAAAAAARkAAAAAAAIBFQAAAAAAAgERAAAAAAACAQkAAAAAAAABEQAAAAAAAgENAAAAAAAAAQ0AAAAAAAABDQAAAAAAAgENAAAAAAAAAR0AAAAAAAIBFQAAAAAAAAEVAAAAAAAAAQ0AAAAAAAABGQAAAAAAAAEJAAAAAAAAAREAAAAAAAIBAQAAAAAAAAERAAAAAAACAQ0AAAAAAAIBCQAAAAAAAgERAAAAAAACARkAAAAAAAIBDQAAAAAAAAEVAAAAAAAAARUAAAAAAAABAQAAAAAAAgERAAAAAAACASUAAAAAAAABIQAAAAAAAgEBAAAAAAAAAREAAAAAAAABBQAAAAAAAgEBAAAAAAAAAQkAAAAAAAIBGQAAAAAAAgEBAAAAAAACAREAAAAAAAABFQAAAAAAAgENAAAAAAACARUAAAAAAAIBCQAAAAAAAgEFAAAAAAAAAR0AAAAAAAABGQAAAAAAAAEVAAAAAAAAAQkAAAAAAAIBAQAAAAAAAAEVAAAAAAACARUAAAAAAAIBBQAAAAAAAAD9AAAAAAAAARkAAAAAAAIBBQAAAAAAAAEdAAAAAAACAQ0AAAAAAAIBBQAAAAAAAgENAAAAAAAAAQkAAAAAAAIBEQAAAAAAAAENAAAAAAAAAQ0AAAAAAAIBHQAAAAAAAAEZAAAAAAACAQUAAAAAAAABFQAAAAAAAAEVAAAAAAAAARkAAAAAAAIBDQAAAAAAAgERAAAAAAAAAQUAAAAAAAABFQAAAAAAAAEdAAAAAAAAAQUAAAAAAAABEQAAAAAAAgENAAAAAAACAQ0AAAAAAAIBIQAAAAAAAgENAAAAAAACAQ0AAAAAAAIBGQAAAAAAAAEhAAAAAAAAARkAAAAAAAIBFQAAAAAAAAEZAAAAAAACAQkAAAAAAAABCQAAAAAAAAENAAAAAAACAREAAAAAAAIBBQAAAAAAAAEBAAAAAAACAR0AAAAAAAABKQAAAAAAAgENAAAAAAAAARUAAAAAAAABHQAAAAAAAgEhAAAAAAACAQ0AAAAAAAABHQAAAAAAAgERAAAAAAAAASEAAAAAAAIBGQAAAAAAAgEJAAAAAAACARkAAAAAAAABDQAAAAAAAAEJAAAAAAACAQUAAAAAAAIBDQAAAAAAAAENAAAAAAAAARkAAAAAAAABEQAAAAAAAAENAAAAAAAAAQ0AAAAAAAIBEQAAAAAAAgEZAAAAAAACAQUAAAAAAAIBBQAAAAAAAAEZAAAAAAACARUAAAAAAAABEQAAAAAAAAENAAAAAAACAQkAAAAAAAIBEQAAAAAAAAEVAAAAAAAAARUAAAAAAAABKQAAAAAAAgEdAAAAAAAAAREAAAAAAAIBJQAAAAAAAgEVAAAAAAACAQ0AAAAAAAIBBQAAAAAAAgEJAAAAAAAAAQkAAAAAAAABGQAAAAAAAAEdAAAAAAACAR0AAAAAAAIBEQAAAAAAAAERAAAAAAACAR0AAAAAAAIBBQAAAAAAAgEZAAAAAAAAAQkAAAAAAAABGQAAAAAAAgEJAAAAAAACAQ0AAAAAAAIBEQAAAAAAAgENAAAAAAACAREAAAAAAAABEQAAAAAAAAEBAAAAAAAAAQUAAAAAAAABCQAAAAAAAgEJAAAAAAAAAREAAAAAAAIBDQAAAAAAAgEBAAAAAAAAAQkAAAAAAAABCQAAAAAAAgENAAAAAAAAAQUAAAAAAAIBDQAAAAAAAAEJAAAAAAAAAQkAAAAAAAIBFQAAAAAAAAEVAAAAAAAAARUAAAAAAAABCQAAAAAAAAEhAAAAAAAAARkAAAAAAAIBDQAAAAAAAgEVAAAAAAAAARUAAAAAAAIBHQAAAAAAAAEJAAAAAAACAQkAAAAAAAABFQAAAAAAAgEZAAAAAAAAARUAAAAAAAABDQAAAAAAAAEBAAAAAAAAARkAAAAAAAIBCQAAAAAAAgEBAAAAAAAAAREAAAAAAAIBAQAAAAAAAAEVAAAAAAAAAQkAAAAAAAIBBQAAAAAAAAENAAAAAAAAAR0AAAAAAAIBBQAAAAAAAAEZAAAAAAAAAQ0AAAAAAAIBCQAAAAAAAAEZAAAAAAAAAR0AAAAAAAABBQAAAAAAAgEVAAAAAAAAAREAAAAAAAIBDQAAAAAAAAENAAAAAAAAAREAAAAAAAABFQAAAAAAAAENAAAAAAAAAR0AAAAAAAIBFQAAAAAAAgEVAAAAAAAAAQkAAAAAAAIBGQAAAAAAAgEdAAAAAAACAQkAAAAAAAABHQAAAAAAAgEBAAAAAAAAARUAAAAAAAABBQAAAAAAAgEVAAAAAAACASEAAAAAAAABCQAAAAAAAAEVAAAAAAAAASEAAAAAAAABLQAAAAAAAAEdAAAAAAACAQ0AAAAAAAIBFQAAAAAAAgERAAAAAAACAQUAAAAAAAABIQAAAAAAAAERAAAAAAAAARUAAAAAAAABCQAAAAAAAgEVAAAAAAACAQ0AAAAAAAABDQAAAAAAAADtAAAAAAACAR0AAAAAAAIBDQAAAAAAAAEZAAAAAAAAAR0AAAAAAAABFQAAAAAAAgENAAAAAAACAR0AAAAAAAABGQAEAAAAAADxAAAAAAAAASUAAAAAAAABCQAAAAAAAAEdAAAAAAACASEAAAAAAAABKQAAAAAAAAEFAAAAAAACAR0AAAAAAAABFQAAAAAAAAERAAAAAAAAASEAAAAAAAABCQAAAAAAAgEZAAAAAAACAQ0AAAAAAAIBFQAAAAAAAgEhAAAAAAACASEAAAAAAAABEQAAAAAAAgERAAAAAAACARkAAAAAAAABBQAAAAAAAAEZAAAAAAACARkAAAAAAAABFQAAAAAAAAEZAAAAAAACAREAAAAAAAIBFQAAAAAAAAERAAAAAAACAQ0AAAAAAAIBJQAAAAAAAgEVAAAAAAAAAREAAAAAAAABFQAAAAAAAAEJAAAAAAAAAREAAAAAAAIBEQAAAAAAAgERAAAAAAACAQEAAAAAAAIBBQAAAAAAAgENAAAAAAAAAP0AAAAAAAIBDQAAAAAAAAENAAAAAAAAAREAAAAAAAABCQAAAAAAAgEFAAAAAAAAAR0AAAAAAAIBHQAAAAAAAgEZAAAAAAACAQ0AAAAAAAAA+QAAAAAAAgENAAAAAAAAAR0AAAAAAAIBAQAAAAAAAAEtAAAAAAAAARkAAAAAAAABGQAAAAAAAgEFAAAAAAACAREAAAAAAAABGQAAAAAAAAEVAAAAAAACAQEAAAAAAAABBQAAAAAAAgERAAAAAAAAAQ0AAAAAAAABEQAAAAAAAgERAAAAAAAAAQEAAAAAAAABIQAAAAAAAgEJAAAAAAACARkAAAAAAAABGQAAAAAAAgEJAAAAAAACAQEAAAAAAAIBCQAAAAAAAAENAAAAAAACARkAAAAAAAABGQAAAAAAAgEZAAAAAAAAAQ0AAAAAAAAA+QAAAAAAAAEZAAAAAAACAR0AAAAAAAABCQAAAAAAAAENAAAAAAAAAQkAAAAAAAIBDQAAAAAAAAEVAAAAAAAAARkAAAAAAAABHQAAAAAAAgEVAAAAAAAAAREAAAAAAAIBCQAAAAAAAAEVAAAAAAACAREAAAAAAAABGQAAAAAAAgEFA\u002f\u002f\u002f\u002f\u002f\u002f\u002f\u002fPEAAAAAAAABBQAAAAAAAAEZAAAAAAAAARUAAAAAAAIBFQAAAAAAAAEBAAAAAAAAAQ0AAAAAAAIBGQAAAAAAAgEhAAAAAAAAARkAAAAAAAABBQAAAAAAAAENAAAAAAAAARUAAAAAAAIBIQAAAAAAAgEJAAAAAAAAARkAAAAAAAABBQAAAAAAAgERAAAAAAACARkAAAAAAAABCQAAAAAAAADtAAAAAAACAQEA="},"xbins":{"size":2},"type":"histogram","xaxis":"x","yaxis":"y"},{"hovertemplate":"支持率 %{x}%の範囲：%{y}回\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":"#4C72B0"},"x":{"dtype":"f8","bdata":"AAAAAAAAREDNzMzMzExDQAAAAAAAAEVAmpmZmZkZQ0AAAAAAAABFQDMzMzMzs0RAZmZmZmZmQUAzMzMzM7NCQDMzMzMzs0RAzczMzMzMQUCamZmZmZlDQAAAAAAAAENAmpmZmZmZQkCamZmZmRlDQM3MzMzMTENANDMzMzMzREA0MzMzMzNEQAAAAAAAAERAMzMzMzOzQ0A0MzMzMzNEQDMzMzMzM0FANDMzMzMzRECZmZmZmZlEQAAAAAAAAEVAMzMzMzOzREAAAAAAAABDQAAAAAAAgEVAzczMzMzMQ0CZmZmZmRlCQAAAAAAAgERAAAAAAAAARUDNzMzMzMxDQM3MzMzMzEJAzczMzMzMQ0DNzMzMzMxDQGdmZmZm5kNAZmZmZmbmREDNzMzMzMxDQM3MzMzMzENAzczMzMxMQ0BmZmZmZmZEQAAAAAAAgENAzczMzMxMRUCamZmZmZlDQAAAAAAAgEVAzczMzMzMQUAzMzMzMzNDQDMzMzMzs0NAZmZmZmZmRECamZmZmRlEQDQzMzMzM0RAmpmZmZmZRUAzMzMzM7NDQM3MzMzMzENAAAAAAAAAREAAAAAAAIBDQGZmZmZm5kVAZ2ZmZmZmQ0AAAAAAAABEQJqZmZmZGUNAzczMzMzMRECZmZmZmZlEQJmZmZmZmUFAMzMzMzOzREAAAAAAAIBDQAAAAAAAAERAAAAAAACARUCamZmZmZlDQJmZmZmZmURAMzMzMzOzQkBnZmZmZuZDQJqZmZmZGURAzczMzMxMREAAAAAAAIBCQGdmZmZm5kNAmpmZmZmZQkCamZmZmRlEQAAAAAAAAENAMzMzMzOzQUBmZmZmZmZEQAAAAAAAgEZAmpmZmZkZQ0AAAAAAAABDQDMzMzMzs0VAMzMzMzMzQ0DNzMzMzExEQAAAAAAAAEVAZmZmZmZmRUCZmZmZmRlFQAAAAAAAAEVAmpmZmZkZQ0CZmZmZmRlFQDQzMzMzM0RAMzMzMzOzRUDNzMzMzMxDQAAAAAAAAERAZmZmZmbmQkBnZmZmZmZDQJqZmZmZGURAZmZmZmZmRUAzMzMzM7NFQDMzMzMzs0JAAAAAAACAQ0DNzMzMzMxFQGZmZmZm5kRANDMzMzMzREAzMzMzM7NEQM3MzMzMTENAzczMzMzMQkCamZmZmRlEQDMzMzMzs0RAAAAAAACAREDNzMzMzExDQM3MzMzMzENAAAAAAACAREAzMzMzM7NDQJqZmZmZGURAZmZmZmZmQkDNzMzMzExEQGdmZmZm5kNAAAAAAAAAREA0MzMzMzNEQAAAAAAAgENAZmZmZmZmREAzMzMzM7NCQGdmZmZmZkZAzczMzMxMQ0BmZmZmZmZFQGZmZmZm5kJAMzMzMzOzREBmZmZmZuZCQAAAAAAAAENAzczMzMzMRkAzMzMzM7NEQM3MzMzMzENAZmZmZmZmRUDNzMzMzExDQM3MzMzMTEZAAAAAAACARUAAAAAAAIBCQM3MzMzMzERAZmZmZmZmQkDNzMzMzMxCQDMzMzMzs0RAMzMzMzOzREAzMzMzMzNDQAAAAAAAgEZAZ2ZmZmbmQ0AzMzMzM7NFQGdmZmZm5kNAmpmZmZkZREAAAAAAAABDQM3MzMzMTEdAmpmZmZmZQ0BnZmZmZmZDQDMzMzMzM0NAAAAAAAAARUBmZmZmZmZEQAAAAAAAgENAAAAAAACAQ0BnZmZmZuZDQAAAAAAAgENAZ2ZmZmZmQ0AAAAAAAABDQAAAAAAAAERAZmZmZmZmRECamZmZmRlEQGdmZmZm5kNAMzMzMzOzQ0AzMzMzM7NEQM3MzMzMTERAMzMzMzMzRUAAAAAAAIBEQJmZmZmZGUVANDMzMzMzREBmZmZmZuZCQDMzMzMzs0NAmpmZmZmZQ0DNzMzMzMxCQDQzMzMzM0RAmpmZmZkZR0AzMzMzMzNFQGZmZmZmZkVAAAAAAACAREBmZmZmZuZCQGZmZmZmZkRAzczMzMxMQkA0MzMzMzNHQGdmZmZmZkNAzczMzMzMQ0BmZmZmZuZCQDMzMzMzs0RAmZmZmZkZRUCamZmZmZlDQJmZmZmZGUVAzczMzMzMQ0AAAAAAAIBCQAAAAAAAgEVANDMzMzMzREAAAAAAAABEQGZmZmZm5kVAmpmZmZkZQ0AAAAAAAABFQM3MzMzMzENAMzMzMzOzRUBmZmZmZmZFQM3MzMzMTEVANDMzMzMzREAAAAAAAIBEQGZmZmZm5kJAMzMzMzOzQ0DNzMzMzExFQJqZmZmZGURAzczMzMxMRkAAAAAAAIBEQJqZmZmZGURAzczMzMzMQkBnZmZmZmZDQDMzMzMzs0NAzczMzMxMQkDNzMzMzExDQAAAAAAAAERAZmZmZmZmREDNzMzMzMxEQAAAAAAAgERAZmZmZmbmRECZmZmZmRlFQDMzMzMzM0JAzczMzMzMQ0AAAAAAAIBDQM3MzMzMzEFAmpmZmZmZQ0AAAAAAAIBEQGdmZmZm5kNAmZmZmZmZREBmZmZmZuZEQJqZmZmZGUNAAAAAAACAREAAAAAAAABGQAAAAAAAAERAzczMzMxMQ0AAAAAAAIBCQDMzMzMzM0VAmpmZmZmZRUAzMzMzMzNDQDMzMzMzs0JAAAAAAACAREAAAAAAAABDQAAAAAAAgEVAAAAAAAAARkBmZmZmZmZEQGdmZmZmZkNAMzMzMzOzRUAzMzMzMzNFQDMzMzMzs0JAZmZmZmZmRUDNzMzMzExDQM3MzMzMzENAAAAAAACAQ0BmZmZmZuZFQAAAAAAAgENAAAAAAACAREAAAAAAAABFQDMzMzMzM0VAAAAAAAAAQ0BmZmZmZmZEQJmZmZmZmURAmZmZmZkZRUCamZmZmRlEQJqZmZmZGURAZ2ZmZmZmQ0BnZmZmZmZDQM3MzMzMTERAzczMzMzMQ0CZmZmZmZlEQM3MzMzMTERANDMzMzMzREBmZmZmZmZEQJqZmZmZmUNAMzMzMzOzQ0AzMzMzM7NEQJmZmZmZGUJANDMzMzMzREAzMzMzM7NCQJqZmZmZmUNAAAAAAACAREDNzMzMzExEQGdmZmZm5kNAmpmZmZkZQ0CamZmZmZlFQGdmZmZm5kNAzczMzMxMREAAAAAAAABDQGZmZmZmZkVAmZmZmZkZRUA0MzMzMzNEQAAAAAAAAEJAAAAAAACARECamZmZmRlDQAAAAAAAAENAMzMzMzOzREDNzMzMzExDQDMzMzMzM0VAmpmZmZmZQ0DNzMzMzMxCQMzMzMzMTEFAzczMzMxMQkAAAAAAAIBCQGZmZmZm5kRAMzMzMzMzRUDNzMzMzMxDQAAAAAAAgERAAAAAAACAQ0BnZmZmZmZDQGZmZmZm5kRAzczMzMxMREAzMzMzMzNFQDMzMzMzs0VAMzMzMzOzQ0DNzMzMzExDQJmZmZmZGUVAMzMzMzOzREAAAAAAAIBDQDMzMzMzs0RAAAAAAACAQkCamZmZmRlGQM3MzMzMzENAMzMzMzOzRECamZmZmRlEQGZmZmZm5kRAmpmZmZmZQ0AAAAAAAABFQGdmZmZm5kNAzczMzMxMQ0BnZmZmZmZDQJmZmZmZmUFAZ2ZmZmbmQ0AAAAAAAABEQDMzMzMzM0NAzczMzMxMQ0AzMzMzM7NDQM3MzMzMzENAMzMzMzOzREBmZmZmZuZFQAAAAAAAAEVAzczMzMzMQ0CamZmZmZlFQJmZmZmZGUVAzczMzMxMRkAzMzMzMzNFQDMzMzMzs0FAAAAAAACAQkDNzMzMzMxFQJqZmZmZGURAzczMzMxMRECamZmZmRlDQGZmZmZmZkRAMzMzMzOzQ0A0MzMzMzNEQAAAAAAAAEVAzczMzMxMQ0AzMzMzM7NDQJmZmZmZGUVAzczMzMzMQ0CamZmZmRlDQAAAAAAAgERAMzMzMzOzRUDNzMzMzExFQAAAAAAAAEZAzczMzMzMQkBnZmZmZuZDQM3MzMzMTERAzczMzMzMRUCamZmZmRlEQM3MzMzMzENAMzMzMzOzQ0CamZmZmZlDQGZmZmZmZkRAAAAAAACAQ0AAAAAAAIBEQAAAAAAAgEJAmpmZmZkZREAzMzMzM7NBQJqZmZmZGURANDMzMzMzREAAAAAAAIBDQJqZmZmZGUNAZ2ZmZmbmQ0BnZmZmZmZDQAAAAAAAAENAzczMzMxMQ0DNzMzMzMxBQM3MzMzMzENAzczMzMzMRECamZmZmRlGQDMzMzMzs0NAmZmZmZmZRECamZmZmRlDQGdmZmZm5kNAZmZmZmZmRUCZmZmZmRlFQM3MzMzMTENAMzMzMzOzRECamZmZmZlDQGdmZmZm5kNAZmZmZmZmRUBnZmZmZuZDQJmZmZmZGUVAZ2ZmZmbmQ0AzMzMzMzNDQAAAAAAAAERAAAAAAACARUDNzMzMzExEQDMzMzMzM0FAmZmZmZkZRUAAAAAAAIBDQJqZmZmZGURAZ2ZmZmbmQ0CamZmZmRlEQGZmZmZmZkRAmpmZmZmZQkAzMzMzM7NDQM3MzMzMTERAMzMzMzOzQUAAAAAAAABEQDMzMzMzM0NAzczMzMxMQkAzMzMzMzNFQAAAAAAAgEVAmZmZmZmZREAzMzMzM7NCQDQzMzMzM0RAMzMzMzOzRUBmZmZmZmZCQAAAAAAAAENAZmZmZmbmREAAAAAAAIBCQM3MzMzMTENAmZmZmZkZQkDNzMzMzExDQGZmZmZm5kJAzczMzMzMRUDNzMzMzMxEQDMzMzMzM0NAAAAAAAAARUDNzMzMzMxEQAAAAAAAAEJAAAAAAACAQ0DNzMzMzExDQAAAAAAAAERAzczMzMxMREBmZmZmZmZEQJqZmZmZmUVAAAAAAACARkDNzMzMzMxDQM3MzMzMzERAAAAAAAAAQ0AzMzMzMzNFQDMzMzMzM0ZANDMzMzMzRECamZmZmZlCQGZmZmZmZkVAMzMzMzMzRUAAAAAAAIBDQAAAAAAAAEZAAAAAAACARUBnZmZmZuZDQAAAAAAAAENAMzMzMzMzQ0CZmZmZmZlEQGZmZmZm5kRAzczMzMzMREAAAAAAAIBCQJqZmZmZmUNAAAAAAAAAQ0CamZmZmRlEQM3MzMzMzEJAZmZmZmZmREAzMzMzM7NDQDQzMzMzM0RAAAAAAACAQ0BmZmZmZuZEQJqZmZmZGUNAMzMzMzOzRkBmZmZmZuZFQGdmZmZm5kNAMzMzMzOzREAzMzMzM7NCQM3MzMzMTENAmpmZmZmZQkCamZmZmZlFQDMzMzMzs0JAMzMzMzOzQ0BnZmZmZuZGQGZmZmZm5kFAZ2ZmZmbmQ0DNzMzMzExDQDMzMzMzs0NAzczMzMzMQkDNzMzMzExFQM3MzMzMzERAZmZmZmbmRUBnZmZmZuZDQDQzMzMzM0RAmpmZmZmZQkAAAAAAAABFQAAAAAAAAENAZmZmZmbmQkDNzMzMzMxCQGZmZmZmZkVAmpmZmZkZQ0BmZmZmZuZCQJqZmZmZmUNAZmZmZmZmRUDNzMzMzExDQDMzMzMzs0JAmpmZmZmZQkBnZmZmZmZDQJqZmZmZmUNAMzMzMzOzQkBmZmZmZmZEQDMzMzMzs0JAmpmZmZmZQ0CZmZmZmRlFQM3MzMzMzENAAAAAAAAAREBmZmZmZuZEQAAAAAAAgENAAAAAAACAQ0AAAAAAAIBEQJmZmZmZmUFAmpmZmZkZREAzMzMzMzNDQDMzMzMzs0RAAAAAAAAARUAAAAAAAABGQGZmZmZmZkVAzczMzMzMREBnZmZmZuZDQJmZmZmZGUJAzczMzMzMREAAAAAAAABFQAAAAAAAgEFAMzMzMzMzQ0DNzMzMzMxBQDMzMzMzs0NAMzMzMzOzQ0AzMzMzMzNDQDMzMzMzs0NANDMzMzMzREAzMzMzMzNDQAAAAAAAAERAzczMzMxMREAAAAAAAABGQM3MzMzMzEVAAAAAAACAQkAAAAAAAABGQM3MzMzMTENANDMzMzMzREA0MzMzMzNEQDQzMzMzM0RAzczMzMxMQ0DNzMzMzMxDQJqZmZmZmUNAZ2ZmZmZmRkBmZmZmZmZEQDMzMzMzs0NAAAAAAACAQ0CZmZmZmRlCQDMzMzMzs0VANDMzMzMzRECZmZmZmRlCQJmZmZmZmURANDMzMzMzRECZmZmZmZlEQM3MzMzMzENAZmZmZmZmRUAAAAAAAABDQJqZmZmZGURAZ2ZmZmbmQ0BnZmZmZuZDQAAAAAAAgEZAmZmZmZkZRUCamZmZmZlCQAAAAAAAAERAzczMzMxMQkCamZmZmRlDQAAAAAAAgEJAmpmZmZkZRECamZmZmRlEQM3MzMzMzENAZmZmZmbmQkBnZmZmZmZDQAAAAAAAAENAZmZmZmZmREDNzMzMzExEQDMzMzMzM0JAAAAAAAAARUAAAAAAAABEQGZmZmZmZkRAmpmZmZkZQ0CamZmZmRlEQGdmZmZm5kNAmZmZmZkZRUAAAAAAAABFQM3MzMzMzEJAMzMzMzMzQ0AAAAAAAABEQJmZmZmZGUVAMzMzMzOzQkCamZmZmRlDQM3MzMzMzENAZmZmZmbmQkDNzMzMzMxCQGZmZmZm5kRAZmZmZmZmREA0MzMzMzNEQJmZmZmZmURAzczMzMzMQUAzMzMzMzNFQJqZmZmZmUNAmpmZmZmZRUDNzMzMzMxCQAAAAAAAAEVAZ2ZmZmZmQ0BmZmZmZmZBQM3MzMzMTERAZ2ZmZmbmQ0DNzMzMzExDQJqZmZmZmUNAmpmZmZkZREDNzMzMzExGQDMzMzMzs0JAmpmZmZmZQkCZmZmZmZlEQDMzMzMzM0NAzczMzMzMQkAAAAAAAIBDQJmZmZmZmURAAAAAAACAREAzMzMzM7NDQAAAAAAAgERAmZmZmZmZREDNzMzMzMxCQM3MzMzMzEJAMzMzMzOzQ0CamZmZmZlDQM3MzMzMTERAmZmZmZmZREAAAAAAAABEQGZmZmZm5kRAZ2ZmZmZmQ0DNzMzMzMxDQGdmZmZm5kNAzczMzMzMREAzMzMzM7NDQAAAAAAAgERAzczMzMzMREBnZmZmZuZDQDMzMzMzM0NAmZmZmZmZREDNzMzMzExDQAAAAAAAgEVAMzMzMzOzQkDNzMzMzMxCQGZmZmZmZkRAAAAAAAAAREDNzMzMzMxCQGZmZmZmZkRAmpmZmZkZQUAAAAAAAIBFQGdmZmZmZkNAMzMzMzMzQUBnZmZmZmZGQJqZmZmZGUBAZmZmZmbmQkCamZmZmRlEQM3MzMzMzERAMzMzMzOzREDNzMzMzExEQJqZmZmZGURAzczMzMzMQ0DNzMzMzExEQJqZmZmZmUJANDMzMzMzREBmZmZmZmZCQGZmZmZm5kRAzczMzMxMRUAAAAAAAIBBQGZmZmZm5kRAZmZmZmZmRUCZmZmZmRlFQJqZmZmZmUZAMzMzMzOzQ0BmZmZmZuZEQJqZmZmZmUVAAAAAAAAARUDMzMzMzExBQGdmZmZm5kNAMzMzMzOzQ0AzMzMzM7NDQM3MzMzMzEVAMzMzMzOzREAzMzMzM7NDQDMzMzMzs0NAZ2ZmZmZmQ0DNzMzMzMxDQGdmZmZmZkNAMzMzMzOzRUAzMzMzMzNFQDMzMzMzs0JAZmZmZmZmREA0MzMzMzNEQDMzMzMzs0RAAAAAAAAAREDNzMzMzMxDQM3MzMzMTERAZ2ZmZmZmQ0DNzMzMzExFQDQzMzMzM0RAmpmZmZkZREAAAAAAAIBEQJqZmZmZGUNAZmZmZmZmREBmZmZmZmZEQM3MzMzMTEVAAAAAAACARkDMzMzMzExBQJqZmZmZGUZAAAAAAAAARkBnZmZmZuZDQM3MzMzMTERAZmZmZmbmQkAAAAAAAIBCQGZmZmZm5kJAmZmZmZmZRECamZmZmRlEQM3MzMzMzERAmpmZmZkZREAAAAAAAIBFQGdmZmZmZkNAZ2ZmZmbmQ0CZmZmZmRlCQDMzMzMzs0JAZmZmZmZmREAzMzMzMzNDQAAAAAAAAERAmZmZmZmZQUCamZmZmZlDQAAAAAAAgERAzczMzMzMQ0DNzMzMzExDQDMzMzMzs0NAMzMzMzMzQ0BnZmZmZuZDQGZmZmZmZkRAZ2ZmZmbmQ0CZmZmZmRlFQJmZmZmZGUJAMzMzMzMzQ0AzMzMzMzNDQM3MzMzMTERAmpmZmZkZRECamZmZmRlDQJmZmZmZGUJAMzMzMzMzRUAAAAAAAIBCQM3MzMzMzEJAAAAAAACAQ0CamZmZmRlGQJqZmZmZGURAMzMzMzOzQ0DNzMzMzMxEQAAAAAAAgENAMzMzMzOzQ0CamZmZmZlFQGdmZmZm5kNAMzMzMzOzQkBmZmZmZuZCQM3MzMzMzENAAAAAAACAREBmZmZmZmZEQDMzMzMzM0NAAAAAAAAAQ0AzMzMzM7NCQM3MzMzMzEJAzczMzMzMQ0CamZmZmZlCQDMzMzMzs0RAmZmZmZmZREAAAAAAAABDQDMzMzMzM0VAAAAAAAAAREAzMzMzM7NDQM3MzMzMzENAmpmZmZkZREAzMzMzMzNGQGZmZmZmZkJAmZmZmZmZQUA0MzMzMzNEQJqZmZmZGUNAzczMzMxMQ0AAAAAAAIBEQM3MzMzMzERAAAAAAAAARUBnZmZmZuZDQDMzMzMzM0JAmpmZmZkZQ0BmZmZmZmZEQAAAAAAAgEVAmZmZmZkZRUDNzMzMzMxDQGZmZmZmZkVAmpmZmZkZRECamZmZmZlFQDMzMzMzM0JAzczMzMzMREBmZmZmZuZCQDMzMzMzs0RAZ2ZmZmbmQ0DNzMzMzMxCQM3MzMzMTERAMzMzMzMzQkAAAAAAAIBDQM3MzMzMzENANDMzMzMzRECZmZmZmRlCQAAAAAAAgEVAmpmZmZmZQ0CamZmZmRlEQDMzMzMzs0RAZmZmZmbmQUAzMzMzM7NDQJqZmZmZmUJAmpmZmZmZQ0CZmZmZmRlFQM3MzMzMTERAAAAAAACARUAAAAAAAABFQAAAAAAAgEJANDMzMzMzREA0MzMzMzNEQM3MzMzMzEJAZmZmZmZmQkAzMzMzMzNFQM3MzMzMzENAMzMzMzMzRUDNzMzMzExEQDQzMzMzM0RAAAAAAAAAREBmZmZmZmZEQM3MzMzMTEJAMzMzMzOzQkBnZmZmZuZDQGZmZmZm5kJAMzMzMzOzREAAAAAAAIBCQDMzMzMzM0NAZmZmZmZmRUCamZmZmRlEQDMzMzMzs0NAmpmZmZmZRUCZmZmZmRlFQDMzMzMzs0VAzczMzMzMQkAzMzMzM7NDQDMzMzMzs0NAAAAAAAAAQ0AAAAAAAIBDQJmZmZmZGUJAAAAAAAAARUCamZmZmRlDQDMzMzMzs0NAZ2ZmZmZmQ0BmZmZmZmZCQJqZmZmZGUZAmpmZmZkZQ0BmZmZmZmZEQJmZmZmZmURAMzMzMzMzQ0CamZmZmRlGQM3MzMzMTEVAAAAAAACAREAzMzMzMzNDQM3MzMzMTERAAAAAAACARUCZmZmZmRlCQM3MzMzMTEJAMzMzMzOzQkBnZmZmZmZDQAAAAAAAgERAmZmZmZkZQkDNzMzMzExEQDQzMzMzM0RAZmZmZmZmQkAAAAAAAABFQJmZmZmZGUVAZmZmZmbmQkAAAAAAAABEQM3MzMzMzENAAAAAAACAREAAAAAAAABFQAAAAAAAgEJAmpmZmZkZQ0CZmZmZmRlCQDMzMzMzs0NAZ2ZmZmbmQ0DNzMzMzExDQAAAAAAAAERAZ2ZmZmZmQ0AzMzMzM7NEQAAAAAAAAERAZmZmZmbmREAAAAAAAIBGQDMzMzMzs0FAMzMzMzOzQ0DNzMzMzMxDQAAAAAAAgERAmZmZmZkZRUDNzMzMzExEQM3MzMzMzERAMzMzMzOzREAzMzMzM7NEQM3MzMzMTERAmZmZmZmZRECamZmZmRlDQM3MzMzMTENAMzMzMzOzQ0AzMzMzMzNFQJmZmZmZGUJAZ2ZmZmbmQ0CamZmZmZlDQGdmZmZm5kNAmpmZmZkZREBnZmZmZuZDQM3MzMzMzERAzczMzMxMREDNzMzMzMxCQGZmZmZm5kRAmpmZmZkZQ0CamZmZmZlAQJqZmZmZGUNAmpmZmZmZQ0AzMzMzMzNFQGZmZmZmZkJAAAAAAACAREAzMzMzMzNCQAAAAAAAAENAzczMzMxMREBmZmZmZuZCQDMzMzMzs0VAAAAAAAAARUAAAAAAAIBEQJqZmZmZGUNAzczMzMxMREAAAAAAAIBBQDMzMzMzs0FAZ2ZmZmbmQ0BnZmZmZmZDQDMzMzMzs0ZAZmZmZmbmQUCamZmZmZlFQJqZmZmZmUJAmpmZmZmZQkAAAAAAAIBBQM3MzMzMTENAAAAAAAAARECZmZmZmRlFQAAAAAAAAERAmpmZmZkZRECamZmZmRlDQM3MzMzMTERAMzMzMzOzRUDNzMzMzMxEQM3MzMzMzERAzczMzMxMQ0AAAAAAAABEQAAAAAAAAENAZ2ZmZmZmQ0DNzMzMzExCQDMzMzMzs0NAmpmZmZkZQ0BnZmZmZuZDQGdmZmZmZkNAZmZmZmbmREBmZmZmZmZBQGZmZmZm5kRAAAAAAACAQ0BmZmZmZmZEQDMzMzMzs0JAZ2ZmZmbmQ0DNzMzMzExDQAAAAAAAgENAzczMzMxMREDNzMzMzExFQJmZmZmZmURAzczMzMxMRUA0MzMzMzNEQJqZmZmZmUJAAAAAAACAQ0A="},"xbins":{"size":1},"type":"histogram","xaxis":"x2","yaxis":"y2"},{"hovertemplate":"支持率 %{x}%の範囲：%{y}回\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":"#4C72B0"},"x":{"dtype":"f8","bdata":"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"},"xbins":{"size":0.5},"type":"histogram","xaxis":"x3","yaxis":"y3"},{"hovertemplate":"支持率 %{x}%の範囲：%{y}回\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":"#4C72B0"},"x":{"dtype":"f8","bdata":"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"},"xbins":{"size":0.25},"type":"histogram","xaxis":"x4","yaxis":"y4"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"matches":"x4","showticklabels":false},"yaxis":{"anchor":"x","domain":[0.8025,1.0]},"xaxis2":{"anchor":"y2","domain":[0.0,1.0],"matches":"x4","showticklabels":false},"yaxis2":{"anchor":"x2","domain":[0.535,0.7325]},"xaxis3":{"anchor":"y3","domain":[0.0,1.0],"matches":"x4","showticklabels":false},"yaxis3":{"anchor":"x3","domain":[0.2675,0.465]},"xaxis4":{"anchor":"y4","domain":[0.0,1.0],"title":{"text":"調査で得られた支持率（%）"},"range":[20,60]},"yaxis4":{"anchor":"x4","domain":[0.0,0.1975]},"annotations":[{"font":{"size":16},"showarrow":false,"text":"標本サイズ 100人","x":0.5,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"size":16},"showarrow":false,"text":"標本サイズ 500人","x":0.5,"xanchor":"center","xref":"paper","y":0.7325,"yanchor":"bottom","yref":"paper"},{"font":{"size":16},"showarrow":false,"text":"標本サイズ 2,000人","x":0.5,"xanchor":"center","xref":"paper","y":0.465,"yanchor":"bottom","yref":"paper"},{"font":{"size":16},"showarrow":false,"text":"標本サイズ 8,000人","x":0.5,"xanchor":"center","xref":"paper","y":0.1975,"yanchor":"bottom","yref":"paper"}],"shapes":[{"line":{"color":"#DD8452","dash":"dash","width":1.5},"type":"line","x0":40,"x1":40,"xref":"x","y0":0,"y1":1,"yref":"y domain"},{"line":{"color":"#DD8452","dash":"dash","width":1.5},"type":"line","x0":40,"x1":40,"xref":"x2","y0":0,"y1":1,"yref":"y2 domain"},{"line":{"color":"#DD8452","dash":"dash","width":1.5},"type":"line","x0":40,"x1":40,"xref":"x3","y0":0,"y1":1,"yref":"y3 domain"},{"line":{"color":"#DD8452","dash":"dash","width":1.5},"type":"line","x0":40,"x1":40,"xref":"x4","y0":0,"y1":1,"yref":"y4 domain"}],"title":{"text":"標本サイズを大きくすると，散らばり（標本誤差）が縮んでいく（点線は本当の支持率40%）"},"width":750,"height":800,"showlegend":false},                        {"responsive": true}                    )                };            </script>        </div></div></div>
+</div>
+<p>表とグラフから，<strong>標本サイズと精度</strong>の関係がはっきり見えてきます．</p>
+<ul class="simple">
+<li><p><strong>100人</strong>の調査では，結果は22.0%から55.0%まで大暴れします．誤差の目安は±9.5ポイント．本当は40%なのに「支持率5割超え」と報じてしまう回すらあるわけで，これでは調査の意味がありません</p></li>
+<li><p><strong>500人</strong>にすると誤差の目安は±4.4ポイントまで縮みます</p></li>
+<li><p><strong>2,000人</strong>では±2.1ポイント．支持率の増減を語るのに実用的な精度です</p></li>
+<li><p><strong>8,000人</strong>まで増やしても，±1.1ポイントにしかなりません</p></li>
+</ul>
+<p>ここで表の数字をよく見てください．標本サイズを500人から4倍の2,000人にしたとき，誤差は±4.4から±2.1へ，<strong>半分ほどにしか</strong>縮んでいません．2,000人から4倍の8,000人にしても，±2.1から±1.1へ，やはり半分です．つまり，<strong>標本サイズを4倍にしても，誤差は半分にしかならない</strong>のです（統計学では，誤差はおおよそ「標本サイズの平方根に反比例して」縮むことが知られていますが，公式を覚えるより「4倍で半分」という感覚をつかんでください）．</p>
+<p>この関係は，調査の実務にとって決定的に重要です．誤差を半分にするたびに費用と手間は4倍になるのですから，人数を増やせば増やすほど「割に合わなく」なっていきます．±2ポイント程度の精度があれば世論の大きな動きを捉えるには十分——だから世の中の多くの世論調査は，1,000〜2,000人前後という標本サイズに落ち着いているのです．「たった2,000人で1億人が分かるのか」という導入の問いには，こう答えることができます．<strong>分かる．ただし±2ポイントほどの誤差つきで</strong>．そして，2,000人でこの精度が出るのに240万人のLiterary Digest誌が大外れしたことを思い出せば，「量より集め方」の教訓がいっそう鮮明になるはずです．</p>
+</section>
+</section>
+<section id="id12">
+<h2>信頼区間——「誤差±2ポイント」の読み方<a class="headerlink" href="#id12" title="Link to this heading">#</a></h2>
+<section id="id13">
+<h3>報道の「支持率44%（誤差±2ポイント）」とは<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<p>丁寧な世論調査報道には，「支持率44%．誤差は±2ポイント程度」のような注記がついています．この「値±誤差」の幅，つまり「42%から46%まで」のような区間を<strong>信頼区間</strong>（confidence interval）と呼びます（報道では「誤差の範囲」という言い方もよくされます）．</p>
+<p>信頼区間の意味は，先ほどのシミュレーションを思い出せば直感的につかめます．2,000人の調査は，本当の値の±2ポイントほどの範囲に収まることが多いのでした．ということは，逆に，<strong>調査で得られた値の±2ポイントの幅をとれば，その幅の中に本当の値が入っていることが多い</strong>はずです．「支持率44%（誤差±2ポイント）」という報道は，「本当の支持率はぴったり44%だ」ではなく，「<strong>本当の支持率は，おそらく42%から46%のあいだのどこかにある</strong>」と読むのが正しい読み方です．</p>
+<p>本当にそうなるか，これもシミュレーションで確かめましょう．2,000人の調査を100回行い，それぞれの結果に±2.1ポイント（先ほどの実験で得た誤差の目安）の幅をつけて，その幅が本当の支持率40%を含んでいるかを数えます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 2,000人の調査を100回行い，それぞれの結果に±2.1ポイントの幅をつける</span>
+<span class="n">n_surveys</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">margin</span> <span class="o">=</span> <span class="mf">2.1</span>  <span class="c1"># 標本サイズ2,000人のときの誤差の目安（先ほどの実験結果）</span>
+
+<span class="n">props_ci</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">population</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n_surveys</span><span class="p">,</span> <span class="mi">2000</span><span class="p">))</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+<span class="n">lower_ci</span> <span class="o">=</span> <span class="n">props_ci</span> <span class="o">-</span> <span class="n">margin</span>
+<span class="n">upper_ci</span> <span class="o">=</span> <span class="n">props_ci</span> <span class="o">+</span> <span class="n">margin</span>
+
+<span class="c1"># 幅の中に本当の支持率40%を含んでいる調査を数える</span>
+<span class="n">contains</span> <span class="o">=</span> <span class="p">(</span><span class="n">lower_ci</span> <span class="o">&lt;=</span> <span class="mi">40</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">40</span> <span class="o">&lt;=</span> <span class="n">upper_ci</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;100回の調査のうち，幅の中に本当の支持率40%を含んだ回数：</span><span class="si">{</span><span class="n">contains</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">回&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100回の調査のうち，幅の中に本当の支持率40%を含んだ回数：96回
+</pre></div>
+</div>
+</div>
+</div>
+<p>100回の調査それぞれの「幅」を1本ずつ描いてみます．横棒1本が1回の調査の信頼区間で，本当の支持率40%（点線）を含まなかった幅だけ橙色にしてあります．</p>
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 100回分の信頼区間を1本ずつ描く（40%を外した区間は橙色）</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">hit</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="p">[(</span><span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;#4C72B0&quot;</span><span class="p">,</span> <span class="s2">&quot;40%を含んだ幅&quot;</span><span class="p">),</span>
+                          <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;#DD8452&quot;</span><span class="p">,</span> <span class="s2">&quot;40%を外した幅&quot;</span><span class="p">)]:</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">contains</span> <span class="o">==</span> <span class="n">hit</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span>
+        <span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span>
+            <span class="n">x</span><span class="o">=</span><span class="n">props_ci</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;markers&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
+            <span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">),</span>
+            <span class="n">error_x</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;constant&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">margin</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">thickness</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+            <span class="n">hovertemplate</span><span class="o">=</span><span class="s2">&quot;調査%</span><span class="si">{y}</span><span class="s2">回め：支持率 %</span><span class="si">{x:.1f}</span><span class="s2">%&lt;extra&gt;&lt;/extra&gt;&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">add_vline</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">line_dash</span><span class="o">=</span><span class="s2">&quot;dash&quot;</span><span class="p">,</span> <span class="n">line_color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">annotation_text</span><span class="o">=</span><span class="s2">&quot;本当の支持率 40%&quot;</span><span class="p">,</span> <span class="n">annotation_position</span><span class="o">=</span><span class="s2">&quot;top right&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;100回の調査それぞれの「値±2.1ポイント」の幅：ほとんどの幅が正解を含む&quot;</span><span class="p">,</span>
+    <span class="n">xaxis_title</span><span class="o">=</span><span class="s2">&quot;調査で得られた支持率（%）&quot;</span><span class="p">,</span>
+    <span class="n">yaxis_title</span><span class="o">=</span><span class="s2">&quot;何回めの調査か&quot;</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">750</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">620</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">orientation</span><span class="o">=</span><span class="s2">&quot;h&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.08</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">HTML</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="n">include_plotlyjs</span><span class="o">=</span><span class="s2">&quot;cdn&quot;</span><span class="p">,</span> <span class="n">full_html</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>                        <script>window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.4.0.min.js" integrity="sha256-KEmPoupLpFyGMyGAiOsiNDbKDKAvxXAn/W+oQa0ZAfk=" crossorigin="anonymous"></script>                <div id="d84a160d-a9f0-4670-b36a-1500c8c1c2ca" class="plotly-graph-div" style="height:620px; width:750px;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("d84a160d-a9f0-4670-b36a-1500c8c1c2ca")) {                    Plotly.newPlot(                        "d84a160d-a9f0-4670-b36a-1500c8c1c2ca",                        [{"error_x":{"color":"#4C72B0","thickness":1.2,"type":"constant","value":2.1},"hovertemplate":"調査%{y}回め：支持率 %{x:.1f}%\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":"#4C72B0","size":4},"mode":"markers","name":"40%を含んだ幅","x":{"dtype":"f8","bdata":"mZmZmZl5REAzMzMzM9NEQAAAAAAAQENAAAAAAABAREAAAAAAAGBDQJqZmZmZGURAZ2ZmZmbmQ0A0MzMzMzNEQDMzMzMzM0NAZ2ZmZmYGREAAAAAAAMBEQAAAAAAAgERAMzMzMzPTQ0CamZmZmTlDQM3MzMzMbENAAAAAAADAQ0AzMzMzM1NEQAAAAAAAIERANDMzMzPzQ0AzMzMzM1NEQAAAAAAAoENAZmZmZmYmQ0AzMzMzM5NDQGdmZmZmZkNAzczMzMysQ0BnZmZmZkZEQJqZmZmZuUNAzczMzMyMQ0BmZmZmZqZEQM3MzMzMLENAmpmZmZkZREAAAAAAAMBDQGdmZmZmhkNAmpmZmZn5Q0CamZmZmVlDQAAAAAAA4ENAMzMzMzPTQ0AAAAAAAIBEQGZmZmZmBkVAMzMzMzOzQ0AAAAAAAKBDQM3MzMzMTERAzczMzMzsQ0CamZmZmflDQAAAAAAAYENAAAAAAABAREDNzMzMzCxEQGZmZmZmpkRAmZmZmZnZREBnZmZmZiZEQJqZmZmZeUNAAAAAAABgQ0CamZmZmdlDQDMzMzMz00NAZmZmZmamREAAAAAAAABEQM3MzMzMzERAZ2ZmZmYGREAAAAAAAOBDQAAAAAAAwENAAAAAAADAQ0CamZmZmdlDQM3MzMzMbENAZ2ZmZmbmQ0DMzMzMzKxEQM3MzMzMTERAAAAAAAAgQ0CZmZmZmflEQJqZmZmZuUNAzczMzMxMQ0DNzMzMzExDQMzMzMzMjERAmpmZmZl5Q0CamZmZmblDQGdmZmZmxkNAzMzMzMysREBnZmZmZiZEQAAAAAAAYERAMzMzMzNzQ0AzMzMzM9NDQJqZmZmZ+UJAAAAAAAAgREBnZmZmZkZDQJqZmZmZWUNAmpmZmZn5QkBnZmZmZqZDQJqZmZmZuUNANDMzMzMzREDNzMzMzMxDQDQzMzMz80NAMzMzMzPTREDNzMzMzOxDQAAAAAAAwENAzczMzMzMQ0AzMzMzM7NDQAAAAAAAoERA"},"y":{"dtype":"i1","bdata":"AQIDBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8gISIjJCUmJygpKissLS4vMDEyMzQ1Njc4OTo7PD0+P0BBQkNERkhJSktMTU5PUFFSU1RVVldYWVpbXF1eX2BhYmNk"},"type":"scatter"},{"error_x":{"color":"#DD8452","thickness":1.2,"type":"constant","value":2.1},"hovertemplate":"調査%{y}回め：支持率 %{x:.1f}%\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":"#DD8452","size":4},"mode":"markers","name":"40%を外した幅","x":{"dtype":"f8","bdata":"mZmZmZk5RUAzMzMzMzNFQM3MzMzMTEVAzczMzMwsRUA="},"y":{"dtype":"i1","bdata":"BAVFRw=="},"type":"scatter"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"shapes":[{"line":{"color":"gray","dash":"dash","width":2},"type":"line","x0":40,"x1":40,"xref":"x","y0":0,"y1":1,"yref":"y domain"}],"annotations":[{"showarrow":false,"text":"本当の支持率 40%","x":40,"xanchor":"left","xref":"x","y":1,"yanchor":"top","yref":"y domain"}],"legend":{"orientation":"h","y":1.08},"title":{"text":"100回の調査それぞれの「値±2.1ポイント」の幅：ほとんどの幅が正解を含む"},"xaxis":{"title":{"text":"調査で得られた支持率（%）"}},"yaxis":{"title":{"text":"何回めの調査か"}},"width":750,"height":620},                        {"responsive": true}                    )                };            </script>        </div></div></div>
+</div>
+<p>結果は，100回中<strong>96回</strong>の幅が本当の支持率40%を含みました．裏を返せば，4回は幅が正解を外しています．これが信頼区間の正体です．<strong>同じ調査を何度もやったら，「値±誤差」の幅は本当の値をだいたい捉えるが，ときどき（20回に1回程度）外すこともある</strong>——この「だいたい」の度合いを95%に設計した幅を，統計学では「95%信頼区間」と呼びます．世論調査報道の「誤差±◯ポイント」は，多くの場合この考え方にもとづいています．</p>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p><strong>発展：信頼区間の厳密な定義</strong></p>
+<p>「95%信頼区間」を「本当の値がこの区間に入る確率が95%」と言いたくなりますが，厳密にはこの言い方は正しくありません．本当の値（母集団の支持率）は，未知ではあっても<strong>動かない1つの値</strong>であり，確率的に揺れているのは調査のたびに変わる<strong>区間のほう</strong>だからです．厳密には「同じ手順で調査と区間の計算を何度も繰り返したとき，得られた区間のうち約95%が本当の値を含む」という，手順の性質についての約束です．上のシミュレーション（100本の幅のうち96本が正解を含んだ）は，まさにこの定義をそのまま絵にしたものです．初学のうちは「同じ調査を何度もやったらこの幅に収まることが多い，という目安」という理解で十分です．</p>
+</div>
+</section>
+<section id="id14">
+<h3>「2ポイント下がった」は下がったのか<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<p>信頼区間が読めるようになると，世論調査のニュースの見え方が変わります．たとえば「内閣支持率は43%で，前回の45%から2ポイント下落しました」という報道を考えましょう．誤差±2ポイントの調査だとすれば，前回の「45%」は本当は43〜47%のどこか，今回の「43%」は41〜45%のどこかです．2つの幅は大きく重なっており，<strong>本当の支持率はまったく変わっていないのに，標本誤差だけで2ポイント程度の見かけの増減が生じることは十分ありうる</strong>のです．実際，先ほどの5回の模擬調査でも，母集団が不変のまま結果は38.5%から41.4%まで揺れていました．</p>
+<p>この状況を図解したのが <a class="reference internal" href="#fig-ch06-ci-overlap"><span class="std std-numref">図 31</span></a> です．2つの帯（信頼区間）を数直線の上に並べてみると，43〜45%の範囲で大きく重なっていることが一目で分かります．</p>
+<figure class="align-default" id="fig-ch06-ci-overlap">
+<img alt="「内閣支持率は43%で，前回の45%から2ポイント下落」という報道を，支持率の数直線上の2本の帯で図解したもの．前回の調査45%の帯は43〜47%，今回の調査43%の帯は41〜45%で，43〜45%の範囲で2つの帯が大きく重なっており，標本誤差だけでこの差は生じうると注記されている．下部では「支持離れが鮮明になったと断定する」に×，「本当に変化したのか偶然なのかは，この差だけでは区別できない」に○が付けられている．" src="../_images/ch06-ci-overlap.svg" />
+<figcaption>
+<p><span class="caption-number">図 31 </span><span class="caption-text">「45%から43%へ2ポイント下落」の読み方．2つの信頼区間は大きく重なっており，この差だけでは変化と偶然を区別できない</span><a class="headerlink" href="#fig-ch06-ci-overlap" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>もちろん，「誤差の範囲内だから何も起きていない」と断定するのも早計です．正確には「この差だけでは，本当に変化したのか偶然なのかは区別できない」が正しい読み方です．では，観察された差が「偶然の範囲」かどうかを，もう少しきちんと確かめるにはどうすればよいのでしょうか．それが次の主役，仮説検定です．</p>
+</section>
+</section>
+<section id="id15">
+<h2>仮説検定——その差は偶然でも起こりうるか<a class="headerlink" href="#id15" title="Link to this heading">#</a></h2>
+<section id="id16">
+<h3>コイン投げの実験：10回中8回表は「偶然」で起こるか<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<p>身近な例から始めましょう．友人がこう言ったとします．「私はコイン投げで表を出すコツをつかんだ」．半信半疑のあなたの前で友人がコインを10回投げたところ，<strong>8回</strong>表が出ました．さて，友人のコツは本物だと認めるべきでしょうか．</p>
+<p>「10回中8回」は，たしかに半々（5回）よりずっと多い気がします．しかし，ここで立ち止まって考えたいのは次の問いです——<strong>コツなど何もない普通のコインでも，偶然だけで「10回中8回表」くらいは起こるのではないか？</strong></p>
+<p>この問いも，シミュレーションで確かめられます．細工のない普通のコイン（表と裏が半々の確率で出る）を10回投げる実験を，コンピュータの中で10万回繰り返し，「8回以上表が出た」実験がどれくらいあるかを数えてみましょう．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>  <span class="c1"># 乱数の種を固定して，結果を再現可能にする</span>
+
+<span class="c1"># 普通のコイン（表の確率50%）を10回投げる実験を，10万回繰り返す</span>
+<span class="n">n_trials</span> <span class="o">=</span> <span class="mi">100_000</span>
+<span class="n">flips</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n_trials</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>  <span class="c1"># 1 = 表，0 = 裏</span>
+<span class="n">heads</span> <span class="o">=</span> <span class="n">flips</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># 各実験で表が出た回数</span>
+
+<span class="c1"># 「10回中8回以上表」が出た実験の割合</span>
+<span class="n">p_sim</span> <span class="o">=</span> <span class="p">(</span><span class="n">heads</span> <span class="o">&gt;=</span> <span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;10回中8回以上表が出た実験の割合：</span><span class="si">{</span><span class="n">p_sim</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10回中8回以上表が出た実験の割合：5.55%
+</pre></div>
+</div>
+</div>
+</div>
+<p>表が出た回数ごとの実験の数をグラフにすると，「8回以上」がどのあたりに位置するかが見えます．</p>
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 表の回数（0〜10回）ごとの実験の数を棒グラフで描く（8回以上を橙色で強調）</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">heads</span><span class="p">,</span> <span class="n">minlength</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;#DD8452&quot;</span> <span class="k">if</span> <span class="n">k</span> <span class="o">&gt;=</span> <span class="mi">8</span> <span class="k">else</span> <span class="s2">&quot;#4C72B0&quot;</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">11</span><span class="p">)]</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span>
+    <span class="n">go</span><span class="o">.</span><span class="n">Bar</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">11</span><span class="p">)),</span> <span class="n">y</span><span class="o">=</span><span class="n">counts</span><span class="p">,</span> <span class="n">marker_color</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span>
+        <span class="n">hovertemplate</span><span class="o">=</span><span class="s2">&quot;表が%</span><span class="si">{x}</span><span class="s2">回：%</span><span class="si">{y}</span><span class="s2">回の実験&lt;extra&gt;&lt;/extra&gt;&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">add_annotation</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">counts</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">+</span> <span class="mi">6000</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;表が8回以上：全体の約</span><span class="si">{</span><span class="n">p_sim</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">,</span>
+    <span class="n">showarrow</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;#DD8452&quot;</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;普通のコインを10回投げる実験を10万回やったら：表の回数の分布&quot;</span><span class="p">,</span>
+    <span class="n">xaxis_title</span><span class="o">=</span><span class="s2">&quot;10回のうち表が出た回数&quot;</span><span class="p">,</span>
+    <span class="n">yaxis_title</span><span class="o">=</span><span class="s2">&quot;実験の数（10万回中）&quot;</span><span class="p">,</span>
+    <span class="n">xaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">700</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">430</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">HTML</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="n">include_plotlyjs</span><span class="o">=</span><span class="s2">&quot;cdn&quot;</span><span class="p">,</span> <span class="n">full_html</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>                        <script>window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.4.0.min.js" integrity="sha256-KEmPoupLpFyGMyGAiOsiNDbKDKAvxXAn/W+oQa0ZAfk=" crossorigin="anonymous"></script>                <div id="34e109dd-5a20-45af-b845-0bfbed53af9b" class="plotly-graph-div" style="height:430px; width:700px;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("34e109dd-5a20-45af-b845-0bfbed53af9b")) {                    Plotly.newPlot(                        "34e109dd-5a20-45af-b845-0bfbed53af9b",                        [{"hovertemplate":"表が%{x}回：%{y}回の実験\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":["#4C72B0","#4C72B0","#4C72B0","#4C72B0","#4C72B0","#4C72B0","#4C72B0","#4C72B0","#DD8452","#DD8452","#DD8452"]},"x":[0,1,2,3,4,5,6,7,8,9,10],"y":{"dtype":"i2","bdata":"VwCjA0gR9y1KUIJfllBWLaERsQNdAA=="},"type":"bar"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"annotations":[{"font":{"color":"#DD8452"},"showarrow":false,"text":"表が8回以上：全体の約5.6%","x":9,"y":10513}],"xaxis":{"title":{"text":"10回のうち表が出た回数"},"dtick":1},"title":{"text":"普通のコインを10回投げる実験を10万回やったら：表の回数の分布"},"yaxis":{"title":{"text":"実験の数（10万回中）"}},"width":700,"height":430},                        {"responsive": true}                    )                };            </script>        </div></div></div>
+</div>
+<p>結果は約<strong>5.5%</strong>（10万回中およそ5,500回）．つまり，<strong>何の細工もないコインでも，「10回中8回以上表」はおよそ18回に1回の割合で偶然起こる</strong>のです．めったにないことではありますが，「絶対に偶然では起こらない」と言えるほど珍しくもありません．友人のコツを本物と認めるには，まだ証拠不足——これが数値実験から得られる冷静な判断です．</p>
+</section>
+<section id="p">
+<h3>帰無仮説とp値——「偶然だとしたら」と仮定してみる<a class="headerlink" href="#p" title="Link to this heading">#</a></h3>
+<p>いま行った推論の手順を整理すると，次のようになります．</p>
+<ol class="arabic simple">
+<li><p>まず，主張とは逆に，「<strong>差も効果も何もない，すべて偶然だ</strong>」と仮に考えてみる（コインの例なら「コツなどなく，表の確率は普通に50%だ」）</p></li>
+<li><p>その仮定のもとで，実際に観察された結果（またはそれ以上に極端な結果）が偶然だけでどれくらいの確率で起こるかを調べる</p></li>
+<li><p>その確率が十分小さければ「偶然にしては珍しすぎる．最初の仮定のほうが疑わしい」と考えて仮定を捨て，主張を支持する．小さくなければ「偶然でも起こりうる」として判断を保留する</p></li>
+</ol>
+<p>この考え方を<strong>仮説検定</strong>（hypothesis testing）と呼びます．手順1で仮に立てる「差も効果もない」という仮説が<strong>帰無仮説</strong>（null hypothesis）です．「無に帰する」という名のとおり，捨てられる（棄却される）ことを想定してわざと立てる仮説です．そして手順2で求めた確率，すなわち<strong>帰無仮説が正しいとしたときに，観察された結果かそれ以上に極端な結果が偶然得られる確率</strong>が<strong>p値</strong>（p-value）です．コインの例では，p値は約5.5%でした．</p>
+<p>p値が十分小さいとき——慣習的には<strong>5%（0.05）を下回るとき</strong>——「この結果は偶然だけでは説明しにくい」と判断し，これを<strong>統計的に有意</strong>（statistically significant）であると言います．コインの例のp値約5.5%は，この慣習的な線をわずかに上回っています．つまり慣習に従えば「統計的に有意とは言えない」，日常の言葉でいえば「偶然でも起こりうる範囲を出ていない」という判定になります．</p>
+<p>ここまでの仮説検定の流れを，コイン投げの例と対応させて <a class="reference internal" href="#fig-ch06-testing-flow"><span class="std std-numref">図 32</span></a> に整理しました．「わざと逆を仮定してみて，その仮定のもとでの珍しさで判断する」という独特の論法を，この図で確認してください．</p>
+<figure class="align-default" id="fig-ch06-testing-flow">
+<img alt="仮説検定の流れ図．①主張とは逆に「差も効果も何もない，すべて偶然だ」と仮に考えてみる（帰無仮説）．コインの例ではコツなどなく表の確率は普通に50%．②その仮定のもとで，観察された結果かそれ以上に極端な結果が偶然だけでどれくらいの確率で起こるかを調べる（p値）．コインの例では10回中8回以上表は約5.5%．③p値が十分小さければ（慣習的な目安は5%）「偶然にしては珍しすぎる」として帰無仮説を捨て主張を支持し，統計的に有意と言う．小さくなければ「偶然でも起こりうる」として判断を保留する．コインの例では5.5%が5%をわずかに上回るため保留となる．" src="../_images/ch06-testing-flow.svg" />
+<figcaption>
+<p><span class="caption-number">図 32 </span><span class="caption-text">仮説検定の考え方．「すべて偶然だ」とわざと仮定し，その仮定のもとでの珍しさ（p値）で判断する</span><a class="headerlink" href="#fig-ch06-testing-flow" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>仮説検定は，科学研究から医薬品の審査，企業のA/Bテスト（第5回で紹介した比較実験）まで，社会のあらゆる場面で使われています．「新薬を飲んだグループのほうが回復が早かった」という結果が出たとき，「その差は薬の効果か，それとも偶然か」を確かめる標準の道具が仮説検定であり，論文やニュースに登場する「有意差があった」という表現は，この手続きを経たという意味なのです．</p>
+</section>
+</section>
+<section id="id17">
+<h2>p値の意味と誤用——「有意」は「重要」ではない<a class="headerlink" href="#id17" title="Link to this heading">#</a></h2>
+<p>便利な道具にはつきものですが，p値と「統計的に有意」は，専門家の世界でさえ誤用が絶えないことで有名です．事態を重く見た米国統計学会（ASA）は2016年，p値の使い方に関する異例の公式声明を発表しました <span id="id18">[<a class="reference internal" href="../references.html#id24" title="Ronald L. Wasserstein and Nicole A. Lazar. The ASA statement on p-values: context, process, and purpose. The American Statistician, 70(2):129–133, 2016. doi:10.1080/00031305.2016.1154108.">Wasserstein and Lazar, 2016</a>]</span>．その要点のうち，データの消費者であるみなさんに特に関わる3つを紹介します．<strong>p値の誤用</strong>の代表的なパターンだと思って読んでください．</p>
+<p><strong>誤用1：p値を「仮説が正しい確率」と読んでしまう</strong>．p値が5%であることは，「帰無仮説が正しい確率が5%」でも「主張が95%の確率で正しい」でもありません．p値は「<strong>帰無仮説が正しいと仮定したときに，このデータ（かそれ以上に極端なデータ）が偶然出る確率</strong>」であって，仮説そのものの確率ではないのです．コインの例で言えば，「普通のコインだとしたら8回以上表は5.5%ほどしか起こらない」と言っているのであり，「友人にコツがある確率が94.5%」と言っているのではありません．</p>
+<p><strong>誤用2：「統計的に有意」を「重要な差」と読んでしまう</strong>．統計的に有意とは「偶然だけでは説明しにくい」という意味であって，「差が大きい」「意味のある差だ」という意味ではありません．ここには標本サイズが深く関わっています．標本が大きくなるほど標本誤差は小さくなるので，<strong>どんなにささいな差でも，標本さえ大きければ統計的に有意になってしまう</strong>のです．たとえば100万人分のアプリの利用ログを分析すれば，「新デザインの画面のほうが利用時間が1日あたり数秒長い（統計的に有意）」といった結果は簡単に出ます．偶然ではないでしょう．しかし，1日数秒の差に意味があるかどうかは，統計ではなく人間が判断すべきことです．「有意差あり」と聞いたら，必ず「<strong>で，差の大きさはどれくらい？</strong>」と問い返してください．</p>
+<p><strong>誤用3：5%という線で世界を白黒に塗り分けてしまう</strong>．p値5%はあくまで慣習的な目安であり，自然界の法則ではありません．p値4.9%なら「効果あり！」，5.1%なら「効果なし」と正反対の結論を下すのは，ほとんど同じデータに対して180度違う物語を語ることになります．コインの例（p値約5.5%）も，「有意ではないから友人のコツは存在しない」と証明されたわけではなく，「このデータだけでは偶然と区別がつかない」というだけです．2019年には，こうした「有意／非有意」の<strong>二分法的な考え方</strong>をやめようと呼びかける論文がNature誌に掲載され，800人を超える研究者が賛同署名しました <span id="id19">[<a class="reference internal" href="../references.html#id27" title="Valentin Amrhein, Sander Greenland, and Blake McShane. Scientists rise up against statistical significance. Nature, 567:305–307, 2019. doi:10.1038/d41586-019-00857-9.">Amrhein <em>et al.</em>, 2019</a>]</span>．統計的有意性は思考の終着点ではなく，出発点にすぎないのです．</p>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>広告や健康情報で「statistically significant」の直訳らしき「統計的に有意な差が確認されました」という文句を見かけたら，この節を思い出してください．確認すべきは次の3点です．(1) <strong>差の大きさ</strong>はどれくらいか（実生活で意味のある大きさか）．(2) <strong>標本サイズ</strong>はいくつか（巨大な標本なら微小な差でも有意になる）．(3) その差は<strong>因果</strong>の証拠か（第5回で学んだとおり，比較実験でなければ「効果があった」とは言えません）．「有意」という言葉の科学的な響きは，この3つの問いを飛ばさせるためにしばしば利用されます．</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p><strong>発展：再現性の問題——「有意な発見」は再現されるか</strong></p>
+<p>p値の誤用は，科学そのものも揺るがせてきました．疫学者のIoannidisは2005年，「発表された研究結果の多くはなぜ誤りか」という挑発的な題名の論文で，統計的に有意な「発見」だけが選ばれて発表されていく仕組み（何度も検定を繰り返せば偶然の「有意」がいつか出ること，有意な結果ほど論文になりやすいこと）が，誤った発見を量産しかねないと警告しました <span id="id20">[<a class="reference internal" href="../references.html#id25" title="John P. A. Ioannidis. Why most published research findings are false. PLoS Medicine, 2(8):e124, 2005. doi:10.1371/journal.pmed.0020124.">Ioannidis, 2005</a>]</span>．この警告は2015年，大規模な実証で裏づけられます．世界中の研究者が共同で，心理学の著名な研究100件を同じ手順でやり直した（<strong>再現</strong>を試みた）ところ，元の研究と同様の有意な結果が得られたのは<strong>半分に満たなかった</strong>のです <span id="id21">[<a class="reference internal" href="../references.html#id26" title="Open Science Collaboration. Estimating the reproducibility of psychological science. Science, 349(6251):aac4716, 2015. doi:10.1126/science.aac4716.">Open Science Collaboration, 2015</a>]</span>．</p>
+<p>この<strong>再現性</strong>（reproducibility）の問題は「再現性の危機」とも呼ばれ，研究のやり方の改革（分析計画の事前登録，データの公開など）が進む契機になりました．みなさんへの教訓はシンプルです．<strong>1つの研究，1回の調査の「有意差あり」を鵜呑みにしない</strong>こと．科学的な知識は，独立した複数の研究で繰り返し確かめられて初めて確かなものになります．「〇〇を食べると痩せる（△△大学の研究で判明）」のようなニュースに出会ったら，「その結果は他の研究でも再現されているのだろうか」と一呼吸置く——それだけで，みなさんのデータリテラシーは平均的な大人の一歩先を行っています．</p>
+</div>
+</section>
+<section id="id22">
+<h2>活用事例：テレビの視聴率——数千世帯で「全国」を測る<a class="headerlink" href="#id22" title="Link to this heading">#</a></h2>
+<p>推測統計が毎日休みなく働いている身近な現場として，テレビの<strong>視聴率</strong>を見てみましょう．</p>
+<p>「昨夜のドラマの視聴率は12.3%」——この数字は，全国のすべての世帯のテレビを調べて出しているわけではありません．調査会社が，地域ごとの世帯の縮図になるように選んだ<strong>数千世帯</strong>に測定機器を設置し，その記録から全体の視聴率を推定しています．関東地区だけでも約2,000万の世帯がありますから，調査世帯はごく一部——まさに「一口の味見」で全体を推し量る標本調査です．</p>
+<p>今回学んだことを使うと，視聴率の数字も一段深く読めるようになります．数千世帯の標本調査である以上，視聴率にも<strong>標本誤差</strong>があります．視聴率10%前後の番組なら，誤差はおおむね±1ポイント程度と見積もられます．したがって，「先週10.2%，今週10.5%」という変化は誤差の範囲内かもしれず，「0.3ポイント上昇！人気回復の兆し」といった解説は，標本誤差の観点からは言い過ぎの可能性があるわけです．一方，5ポイント，10ポイントという大きな変動は誤差では説明できず，視聴行動の実際の変化を捉えていると考えられます．</p>
+<p>広告業界では，視聴率のわずかな差が広告費の配分を左右します．だからこそ調査会社は，調査世帯の選び方が偏らないように（第2回の教訓），そして標本サイズと精度のバランスが取れるように（今回の教訓），調査設計を磨き続けています．無作為抽出・標本誤差・信頼区間——今回の道具立ては，こうした「一部から全体を知る」ビジネスの土台そのものなのです．</p>
+</section>
+<section id="id23">
+<h2>まとめ<a class="headerlink" href="#id23" title="Link to this heading">#</a></h2>
+<p>今回は，データのライフサイクルの「分析」の2回めとして，一部から全体を推し量る推測統計の入口を学びました．要点を振り返ります．</p>
+<ul class="simple">
+<li><p><strong>推測統計</strong>は，手元の標本から母集団の性質を推し量る統計学の分野である．偏りなく集めた標本にも，偶然による<strong>標本誤差</strong>は避けられない．ただし標本の偏り（第2回）と違い，標本誤差は方向の決まらないずれであり，その大きさは見積もることができる</p></li>
+<li><p>シミュレーションで見たとおり，<strong>標本サイズ</strong>を大きくすると誤差は縮むが，<strong>4倍にしても誤差は半分にしかならない</strong>．2,000人程度の標本で誤差±2ポイントほどの実用的な<strong>精度</strong>が得られるため，多くの世論調査はこの規模で行われている</p></li>
+<li><p><strong>信頼区間</strong>（「値±誤差」の幅）は，「同じ調査を何度もやったら，この幅は本当の値をだいたい（約95%の割合で）捉える」ように設計された幅である．「支持率44%（誤差±2ポイント）」は「本当の値は42〜46%のどこかにありそうだ」と読む．誤差より小さい増減は，偶然か変化か区別できない</p></li>
+<li><p><strong>仮説検定</strong>は，「差も効果もない」という<strong>帰無仮説</strong>をわざと立て，観察された結果が偶然だけでどれくらい起こりうるか（<strong>p値</strong>）を調べる方法である．p値が慣習的な目安（5%）を下回るとき<strong>統計的に有意</strong>という</p></li>
+<li><p><strong>p値の誤用</strong>に注意．p値は仮説が正しい確率ではない．「有意」は「重要」ではない（巨大な標本では微小な差も有意になる）．5%の線での白黒二分法にも批判がある <span id="id24">[<a class="reference internal" href="../references.html#id24" title="Ronald L. Wasserstein and Nicole A. Lazar. The ASA statement on p-values: context, process, and purpose. The American Statistician, 70(2):129–133, 2016. doi:10.1080/00031305.2016.1154108.">Wasserstein and Lazar, 2016</a>]</span> <span id="id25">[<a class="reference internal" href="../references.html#id27" title="Valentin Amrhein, Sander Greenland, and Blake McShane. Scientists rise up against statistical significance. Nature, 567:305–307, 2019. doi:10.1038/d41586-019-00857-9.">Amrhein <em>et al.</em>, 2019</a>]</span>．そして<strong>再現性</strong>の問題が示すとおり，1つの研究の「有意差あり」を鵜呑みにしてはいけない</p></li>
+</ul>
+<p>今回の内容は，統計学のほんの入口です．誤差や信頼区間を実際に計算する方法，さまざまな場面に応じた検定の使い分けは，統計学の入門科目で本格的に学べます．数式が出てきて戸惑ったら，今回の「1,000回の調査のヒストグラム」を思い出してください．あの散らばりの型を数式で表したものが，統計学の理論だからです．</p>
+<p>さて，第5回・第6回と続けてきた「分析」で，データから知見を取り出すところまでたどり着きました．しかし，分析して終わりではありません．得られた知見は，<strong>誰かに伝わって初めて価値になります</strong>．次回，<a class="reference internal" href="ch07-data-visualization.html"><span class="std std-doc">第7回「データの可視化とコミュニケーション」</span></a>では，分析結果を効果的に伝えるグラフの技術と，「だますグラフ」を見抜く技術を学び，データのライフサイクルを完結させます．</p>
+</section>
+<section id="id26">
+<h2>確認問題<a class="headerlink" href="#id26" title="Link to this heading">#</a></h2>
+<p>理解の確認のために，3問用意しました．小テストと同じ形式の問い（事例の問題点を考える問題）を含んでいます．まず自分で考えてから，解答を開いてください．</p>
+<p><strong>問1</strong>［事例判断型］．あるニュース番組が，世論調査（全国の有権者から無作為に選んだ2,000人対象，誤差±2ポイント程度）の結果を受けて，次のように報じました．「内閣支持率は43%で，前回調査の45%から2ポイント下落．支持離れが鮮明になりました」．この報道の問題点を，「標本誤差」「信頼区間」という言葉を使って説明しなさい．</p>
+<div class="dropdown admonition">
+<p class="admonition-title">解答と解説</p>
+<p>この調査の誤差は±2ポイント程度なので，前回の「45%」の<strong>信頼区間</strong>は43〜47%，今回の「43%」の信頼区間は41〜45%です．2つの幅は大きく重なっており，観察された2ポイントの下落は，本当の支持率が変わっていなくても<strong>標本誤差</strong>（無作為に選んだ標本に偶然生じるずれ）だけで十分起こりうる大きさです．したがって，この差だけを根拠に「支持離れが鮮明になった」と断定するのは言い過ぎです．</p>
+<p>正しい読み方は「下落したように見えるが，誤差の範囲内であり，本当に変化したのか偶然なのかはこの調査だけでは区別できない」です．なお，「誤差の範囲内だから支持率は変わっていない」と断定するのも同じく誤りである点に注意してください．変化の有無を確かめるには，複数回の調査で一貫した傾向が見られるかや，誤差を上回る大きさの変化かを確認する必要があります．</p>
+</div>
+<p><strong>問2</strong>［事例判断型］．ある健康アプリの運営会社が，利用者10万人の記録を分析したところ，「新機能『歩数ランキング』を使っている人は，使っていない人より1日の歩数が平均50歩多く，この差は統計的に有意でした（p値0.001）」という結果を得ました．会社はこれをもとに「統計学が証明！ランキング機能で運動量アップ！」と宣伝しようとしています．この宣伝の問題点を，2つ以上指摘しなさい．</p>
+<div class="dropdown admonition">
+<p class="admonition-title">解答と解説</p>
+<p>少なくとも次の3つの問題があります．</p>
+<p><strong>問題点1：「統計的に有意」を「重要な差」にすり替えている</strong>．差は1日あたり平均50歩——歩く時間にして1分にも満たないわずかな量です．10万人という巨大な標本では標本誤差が非常に小さくなるため，このようなささいな差でも「偶然では説明しにくい」（統計的に有意）という判定は簡単に出ます．有意かどうかと，差が実生活で意味を持つ大きさかどうかは別問題です．</p>
+<p><strong>問題点2：相関を因果にすり替えている</strong>．これは利用記録の分析（観察データ）であり，第5回で学んだ比較実験（利用者をランダムに分けて一方だけに機能を使わせる）ではありません．もともと運動への意欲が高い人ほどランキング機能を使いたがる，という自己選択や交絡が考えられ，「機能を使ったから歩数が増えた」という因果は示されていません．</p>
+<p><strong>問題点3：「統計学が証明」という表現</strong>．p値0.001は「差がないと仮定したら，このデータが偶然得られる確率は0.1%しかない」という意味であって，「機能に効果がある確率が99.9%」でも「効果が証明された」でもありません．仮説検定は「証明」の道具ではなく，「偶然と区別できるか」を確かめる道具です．</p>
+</div>
+<p><strong>問3</strong>．ある自治体の職員が，市民500人への意識調査（誤差の目安±4ポイント程度）の結果を上司に報告したところ，「誤差±1ポイントくらいの精度がほしい．調査人数を2倍の1,000人にすれば足りるだろう」と指示されました．この指示の問題点を，標本サイズと誤差の関係から説明しなさい．また，誤差±1ポイント程度を実現するには何人程度の調査が必要でしょうか．本文のシミュレーション結果をもとに答えなさい．</p>
+<div class="dropdown admonition">
+<p class="admonition-title">解答と解説</p>
+<p>標本サイズと誤差は反比例の関係にはなく，<strong>標本サイズを4倍にしても誤差は半分にしかなりません</strong>．2倍の1,000人にしても誤差は±4ポイントの半分にも届かず（およそ±3ポイント程度），±1ポイントには遠く及びません．</p>
+<p>誤差を±4ポイントから±1ポイント（4分の1）にするには，「4倍で半分」を2回重ねる必要があるため，標本サイズは4×4＝<strong>16倍，すなわち8,000人程度</strong>が必要です．実際，本文のシミュレーションでも，500人の誤差の目安は±4.4ポイント，8,000人では±1.1ポイントでした．誤差を縮めるほど費用が急激に増えていく（精度2倍ごとに人数4倍）ため，実務では「必要な精度はどこまでか」を先に決めて標本サイズを設計します．</p>
+<p>なお，これは標本が偏りなく集められていることが前提です．第2回で学んだとおり，集め方が偏っていれば，何人に増やしても正しい結果は得られません．</p>
+</div>
+</section>
+<section id="id27">
+<h2>さらに学ぶために<a class="headerlink" href="#id27" title="Link to this heading">#</a></h2>
+<p>今回のテーマを深めるための文献です．事例 → 解説 → 原典の順に読み進めるのがおすすめです．</p>
+<ul class="simple">
+<li><p>【事例】Open Science Collaboration, &quot;Estimating the Reproducibility of Psychological Science,&quot; <em>Science</em>, 349(6251), aac4716, 2015 <span id="id28">[<a class="reference internal" href="../references.html#id26" title="Open Science Collaboration. Estimating the reproducibility of psychological science. Science, 349(6251):aac4716, 2015. doi:10.1126/science.aac4716.">Open Science Collaboration, 2015</a>]</span>．心理学の著名な100研究を世界中の研究者が共同で追試し，再現された割合が半分に満たなかったことを示した「再現性の危機」の代表的な実証研究です．DOI: <a class="reference external" href="https://doi.org/10.1126/science.aac4716">https://doi.org/10.1126/science.aac4716</a></p></li>
+<li><p>【事例】Beth Chance, Andrew Kerr &amp; Jett Palmer, &quot;Taking the Next Step in Exploring the Literary Digest 1936 Poll,&quot; <em>Journal of Statistics and Data Science Education</em>, 32(4), 2024 <span id="id29">[<a class="reference internal" href="../references.html#id13" title="Beth Chance, Andrew Kerr, and Jett Palmer. Taking the next step in exploring the Literary Digest 1936 poll. Journal of Statistics and Data Science Education, 2024. doi:10.1080/26939169.2024.2395505.">Chance <em>et al.</em>, 2024</a>]</span>．第2回で学んだLiterary Digest調査のデータを実際に分析しながら，標本の偏りと標本誤差・補正を学ぶ授業活動の設計例です．今回の内容とあわせて読むと，「偏り」と「誤差」の違いが立体的に理解できます．オープンアクセスで全文を読めます：<a class="reference external" href="https://www.tandfonline.com/doi/full/10.1080/26939169.2024.2395505">https://www.tandfonline.com/doi/full/10.1080/26939169.2024.2395505</a></p></li>
+<li><p>【解説・サーベイ】Valentin Amrhein, Sander Greenland &amp; Blake McShane, &quot;Scientists Rise Up Against Statistical Significance,&quot; <em>Nature</em>, 567, 305–307, 2019 <span id="id30">[<a class="reference internal" href="../references.html#id27" title="Valentin Amrhein, Sander Greenland, and Blake McShane. Scientists rise up against statistical significance. Nature, 567:305–307, 2019. doi:10.1038/d41586-019-00857-9.">Amrhein <em>et al.</em>, 2019</a>]</span>．「統計的に有意／非有意」という二分法的な考え方をやめようと呼びかけ，800人超の研究者が賛同署名したコメント記事です．無料で全文を読めます：<a class="reference external" href="https://www.nature.com/articles/d41586-019-00857-9">https://www.nature.com/articles/d41586-019-00857-9</a></p></li>
+<li><p>【解説・サーベイ】John P. A. Ioannidis, &quot;Why Most Published Research Findings Are False,&quot; <em>PLoS Medicine</em>, 2(8), e124, 2005 <span id="id31">[<a class="reference internal" href="../references.html#id25" title="John P. A. Ioannidis. Why most published research findings are false. PLoS Medicine, 2(8):e124, 2005. doi:10.1371/journal.pmed.0020124.">Ioannidis, 2005</a>]</span>．再現性をめぐる議論の出発点となった古典的な論考です．題名は挑発的ですが，「なぜ誤った発見が生まれ，広まるのか」の仕組みを考えさせてくれます．オープンアクセスで全文を読めます：<a class="reference external" href="https://journals.plos.org/plosmedicine/article?id=10.1371/journal.pmed.0020124">https://journals.plos.org/plosmedicine/article?id=10.1371/journal.pmed.0020124</a></p></li>
+<li><p>【原典】Ronald L. Wasserstein &amp; Nicole A. Lazar, &quot;The ASA Statement on p-Values: Context, Process, and Purpose,&quot; <em>The American Statistician</em>, 70(2), 129–133, 2016 <span id="id32">[<a class="reference internal" href="../references.html#id24" title="Ronald L. Wasserstein and Nicole A. Lazar. The ASA statement on p-values: context, process, and purpose. The American Statistician, 70(2):129–133, 2016. doi:10.1080/00031305.2016.1154108.">Wasserstein and Lazar, 2016</a>]</span>．米国統計学会によるp値についての公式声明です．「p値は仮説が正しい確率ではない」「統計的有意性は効果の大きさや重要性を意味しない」など6つの原則が簡潔にまとめられています．オープンアクセスで全文を読めます：<a class="reference external" href="https://www.tandfonline.com/doi/full/10.1080/00031305.2016.1154108">https://www.tandfonline.com/doi/full/10.1080/00031305.2016.1154108</a></p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="ch05-data-analysis.html"
+       title="前のページ">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">前へ</p>
+        <p class="prev-next-title">第5回：データの分析I——データを要約し，関係を読む</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="ch07-data-visualization.html"
+       title="次ページ">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">次へ</p>
+        <p class="prev-next-title">第7回：データの可視化とコミュニケーション</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目次
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">この回で学ぶこと</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">導入：たった2,000人に聞いて，なぜ「日本全体」が分かるのか</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">標本から全体を推し量る——推測統計の考え方</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">第2回の復習：味噌汁の味見と標本調査</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">「偏りなく」の次の問い：「どれくらい正確か」</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">標本誤差を体感する——シミュレーション実験</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">実験の準備：本当の支持率が「40%」の母集団をつくる</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">2,000人の調査を1回やってみる</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">同じ調査を1,000回繰り返すと——誤差には「型」がある</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">標本サイズを変えると——4倍にしても誤差は半分</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">信頼区間——「誤差±2ポイント」の読み方</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">報道の「支持率44%（誤差±2ポイント）」とは</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">「2ポイント下がった」は下がったのか</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">仮説検定——その差は偶然でも起こりうるか</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">コイン投げの実験：10回中8回表は「偶然」で起こるか</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#p">帰無仮説とp値——「偶然だとしたら」と仮定してみる</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">p値の意味と誤用——「有意」は「重要」ではない</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">活用事例：テレビの視聴率——数千世帯で「全国」を測る</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">まとめ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">確認問題</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">さらに学ぶために</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+著者 名古屋市立大学 大学院データサイエンス研究科 山本祐輔
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

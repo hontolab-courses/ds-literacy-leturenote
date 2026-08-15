@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -64,7 +64,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/ch04-preprocessing';</script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="第5回：データの分析" href="ch05-data-analysis.html" />
+    <link rel="next" title="第5回：データの分析I——データを要約し，関係を読む" href="ch05-data-analysis.html" />
     <link rel="prev" title="第3回：データの保存と検索" href="ch03-database.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="ja"/>
@@ -168,10 +168,12 @@
 <li class="toctree-l1"><a class="reference internal" href="ch02-data-collection.html">第2回：データの収集</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ch03-database.html">第3回：データの保存と検索</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">第4回：データの前処理</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ch05-data-analysis.html">第5回：データの分析</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ch06-data-visualization.html">第6回：データの可視化とコミュニケーション</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ch07-data-law.html">第7回：データと法——情報法の基礎</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ch08-genai.html">第8回：生成AIの基礎と知的活動への利用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch05-data-analysis.html">第5回：データの分析I——データを要約し，関係を読む</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch06-inferential-statistics.html">第6回：データの分析II——一部から全体を知る：推測統計の入口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch07-data-visualization.html">第7回：データの可視化とコミュニケーション</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch08-machine-learning.html">第8回：機械学習と予測——AIはどう学ぶのか</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch09-data-law.html">第9回：データと法——情報法の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch10-genai.html">第10回：生成AIの基礎と知的活動への利用</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../references.html">参考文献</a></li>
 </ul>
 
@@ -569,7 +571,7 @@ dtype: int64
 </div>
 </div>
 </div>
-<p>たった1件の外れ値のせいで，平均睡眠時間は18.4時間という非現実的な値になりました（一方，値を小さい順に並べた真ん中の値である中央値は7.0時間で，実態に近い値を保っています）．外れ値を見つける第一歩は，最大値・最小値を確認したり，<a class="reference internal" href="ch06-data-visualization.html"><span class="std std-doc">第6回「データの可視化」</span></a>で学ぶヒストグラムや散布図でデータの分布を眺めたりすることです．</p>
+<p>たった1件の外れ値のせいで，平均睡眠時間は18.4時間という非現実的な値になりました（一方，値を小さい順に並べた真ん中の値である中央値は7.0時間で，実態に近い値を保っています）．外れ値を見つける第一歩は，最大値・最小値を確認したり，<a class="reference internal" href="ch07-data-visualization.html"><span class="std std-doc">第7回「データの可視化」</span></a>で学ぶヒストグラムや散布図でデータの分布を眺めたりすることです．</p>
 <p>ただし，<strong>外れ値＝誤りとは限らない</strong>点に注意してください．たとえばアルバイト収入の調査で月30万円という回答があったとき，それは入力ミスかもしれませんが，本当にそれだけ働いて稼いでいる学生かもしれません．明らかな入力ミスと確認できれば修正・除外できますが，確認できない外れ値を「邪魔だから」と安易に消すのは，データの改ざんに近づく危険な行為です．</p>
 </section>
 <section id="id9">
@@ -853,7 +855,7 @@ Name: count, dtype: int64
 <li><p><strong>各観測が1つの行をなす</strong>（1行＝1観測）：「誰それの回答」「何月の売上」のように，観測ひとつごとに行がひとつ対応する．</p></li>
 <li><p><strong>各観測単位の類型が1つの表をなす</strong>（1表＝1種類）：「回答者の名簿」と「イベントの一覧」のように種類の違うデータは，1枚の表に無理に詰め込まず，別々の表に分ける．</p></li>
 </ol>
-<p>ここで<strong>変数</strong>（variable）とは，学部・学年・参加人数のように，観測対象ごとに値が変わりうる測定項目のことです．tidy dataの利点は，<strong>どんなデータでも同じ形になっているので，集計・分析・可視化の道具がそのまま使える</strong>ことです．pandasのようなライブラリも，<a class="reference internal" href="ch05-data-analysis.html"><span class="std std-doc">第5回</span></a>・<a class="reference internal" href="ch06-data-visualization.html"><span class="std std-doc">第6回</span></a>で登場する分析・可視化の道具も，基本的にtidy dataを前提に設計されています．</p>
+<p>ここで<strong>変数</strong>（variable）とは，学部・学年・参加人数のように，観測対象ごとに値が変わりうる測定項目のことです．tidy dataの利点は，<strong>どんなデータでも同じ形になっているので，集計・分析・可視化の道具がそのまま使える</strong>ことです．pandasのようなライブラリも，<a class="reference internal" href="ch05-data-analysis.html"><span class="std std-doc">第5回</span></a>・<a class="reference internal" href="ch07-data-visualization.html"><span class="std std-doc">第6回</span></a>で登場する分析・可視化の道具も，基本的にtidy dataを前提に設計されています．</p>
 </section>
 <section id="tidy">
 <h3>「横持ち」の表をtidyに変換する<a class="headerlink" href="#tidy" title="Link to this heading">#</a></h3>
@@ -1109,7 +1111,7 @@ Name: 参加人数, dtype: int64
 <p>尺度水準をわざわざ学ぶのは，用語を暗記するためではありません．<strong>尺度水準が，その後の分析と可視化における道具選びの基準になる</strong>からです．</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="ch05-data-analysis.html"><span class="std std-doc">第5回「データの分析」</span></a>では，データを要約する統計量（平均値・中央値・最頻値など）を学びます．どの統計量が使えるかは尺度水準で決まります．たとえば名義尺度に使えるのは最頻値だけで，平均値が意味を持つのは間隔尺度以上です．</p></li>
-<li><p><a class="reference internal" href="ch06-data-visualization.html"><span class="std std-doc">第6回「データの可視化」</span></a>では，データの型に応じたグラフの使い分けを学びます．質的変数の分布は棒グラフ，量的変数の分布はヒストグラム，量的変数同士の関係は散布図——というように，グラフ選びの出発点も変数の型です．</p></li>
+<li><p><a class="reference internal" href="ch07-data-visualization.html"><span class="std std-doc">第7回「データの可視化」</span></a>では，データの型に応じたグラフの使い分けを学びます．質的変数の分布は棒グラフ，量的変数の分布はヒストグラム，量的変数同士の関係は散布図——というように，グラフ選びの出発点も変数の型です．</p></li>
 </ul>
 <p>前処理の段階で「この列は何尺度か」を一度確認しておくことは，次回以降のすべての作業の土台になります．変数の型の確認までを含めて前処理，と覚えておいてください．</p>
 </section>
@@ -1127,7 +1129,7 @@ Name: 参加人数, dtype: int64
 <li><p>現実のデータはほぼ例外なく汚れており，分析の作業時間のおおむね5〜8割は前処理に費やされると言われます（New York Timesの報道 <span id="id27">[<a class="reference internal" href="../references.html#id20" title="Steve Lohr. For big-data scientists, `janitor work' is key hurdle to insights. The New York Times, 2014. 報道記事（2014年8月17日）. URL: https://www.nytimes.com/2014/08/18/technology/for-big-data-scientists-hurdle-to-insights-is-janitor-work.html.">Lohr, 2014</a>]</span> や産業調査に基づく経験則です）．</p></li>
 <li><p>バッドデータの代表的な型は<strong>欠損値・外れ値・表記ゆれ・重複データ</strong>の4つです．機械は人間と違い，文脈を読んでくれません．</p></li>
 <li><p>目指すべき状態は<strong>マシンリーダブル（機械可読）</strong> なデータです．一貫性・YYYY-MM-DD形式・1セル1項目・セル結合の回避といった表づくりのルール <span id="id28">[<a class="reference internal" href="../references.html#id18" title="Karl W. Broman and Kara H. Woo. Data organization in spreadsheets. The American Statistician, 72(1):2–10, 2018. doi:10.1080/00031305.2017.1375989.">Broman and Woo, 2018</a>]</span> を守り，<strong>データクレンジング</strong>で値を整え，<strong>tidy data</strong>（1列＝1変数，1行＝1観測，1表＝1観測単位）<span id="id29">[<a class="reference internal" href="../references.html#id17" title="Hadley Wickham. Tidy data. Journal of Statistical Software, 59(10):1–23, 2014. doi:10.18637/jss.v059.i10.">Wickham, 2014</a>]</span> の形に構造を整えます．</p></li>
-<li><p>変数には<strong>尺度水準</strong>（名義・順序・間隔・比率）<span id="id30">[<a class="reference internal" href="../references.html#id19" title="S. S. Stevens. On the theory of scales of measurement. Science, 103(2684):677–680, 1946. doi:10.1126/science.103.2684.677.">Stevens, 1946</a>]</span> があり，使える統計量やグラフを決めます．これは<a class="reference internal" href="ch05-data-analysis.html"><span class="std std-doc">第5回</span></a>・<a class="reference internal" href="ch06-data-visualization.html"><span class="std std-doc">第6回</span></a>への橋渡しとなる重要な視点です．</p></li>
+<li><p>変数には<strong>尺度水準</strong>（名義・順序・間隔・比率）<span id="id30">[<a class="reference internal" href="../references.html#id19" title="S. S. Stevens. On the theory of scales of measurement. Science, 103(2684):677–680, 1946. doi:10.1126/science.103.2684.677.">Stevens, 1946</a>]</span> があり，使える統計量やグラフを決めます．これは<a class="reference internal" href="ch05-data-analysis.html"><span class="std std-doc">第5回</span></a>・<a class="reference internal" href="ch07-data-visualization.html"><span class="std std-doc">第6回</span></a>への橋渡しとなる重要な視点です．</p></li>
 <li><p>前処理には分析者の判断（<strong>恣意性</strong>）が入り込みます．生データを残し，処理の内容を記録・明記する透明性が不可欠です．</p></li>
 </ul>
 <p>次回の<a class="reference internal" href="ch05-data-analysis.html"><span class="std std-doc">第5回「データの分析」</span></a>では，きれいに整えたデータから意味を読み取る方法——統計量による要約と，相関と因果の区別——を学びます．</p>
@@ -1272,7 +1274,7 @@ Excelなどでのデータ整理の実務的な推奨事項（一貫性，YYYY-M
        title="次ページ">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">次へ</p>
-        <p class="prev-next-title">第5回：データの分析</p>
+        <p class="prev-next-title">第5回：データの分析I——データを要約し，関係を読む</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

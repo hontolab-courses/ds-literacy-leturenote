@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -168,10 +168,12 @@
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">第2回：データの収集</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ch03-database.html">第3回：データの保存と検索</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ch04-preprocessing.html">第4回：データの前処理</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ch05-data-analysis.html">第5回：データの分析</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ch06-data-visualization.html">第6回：データの可視化とコミュニケーション</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ch07-data-law.html">第7回：データと法——情報法の基礎</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ch08-genai.html">第8回：生成AIの基礎と知的活動への利用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch05-data-analysis.html">第5回：データの分析I——データを要約し，関係を読む</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch06-inferential-statistics.html">第6回：データの分析II——一部から全体を知る：推測統計の入口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch07-data-visualization.html">第7回：データの可視化とコミュニケーション</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch08-machine-learning.html">第8回：機械学習と予測——AIはどう学ぶのか</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch09-data-law.html">第9回：データと法——情報法の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch10-genai.html">第10回：生成AIの基礎と知的活動への利用</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../references.html">参考文献</a></li>
 </ul>
 
@@ -410,7 +412,7 @@
 <p>2つめは<strong>Webスクレイピング</strong>（web scraping）です．これは，プログラムを使ってWebページから情報を自動的に収集する技術です．たとえば「レビューサイトから飲食店の評価とクチコミを自動で集める」「ニュースサイトから記事の見出しを毎日集める」といったことができます．人手でコピー＆ペーストしていたら何日もかかる作業を，プログラムなら短時間でこなせます．</p>
 <div class="admonition warning">
 <p class="admonition-title">警告</p>
-<p>Webスクレイピングは便利な技術ですが，<strong>何でも自由に集めてよいわけではありません</strong>．Webサイトには利用規約があり，自動収集を禁止しているサイトも多くあります．また，集めた文章や画像には著作権があり，短時間に大量のアクセスを行えばWebサイトに迷惑（サーバへの過剰な負荷）をかけることにもなります．「技術的にできること」と「やってよいこと」は別問題です．このルールの話は，<a class="reference internal" href="ch07-data-law.html"><span class="std std-doc">第7回「データと法」</span></a>で詳しく扱います．</p>
+<p>Webスクレイピングは便利な技術ですが，<strong>何でも自由に集めてよいわけではありません</strong>．Webサイトには利用規約があり，自動収集を禁止しているサイトも多くあります．また，集めた文章や画像には著作権があり，短時間に大量のアクセスを行えばWebサイトに迷惑（サーバへの過剰な負荷）をかけることにもなります．「技術的にできること」と「やってよいこと」は別問題です．このルールの話は，<a class="reference internal" href="ch09-data-law.html"><span class="std std-doc">第9回「データと法」</span></a>で詳しく扱います．</p>
 </div>
 </section>
 <section id="id7">
@@ -631,7 +633,7 @@
 <li><p>「誰がデータに入るか」が仕組みによって偏る<strong>選択バイアス</strong>は，<strong>標本の偏り</strong>を生む．1936年のLiterary Digest世論調査は，約240万人分という空前の量のデータを集めながら，名簿の偏りと回答者の偏りという二重の選択バイアスによって予測を大きく外した <span id="id21">[<a class="reference internal" href="../references.html#id11" title="Peverill Squire. Why the 1936 Literary Digest poll failed. Public Opinion Quarterly, 52(1):125–133, 1988. doi:10.1086/269085.">Squire, 1988</a>]</span>．<strong>偏った集め方は量では救えない</strong>．ただし，偏り方が分かれば重み付けによる補正で改善の余地があることも知られている <span id="id22">[<a class="reference internal" href="../references.html#id12" title="Sharon L. Lohr and J. Michael Brick. Roosevelt predicted to win: revisiting the 1936 Literary Digest poll. Statistics, Politics and Policy, 8(1):65–84, 2017. doi:10.1515/spp-2016-0006.">Lohr and Brick, 2017</a>]</span></p></li>
 </ul>
 <p>「誰に・どう聞くか」を設計する方法論は<strong>社会調査法</strong>で，「条件をどう割り付けて比較するか」は<strong>実験計画法</strong>で，「標本から母集団をどこまで正確に推し量れるか」は<strong>統計学</strong>で，それぞれ本格的に学ぶことができます．興味を持った人は，これらの科目への入口として今回の内容を思い出してください．</p>
-<p>集めたデータは，次に「貯めて，引き出せる」ようにしなければ活用できません．次回（第3回）は，データの保存と検索を扱います．また，今回は「どう集めるか」の技術的な話に絞りましたが，そもそも<strong>集めてよいデータなのか，集め方のルール（同意・プライバシー）はどうなっているのか</strong>という重要な問題が残っています．これは<a class="reference internal" href="ch07-data-law.html"><span class="std std-doc">第7回「データと法」</span></a>で扱います．</p>
+<p>集めたデータは，次に「貯めて，引き出せる」ようにしなければ活用できません．次回（第3回）は，データの保存と検索を扱います．また，今回学んだ標本の考え方には続きがあります．標本から全体を<strong>どこまで正確に</strong>推し量れるのか——誤差の大きさをどう見積もり，「偶然でも起こりうる差」とどう区別するのか——は，<a class="reference internal" href="ch06-inferential-statistics.html"><span class="std std-doc">第6回「データの分析II：推測統計の入口」</span></a>で詳しく学びます．さらに，今回は「どう集めるか」の技術的な話に絞りましたが，そもそも<strong>集めてよいデータなのか，集め方のルール（同意・プライバシー）はどうなっているのか</strong>という重要な問題も残っています．これは<a class="reference internal" href="ch09-data-law.html"><span class="std std-doc">第9回「データと法」</span></a>で扱います．</p>
 </section>
 <section id="id23">
 <h2>確認問題<a class="headerlink" href="#id23" title="Link to this heading">#</a></h2>

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" font-family="'Hiragino Sans','Noto Sans JP',sans-serif">
+<defs>
+<marker id="tf" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#4C72B0"/></marker>
+</defs>
+<rect x="0" y="0" width="1000" height="560" fill="white"/>
+
+<!-- 手順1 -->
+<rect x="100" y="36" width="800" height="96" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="124" y="66" font-size="18" font-weight="bold" fill="#333333">① 主張とは逆に「差も効果も何もない，すべて偶然だ」と仮に考えてみる</text>
+<text x="124" y="91" font-size="14" fill="#8C8C8C">この仮の仮説が「帰無仮説」——捨てられる（棄却される）ことを想定してわざと立てる</text>
+<text x="124" y="116" font-size="14" fill="#DD8452">コインの例：コツなどなく，表の確率は普通に50%</text>
+
+<line x1="500" y1="132" x2="500" y2="156" stroke="#4C72B0" stroke-width="2" marker-end="url(#tf)"/>
+
+<!-- 手順2 -->
+<rect x="100" y="160" width="800" height="110" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="124" y="190" font-size="18" font-weight="bold" fill="#333333">② その仮定のもとで，観察された結果（かそれ以上に極端な結果）が</text>
+<text x="124" y="216" font-size="18" font-weight="bold" fill="#333333">　 偶然だけでどれくらいの確率で起こるかを調べる——この確率が「p値」</text>
+<text x="124" y="244" font-size="14" fill="#DD8452">コインの例：「10回中8回以上表」は偶然だけで約5.5%の確率で起こる</text>
+
+<line x1="500" y1="270" x2="500" y2="294" stroke="#4C72B0" stroke-width="2" marker-end="url(#tf)"/>
+
+<!-- 手順3：判断 -->
+<rect x="320" y="298" width="360" height="62" rx="8" fill="#F2F2F2" stroke="#8C8C8C" stroke-width="2"/>
+<text x="500" y="325" text-anchor="middle" font-size="17" font-weight="bold" fill="#333333">③ p値は十分小さいか？</text>
+<text x="500" y="348" text-anchor="middle" font-size="13" fill="#8C8C8C">（慣習的な目安：5%を下回るか）</text>
+
+<!-- 分岐矢印 -->
+<line x1="440" y1="360" x2="280" y2="398" stroke="#4C72B0" stroke-width="2" marker-end="url(#tf)"/>
+<line x1="560" y1="360" x2="720" y2="398" stroke="#4C72B0" stroke-width="2" marker-end="url(#tf)"/>
+<text x="322" y="374" text-anchor="middle" font-size="14" font-weight="bold" fill="#55A868">小さい</text>
+<text x="682" y="374" text-anchor="middle" font-size="14" font-weight="bold" fill="#8C8C8C">小さくない</text>
+
+<!-- 左：有意 -->
+<rect x="60" y="404" width="400" height="120" rx="8" fill="#EAF5EC" stroke="#55A868" stroke-width="2"/>
+<text x="260" y="436" text-anchor="middle" font-size="17" font-weight="bold" fill="#333333">「偶然にしては珍しすぎる」</text>
+<text x="260" y="464" text-anchor="middle" font-size="15" fill="#333333">→ 帰無仮説を疑って捨て，主張を支持する</text>
+<text x="260" y="494" text-anchor="middle" font-size="16" font-weight="bold" fill="#55A868">＝「統計的に有意」</text>
+
+<!-- 右：保留 -->
+<rect x="540" y="404" width="400" height="120" rx="8" fill="#F2F2F2" stroke="#8C8C8C" stroke-width="2"/>
+<text x="740" y="436" text-anchor="middle" font-size="17" font-weight="bold" fill="#333333">「偶然でも起こりうる」</text>
+<text x="740" y="464" text-anchor="middle" font-size="15" fill="#333333">→ 判断を保留する（証拠不足）</text>
+<text x="740" y="494" text-anchor="middle" font-size="14" fill="#DD8452">コインの例：5.5%は5%をわずかに上回る→保留</text>
+</svg>

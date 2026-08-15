@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" font-family="'Hiragino Sans','Noto Sans JP',sans-serif">
+<defs>
+<marker id="arrow-blue" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 Z" fill="#4C72B0"/></marker>
+<marker id="arrow-orange" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 Z" fill="#DD8452"/></marker>
+</defs>
+<rect x="0" y="0" width="1000" height="560" fill="white"/>
+<!-- 左パネル：ルールを人が書くプログラム -->
+<rect x="24" y="24" width="464" height="444" rx="8" fill="white" stroke="#4C72B0" stroke-width="2"/>
+<text x="256" y="58" text-anchor="middle" font-size="20" font-weight="bold" fill="#4C72B0">ルールを人が書くプログラム</text>
+<rect x="76" y="80" width="360" height="84" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="256" y="108" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">人間が判断のルールを書き下す</text>
+<text x="256" y="132" text-anchor="middle" font-size="14" fill="#333333">例：「消費税は価格の10%」</text>
+<text x="256" y="152" text-anchor="middle" font-size="14" fill="#333333">「60点以上なら合格」</text>
+<line x1="256" y1="164" x2="256" y2="198" stroke="#4C72B0" stroke-width="2" marker-end="url(#arrow-blue)"/>
+<rect x="76" y="204" width="360" height="52" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="256" y="236" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">プログラム（ルールの集まり）</text>
+<line x1="256" y1="256" x2="256" y2="290" stroke="#4C72B0" stroke-width="2" marker-end="url(#arrow-blue)"/>
+<rect x="76" y="296" width="360" height="52" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="256" y="328" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">ルールどおりに確実に動く</text>
+<text x="76" y="384" font-size="14" fill="#55A868">得意：ルールを言葉で書き下せる仕事</text>
+<text x="76" y="406" font-size="14" fill="#8C8C8C">　　　（電卓・履修登録システムなど）</text>
+<text x="76" y="432" font-size="14" fill="#C44E52">苦手：ルールを書き出せない仕事——</text>
+<text x="76" y="454" font-size="14" fill="#C44E52">　　　例外だらけで，すぐに時代遅れに</text>
+<!-- 右パネル：データから学ぶ機械学習 -->
+<rect x="512" y="24" width="464" height="444" rx="8" fill="white" stroke="#DD8452" stroke-width="2"/>
+<text x="744" y="58" text-anchor="middle" font-size="20" font-weight="bold" fill="#DD8452">データから学ぶ機械学習</text>
+<rect x="564" y="80" width="360" height="84" rx="8" fill="#FBEEE4" stroke="#DD8452" stroke-width="2"/>
+<text x="744" y="112" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">大量のデータ（実例）を与える</text>
+<text x="744" y="142" text-anchor="middle" font-size="14" fill="#333333">例：大量のメールの実例</text>
+<line x1="744" y1="164" x2="744" y2="198" stroke="#DD8452" stroke-width="2" marker-end="url(#arrow-orange)"/>
+<text x="760" y="178" font-size="13" fill="#DD8452">コンピュータ自身が</text>
+<text x="760" y="195" font-size="13" fill="#DD8452">パターンを見つける</text>
+<rect x="564" y="204" width="360" height="52" rx="8" fill="#FBEEE4" stroke="#DD8452" stroke-width="2"/>
+<text x="744" y="236" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">モデル（学び取ったパターン）</text>
+<line x1="744" y1="256" x2="744" y2="290" stroke="#DD8452" stroke-width="2" marker-end="url(#arrow-orange)"/>
+<rect x="564" y="296" width="360" height="52" rx="8" fill="#FBEEE4" stroke="#DD8452" stroke-width="2"/>
+<text x="744" y="328" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">新しい入力に対して予測・判別</text>
+<text x="564" y="384" font-size="14" fill="#55A868">得意：ルールを書き出せない仕事，</text>
+<text x="564" y="406" font-size="14" fill="#55A868">　　　状況が変わり続ける仕事</text>
+<text x="564" y="432" font-size="14" fill="#8C8C8C">　　　（迷惑メールフィルタなど）</text>
+<!-- 下部注記 -->
+<text x="500" y="516" text-anchor="middle" font-size="14" fill="#8C8C8C">※機械学習でも人が書くのは「学び方」まで——「無料は怪しい」といった知識そのものはデータから学ばれる</text>
+</svg>

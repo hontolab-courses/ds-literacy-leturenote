@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" font-family="'Hiragino Sans','Noto Sans JP',sans-serif">
+<defs>
+<marker id="arrow-blue" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 Z" fill="#4C72B0"/></marker>
+<marker id="arrow-orange" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 Z" fill="#DD8452"/></marker>
+</defs>
+<rect x="0" y="0" width="1000" height="500" fill="white"/>
+<!-- 左パネル：分類 -->
+<rect x="24" y="24" width="464" height="356" rx="8" fill="white" stroke="#4C72B0" stroke-width="2"/>
+<text x="256" y="58" text-anchor="middle" font-size="20" font-weight="bold" fill="#4C72B0">分類（classification）</text>
+<text x="256" y="86" text-anchor="middle" font-size="15" fill="#4C72B0">正解＝カテゴリ（どれか）を当てる</text>
+<rect x="166" y="104" width="180" height="44" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="256" y="131" text-anchor="middle" font-size="15" font-weight="bold" fill="#333333">新しいメール</text>
+<line x1="256" y1="148" x2="160" y2="202" stroke="#4C72B0" stroke-width="2" marker-end="url(#arrow-blue)"/>
+<line x1="256" y1="148" x2="352" y2="202" stroke="#4C72B0" stroke-width="2" marker-end="url(#arrow-blue)"/>
+<rect x="66" y="206" width="180" height="48" rx="8" fill="white" stroke="#4C72B0" stroke-width="2"/>
+<text x="156" y="236" text-anchor="middle" font-size="15" font-weight="bold" fill="#333333">迷惑メール</text>
+<rect x="266" y="206" width="180" height="48" rx="8" fill="white" stroke="#4C72B0" stroke-width="2"/>
+<text x="356" y="236" text-anchor="middle" font-size="15" font-weight="bold" fill="#333333">通常メール</text>
+<text x="256" y="286" text-anchor="middle" font-size="13" fill="#8C8C8C">選択肢の中からどれかを当てる</text>
+<text x="256" y="330" text-anchor="middle" font-size="14" fill="#8C8C8C">例：迷惑メール判定，顔認証，病変の有無の判定</text>
+<!-- 右パネル：回帰 -->
+<rect x="512" y="24" width="464" height="356" rx="8" fill="white" stroke="#DD8452" stroke-width="2"/>
+<text x="744" y="58" text-anchor="middle" font-size="20" font-weight="bold" fill="#DD8452">回帰（regression）</text>
+<text x="744" y="86" text-anchor="middle" font-size="15" fill="#DD8452">正解＝数値（どれくらいか）を当てる</text>
+<rect x="654" y="104" width="180" height="44" rx="8" fill="#FBEEE4" stroke="#DD8452" stroke-width="2"/>
+<text x="744" y="131" text-anchor="middle" font-size="15" font-weight="bold" fill="#333333">明日の状況</text>
+<line x1="744" y1="148" x2="744" y2="226" stroke="#DD8452" stroke-width="2" marker-end="url(#arrow-orange)"/>
+<text x="758" y="192" font-size="13" fill="#8C8C8C">来店客数は何人？</text>
+<!-- 目盛り（数値のものさし） -->
+<line x1="574" y1="236" x2="914" y2="236" stroke="#333333" stroke-width="2"/>
+<line x1="574" y1="230" x2="574" y2="242" stroke="#333333" stroke-width="2"/>
+<line x1="642" y1="230" x2="642" y2="242" stroke="#333333" stroke-width="2"/>
+<line x1="710" y1="230" x2="710" y2="242" stroke="#333333" stroke-width="2"/>
+<line x1="778" y1="230" x2="778" y2="242" stroke="#333333" stroke-width="2"/>
+<line x1="846" y1="230" x2="846" y2="242" stroke="#333333" stroke-width="2"/>
+<line x1="914" y1="230" x2="914" y2="242" stroke="#333333" stroke-width="2"/>
+<text x="592" y="264" text-anchor="middle" font-size="13" fill="#8C8C8C">少ない</text>
+<text x="896" y="264" text-anchor="middle" font-size="13" fill="#8C8C8C">多い</text>
+<text x="744" y="290" text-anchor="middle" font-size="14" font-weight="bold" fill="#DD8452">予測した来店客数（数値）</text>
+<text x="744" y="330" text-anchor="middle" font-size="14" fill="#8C8C8C">例：来店客数の予測，バスの所要時間の予測</text>
+<!-- 共通の土台 -->
+<rect x="24" y="404" width="952" height="64" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="500" y="432" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">共通の原理：どちらも「例と正解のペア」から学ぶ教師あり学習</text>
+<text x="500" y="456" text-anchor="middle" font-size="14" fill="#4C72B0">正解がカテゴリなら「分類」，数値なら「回帰」と呼び分けるだけ</text>
+</svg>

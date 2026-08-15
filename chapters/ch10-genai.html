@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>第8回：生成AIの基礎と知的活動への利用 &#8212; データサイエンス・リテラシー</title>
+    <title>第10回：生成AIの基礎と知的活動への利用 &#8212; データサイエンス・リテラシー</title>
   
   
   
@@ -61,11 +61,11 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/ch08-genai';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/ch10-genai';</script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
     <link rel="next" title="参考文献" href="../references.html" />
-    <link rel="prev" title="第7回：データと法——情報法の基礎" href="ch07-data-law.html" />
+    <link rel="prev" title="第9回：データと法——情報法の基礎" href="ch09-data-law.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="ja"/>
   <meta name="docsearch:version" content="" />
@@ -168,10 +168,12 @@
 <li class="toctree-l1"><a class="reference internal" href="ch02-data-collection.html">第2回：データの収集</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ch03-database.html">第3回：データの保存と検索</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ch04-preprocessing.html">第4回：データの前処理</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ch05-data-analysis.html">第5回：データの分析</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ch06-data-visualization.html">第6回：データの可視化とコミュニケーション</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ch07-data-law.html">第7回：データと法——情報法の基礎</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">第8回：生成AIの基礎と知的活動への利用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch05-data-analysis.html">第5回：データの分析I——データを要約し，関係を読む</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch06-inferential-statistics.html">第6回：データの分析II——一部から全体を知る：推測統計の入口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch07-data-visualization.html">第7回：データの可視化とコミュニケーション</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch08-machine-learning.html">第8回：機械学習と予測——AIはどう学ぶのか</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch09-data-law.html">第9回：データと法——情報法の基礎</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">第10回：生成AIの基礎と知的活動への利用</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../references.html">参考文献</a></li>
 </ul>
 
@@ -232,7 +234,7 @@
       
       
       
-      <li><a href="../_sources/chapters/ch08-genai.md" target="_blank"
+      <li><a href="../_sources/chapters/ch10-genai.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="ソースファイルをダウンロード"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -308,7 +310,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>第8回：生成AIの基礎と知的活動への利用</h1>
+    <h1>第10回：生成AIの基礎と知的活動への利用</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -364,7 +366,7 @@
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="ai">
-<h1>第8回：生成AIの基礎と知的活動への利用<a class="headerlink" href="#ai" title="Link to this heading">#</a></h1>
+<h1>第10回：生成AIの基礎と知的活動への利用<a class="headerlink" href="#ai" title="Link to this heading">#</a></h1>
 <section id="id1">
 <h2>この回で学ぶこと<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <ul class="simple">
@@ -404,12 +406,12 @@
 <section id="id4">
 <h3>生成AIとは何か<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
 <p>これに対して，<strong>生成AI</strong>（generative AI）は，文章・画像・音声・プログラムコードなどの<strong>新しいコンテンツを作り出す（生成する）</strong> タイプのAIです．質問に対して文章で答える対話型AI，指示文から画像を描くAI，メロディを作るAIなどがこれにあたります．</p>
-<p>ここで大切なのは，識別・予測系AIと生成AIは対立するものではなく，<strong>どちらも「データから学ぶ」という共通の土台（機械学習）の上に立っている</strong>ということです．第5回で機械学習の入口として学んだように，機械学習とは，人間がルールを一つひとつ書き込むのではなく，大量のデータからコンピュータ自身がパターンを見つけ出す方法でした．識別・予測系AIはデータから「見分け方・予測の仕方」のパターンを学び，生成AIはデータから「コンテンツの作り方」のパターンを学びます．違うのは出力の形であって，データから学ぶという原理は共通なのです．</p>
-<p>ここまでのAIの全体像を <a class="reference internal" href="#fig-ch08-ai-taxonomy"><span class="std std-numref">図 38</span></a> に整理します．第1回で見た活用事例が，この図のどこに位置づくかを確かめてみてください．</p>
-<figure class="align-default" id="fig-ch08-ai-taxonomy">
-<img alt="AIの全体像の分類図．AI（人工知能）という大きな枠の中に，機械学習という共通の土台があり，その上に2本の柱が並ぶ．左の柱は識別・予測系AIで，出力はラベルや数値．例として画像診断支援，需要予測・被害予測，おすすめ表示（推薦システム），迷惑メールの振り分け・顔認証，音声認識．右の柱は生成AIで，出力は新しいコンテンツ．例として質問に文章で答える対話型AI，指示文から画像を描くAI，メロディを作るAI，プログラムコードの生成．図の下に，AI＝生成AIではないという注記がある．" src="../_images/ch08-ai-taxonomy.svg" />
+<p>ここで大切なのは，識別・予測系AIと生成AIは対立するものではなく，<strong>どちらも「データから学ぶ」という共通の土台（機械学習）の上に立っている</strong>ということです．<a class="reference internal" href="ch08-machine-learning.html"><span class="std std-doc">第8回「機械学習と予測」</span></a>で学んだように，機械学習とは，人間がルールを一つひとつ書き込むのではなく，大量のデータからコンピュータ自身がパターンを見つけ出す方法でした．識別・予測系AIはデータから「見分け方・予測の仕方」のパターンを学び，生成AIはデータから「コンテンツの作り方」のパターンを学びます．違うのは出力の形であって，データから学ぶという原理は共通なのです．</p>
+<p>ここまでのAIの全体像を <a class="reference internal" href="#fig-ch10-ai-taxonomy"><span class="std std-numref">図 45</span></a> に整理します．第1回で見た活用事例が，この図のどこに位置づくかを確かめてみてください．</p>
+<figure class="align-default" id="fig-ch10-ai-taxonomy">
+<img alt="AIの全体像の分類図．AI（人工知能）という大きな枠の中に，機械学習という共通の土台があり，その上に2本の柱が並ぶ．左の柱は識別・予測系AIで，出力はラベルや数値．例として画像診断支援，需要予測・被害予測，おすすめ表示（推薦システム），迷惑メールの振り分け・顔認証，音声認識．右の柱は生成AIで，出力は新しいコンテンツ．例として質問に文章で答える対話型AI，指示文から画像を描くAI，メロディを作るAI，プログラムコードの生成．図の下に，AI＝生成AIではないという注記がある．" src="../_images/ch10-ai-taxonomy.svg" />
 <figcaption>
-<p><span class="caption-number">図 38 </span><span class="caption-text">AIの全体像——識別・予測系AIと生成AIは，どちらも機械学習という共通の土台の上に立つ</span><a class="headerlink" href="#fig-ch08-ai-taxonomy" title="Link to this image">#</a></p>
+<p><span class="caption-number">図 45 </span><span class="caption-text">AIの全体像——識別・予測系AIと生成AIは，どちらも機械学習という共通の土台の上に立つ</span><a class="headerlink" href="#fig-ch10-ai-taxonomy" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="admonition warning">
@@ -425,11 +427,11 @@
 <h3>スマホの予測変換から考える<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
 <p>文章を生成するAIの中身は，<strong>大規模言語モデル</strong>（Large Language Model; <strong>LLM</strong>）と呼ばれるモデルです．「モデル」という言葉は難しく聞こえますが，ここでは「データから学んだパターンのかたまり」くらいに考えてください．</p>
 <p>LLMの仕組みを直感的に理解する鍵は，みなさんが毎日使っているスマホの<strong>予測変換</strong>にあります．スマホで「おはよう」と打つと，次の候補として「ございます」が上位に出てきます．「明日の」と打てば「予定」「天気」などが出てきます．これは，スマホが「『おはよう』の後には『ございます』が続くことが多い」という<strong>言葉のつながりのパターン</strong>を知っているからです．</p>
-<p>LLMがやっていることは，本質的にはこの予測変換の超強力版です．すなわち，LLMの基本動作は，<strong>ここまでの文章に続く「次の語」を確率的に予測する</strong>ことです．これを本講義では<strong>次の語の予測</strong>と呼びます．たとえば「吾輩は猫で」という文章が与えられたら，次に来る語として「ある」に高い確率を，「いる」「す」などにより低い確率を割り当てる，という具合です．そして，予測した語を文章の末尾に付け足し，また次の語を予測する——これを何度も繰り返すことで，長い文章が一語ずつ生成されていきます．対話型の生成AIがすらすらと答えを「書いている」ように見えるのは，この「次の語の予測」を高速に繰り返している姿なのです．この繰り返しの様子を <a class="reference internal" href="#fig-ch08-next-word-loop"><span class="std std-numref">図 39</span></a> に示します．</p>
-<figure class="align-default" id="fig-ch08-next-word-loop">
-<img alt="次の語の予測の循環図．ここまでの文章（例：「データ」）から，次の語の候補と確率（を0.64，の0.27，は0.09の横棒グラフ）を予測し，確率にしたがってくじ引きのように1語（を）を選んで文末に追加する．追加した文章を新しい「ここまでの文章」として最初に戻る循環矢印があり，文末記号が出るまで繰り返すことで長い文章が一語ずつ生成される．" src="../_images/ch08-next-word-loop.svg" />
+<p>LLMがやっていることは，本質的にはこの予測変換の超強力版です．すなわち，LLMの基本動作は，<strong>ここまでの文章に続く「次の語」を確率的に予測する</strong>ことです．これを本講義では<strong>次の語の予測</strong>と呼びます．たとえば「吾輩は猫で」という文章が与えられたら，次に来る語として「ある」に高い確率を，「いる」「す」などにより低い確率を割り当てる，という具合です．そして，予測した語を文章の末尾に付け足し，また次の語を予測する——これを何度も繰り返すことで，長い文章が一語ずつ生成されていきます．対話型の生成AIがすらすらと答えを「書いている」ように見えるのは，この「次の語の予測」を高速に繰り返している姿なのです．この繰り返しの様子を <a class="reference internal" href="#fig-ch10-next-word-loop"><span class="std std-numref">図 46</span></a> に示します．</p>
+<figure class="align-default" id="fig-ch10-next-word-loop">
+<img alt="次の語の予測の循環図．ここまでの文章（例：「データ」）から，次の語の候補と確率（を0.64，の0.27，は0.09の横棒グラフ）を予測し，確率にしたがってくじ引きのように1語（を）を選んで文末に追加する．追加した文章を新しい「ここまでの文章」として最初に戻る循環矢印があり，文末記号が出るまで繰り返すことで長い文章が一語ずつ生成される．" src="../_images/ch10-next-word-loop.svg" />
 <figcaption>
-<p><span class="caption-number">図 39 </span><span class="caption-text">「次の語の予測」の繰り返しで文章が生成される様子（候補と確率の数値は，この後の節で作るミニモデルの「データ」に続く語の例）</span><a class="headerlink" href="#fig-ch08-next-word-loop" title="Link to this image">#</a></p>
+<p><span class="caption-number">図 46 </span><span class="caption-text">「次の語の予測」の繰り返しで文章が生成される様子（候補と確率の数値は，この後の節で作るミニモデルの「データ」に続く語の例）</span><a class="headerlink" href="#fig-ch10-next-word-loop" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>では，LLMはこの「言葉のつながりのパターン」をどこから学んだのでしょうか．答えは<strong>学習データ</strong>です．LLMは，ウェブページ・書籍・記事など，人間がこれまでに書いた<strong>膨大な量の文章</strong>を学習データとして読み込み，「どんな文脈の後にどんな語が続きやすいか」というパターンを統計的に学習しています．つまりLLMの賢さの源は，人間が書き溜めてきた文章の巨大な集まりなのです．この「学習データから学ぶ」という点は，あとで見る生成AIの弱点（知識の鮮度・バイアス）にも直結するので，覚えておいてください．</p>
@@ -709,7 +711,7 @@ AI は スマホ で 課題 を 学ぶ
 <p>本物のLLMとこのミニモデルの違いは，主に規模と洗練度です．このミニモデルは直前の1語だけを手がかりにしましたが，LLMは<strong>何千語にもおよぶ長い文脈全体</strong>を手がかりに次の語を予測します．また，学習データは24文ではなく，ウェブや書籍から集めた膨大な文章です．しかし，<strong>「過去の文章から言葉のつながりのパターンを学び，次の語を確率的に予測する」という原理そのものは共通</strong>です．この直感を持っておくだけで，生成AIの得意・不得意がぐっと理解しやすくなります．</p>
 <div class="note dropdown admonition">
 <p class="admonition-title">発展：Transformer——LLMを支える仕組み</p>
-<p>現在のLLMの多くは，<strong>Transformer</strong>（トランスフォーマー）と呼ばれる仕組みをもとに作られています <span id="id9">[<a class="reference internal" href="../references.html#id32" title="Ashish Vaswani and others. Attention is all you need. In Advances in Neural Information Processing Systems 30 (NeurIPS 2017). 2017. URL: https://arxiv.org/abs/1706.03762.">Vaswani and others, 2017</a>]</span>．Transformerは2017年に提案されたニューラルネットワークの構造で，「文章の中のどの語に注目すべきか」を自動的に判断する仕組み（自己注意機構，self-attention）を持ち，長い文脈を効率よく扱えることが特長です．ChatGPTの「GPT」の「T」はTransformerの頭文字です．本講義では名前の紹介にとどめますが，興味のある人は章末の文献を参照してください．</p>
+<p>現在のLLMの多くは，<strong>Transformer</strong>（トランスフォーマー）と呼ばれる仕組みをもとに作られています <span id="id9">[<a class="reference internal" href="../references.html#id39" title="Ashish Vaswani and others. Attention is all you need. In Advances in Neural Information Processing Systems 30 (NeurIPS 2017). 2017. URL: https://arxiv.org/abs/1706.03762.">Vaswani and others, 2017</a>]</span>．Transformerは2017年に提案されたニューラルネットワークの構造で，「文章の中のどの語に注目すべきか」を自動的に判断する仕組み（自己注意機構，self-attention）を持ち，長い文脈を効率よく扱えることが特長です．ChatGPTの「GPT」の「T」はTransformerの頭文字です．本講義では名前の紹介にとどめますが，興味のある人は章末の文献を参照してください．</p>
 </div>
 </section>
 </section>
@@ -730,12 +732,12 @@ AI は スマホ で 課題 を 学ぶ
 </section>
 <section id="id12">
 <h3>ハルシネーション——もっともらしい誤り<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
-<p>一方で，冒頭の事例で見たように，生成AIは<strong>事実と異なる内容を，もっともらしい自然な文章で出力してしまう</strong>ことがあります．この現象を<strong>ハルシネーション</strong>（hallucination，幻覚）と呼びます <span id="id13">[<a class="reference internal" href="../references.html#id35" title="Ziwei Ji and others. Survey of hallucination in natural language generation. ACM Computing Surveys, 55(12):248:1–248:38, 2023. doi:10.1145/3571730.">Ji and others, 2023</a>]</span>．存在しない論文や書籍を挙げる，実在の人物に架空の経歴を付け加える，誤った統計の数値を自信満々に示す，といった形で現れます．</p>
-<p>なぜハルシネーションが起こるのでしょうか．ここで「次の語の予測」の直感が役に立ちます．LLMは，<strong>事実のデータベースを調べて答えているのではなく，「この文脈ならこういう語が続きそうだ」という確率にもとづいて文章を組み立てています</strong>．参考文献を求められれば，「参考文献リストらしい語の並び」——実在しそうな著者名，それらしい論文タイトル，実在する雑誌名——を生成することはできますが，その組み合わせが実在するかどうかを確かめる仕組みは，基本の動作には含まれていません．つまりハルシネーションは，バグや故障というより，<strong>「もっともらしい文章を作る」という仕組みそのものの副作用</strong>なのです <span id="id14">[<a class="reference internal" href="../references.html#id34" title="Lei Huang and others. A survey on hallucination in large language models: principles, taxonomy, challenges, and open questions. ACM Transactions on Information Systems, 43(2):42:1–42:55, 2025. doi:10.1145/3703155.">Huang and others, 2025</a>]</span>．冒頭の事例で「存在しない参考文献」ができあがった仕組みを，よくある誤解と対比して <a class="reference internal" href="#fig-ch08-hallucination"><span class="std std-numref">図 40</span></a> に示します．</p>
-<figure class="align-default" id="fig-ch08-hallucination">
-<img alt="ハルシネーションの仕組みの対比図．上段はよくある誤解で，質問「参考文献を挙げて」に対して事実のデータベースを検索して照合し正しい答えが返る，という流れに大きな赤い×印が付き，実際はこうではない（事実を照合する仕組みはない）と注記されている．下段は実際のLLMで，質問から「参考文献リストらしい語の並び」を次の語の予測の繰り返しで生成し，実在する著者名，それらしい論文タイトル，実在する雑誌名が部品として組み合わされて，見た目はもっともらしい存在しない参考文献ができあがる．組み合わせが実在するかを確かめる仕組みは基本の動作に含まれていない．" src="../_images/ch08-hallucination.svg" />
+<p>一方で，冒頭の事例で見たように，生成AIは<strong>事実と異なる内容を，もっともらしい自然な文章で出力してしまう</strong>ことがあります．この現象を<strong>ハルシネーション</strong>（hallucination，幻覚）と呼びます <span id="id13">[<a class="reference internal" href="../references.html#id42" title="Ziwei Ji and others. Survey of hallucination in natural language generation. ACM Computing Surveys, 55(12):248:1–248:38, 2023. doi:10.1145/3571730.">Ji and others, 2023</a>]</span>．存在しない論文や書籍を挙げる，実在の人物に架空の経歴を付け加える，誤った統計の数値を自信満々に示す，といった形で現れます．</p>
+<p>なぜハルシネーションが起こるのでしょうか．ここで「次の語の予測」の直感が役に立ちます．LLMは，<strong>事実のデータベースを調べて答えているのではなく，「この文脈ならこういう語が続きそうだ」という確率にもとづいて文章を組み立てています</strong>．参考文献を求められれば，「参考文献リストらしい語の並び」——実在しそうな著者名，それらしい論文タイトル，実在する雑誌名——を生成することはできますが，その組み合わせが実在するかどうかを確かめる仕組みは，基本の動作には含まれていません．つまりハルシネーションは，バグや故障というより，<strong>「もっともらしい文章を作る」という仕組みそのものの副作用</strong>なのです <span id="id14">[<a class="reference internal" href="../references.html#id41" title="Lei Huang and others. A survey on hallucination in large language models: principles, taxonomy, challenges, and open questions. ACM Transactions on Information Systems, 43(2):42:1–42:55, 2025. doi:10.1145/3703155.">Huang and others, 2025</a>]</span>．冒頭の事例で「存在しない参考文献」ができあがった仕組みを，よくある誤解と対比して <a class="reference internal" href="#fig-ch10-hallucination"><span class="std std-numref">図 47</span></a> に示します．</p>
+<figure class="align-default" id="fig-ch10-hallucination">
+<img alt="ハルシネーションの仕組みの対比図．上段はよくある誤解で，質問「参考文献を挙げて」に対して事実のデータベースを検索して照合し正しい答えが返る，という流れに大きな赤い×印が付き，実際はこうではない（事実を照合する仕組みはない）と注記されている．下段は実際のLLMで，質問から「参考文献リストらしい語の並び」を次の語の予測の繰り返しで生成し，実在する著者名，それらしい論文タイトル，実在する雑誌名が部品として組み合わされて，見た目はもっともらしい存在しない参考文献ができあがる．組み合わせが実在するかを確かめる仕組みは基本の動作に含まれていない．" src="../_images/ch10-hallucination.svg" />
 <figcaption>
-<p><span class="caption-number">図 40 </span><span class="caption-text">ハルシネーションが起こる仕組み——事実の照合ではなく，それらしい語の並びの確率的な組み立て</span><a class="headerlink" href="#fig-ch08-hallucination" title="Link to this image">#</a></p>
+<p><span class="caption-number">図 47 </span><span class="caption-text">ハルシネーションが起こる仕組み——事実の照合ではなく，それらしい語の並びの確率的な組み立て</span><a class="headerlink" href="#fig-ch10-hallucination" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="admonition warning">
@@ -751,14 +753,14 @@ AI は スマホ で 課題 を 学ぶ
 <section id="id16">
 <h3>学習データに由来するバイアス<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
 <p>第2回で，データの「集め方」が結果を歪めることを学びました．1936年のLiterary Digest誌の世論調査は，偏った標本から誤った予測を導いてしまいました．実は，まったく同じ構図の問題が生成AIにも存在します．</p>
-<p>LLMの学習データは，ウェブや書籍など人間が書いた文章の集まりです．そこには，人間社会が持つ<strong>偏見や固定観念（バイアス，bias）</strong> も一緒に書き込まれています．たとえば特定の職業と性別を結びつける表現，特定の集団に対する否定的な表現などが学習データに多く含まれていれば，LLMはそのパターンも「言葉のつながり」として学習し，出力に再現してしまいます．また，ウェブ上の文章は，そもそも「インターネットで発信する人々」が書いたものに偏っており，世界中のあらゆる人々の声を均等に反映しているわけではありません．1936年の世論調査と生成AIが「集め方の偏り→結果の偏り」という同じ構造を持つことを，<a class="reference internal" href="#fig-ch08-bias-analogy"><span class="std std-numref">図 41</span></a> で確かめてください．</p>
-<figure class="align-default" id="fig-ch08-bias-analogy">
-<img alt="偏りの同型対比図．左パネルは1936年のLiterary Digest誌の世論調査で，有権者全体から，自動車や電話を持つ比較的裕福な層に偏った標本へと絞り込まれ，偏った標本にもとづく世論調査は選挙の予測を誤った，という誤った予測に至る．右パネルは大規模言語モデルで，世界中のあらゆる人々の声から，インターネットで発信する人々が書いた文章に偏った学習データへと絞り込まれ，学習データの偏りをそのまま，ときには増幅して繰り返す偏った出力に至る．下部に共通の構造として「集め方の偏り→結果の偏り」が示され，第2回で学んだ集め方の偏りとまったく同じ構図の問題が生成AIにも存在すると注記されている．" src="../_images/ch08-bias-analogy.svg" />
+<p>LLMの学習データは，ウェブや書籍など人間が書いた文章の集まりです．そこには，人間社会が持つ<strong>偏見や固定観念（バイアス，bias）</strong> も一緒に書き込まれています．たとえば特定の職業と性別を結びつける表現，特定の集団に対する否定的な表現などが学習データに多く含まれていれば，LLMはそのパターンも「言葉のつながり」として学習し，出力に再現してしまいます．また，ウェブ上の文章は，そもそも「インターネットで発信する人々」が書いたものに偏っており，世界中のあらゆる人々の声を均等に反映しているわけではありません．1936年の世論調査と生成AIが「集め方の偏り→結果の偏り」という同じ構造を持つことを，<a class="reference internal" href="#fig-ch10-bias-analogy"><span class="std std-numref">図 48</span></a> で確かめてください．</p>
+<figure class="align-default" id="fig-ch10-bias-analogy">
+<img alt="偏りの同型対比図．左パネルは1936年のLiterary Digest誌の世論調査で，有権者全体から，自動車や電話を持つ比較的裕福な層に偏った標本へと絞り込まれ，偏った標本にもとづく世論調査は選挙の予測を誤った，という誤った予測に至る．右パネルは大規模言語モデルで，世界中のあらゆる人々の声から，インターネットで発信する人々が書いた文章に偏った学習データへと絞り込まれ，学習データの偏りをそのまま，ときには増幅して繰り返す偏った出力に至る．下部に共通の構造として「集め方の偏り→結果の偏り」が示され，第2回で学んだ集め方の偏りとまったく同じ構図の問題が生成AIにも存在すると注記されている．" src="../_images/ch10-bias-analogy.svg" />
 <figcaption>
-<p><span class="caption-number">図 41 </span><span class="caption-text">Literary Digest誌の世論調査と大規模言語モデルの同型対比——どちらも「集め方の偏り」が「結果の偏り」を生む</span><a class="headerlink" href="#fig-ch08-bias-analogy" title="Link to this image">#</a></p>
+<p><span class="caption-number">図 48 </span><span class="caption-text">Literary Digest誌の世論調査と大規模言語モデルの同型対比——どちらも「集め方の偏り」が「結果の偏り」を生む</span><a class="headerlink" href="#fig-ch10-bias-analogy" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<p>この問題を早くから指摘した研究者たちは，LLMを「<strong>確率的なオウム</strong>（stochastic parrots）」にたとえました <span id="id17">[<a class="reference internal" href="../references.html#id33" title="Emily M. Bender, Timnit Gebru, Angelina McMillan-Major, and Shmargaret Shmitchell. On the dangers of stochastic parrots: can language models be too big? In Proceedings of the 2021 ACM Conference on Fairness, Accountability, and Transparency (FAccT 2021), 610–623. 2021. doi:10.1145/3442188.3445922.">Bender <em>et al.</em>, 2021</a>]</span>．オウムが言葉の意味を理解せずに人間の発話をまねるように，LLMは<strong>意味を理解しないまま，学習データの中の言葉のパターンを統計的に模倣している</strong>にすぎない——だからこそ，学習データに含まれる偏りをそのまま，ときには増幅して繰り返してしまう，という批判的な視座です．LLMが本当に「理解していない」と言い切れるかについては研究者の間でも議論が続いていますが，<strong>生成AIの出力は中立でも公平でもなく，学習データの偏りを引き継いでいる</strong>という指摘は，利用者として必ず心に留めておくべき点です．第7回で学んだアルゴリズムの公平性の問題は，生成AIの時代にますます重要になっているのです．</p>
+<p>この問題を早くから指摘した研究者たちは，LLMを「<strong>確率的なオウム</strong>（stochastic parrots）」にたとえました <span id="id17">[<a class="reference internal" href="../references.html#id40" title="Emily M. Bender, Timnit Gebru, Angelina McMillan-Major, and Shmargaret Shmitchell. On the dangers of stochastic parrots: can language models be too big? In Proceedings of the 2021 ACM Conference on Fairness, Accountability, and Transparency (FAccT 2021), 610–623. 2021. doi:10.1145/3442188.3445922.">Bender <em>et al.</em>, 2021</a>]</span>．オウムが言葉の意味を理解せずに人間の発話をまねるように，LLMは<strong>意味を理解しないまま，学習データの中の言葉のパターンを統計的に模倣している</strong>にすぎない——だからこそ，学習データに含まれる偏りをそのまま，ときには増幅して繰り返してしまう，という批判的な視座です．LLMが本当に「理解していない」と言い切れるかについては研究者の間でも議論が続いていますが，<strong>生成AIの出力は中立でも公平でもなく，学習データの偏りを引き継いでいる</strong>という指摘は，利用者として必ず心に留めておくべき点です．第9回で学んだアルゴリズムの公平性の問題は，生成AIの時代にますます重要になっているのです．</p>
 </section>
 </section>
 <section id="id18">
@@ -777,25 +779,25 @@ AI は スマホ で 課題 を 学ぶ
 </section>
 <section id="id20">
 <h3>適切な使い方の例——学びを増やす使い方<a class="headerlink" href="#id20" title="Link to this heading">#</a></h3>
-<p>大学での生成AIの使い方を考えるときの軸は，<strong>「その使い方は自分の学びを増やすか，減らすか」</strong> です．教育分野の研究では，生成AIは使い方しだいで学習を強力に支援しうることが報告されています <span id="id21">[<a class="reference internal" href="../references.html#id36" title="Enkelejda Kasneci and others. ChatGPT for good? on opportunities and challenges of large language models for education. Learning and Individual Differences, 103:102274, 2023. doi:10.1016/j.lindif.2023.102274.">Kasneci and others, 2023</a>]</span>．学びを増やす方向の使い方の例を挙げます．</p>
+<p>大学での生成AIの使い方を考えるときの軸は，<strong>「その使い方は自分の学びを増やすか，減らすか」</strong> です．教育分野の研究では，生成AIは使い方しだいで学習を強力に支援しうることが報告されています <span id="id21">[<a class="reference internal" href="../references.html#id43" title="Enkelejda Kasneci and others. ChatGPT for good? on opportunities and challenges of large language models for education. Learning and Individual Differences, 103:102274, 2023. doi:10.1016/j.lindif.2023.102274.">Kasneci and others, 2023</a>]</span>．学びを増やす方向の使い方の例を挙げます．</p>
 <ul class="simple">
 <li><p><strong>レポート作成支援</strong>：レポートの<strong>構成のたたき台</strong>を出してもらう，自分で書いた文章の<strong>推敲</strong>（誤字脱字・分かりにくい表現の指摘）を頼む，自分の主張への<strong>反論を挙げてもらって</strong>議論を鍛える．いずれも「書くのは自分，AIは壁打ち相手」という使い方です</p></li>
 <li><p><strong>文献調査</strong>：テーマに関連する<strong>検索キーワードや学術用語</strong>を挙げてもらう，見つけた論文の英語の要旨をかみくだいて説明してもらう．ただし，冒頭の事例のとおり，<strong>生成AIが挙げた文献は実在しないことがある</strong>ため，必ず図書館のデータベースや学術検索サービスで実物を確認します</p></li>
 <li><p><strong>アイデア出し</strong>：テーマの候補や切り口を大量に挙げてもらい，そこから自分で選び，自分で深める</p></li>
 <li><p><strong>学習の伴走</strong>：授業で分からなかった概念を「例え話で説明して」と頼む，語学学習で英作文の添削や会話練習の相手をしてもらう</p></li>
 </ul>
-<p>これらに共通するのは，<strong>最終的に考え，判断し，書くのは自分自身</strong>であり，生成AIはそのための材料や刺激を提供する道具だ，という関係です．学びを増やす使い方と，逆に学びを減らしてしまう使い方の対比を <a class="reference internal" href="#fig-ch08-good-bad-use"><span class="std std-numref">図 42</span></a> に整理します．</p>
-<figure class="align-default" id="fig-ch08-good-bad-use">
-<img alt="生成AIの使い方の対比パネル．上部に判断の軸として「その使い方は自分の学びを増やすか，減らすか」が示されている．左の緑のパネルは丸印付きの「学びを増やす使い方」で，レポートの構成のたたき台を出してもらう，自分で書いた文章の推敲を頼む，自分の主張への反論を挙げてもらう（壁打ち相手），文献調査の検索キーワードや学術用語を挙げてもらう，の4項目と，最終的に考え，判断し，書くのは自分自身，という注記がある．右の赤のパネルはバツ印付きの「学びを減らす使い方」で，出力された文章をそのまま自分のレポートとして提出する，挙げられた参考文献を実物で確認せずに載せる，利用したことを書かずに黙って使う，の3項目と，評価と学びの仕組みが壊れ，自分の力が鍛えられない，という注記がある．下部の帯に，生成AIを使う前に所属大学の方針と授業のシラバス・担当教員の指示を必ず確認する，とある．" src="../_images/ch08-good-bad-use.svg" />
+<p>これらに共通するのは，<strong>最終的に考え，判断し，書くのは自分自身</strong>であり，生成AIはそのための材料や刺激を提供する道具だ，という関係です．学びを増やす使い方と，逆に学びを減らしてしまう使い方の対比を <a class="reference internal" href="#fig-ch10-good-bad-use"><span class="std std-numref">図 49</span></a> に整理します．</p>
+<figure class="align-default" id="fig-ch10-good-bad-use">
+<img alt="生成AIの使い方の対比パネル．上部に判断の軸として「その使い方は自分の学びを増やすか，減らすか」が示されている．左の緑のパネルは丸印付きの「学びを増やす使い方」で，レポートの構成のたたき台を出してもらう，自分で書いた文章の推敲を頼む，自分の主張への反論を挙げてもらう（壁打ち相手），文献調査の検索キーワードや学術用語を挙げてもらう，の4項目と，最終的に考え，判断し，書くのは自分自身，という注記がある．右の赤のパネルはバツ印付きの「学びを減らす使い方」で，出力された文章をそのまま自分のレポートとして提出する，挙げられた参考文献を実物で確認せずに載せる，利用したことを書かずに黙って使う，の3項目と，評価と学びの仕組みが壊れ，自分の力が鍛えられない，という注記がある．下部の帯に，生成AIを使う前に所属大学の方針と授業のシラバス・担当教員の指示を必ず確認する，とある．" src="../_images/ch10-good-bad-use.svg" />
 <figcaption>
-<p><span class="caption-number">図 42 </span><span class="caption-text">生成AIの「学びを増やす使い方」と「学びを減らす使い方」——判断の軸は，自分の学びを増やすかどうか</span><a class="headerlink" href="#fig-ch08-good-bad-use" title="Link to this image">#</a></p>
+<p><span class="caption-number">図 49 </span><span class="caption-text">生成AIの「学びを増やす使い方」と「学びを減らす使い方」——判断の軸は，自分の学びを増やすかどうか</span><a class="headerlink" href="#fig-ch10-good-bad-use" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 <section id="id22">
 <h3>学術的誠実性——なぜ「丸写し」がいけないのか<a class="headerlink" href="#id22" title="Link to this heading">#</a></h3>
 <p>一方で，生成AIが出力した文章を<strong>そのまま自分のレポートとして提出する</strong>のは，まったく別の話です．ここで関わるのが<strong>学術的誠実性</strong>（academic integrity）という考え方です．学術的誠実性とは，学問の世界での正直さのルール，すなわち<strong>自分の成果と他者（他のもの）の成果を明確に区別し，他者の成果を使うときは出典を示す</strong>という原則です．他人の文章を出典を示さずに写す行為（剽窃）が不正とされるのと同じ理由で，生成AIの出力を自分が書いたものとして提出することは，多くの大学で不正行為にあたりうるとされています．</p>
-<p>「AIの文章なら誰の著作でもないから写してもよいのでは？」と思うかもしれません．しかし問題の本質は，著作権よりもむしろ<strong>評価と学びの仕組みが壊れる</strong>ことにあります．レポート課題は，みなさんが自分で調べ，考え，文章にまとめる力を鍛えるための訓練です．その過程を生成AIに丸投げすれば，成績評価は実力を反映しないものになり，何より<strong>鍛えられるはずだった自分の力が鍛えられません</strong>．研究の世界でも，生成AIの利用を透明にすること（どう使ったかを明示すること）や，最終的な責任は人間の著者が負うことが，国際的な原則として確認されつつあります <span id="id23">[<a class="reference internal" href="../references.html#id37" title="Eva A. M. van Dis, Johan Bollen, Willem Zuidema, Robert van Rooij, and Claudi L. Bockting. ChatGPT: five priorities for research. Nature, 614(7947):224–226, 2023. doi:10.1038/d41586-023-00288-7.">van Dis <em>et al.</em>, 2023</a>]</span>．教育の場でも，禁止一辺倒ではなく，適切な使い方を学生が身につけられるようにルールと指導を整えるべきだという議論が進んでいます <span id="id24">[<a class="reference internal" href="../references.html#id36" title="Enkelejda Kasneci and others. ChatGPT for good? on opportunities and challenges of large language models for education. Learning and Individual Differences, 103:102274, 2023. doi:10.1016/j.lindif.2023.102274.">Kasneci and others, 2023</a>]</span>．</p>
+<p>「AIの文章なら誰の著作でもないから写してもよいのでは？」と思うかもしれません．しかし問題の本質は，著作権よりもむしろ<strong>評価と学びの仕組みが壊れる</strong>ことにあります．レポート課題は，みなさんが自分で調べ，考え，文章にまとめる力を鍛えるための訓練です．その過程を生成AIに丸投げすれば，成績評価は実力を反映しないものになり，何より<strong>鍛えられるはずだった自分の力が鍛えられません</strong>．研究の世界でも，生成AIの利用を透明にすること（どう使ったかを明示すること）や，最終的な責任は人間の著者が負うことが，国際的な原則として確認されつつあります <span id="id23">[<a class="reference internal" href="../references.html#id44" title="Eva A. M. van Dis, Johan Bollen, Willem Zuidema, Robert van Rooij, and Claudi L. Bockting. ChatGPT: five priorities for research. Nature, 614(7947):224–226, 2023. doi:10.1038/d41586-023-00288-7.">van Dis <em>et al.</em>, 2023</a>]</span>．教育の場でも，禁止一辺倒ではなく，適切な使い方を学生が身につけられるようにルールと指導を整えるべきだという議論が進んでいます <span id="id24">[<a class="reference internal" href="../references.html#id43" title="Enkelejda Kasneci and others. ChatGPT for good? on opportunities and challenges of large language models for education. Learning and Individual Differences, 103:102274, 2023. doi:10.1016/j.lindif.2023.102274.">Kasneci and others, 2023</a>]</span>．</p>
 <div class="admonition warning">
 <p class="admonition-title">警告</p>
 <p>生成AIの利用ルールは，<strong>大学ごと・授業ごとに異なります</strong>．同じ大学でも，「構成の相談はよいが文章生成は不可」「利用した場合は明記せよ」「一切不可」など，授業の目的に応じて方針はさまざまです．レポートや課題で生成AIを使う前に，<strong>所属大学の方針と，その授業のシラバス・担当教員の指示を必ず確認してください</strong>．本章で述べたのはあくまで一般的な考え方であり，個々の授業でのルールに置き換わるものではありません．迷ったら担当教員に質問するのが確実です．</p>
@@ -811,7 +813,7 @@ AI は スマホ で 課題 を 学ぶ
 <h2>活用事例：教育の現場に入り始めた生成AI<a class="headerlink" href="#id26" title="Link to this heading">#</a></h2>
 <div class="admonition-ai admonition">
 <p class="admonition-title">事例：学びを支える道具としての生成AI</p>
-<p>生成AIの社会での活用が特に議論されている分野の一つが，みなさんの足元でもある<strong>教育</strong>です．教育研究の分野では，LLMが教育にもたらす機会と課題を整理する研究が進んでいます <span id="id27">[<a class="reference internal" href="../references.html#id36" title="Enkelejda Kasneci and others. ChatGPT for good? on opportunities and challenges of large language models for education. Learning and Individual Differences, 103:102274, 2023. doi:10.1016/j.lindif.2023.102274.">Kasneci and others, 2023</a>]</span>．</p>
+<p>生成AIの社会での活用が特に議論されている分野の一つが，みなさんの足元でもある<strong>教育</strong>です．教育研究の分野では，LLMが教育にもたらす機会と課題を整理する研究が進んでいます <span id="id27">[<a class="reference internal" href="../references.html#id43" title="Enkelejda Kasneci and others. ChatGPT for good? on opportunities and challenges of large language models for education. Learning and Individual Differences, 103:102274, 2023. doi:10.1016/j.lindif.2023.102274.">Kasneci and others, 2023</a>]</span>．</p>
 <p>機会の側面としては，学習者一人ひとりの理解度や進度に合わせて説明や練習問題を変える<strong>個別最適化された学習支援</strong>，24時間いつでも質問できる相手としての利用，外国語の作文添削や会話練習といった<strong>語学学習</strong>への応用，さらに教員側でも教材や小テストの下書き作成の支援などが挙げられています．家庭の事情などで塾や個別指導を受けにくい学習者にも学習支援を届けられる可能性がある，という公平性の観点からの期待もあります．</p>
 <p>一方，課題の側面としては，本章で学んだとおり，出力の誤り（ハルシネーション）を学習者が見抜けないリスク，学習データ由来のバイアス，そして課題の丸投げによる学術的誠実性の問題や，考える力が育たなくなる懸念が指摘されています．研究者たちの結論は明快で，<strong>問題は「使うか，禁止するか」ではなく「どう使う力を育てるか」</strong> である，というものです．道具の仕組みと限界を理解したうえで使いこなすリテラシー——まさに本章で学んできたこと——が，教員にも学生にも求められているのです．</p>
 </div>
@@ -828,8 +830,8 @@ AI は スマホ で 課題 を 学ぶ
 </ul>
 <section id="id29">
 <h3>科目全体の総括——データサイエンスと生成AI<a class="headerlink" href="#id29" title="Link to this heading">#</a></h3>
-<p>最後に，本科目全体を振り返って締めくくりましょう．本科目では，データが価値を生むまでの流れ（データのライフサイクル）に沿って，<strong>収集</strong>（第2回）→<strong>保存・検索</strong>（第3回）→<strong>前処理</strong>（第4回）→<strong>分析</strong>（第5回）→<strong>可視化</strong>（第6回）を順にたどり，横断的なテーマとして<strong>データと法</strong>（第7回）を学びました．</p>
-<p>実は，本章で学んだ生成AIは，このライフサイクル全体の<strong>巨大な実例</strong>でもあります．LLMは，ウェブや書籍から膨大な文章を<strong>収集</strong>し，<strong>保存</strong>し，学習に適した形に<strong>前処理</strong>し，統計的なパターンを<strong>学習（分析）</strong> した成果物です．だからこそ，第2回で学んだ「集め方の偏りが結果を歪める」という教訓はLLMのバイアスの問題としてそのまま現れ，第7回で学んだ著作権や個人情報の問題は「AI学習にデータを使ってよいか」という現在進行形の論点につながっています．生成AIは魔法ではなく，<strong>データサイエンスの技術と課題の集大成</strong>なのです．</p>
+<p>最後に，本科目全体を振り返って締めくくりましょう．本科目では，データが価値を生むまでの流れ（データのライフサイクル）に沿って，<strong>収集</strong>（第2回）→<strong>保存・検索</strong>（第3回）→<strong>前処理</strong>（第4回）→<strong>分析</strong>（第5・6回）→<strong>可視化</strong>（第7回）を順にたどり，発展・横断的なテーマとして<strong>機械学習</strong>（第8回）と<strong>データと法</strong>（第9回）を学びました．</p>
+<p>実は，本章で学んだ生成AIは，このライフサイクル全体の<strong>巨大な実例</strong>でもあります．LLMは，ウェブや書籍から膨大な文章を<strong>収集</strong>し，<strong>保存</strong>し，学習に適した形に<strong>前処理</strong>し，統計的なパターンを<strong>学習（分析）</strong> した成果物です．だからこそ，第2回で学んだ「集め方の偏りが結果を歪める」という教訓はLLMのバイアスの問題としてそのまま現れ，第9回で学んだ著作権や個人情報の問題は「AI学習にデータを使ってよいか」という現在進行形の論点につながっています．生成AIは魔法ではなく，<strong>データサイエンスの技術と課題の集大成</strong>なのです．</p>
 <p>そして，生成AIが調べ物や文章作成の風景を変えつつある時代だからこそ，本科目で学んだリテラシー——データの集め方を疑う目，相関と因果を区別する目，グラフにだまされない目，出典にさかのぼって確かめる姿勢，法と倫理の視点——は，一部の専門家だけでなく，<strong>すべての人にとっての基礎教養</strong>になっています．この科目が，みなさんがデータとAIの時代を賢く生きていくための最初の一歩になれば幸いです．</p>
 </section>
 </section>
@@ -870,12 +872,12 @@ AI は スマホ で 課題 を 学ぶ
 <h2>さらに学ぶために<a class="headerlink" href="#id31" title="Link to this heading">#</a></h2>
 <p>本章の内容をさらに深めたい人のために，参考文献を「原典」「解説・サーベイ」「事例」の三層で紹介します．まずは事例から読み，興味が深まったら解説・サーベイ，原典へと進むのがおすすめです．</p>
 <ul class="simple">
-<li><p>【原典】Vaswani et al., &quot;Attention Is All You Need&quot; (NeurIPS 2017) <span id="id32">[<a class="reference internal" href="../references.html#id32" title="Ashish Vaswani and others. Attention is all you need. In Advances in Neural Information Processing Systems 30 (NeurIPS 2017). 2017. URL: https://arxiv.org/abs/1706.03762.">Vaswani and others, 2017</a>]</span>．現在のLLMの土台であるTransformerを提案した原典．技術的に高度ですが，歴史的な一本として名前を知っておく価値があります．全文：<a class="reference external" href="https://arxiv.org/abs/1706.03762">https://arxiv.org/abs/1706.03762</a></p></li>
-<li><p>【原典】Bender et al., &quot;On the Dangers of Stochastic Parrots: Can Language Models Be Too Big?&quot; (ACM FAccT 2021) <span id="id33">[<a class="reference internal" href="../references.html#id33" title="Emily M. Bender, Timnit Gebru, Angelina McMillan-Major, and Shmargaret Shmitchell. On the dangers of stochastic parrots: can language models be too big? In Proceedings of the 2021 ACM Conference on Fairness, Accountability, and Transparency (FAccT 2021), 610–623. 2021. doi:10.1145/3442188.3445922.">Bender <em>et al.</em>, 2021</a>]</span>．LLMを「確率的なオウム」にたとえ，学習データのバイアスや「意味を理解しない統計的模倣」という批判的視座を提起した重要論文．オープンアクセスです．全文：<a class="reference external" href="https://dl.acm.org/doi/10.1145/3442188.3445922">https://dl.acm.org/doi/10.1145/3442188.3445922</a></p></li>
-<li><p>【解説・サーベイ】Huang et al., &quot;A Survey on Hallucination in Large Language Models&quot; (ACM Transactions on Information Systems, 2025) <span id="id34">[<a class="reference internal" href="../references.html#id34" title="Lei Huang and others. A survey on hallucination in large language models: principles, taxonomy, challenges, and open questions. ACM Transactions on Information Systems, 43(2):42:1–42:55, 2025. doi:10.1145/3703155.">Huang and others, 2025</a>]</span>．ハルシネーションの原因と分類，対策を体系的に整理したサーベイ．arXiv版がオープンアクセスです．全文：<a class="reference external" href="https://arxiv.org/abs/2311.05232">https://arxiv.org/abs/2311.05232</a></p></li>
-<li><p>【解説・サーベイ】Ji et al., &quot;Survey of Hallucination in Natural Language Generation&quot; (ACM Computing Surveys, 2023) <span id="id35">[<a class="reference internal" href="../references.html#id35" title="Ziwei Ji and others. Survey of hallucination in natural language generation. ACM Computing Surveys, 55(12):248:1–248:38, 2023. doi:10.1145/3571730.">Ji and others, 2023</a>]</span>．自然言語生成におけるハルシネーション研究のもう一つの標準的サーベイ．DOI：<a class="reference external" href="https://doi.org/10.1145/3571730">https://doi.org/10.1145/3571730</a></p></li>
-<li><p>【事例】Kasneci et al., &quot;ChatGPT for Good? On Opportunities and Challenges of Large Language Models for Education&quot; (Learning and Individual Differences, 2023) <span id="id36">[<a class="reference internal" href="../references.html#id36" title="Enkelejda Kasneci and others. ChatGPT for good? on opportunities and challenges of large language models for education. Learning and Individual Differences, 103:102274, 2023. doi:10.1016/j.lindif.2023.102274.">Kasneci and others, 2023</a>]</span>．教育分野での生成AIの機会と課題を，学生・教員双方の視点から整理した査読論文．オープンアクセスです．全文：<a class="reference external" href="https://doi.org/10.1016/j.lindif.2023.102274">https://doi.org/10.1016/j.lindif.2023.102274</a></p></li>
-<li><p>【事例】van Dis et al., &quot;ChatGPT: Five Priorities for Research&quot; (Nature, 2023) <span id="id37">[<a class="reference internal" href="../references.html#id37" title="Eva A. M. van Dis, Johan Bollen, Willem Zuidema, Robert van Rooij, and Claudi L. Bockting. ChatGPT: five priorities for research. Nature, 614(7947):224–226, 2023. doi:10.1038/d41586-023-00288-7.">van Dis <em>et al.</em>, 2023</a>]</span>．研究の世界で生成AIとどう向き合うべきかを論じたNatureのコメント記事．学術的誠実性・情報アクセスの変容を考える入口に．DOI：<a class="reference external" href="https://doi.org/10.1038/d41586-023-00288-7">https://doi.org/10.1038/d41586-023-00288-7</a></p></li>
+<li><p>【原典】Vaswani et al., &quot;Attention Is All You Need&quot; (NeurIPS 2017) <span id="id32">[<a class="reference internal" href="../references.html#id39" title="Ashish Vaswani and others. Attention is all you need. In Advances in Neural Information Processing Systems 30 (NeurIPS 2017). 2017. URL: https://arxiv.org/abs/1706.03762.">Vaswani and others, 2017</a>]</span>．現在のLLMの土台であるTransformerを提案した原典．技術的に高度ですが，歴史的な一本として名前を知っておく価値があります．全文：<a class="reference external" href="https://arxiv.org/abs/1706.03762">https://arxiv.org/abs/1706.03762</a></p></li>
+<li><p>【原典】Bender et al., &quot;On the Dangers of Stochastic Parrots: Can Language Models Be Too Big?&quot; (ACM FAccT 2021) <span id="id33">[<a class="reference internal" href="../references.html#id40" title="Emily M. Bender, Timnit Gebru, Angelina McMillan-Major, and Shmargaret Shmitchell. On the dangers of stochastic parrots: can language models be too big? In Proceedings of the 2021 ACM Conference on Fairness, Accountability, and Transparency (FAccT 2021), 610–623. 2021. doi:10.1145/3442188.3445922.">Bender <em>et al.</em>, 2021</a>]</span>．LLMを「確率的なオウム」にたとえ，学習データのバイアスや「意味を理解しない統計的模倣」という批判的視座を提起した重要論文．オープンアクセスです．全文：<a class="reference external" href="https://dl.acm.org/doi/10.1145/3442188.3445922">https://dl.acm.org/doi/10.1145/3442188.3445922</a></p></li>
+<li><p>【解説・サーベイ】Huang et al., &quot;A Survey on Hallucination in Large Language Models&quot; (ACM Transactions on Information Systems, 2025) <span id="id34">[<a class="reference internal" href="../references.html#id41" title="Lei Huang and others. A survey on hallucination in large language models: principles, taxonomy, challenges, and open questions. ACM Transactions on Information Systems, 43(2):42:1–42:55, 2025. doi:10.1145/3703155.">Huang and others, 2025</a>]</span>．ハルシネーションの原因と分類，対策を体系的に整理したサーベイ．arXiv版がオープンアクセスです．全文：<a class="reference external" href="https://arxiv.org/abs/2311.05232">https://arxiv.org/abs/2311.05232</a></p></li>
+<li><p>【解説・サーベイ】Ji et al., &quot;Survey of Hallucination in Natural Language Generation&quot; (ACM Computing Surveys, 2023) <span id="id35">[<a class="reference internal" href="../references.html#id42" title="Ziwei Ji and others. Survey of hallucination in natural language generation. ACM Computing Surveys, 55(12):248:1–248:38, 2023. doi:10.1145/3571730.">Ji and others, 2023</a>]</span>．自然言語生成におけるハルシネーション研究のもう一つの標準的サーベイ．DOI：<a class="reference external" href="https://doi.org/10.1145/3571730">https://doi.org/10.1145/3571730</a></p></li>
+<li><p>【事例】Kasneci et al., &quot;ChatGPT for Good? On Opportunities and Challenges of Large Language Models for Education&quot; (Learning and Individual Differences, 2023) <span id="id36">[<a class="reference internal" href="../references.html#id43" title="Enkelejda Kasneci and others. ChatGPT for good? on opportunities and challenges of large language models for education. Learning and Individual Differences, 103:102274, 2023. doi:10.1016/j.lindif.2023.102274.">Kasneci and others, 2023</a>]</span>．教育分野での生成AIの機会と課題を，学生・教員双方の視点から整理した査読論文．オープンアクセスです．全文：<a class="reference external" href="https://doi.org/10.1016/j.lindif.2023.102274">https://doi.org/10.1016/j.lindif.2023.102274</a></p></li>
+<li><p>【事例】van Dis et al., &quot;ChatGPT: Five Priorities for Research&quot; (Nature, 2023) <span id="id37">[<a class="reference internal" href="../references.html#id44" title="Eva A. M. van Dis, Johan Bollen, Willem Zuidema, Robert van Rooij, and Claudi L. Bockting. ChatGPT: five priorities for research. Nature, 614(7947):224–226, 2023. doi:10.1038/d41586-023-00288-7.">van Dis <em>et al.</em>, 2023</a>]</span>．研究の世界で生成AIとどう向き合うべきかを論じたNatureのコメント記事．学術的誠実性・情報アクセスの変容を考える入口に．DOI：<a class="reference external" href="https://doi.org/10.1038/d41586-023-00288-7">https://doi.org/10.1038/d41586-023-00288-7</a></p></li>
 </ul>
 </section>
 </section>
@@ -911,12 +913,12 @@ AI は スマホ で 課題 を 学ぶ
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="ch07-data-law.html"
+       href="ch09-data-law.html"
        title="前のページ">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">前へ</p>
-        <p class="prev-next-title">第7回：データと法——情報法の基礎</p>
+        <p class="prev-next-title">第9回：データと法——情報法の基礎</p>
       </div>
     </a>
     <a class="right-next"

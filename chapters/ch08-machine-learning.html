@@ -1,0 +1,1183 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ja" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>第8回：機械学習と予測——AIはどう学ぶのか &#8212; データサイエンス・リテラシー</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=1cf7f4d9"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'クリックして表示';</script>
+    <script>let toggleHintHide = 'クリックして非表示';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script src="../_static/translations.js?v=91613774"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/ch08-machine-learning';</script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="第9回：データと法——情報法の基礎" href="ch09-data-law.html" />
+    <link rel="prev" title="第7回：データの可視化とコミュニケーション" href="ch07-data-visualization.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ja"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">本文へスキップ</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>トップに戻る</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="バージョン警告"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">データサイエンス・リテラシー</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">検索</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    データサイエンス・リテラシー
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ch01-what-is-ds.html">第1回：データサイエンスとは何か——ビッグデータとThick・Thinデータ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch02-data-collection.html">第2回：データの収集</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch03-database.html">第3回：データの保存と検索</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch04-preprocessing.html">第4回：データの前処理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch05-data-analysis.html">第5回：データの分析I——データを要約し，関係を読む</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch06-inferential-statistics.html">第6回：データの分析II——一部から全体を知る：推測統計の入口</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch07-data-visualization.html">第7回：データの可視化とコミュニケーション</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">第8回：機械学習と予測——AIはどう学ぶのか</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch09-data-law.html">第9回：データと法——情報法の基礎</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch10-genai.html">第10回：生成AIの基礎と知的活動への利用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">参考文献</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="このページをダウンロード">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/ch08-machine-learning.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="ソースファイルをダウンロード"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="PDFに印刷"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="全画面モード"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="ライト"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="ダーク"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>第8回：機械学習と予測——AIはどう学ぶのか</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目次 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">この回で学ぶこと</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">導入：迷惑メールフィルタ——毎日働いているのに意識しないAI</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">機械学習とは——ルールを書くか，データから学ぶか</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2つのプログラムの作り方</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">教師あり学習——例と正解のペアから学ぶ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">分類と回帰——カテゴリを当てるか，数値を当てるか</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">作って実感する：ミニ迷惑メール分類器</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">過学習と汎化——「暗記」と「理解」の違い</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">本番は「見たことのないデータ」</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">多項式のあてはめで過学習を見る</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">精度評価の落とし穴——正解率99%のワナ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">機械学習の限界——何を学び，何を学んでいないのか</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">限界1：機械学習の予測は「相関」に基づく</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">限界2：データの偏りをそのまま学ぶ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">活用事例：第1回のAIたちの正体——「例と正解から学ぶ」で読み解く</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">まとめ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">確認問題</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">さらに学ぶために</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="ai">
+<h1>第8回：機械学習と予測——AIはどう学ぶのか<a class="headerlink" href="#ai" title="Link to this heading">#</a></h1>
+<section id="id1">
+<h2>この回で学ぶこと<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>「ルールを人が書くプログラム」と「データからパターンを学ぶ<strong>機械学習</strong>」の違いを説明できるようになる</p></li>
+<li><p>機械学習の基本形である<strong>教師あり学習</strong>（例と正解のペアから学ぶ）の考え方と，<strong>分類</strong>と<strong>回帰</strong>という2種類のタスクの区別を理解する</p></li>
+<li><p><strong>学習データとテストデータ</strong>を分ける理由を，<strong>過学習</strong>（「暗記」と「理解」の違い）と<strong>汎化</strong>の観点から説明できるようになる</p></li>
+<li><p>正解率だけでAIの良し悪しを判断してはいけないこと（<strong>精度評価の落とし穴</strong>）を，具体例で見抜けるようになる</p></li>
+<li><p>第1回で紹介した活用事例（画像診断支援・需要予測・推薦システム）の仕組みを<strong>識別・予測系AI</strong>として整理し，機械学習の限界（相関に基づく予測・データの偏りの学習）まで含めた全体像をつかむ</p></li>
+</ul>
+<p>前回（<a class="reference internal" href="ch07-data-visualization.html"><span class="std std-doc">第7回</span></a>）までで，データのライフサイクル——収集→保存・検索→前処理→分析→可視化——の旅はひとまず完結しました．今回からの第8〜10回は，そのライフサイクルの上に立つ<strong>発展・横断ブロック</strong>です．第2〜7回で学んだ「データを集め，整え，分析する」という営みを，コンピュータが自動で・大規模に行うとどうなるか——それが今回のテーマ，機械学習です．</p>
+<p>この章にも，Pythonのコードとその実行結果が登場します．本科目ではコードを書けるようになる必要はありません．コードは「読んで，動かして，実感するための材料」です．出力の数値やグラフを眺めるだけでも，この回の学習目標は達成できます．</p>
+</section>
+<section id="id2">
+<h2>導入：迷惑メールフィルタ——毎日働いているのに意識しないAI<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<div class="admonition- admonition">
+<p class="admonition-title">事例：迷惑メールはなぜ自動で振り分けられるのか</p>
+<p>みなさんのメールアプリには，「迷惑メール」フォルダがあるはずです．「無料で当選！」「今すぐクリック」といった怪しいメールは，みなさんが何もしなくても自動でそこに振り分けられ，受信トレイにはほとんど届きません．あまりに自然に働いているので意識することすらありませんが，これは立派なAIです．世界中で毎日送られる膨大な迷惑メールを，人間が1通ずつ確認して振り分けることは不可能です．この振り分けを自動で行う「迷惑メールフィルタ」は，AIが社会を支えている最も身近な例の1つと言えます．</p>
+<p>では，ここで質問です．<strong>あなたは，迷惑メールの見分け方のルールを，自分で全部書き出せますか？</strong></p>
+<p>やってみると，これが意外に難しいのです．「『無料』という言葉が入っていたら迷惑メール」——では，大学からの「教科書無料配布のお知らせ」はどうなるでしょう．「知らない差出人からのメールは迷惑メール」——初めて連絡をくれるサークルの先輩やアルバイト先はどうでしょう．ルールを足せば足すほど例外が見つかり，例外に対応するルールを足すと別の例外が生まれます．しかも迷惑メールの送り手は，フィルタをすり抜けようと手口を変え続けます．「無料」を「無｜料」と書く，画像にする——人が書いたルールは，すぐに時代遅れになるのです．</p>
+</div>
+<p>この「ルールを人が全部書き出すことの限界」こそが，今回の出発点です．実際の迷惑メールフィルタは，人が書いた見分け方のルール集ではなく，<strong>大量のメールの実例から「迷惑メールらしさ」のパターンを自動的に学び取る</strong>仕組み——<strong>機械学習</strong>——で動いています．この章では，機械学習が「学ぶ」とはどういうことなのかを，小さなコードで作って確かめながら理解していきます．そのうえで，「学んだAIの良し悪しをどう測るか」という評価の問題と，そこに潜む落とし穴，さらに機械学習の原理的な限界までを見ていきます．</p>
+<p>まず，この章で使うライブラリを読み込んでおきます（クリックすると中身が見られます）．</p>
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># この章で使うライブラリの読み込み</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.graph_objects</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">go</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">plotly.subplots</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_subplots</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTML</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+</section>
+<section id="id3">
+<h2>機械学習とは——ルールを書くか，データから学ぶか<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<section id="id4">
+<h3>2つのプログラムの作り方<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>コンピュータに仕事をさせる方法は，大きく2つあります．</p>
+<p>1つめは，<strong>ルールを人が書くプログラム</strong>です．「消費税は価格の10%」「60点以上なら合格」のように，人間が判断のルールを完全に言葉（プログラム）で書き下せる仕事なら，この方法で確実に動きます．電卓も履修登録システムも，基本的にはこの方式です．</p>
+<p>2つめが，今回の主役である<strong>機械学習</strong>（machine learning）です．機械学習とは，<strong>人間がルールを1つ1つ書き込む代わりに，大量のデータからコンピュータ自身にパターン（規則性）を見つけさせ，それを予測や判別に使う技術</strong>の総称です．機械学習は「経験（データ）から性能を改善していく仕組み」の研究分野として発展してきました <span id="id5">[<a class="reference internal" href="../references.html#id29" title="M. I. Jordan and T. M. Mitchell. Machine learning: trends, perspectives, and prospects. Science, 349(6245):255–260, 2015. doi:10.1126/science.aaa8415.">Jordan and Mitchell, 2015</a>]</span>．迷惑メールの見分け方のように，(a) 人間はなんとなくできるのにルールとしては書き出せない仕事や，(b) 状況が変わり続けるためルールを保守しきれない仕事で，機械学習は威力を発揮します．この2つの作り方の違いを <a class="reference internal" href="#fig-ch08-rules-vs-learning"><span class="std std-numref">図 37</span></a> に並べて示します．</p>
+<figure class="align-default" id="fig-ch08-rules-vs-learning">
+<img alt="ルールを人が書くプログラムと，データから学ぶ機械学習の対比図．左は，人間が「消費税は価格の10%」「60点以上なら合格」のような判断のルールを書き下し，プログラム（ルールの集まり）がルールどおりに確実に動く流れ．ルールを言葉で書き下せる仕事（電卓・履修登録システムなど）が得意だが，ルールを書き出せない仕事では例外だらけになり，すぐに時代遅れになる．右は，大量のデータ（実例）を与えると，コンピュータ自身がパターンを見つけてモデルができあがり，新しい入力に対して予測・判別する流れ．ルールを書き出せない仕事や状況が変わり続ける仕事（迷惑メールフィルタなど）が得意．下部に，機械学習でも人が書くのは「学び方」までで，「無料は怪しい」といった知識そのものはデータから学ばれるという注記がある．" src="../_images/ch08-rules-vs-learning.svg" />
+<figcaption>
+<p><span class="caption-number">図 37 </span><span class="caption-text">コンピュータに仕事をさせる2つの方法——ルールを人が書き下すか，大量のデータからパターンを学ばせるか</span><a class="headerlink" href="#fig-ch08-rules-vs-learning" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>ここで大事なのは，機械学習が魔法ではないことです．コンピュータが見つけているのは，突き詰めれば<a class="reference internal" href="ch05-data-analysis.html"><span class="std std-doc">第5回</span></a>で学んだ「変数と変数の関係のパターン（相関）」です．つまり機械学習とは，第2〜7回で学んできたデータ分析の営みを，コンピュータが自動で・大規模に行っているものだと考えることができます．だからこそ，データの集め方の偏り（第2回）や前処理の質（第4回）が，そのままAIの振る舞いに影響します．この点は章の後半でじっくり扱います．</p>
+</section>
+<section id="id6">
+<h3>教師あり学習——例と正解のペアから学ぶ<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>機械学習にはいくつかの学び方がありますが，中心となるのは<strong>教師あり学習</strong>（supervised learning）です．教師あり学習とは，<strong>「入力の例」と「その正解」のペアを大量に与えて，入力から正解を当てるパターンを学ばせる</strong>方法です．</p>
+<ul class="simple">
+<li><p>迷惑メールフィルタなら，「メールの本文や件名」（入力）と「これは迷惑メール／これは通常メール」（正解ラベル）のペアを大量に与えます</p></li>
+<li><p>画像診断支援なら，「医用画像」（入力）と「病変あり／なし」（医師がつけた正解）のペアを与えます</p></li>
+</ul>
+<p>「教師あり」という名前は，正解を教えてくれる先生役（正解ラベルつきのデータ）がいる，という意味です．ドリルの問題と解答のセットで勉強するイメージだと思ってください．教師あり学習の全体の流れを <a class="reference internal" href="#fig-ch08-supervised-learning"><span class="std std-numref">図 38</span></a> に示します．例と正解のペアからパターンを学ぶ「学習段階」と，できあがったモデルで新しい入力を判定する「予測段階」の2段構成になっていることを押さえてください．</p>
+<figure class="align-default" id="fig-ch08-supervised-learning">
+<img alt="教師あり学習の2段構成の流れ図．上段の学習段階では，入力の例（件名）と正解ラベルのペア——「無料 プレゼント 当選」は迷惑，「今すぐ クリック 現金 プレゼント」は迷惑，「ゼミ レポート 提出 連絡」は通常，「授業 休講 お知らせ」は通常——から，判断材料を数え上げることでパターンを学び，「無料」は怪しい・「日程」は怪しくないといった見分け方のパターンを学び取ったモデルができあがる．下段の予測段階では，できあがったモデルを本番で使い，正解ラベルのない新しい入力「サークル 合宿 日程 お知らせ」のスコアを計算して，「通常メール」と予測する．" src="../_images/ch08-supervised-learning.svg" />
+<figcaption>
+<p><span class="caption-number">図 38 </span><span class="caption-text">教師あり学習の2つの段階——「例と正解のペア」からパターンを学ぶ学習段階と，できあがったモデルで新しい入力を判定する予測段階（例はこの後作るミニ迷惑メール分類器のもの）</span><a class="headerlink" href="#fig-ch08-supervised-learning" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>一方，正解ラベルなしのデータから学ぶ方法もあり，<strong>教師なし学習</strong>（unsupervised learning）と呼ばれます．教師なし学習の代表的な仕事は，<strong>正解を与えられないまま，データの中から「似たものどうしのグループ」を見つける</strong>ことです．たとえばECサイトが顧客の購買履歴から「まとめ買い派」「新商品好き」といった顧客のグループを自動的に見つけ出す，といった使われ方をします．本章では，これ以降は教師あり学習を中心に話を進めます．</p>
+</section>
+<section id="id7">
+<h3>分類と回帰——カテゴリを当てるか，数値を当てるか<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>教師あり学習の予測タスクは，当てたい正解の種類によって2つに分けられます．</p>
+<ul class="simple">
+<li><p><strong>分類</strong>（classification）：正解が**カテゴリ（種類）**であるタスクです．「迷惑メールか，通常メールか」「この顔画像は本人か，別人か」「この画像に病変はあるか，ないか」のように，選択肢の中からどれかを当てます．</p></li>
+<li><p><strong>回帰</strong>（regression）：正解が<strong>数値</strong>であるタスクです．「明日のこの店の来店客数は何人か」「この時間帯のバスの所要時間は何分か」のように，量を当てます．</p></li>
+</ul>
+<p>迷惑メール判定は分類，来店客数の予測は回帰——この区別は，AIのニュースを理解するときの基本の語彙になるので，覚えておいてください．どちらも「例と正解のペアから学ぶ」という原理は同じで，正解がカテゴリなら分類，数値なら回帰と呼び分けているだけです．2つのタスクの関係を <a class="reference internal" href="#fig-ch08-classification-regression"><span class="std std-numref">図 39</span></a> に整理します．</p>
+<figure class="align-default" id="fig-ch08-classification-regression">
+<img alt="分類と回帰の対比図．左の分類は，正解がカテゴリ（どれか）を当てるタスクで，新しいメールを迷惑メールか通常メールかの選択肢のどちらかに振り分ける．例として迷惑メール判定，顔認証，病変の有無の判定．右の回帰は，正解が数値（どれくらいか）を当てるタスクで，明日の状況から来店客数が何人かを予測し，少ないから多いまでの目盛りの上の1点として予測値が決まる．例として来店客数の予測，バスの所要時間の予測．下部に，どちらも「例と正解のペア」から学ぶ教師あり学習であり，正解がカテゴリなら「分類」，数値なら「回帰」と呼び分けるだけ，という共通の原理が示されている．" src="../_images/ch08-classification-regression.svg" />
+<figcaption>
+<p><span class="caption-number">図 39 </span><span class="caption-text">分類と回帰——正解がカテゴリなら分類，数値なら回帰．どちらも「例と正解のペアから学ぶ」教師あり学習</span><a class="headerlink" href="#fig-ch08-classification-regression" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id8">
+<h3>作って実感する：ミニ迷惑メール分類器<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>「データからパターンを学ぶ」とは具体的に何をすることなのか，ごく小さな迷惑メール分類器を実際に作って確かめてみましょう．本物のフィルタははるかに高度ですが，発想の核心は驚くほど素朴です．</p>
+<p>まず，学習用のデータを用意します．迷惑メール12通・通常メール12通，合計24通のメールの「件名」に，正解ラベルをつけたものです（自作の架空データです．件名は，あらかじめ単語ごとにスペースで区切ってあります）．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 学習データ：件名と正解ラベルのペア（迷惑メール12通・通常メール12通）</span>
+<span class="n">spam_subjects</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;無料 プレゼント 当選&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;今すぐ クリック 現金 プレゼント&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;限定 キャンペーン 無料 案内&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;簡単 副収入 案内&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;当選 おめでとう 今すぐ 確認&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;無料 体験 限定 お知らせ&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;高額 副収入 簡単&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;緊急 アカウント 確認 今すぐ&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;特別 割引 限定 クーポン&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;無料 高額 商品 プレゼント&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;限定 特別 キャンペーン 今すぐ&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;副収入 簡単 高額&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="n">normal_subjects</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;ゼミ レポート 提出 連絡&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;サークル 練習 日程 お知らせ&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;バイト シフト 確認 お願い&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;授業 休講 お知らせ&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;図書館 返却 期限 お知らせ&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ゼミ 合宿 日程 連絡&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;教科書 販売 案内&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;レポート 提出 期限 確認&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;サークル 新歓 案内&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;健康 診断 日程 お知らせ&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;奨学金 説明会 案内&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;授業 アンケート お願い&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">mails</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;件名&quot;</span><span class="p">:</span> <span class="n">spam_subjects</span> <span class="o">+</span> <span class="n">normal_subjects</span><span class="p">,</span>
+    <span class="s2">&quot;ラベル&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;迷惑&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">spam_subjects</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;通常&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">normal_subjects</span><span class="p">),</span>
+<span class="p">})</span>
+<span class="n">mails</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>件名</th>
+      <th>ラベル</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>無料 プレゼント 当選</td>
+      <td>迷惑</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>今すぐ クリック 現金 プレゼント</td>
+      <td>迷惑</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>限定 キャンペーン 無料 案内</td>
+      <td>迷惑</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>簡単 副収入 案内</td>
+      <td>迷惑</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>当選 おめでとう 今すぐ 確認</td>
+      <td>迷惑</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>次が「学習」にあたる部分です．やることは，<strong>それぞれの単語が「迷惑メールの件名」と「通常メールの件名」に何回ずつ現れたかを数え上げる</strong>——それだけです．さらに，「迷惑メールでの回数 − 通常メールでの回数」を，その単語の「迷惑メールらしさ」のスコアとして計算しておきます．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 「学習」＝ラベルごとに単語の出現回数を数え上げる</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">mails</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">単語</span><span class="o">=</span><span class="n">mails</span><span class="p">[</span><span class="s2">&quot;件名&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+         <span class="o">.</span><span class="n">explode</span><span class="p">(</span><span class="s2">&quot;単語&quot;</span><span class="p">)</span>                       <span class="c1"># 件名を1単語1行にばらす</span>
+         <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;単語&quot;</span><span class="p">,</span> <span class="s2">&quot;ラベル&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>     <span class="c1"># 単語×ラベルで回数を数える</span>
+         <span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>                 <span class="c1"># 迷惑・通常を列に並べる</span>
+<span class="p">)</span>
+
+<span class="c1"># 単語ごとの「迷惑メールらしさ」スコア＝迷惑での回数 − 通常での回数</span>
+<span class="n">counts</span><span class="p">[</span><span class="s2">&quot;スコア&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">counts</span><span class="p">[</span><span class="s2">&quot;迷惑&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">counts</span><span class="p">[</span><span class="s2">&quot;通常&quot;</span><span class="p">]</span>
+
+<span class="c1"># スコアの高い単語・中立の単語・低い単語を抜粋して表示する</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="n">counts</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;スコア&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">counts</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="n">counts</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="s2">&quot;確認&quot;</span><span class="p">]],</span> <span class="n">counts</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">5</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>ラベル</th>
+      <th>迷惑</th>
+      <th>通常</th>
+      <th>スコア</th>
+    </tr>
+    <tr>
+      <th>単語</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>限定</th>
+      <td>4</td>
+      <td>0</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>無料</th>
+      <td>4</td>
+      <td>0</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>今すぐ</th>
+      <td>4</td>
+      <td>0</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>高額</th>
+      <td>3</td>
+      <td>0</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>簡単</th>
+      <td>3</td>
+      <td>0</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>確認</th>
+      <td>2</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>ゼミ</th>
+      <td>0</td>
+      <td>2</td>
+      <td>-2</td>
+    </tr>
+    <tr>
+      <th>レポート</th>
+      <td>0</td>
+      <td>2</td>
+      <td>-2</td>
+    </tr>
+    <tr>
+      <th>連絡</th>
+      <td>0</td>
+      <td>2</td>
+      <td>-2</td>
+    </tr>
+    <tr>
+      <th>日程</th>
+      <td>0</td>
+      <td>3</td>
+      <td>-3</td>
+    </tr>
+    <tr>
+      <th>お知らせ</th>
+      <td>1</td>
+      <td>4</td>
+      <td>-3</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>数え上げの結果を見てみましょう．「無料」「今すぐ」「限定」は迷惑メールに4回ずつ現れる一方，通常メールには一度も現れないので，スコアは+4です．逆に「お知らせ」「日程」は通常メールの側によく現れるのでスコアはマイナスになります．「確認」のように両方に2回ずつ現れる単語は，スコア0——つまりどちらの証拠にもならない中立の単語です．</p>
+<p>あとは，新しいメールが来たら，<strong>件名に含まれる単語のスコアを合計し，プラスなら迷惑メール，そうでなければ通常メールと判定する</strong>だけです．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 「予測」＝新しい件名に含まれる単語のスコアを合計して判定する</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">spam_score</span><span class="p">(</span><span class="n">subject</span><span class="p">):</span>
+    <span class="n">words</span> <span class="o">=</span> <span class="n">subject</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">counts</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">w</span><span class="p">,</span> <span class="s2">&quot;スコア&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">words</span> <span class="k">if</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">counts</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+<span class="n">new_mails</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;無料 プレゼント 限定 当選&quot;</span><span class="p">,</span>   <span class="c1"># いかにも怪しいメール</span>
+    <span class="s2">&quot;サークル 合宿 日程 お知らせ&quot;</span><span class="p">,</span>  <span class="c1"># サークルからの連絡</span>
+    <span class="s2">&quot;無料 公務員 講座 案内&quot;</span><span class="p">,</span>       <span class="c1"># 大学キャリアセンターからの正規の案内</span>
+<span class="p">]</span>
+<span class="k">for</span> <span class="n">subject</span> <span class="ow">in</span> <span class="n">new_mails</span><span class="p">:</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="n">spam_score</span><span class="p">(</span><span class="n">subject</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;迷惑メール&quot;</span> <span class="k">if</span> <span class="n">score</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;通常メール&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;スコア </span><span class="si">{</span><span class="n">score</span><span class="si">:</span><span class="s2">+d</span><span class="si">}</span><span class="s2"> → </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">と判定：「</span><span class="si">{</span><span class="n">subject</span><span class="si">}</span><span class="s2">」&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>スコア +13 → 迷惑メールと判定：「無料 プレゼント 限定 当選」
+スコア -9 → 通常メールと判定：「サークル 合宿 日程 お知らせ」
+スコア +3 → 迷惑メールと判定：「無料 公務員 講座 案内」
+</pre></div>
+</div>
+</div>
+</div>
+<p>1通目と2通目は，期待どおりに判定できました．学習データには存在しなかった新しい件名なのに，正しく振り分けられている——これが「例と正解のペアから見分け方のパターンを学んだ」ということです．ここで実感してほしいのは，<strong>「学習」の正体が，データから判断材料を数え上げることだった</strong>という点です．人間は見分け方のルールを1行も書いていません．書いたのは「数え方」と「スコアの合計の仕方」だけで，「無料は怪しい」「日程は怪しくない」という知識そのものは，すべてデータから来ています．</p>
+<p>一方で，3通目を見てください．大学キャリアセンターからの正規の案内「無料 公務員 講座 案内」が，迷惑メールと誤判定されてしまいました．学習データの中で「無料」が迷惑メールの強い証拠（スコア+4）になっていたためです．この分類器は単語の出現回数しか見ておらず，文脈も意味も理解していません．<strong>機械学習が学ぶのは，与えられたデータの中のパターンがすべて</strong>であり，データにない状況ではあっさり間違える——この性質は，この後の「過学習」や「限界」の話につながる重要な伏線です．</p>
+</section>
+</section>
+<section id="id9">
+<h2>過学習と汎化——「暗記」と「理解」の違い<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
+<section id="id10">
+<h3>本番は「見たことのないデータ」<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>ミニ分類器の例で大事なことに気づいたでしょうか．機械学習の目的は，学習に使ったデータを正しく当てることでは<strong>ありません</strong>．学習データ24通の判定なら，正解ラベルを丸ごと記憶すれば100%正解できます．しかしそれには何の価値もありません．フィルタの本番の仕事は，<strong>明日届く，まだ見たことのないメール</strong>を正しく振り分けることだからです．</p>
+<p>このように，学習に使わなかった新しいデータに対しても正しく予測できる能力を<strong>汎化</strong>（generalization：汎用的に通用すること）と呼びます．機械学習の真の目標は，学習データへの正解ではなく汎化です．</p>
+<p>ところが，ここに機械学習の最大級の落とし穴があります．データのパターンを一生懸命学ばせるほど，モデルは学習データに含まれる<strong>偶然のゆらぎ（ノイズ）まで</strong>忠実に学び込んでしまい，かえって新しいデータで外すようになることがあるのです．この現象を<strong>過学習</strong>（overfitting）と呼びます．機械学習の定番解説でも，過学習は実務家が最も警戒すべき問題として筆頭級に挙げられています <span id="id11">[<a class="reference internal" href="../references.html#id28" title="Pedro Domingos. A few useful things to know about machine learning. Communications of the ACM, 55(10):78–87, 2012. doi:10.1145/2347736.2347755.">Domingos, 2012</a>]</span>．</p>
+<p>過学習は，試験勉強にたとえるとよく分かります．過去問の「答え」を丸暗記した学生は，過去問とまったく同じ問題なら満点を取れますが，数字を少し変えた問題が出るとまるで歯が立ちません．一方，解き方を理解した学生は，過去問での得点は暗記型に及ばなくても，初めて見る問題に対応できます．<strong>過学習とは「暗記」であり，汎化とは「理解」である</strong>——このイメージを持ってください．</p>
+<p>では，AIが「暗記」に陥っていないかは，どうすれば確かめられるでしょうか．答えは試験と同じです．<strong>勉強に使っていない問題でテストする</strong>のです．機械学習では，手元のデータをあらかじめ2つに分けておきます．</p>
+<ul class="simple">
+<li><p><strong>学習データ</strong>（訓練データ）：パターンを学ばせるために使うデータ</p></li>
+<li><p><strong>テストデータ</strong>：学習には一切使わず，できあがったモデルの実力を測るためだけに取っておくデータ</p></li>
+</ul>
+<p>学習データでの成績がいくら良くても，テストデータでの成績が悪ければ，そのモデルは「暗記」しているだけです．この「データを分けて実力を測る」という手続きは，機械学習の実務における基本中の基本です．</p>
+</section>
+<section id="id12">
+<h3>多項式のあてはめで過学習を見る<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<p>過学習が起こる様子を，実際にコードで再現してみましょう．あるカフェが，一日の「時間帯」と「1時間あたりの来店客数」の関係をデータからつかんで，来店客数の予測（回帰のタスクです）に使おうとしている，という設定で考えます．時間帯は，開店直後を0，閉店間際を1とする数値で表します．</p>
+<p>まず，架空の観測データを作ります．真の関係は「昼前にかけて増え，午後は落ち着き，閉店前にまた持ち直す」というなめらかな曲線とし，そこに日々の偶然のゆらぎ（ノイズ）を加えます．そして大事な点として，データを<strong>学習データ20点とテストデータ15点に分けて</strong>用意します．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 過学習の実演：カフェの「時間帯」と「1時間あたりの来店客数」</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># 乱数の種を固定して再現可能にする</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">true_pattern</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="c1"># 真の関係：昼前に増え，午後は落ち着き，閉店前に持ち直すなめらかな曲線</span>
+    <span class="k">return</span> <span class="mi">70</span> <span class="o">+</span> <span class="mi">30</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># 学習データ：等間隔の20の時間帯での観測（真の関係＋偶然のゆらぎ）</span>
+<span class="n">x_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">true_pattern</span><span class="p">(</span><span class="n">x_train</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+
+<span class="c1"># テストデータ：別の日に観測した15点（学習には一切使わない）</span>
+<span class="n">x_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">15</span><span class="p">))</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">true_pattern</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>このデータに，複雑さの異なる3種類の曲線をあてはめてみます．使うのは<strong>多項式</strong>による曲線あてはめです．多項式の「次数」は曲線の複雑さを決めるツマミで，次数1はただの直線，次数3はゆるやかな曲線，次数15は非常にくねくね曲がれる複雑な曲線です．それぞれをデータに最もよく合うように調整（これが「学習」です）し，学習データとテストデータのそれぞれで，予測が実際の客数から平均して何人ずれたか（平均誤差）を計算します．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 次数1・3・15の多項式をあてはめ，学習データとテストデータでの誤差を比べる</span>
+<span class="n">degrees</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">15</span><span class="p">]</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">fits</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">degrees</span><span class="p">:</span>
+    <span class="n">coef</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>     <span class="c1"># 学習：多項式をデータにあてはめる</span>
+    <span class="n">fits</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="n">coef</span>
+    <span class="n">err_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">polyval</span><span class="p">(</span><span class="n">coef</span><span class="p">,</span> <span class="n">x_train</span><span class="p">)</span> <span class="o">-</span> <span class="n">y_train</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">err_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">polyval</span><span class="p">(</span><span class="n">coef</span><span class="p">,</span> <span class="n">x_test</span><span class="p">)</span> <span class="o">-</span> <span class="n">y_test</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;次数&quot;</span><span class="p">:</span> <span class="n">d</span><span class="p">,</span>
+                 <span class="s2">&quot;学習データでの平均誤差（人）&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">err_train</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                 <span class="s2">&quot;テストデータでの平均誤差（人）&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">err_test</span><span class="p">,</span> <span class="mi">1</span><span class="p">)})</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>次数</th>
+      <th>学習データでの平均誤差（人）</th>
+      <th>テストデータでの平均誤差（人）</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>13.8</td>
+      <td>16.3</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>3</td>
+      <td>7.7</td>
+      <td>6.1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>15</td>
+      <td>4.4</td>
+      <td>29.2</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>結果の表を見る前に，3つのあてはめの様子をグラフで確かめましょう（青い点が学習データ，白抜きの点がテストデータ，実線があてはめた曲線です）．</p>
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 3種類のあてはめを並べて描く（作図の体裁調整が中心のセルです）</span>
+<span class="n">titles</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;次数1：単純すぎる&quot;</span><span class="p">,</span> <span class="s2">&quot;次数3：ちょうどよい&quot;</span><span class="p">,</span> <span class="s2">&quot;次数15：複雑すぎる（過学習）&quot;</span><span class="p">]</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">make_subplots</span><span class="p">(</span><span class="n">rows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">shared_yaxes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">subplot_titles</span><span class="o">=</span><span class="n">titles</span><span class="p">)</span>
+
+<span class="n">x_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">degrees</span><span class="p">):</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span>
+        <span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_train</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;markers&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;学習データ&quot;</span><span class="p">,</span>
+                   <span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#1f77b4&quot;</span><span class="p">),</span> <span class="n">showlegend</span><span class="o">=</span><span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)),</span>
+        <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span>
+        <span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;markers&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;テストデータ&quot;</span><span class="p">,</span>
+                   <span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;#d62728&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">)),</span>
+                   <span class="n">showlegend</span><span class="o">=</span><span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)),</span>
+        <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span>
+        <span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_grid</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">polyval</span><span class="p">(</span><span class="n">fits</span><span class="p">[</span><span class="n">d</span><span class="p">],</span> <span class="n">x_grid</span><span class="p">),</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;lines&quot;</span><span class="p">,</span>
+                   <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;次数</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s2">の曲線&quot;</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;#ff7f0e&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">2.5</span><span class="p">),</span>
+                   <span class="n">showlegend</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+        <span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">130</span><span class="p">],</span> <span class="n">title_text</span><span class="o">=</span><span class="s2">&quot;来店客数（人）&quot;</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">title_text</span><span class="o">=</span><span class="s2">&quot;時間帯（0=開店，1=閉店）&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">950</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">420</span><span class="p">,</span>
+                  <span class="n">title</span><span class="o">=</span><span class="s2">&quot;多項式の次数を変えてあてはめる：単純すぎ・ちょうどよい・複雑すぎ&quot;</span><span class="p">,</span>
+                  <span class="n">legend</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">orientation</span><span class="o">=</span><span class="s2">&quot;h&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=-</span><span class="mf">0.25</span><span class="p">))</span>
+
+<span class="n">HTML</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="n">include_plotlyjs</span><span class="o">=</span><span class="s2">&quot;cdn&quot;</span><span class="p">,</span> <span class="n">full_html</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>                        <script>window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.4.0.min.js" integrity="sha256-KEmPoupLpFyGMyGAiOsiNDbKDKAvxXAn/W+oQa0ZAfk=" crossorigin="anonymous"></script>                <div id="30d5f891-4143-46a8-9a92-11a9c5d7711f" class="plotly-graph-div" style="height:420px; width:950px;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("30d5f891-4143-46a8-9a92-11a9c5d7711f")) {                    Plotly.newPlot(                        "30d5f891-4143-46a8-9a92-11a9c5d7711f",                        [{"marker":{"color":"#1f77b4","size":7},"mode":"markers","name":"学習データ","showlegend":true,"x":{"dtype":"f8","bdata":"AAAAAAAAAAAor6G8hvKqPyivobyG8ro\u002fXkN5DeU1xD8or6G8hvLKP3kN5TWU19A\u002fXkN5DeU11D9DeQ3lNZTXPyivobyG8to\u002fDeU1lNdQ3j95DeU1lNfgP2wor6G8huI\u002fXkN5DeU15D9QXkN5DeXlP0N5DeU1lOc\u002fNpTXUF5D6T8or6G8hvLqPxrKayivoew\u002fDeU1lNdQ7j8AAAAAAADwPw=="},"y":{"dtype":"f8","bdata":"iq8MMqq\u002fVEC7+n0lNLZSQPsi\u002fE3dDFVAgD+V7P+hVUDmY9dTVoBaQAqTD+4NX1RAV\u002feB36DbW0CNhwwb2n5VQF9AScEqtVVApR8lD1g8UkDcAObgkzBTQHqJCibHnkNAZ\u002fs3O6qsRkAbQ+ukKLpDQHOsym8YlkhAKca+3TYPQEDg+VzYtsBFQK4xjwR\u002fRkZAd2ajg2FMTkCZCnXBZqpSQA=="},"type":"scatter","xaxis":"x","yaxis":"y"},{"marker":{"color":"white","line":{"color":"#d62728","width":2},"size":7},"mode":"markers","name":"テストデータ","showlegend":true,"x":{"dtype":"f8","bdata":"oLlfhCm6kj\u002fQ\u002f1gCBW26P\u002faukVvL8tE\u002farf0QOlq0j8iGjr\u002fksrSP+API3loMdQ\u002fIADBm0mq3D8wHSLL0PflP6yUKHnbI+Y\u002fwKgxGfnw5z+3AX+mLgHoP55047jGQek\u002flXCm5UC16j\u002f7emLgNhPtP7F9pALApO8\u002f"},"y":{"dtype":"f8","bdata":"qhmK4E8+UEAiHorw0FdXQHIOUB78vFhAqBKCJftPVUDjBDl9Le1YQJvMJNdQIVdA1EQeg5h2VECZqLj2vtBAQA9KixmcjEJAm35ndQU6RUDv\u002ffZ4bsRKQIgcCjFzdkFAipmzC22\u002fQ0Dfl9Fbe2hKQAxW0nFAD1VA"},"type":"scatter","xaxis":"x","yaxis":"y"},{"line":{"color":"#ff7f0e","width":2.5},"mode":"lines","name":"次数1の曲線","showlegend":false,"x":{"dtype":"f8","bdata":"AAAAAAAAAAAF7r7j4mVrPwXuvuPiZXs\u002fhDLPKmqMhD8F7r7j4mWLP8NUV86tH5E\u002fhDLPKmqMlD9EEEeHJvmXPwXuvuPiZZs\u002fxss2QJ\u002fSnj\u002fDVFfOrR+hP6NDk\u002fwL1qI\u002fhDLPKmqMpD9kIQtZyEKmP0QQR4cm+ac\u002fJf+CtYSvqT8F7r7j4mWrP+Xc+hFBHK0\u002fxss2QJ\u002fSrj9TXTm3fkSwP8NUV86tH7E\u002fM0x15dz6sT+jQ5P8C9ayPxQ7sRM7sbM\u002fhDLPKmqMtD\u002f0Ke1BmWe1P2QhC1nIQrY\u002f1BgpcPcdtz9EEEeHJvm3P7UHZZ5V1Lg\u002fJf+CtYSvuT+V9qDMs4q6PwXuvuPiZbs\u002fdeXc+hFBvD\u002fl3PoRQRy9P1XUGClw970\u002fxss2QJ\u002fSvj82w1RXzq2\u002fP1NdObd+RMA\u002fC1nIQhaywD\u002fDVFfOrR\u002fBP3tQ5llFjcE\u002fM0x15dz6wT\u002frRwRxdGjCP6NDk\u002fwL1sI\u002fXD8iiKNDwz8UO7ETO7HDP8w2QJ\u002fSHsQ\u002fhDLPKmqMxD88Ll62AfrEP\u002fQp7UGZZ8U\u002frCV8zTDVxT9kIQtZyELGPxwdmuRfsMY\u002f1BgpcPcdxz+MFLj7jovHP0QQR4cm+cc\u002f\u002fAvWEr5myD+1B2WeVdTIP20D9CntQck\u002fJf+CtYSvyT\u002fd+hFBHB3KP5X2oMyziso\u002fTfIvWEv4yj8F7r7j4mXLP73pTW9608s\u002fdeXc+hFBzD8t4WuGqa7MP+Xc+hFBHM0\u002fndiJndiJzT9V1BgpcPfNPw7Qp7QHZc4\u002fxss2QJ\u002fSzj9+x8XLNkDPPzbDVFfOrc8\u002fd99x8bIN0D9TXTm3fkTQPy\u002fbAH1Ke9A\u002fC1nIQhay0D\u002fn1o8I4ujQP8NUV86tH9E\u002fn9IelHlW0T97UOZZRY3RP1fOrR8RxNE\u002fM0x15dz60T8PyjyrqDHSP+tHBHF0aNI\u002fx8XLNkCf0j+jQ5P8C9bSP3\u002fBWsLXDNM\u002fXD8iiKND0z84velNb3rTPxQ7sRM7sdM\u002f8Lh42Qbo0z\u002fMNkCf0h7UP6i0B2WeVdQ\u002fhDLPKmqM1D9gsJbwNcPUPzwuXrYB+tQ\u002fGKwlfM0w1T\u002f0Ke1BmWfVP9CntAdlntU\u002frCV8zTDV1T+Io0OT\u002fAvWP2QhC1nIQtY\u002fQJ\u002fSHpR51j8cHZrkX7DWP\u002fiaYaor59Y\u002f1BgpcPcd1z+wlvA1w1TXP4wUuPuOi9c\u002faJJ\u002fwVrC1z9EEEeHJvnXPyCODk3yL9g\u002f\u002fAvWEr5m2D\u002fYiZ3YiZ3YP7UHZZ5V1Ng\u002fkYUsZCEL2T9tA\u002fQp7UHZP0mBu++4eNk\u002fJf+CtYSv2T8BfUp7UObZP936EUEcHdo\u002fuXjZBuhT2j+V9qDMs4raP3F0aJJ\u002fwdo\u002fTfIvWEv42j8pcPcdFy\u002fbPwXuvuPiZds\u002f4WuGqa6c2z+96U1vetPbP5lnFTVGCtw\u002fdeXc+hFB3D9RY6TA3XfcPy3ha4aprtw\u002fCV8zTHXl3D\u002fl3PoRQRzdP8FawtcMU90\u002fndiJndiJ3T95VlFjpMDdP1XUGClw990\u002fMlLg7jsu3j8O0Ke0B2XeP+pNb3rTm94\u002fxss2QJ\u002fS3j+iSf4FawnfP37Hxcs2QN8\u002fWkWNkQJ33z82w1RXzq3fPxJBHB2a5N8\u002fd99x8bIN4D9lnlXUGCngP1NdObd+ROA\u002fQRwdmuRf4D8v2wB9SnvgPx2a5F+wluA\u002fC1nIQhay4D\u002f5F6wlfM3gP+fWjwji6OA\u002f1ZVz60cE4T\u002fDVFfOrR\u002fhP7ETO7ETO+E\u002fn9IelHlW4T+NkQJ333HhP3tQ5llFjeE\u002faQ\u002fKPKuo4T9Xzq0fEcThP0WNkQJ33+E\u002fM0x15dz64T8hC1nIQhbiPw\u002fKPKuoMeI\u002f\u002fYggjg5N4j\u002frRwRxdGjiP9kG6FPag+I\u002fx8XLNkCf4j+1hK8ZprriP6NDk\u002fwL1uI\u002fkQJ333Hx4j9\u002fwVrC1wzjP22APqU9KOM\u002fXD8iiKND4z9K\u002fgVrCV\u002fjPzi96U1veuM\u002fJnzNMNWV4z8UO7ETO7HjPwL6lPagzOM\u002f8Lh42Qbo4z\u002fed1y8bAPkP8w2QJ\u002fSHuQ\u002fuvUjgjg65D+otAdlnlXkP5Zz60cEceQ\u002fhDLPKmqM5D9y8bIN0KfkP2CwlvA1w+Q\u002fTm9605ve5D88Ll62AfrkPyrtQZlnFeU\u002fGKwlfM0w5T8GawlfM0zlP\u002fQp7UGZZ+U\u002f4ujQJP+C5T\u002fQp7QHZZ7lP75mmOrKueU\u002frCV8zTDV5T+a5F+wlvDlP4ijQ5P8C+Y\u002fdmIndmIn5j9kIQtZyELmP1Lg7jsuXuY\u002fQJ\u002fSHpR55j8uXrYB+pTmPxwdmuRfsOY\u002fCtx9x8XL5j\u002f4mmGqK+fmP+ZZRY2RAuc\u002f1BgpcPcd5z\u002fC1wxTXTnnP7CW8DXDVOc\u002fnlXUGClw5z+MFLj7jovnP3rTm970puc\u002faJJ\u002fwVrC5z9WUWOkwN3nP0QQR4cm+ec\u002fMs8qaowU6D8gjg5N8i\u002foPw5N8i9YS+g\u002f\u002fAvWEr5m6D\u002fqyrn1I4LoP9iJndiJneg\u002fx0iBu++46D+1B2WeVdToP6PGSIG77+g\u002fkYUsZCEL6T9\u002fRBBHhybpP20D9CntQek\u002fW8LXDFNd6T9JgbvvuHjpPzdAn9IelOk\u002fJf+CtYSv6T8TvmaY6srpPwF9SntQ5uk\u002f7zsuXrYB6j\u002fd+hFBHB3qP8u59SOCOOo\u002fuXjZBuhT6j+nN73pTW\u002fqP5X2oMyziuo\u002fg7WErxmm6j9xdGiSf8HqP18zTHXl3Oo\u002fTfIvWEv46j87sRM7sRPrPylw9x0XL+s\u002fFy\u002fbAH1K6z8F7r7j4mXrP\u002fOsosZIges\u002f4WuGqa6c6z\u002fPKmqMFLjrP73pTW960+s\u002fq6gxUuDu6z+ZZxU1RgrsP4cm+ResJew\u002fdeXc+hFB7D9jpMDdd1zsP1FjpMDdd+w\u002fPyKIo0OT7D8t4WuGqa7sPxugT2kPyuw\u002fCV8zTHXl7D\u002f3HRcv2wDtP+Xc+hFBHO0\u002f05ve9KY37T\u002fBWsLXDFPtP68Zprpybu0\u002fndiJndiJ7T+Ll22APqXtP3lWUWOkwO0\u002fZxU1Rgrc7T9V1BgpcPftP0OT\u002fAvWEu4\u002fMlLg7jsu7j8gEcTRoUnuPw7Qp7QHZe4\u002f\u002fI6Ll22A7j\u002fqTW9605vuP9gMU105t+4\u002fxss2QJ\u002fS7j+0ihojBe7uP6JJ\u002fgVrCe8\u002fkAji6NAk7z9+x8XLNkDvP2yGqa6cW+8\u002fWkWNkQJ37z9IBHF0aJLvPzbDVFfOre8\u002fJII4OjTJ7z8SQRwdmuTvPwAAAAAAAPA\u002f"},"y":{"dtype":"f8","bdata":"U4gItKB9V0ASuO2h6XJXQNLn0o8yaFdAkRe4fXtdV0BRR51rxFJXQBB3glkNSFdA0KZnR1Y9V0CP1kw1nzJXQE4GMiPoJ1dADjYXETEdV0DNZfz+eRJXQI2V4ezCB1dATMXG2gv9VkAM9avIVPJWQMskkbad51ZAilR2pObcVkBKhFuSL9JWQAm0QIB4x1ZAyeMlbsG8VkCIEwtcCrJWQEhD8ElTp1ZAB3PVN5ycVkDHorol5ZFWQIbSnxMuh1ZARQKFAXd8VkAFMmrvv3FWQMRhT90IZ1ZAhJE0y1FcVkBDwRm5mlFWQALx\u002fqbjRlZAwiDklCw8VkCBUMmCdTFWQEGArnC+JlZAALCTXgccVkDA33hMUBFWQH8PXjqZBlZAPj9DKOL7VUD+bigWK\u002fFVQL2eDQR05lVAfc7y8bzbVUA8\u002ftffBdFVQPwtvc1OxlVAu12iu5e7VUB7jYep4LBVQDq9bJcpplVA+exRhXKbVUC5HDdzu5BVQHhMHGEEhlVAOHwBT017VUD3q+Y8lnBVQLfbyyrfZVVAdguxGChbVUA2O5YGcVBVQPVqe\u002fS5RVVAtJpg4gI7VUB0ykXQSzBVQDP6Kr6UJVVA8ykQrN0aVUCyWfWZJhBVQHGJ2odvBVVAMbm\u002fdbj6VEDw6KRjAfBUQLAYilFK5VRAb0hvP5PaVEAveFQt3M9UQO6nORslxVRArtceCW66VEBtBwT3tq9UQCw36eT\u002fpFRA7GbO0kiaVECrlrPAkY9UQGvGmK7ahFRAKvZ9nCN6VEDqJWOKbG9UQKlVSHi1ZFRAaIUtZv5ZVEAotRJUR09UQOfk90GQRFRApxTdL9k5VEBmRMIdIi9UQCZ0pwtrJFRA5aOM+bMZVECk03Hn\u002fA5UQGQDV9VFBFRAIzM8w475U0DjYiGx1+5TQKKSBp8g5FNAYsLrjGnZU0Ah8tB6ss5TQOAhtmj7w1NAoFGbVkS5U0BfgYBEja5TQB+xZTLWo1NA3uBKIB+ZU0CeEDAOaI5TQF1AFfywg1NAHHD66fl4U0Dcn9\u002fXQm5TQJvPxMWLY1NAW\u002f+ps9RYU0AaL4+hHU5TQNpedI9mQ1NAmY5Zfa84U0BYvj5r+C1TQBjuI1lBI1NA1x0JR4oYU0CXTe400w1TQFZ90yIcA1NAFq24EGX4UkDV3J3+re1SQJQMg+z24lJAVDxo2j\u002fYUkAUbE3IiM1SQNObMrbRwlJAkssXpBq4UkBS+\u002fyRY61SQBEr4n+solJA0FrHbfWXUkCQiqxbPo1SQE+6kUmHglJAD+p2N9B3UkDOGVwlGW1SQI5JQRNiYlJATXkmAatXUkAMqQvv80xSQMzY8Nw8QlJAiwjWyoU3UkBLOLu4zixSQApooKYXIlJAypeFlGAXUkCJx2qCqQxSQEj3T3DyAVJACCc1Xjv3UUDIVhpMhOxRQIeG\u002fznN4VFARrbkJxbXUUAG5skVX8xRQMUVrwOowVFAhUWU8fC2UUBEdXnfOaxRQASlXs2CoVFAw9RDu8uWUUCCBCmpFIxRQEI0DpddgVFAAWTzhKZ2UUDAk9hy72tRQIDDvWA4YVFAQPOiToFWUUD\u002fIog8yktRQL5SbSoTQVFAfoJSGFw2UUA9sjcGpStRQPzhHPTtIFFAvBEC4jYWUUB8QefPfwtRQDtxzL3IAFFA+qCxqxH2UEC60JaZWutQQHkAfIej4FBAOTBhdezVUED4X0ZjNctQQLiPK1F+wFBAd78QP8e1UEA27\u002fUsEKtQQPYe2xpZoFBAtU7ACKKVUEB1fqX26opQQDSuiuQzgFBA9N1v0nx1UECzDVXAxWpQQHI9Oq4OYFBAMm0fnFdVUEDynASKoEpQQLHM6XfpP1BAcPzOZTI1UEAwLLRTeypQQO9bmUHEH1BArot+Lw0VUEBuu2MdVgpQQFvWkRY+\u002f09A2TVc8s\u002fpT0BYlSbOYdRPQNf08Knzvk9AVlS7hYWpT0DUs4VhF5RPQFQTUD2pfk9A0nIaGTtpT0BR0uT0zFNPQNAxr9BePk9AT5F5rPAoT0DO8EOIghNPQExQDmQU\u002fk5AzK\u002fYP6boTkBKD6MbONNOQMlubffJvU5ASM4301uoTkDHLQKv7ZJOQEaNzIp\u002ffU5AxeyWZhFoTkBETGFCo1JOQMOrKx41PU5AQQv2+cYnTkDAasDVWBJOQD\u002fKirHq\u002fE1AvilVjXznTUA9iR9pDtJNQLzo6USgvE1AO0i0IDKnTUC6p378w5FNQDgHSdhVfE1At2YTtOdmTUA2xt2PeVFNQLUlqGsLPE1ANIVyR50mTUCz5DwjLxFNQDJEB\u002f\u002fA+0xAsaPR2lLmTEAwA5y25NBMQK5iZpJ2u0xALcIwbgimTECsIftJmpBMQCuBxSUse0xAquCPAb5lTEApQFrdT1BMQKifJLnhOkxAJ\u002f\u002fulHMlTEClXrlwBRBMQCS+g0yX+ktAox1OKCnlS0AifRgEu89LQKHc4t9MuktAHzytu96kS0Cem3eXcI9LQB37QXMCektAnFoMT5RkS0AbutYqJk9LQJkZoQa4OUtAGHlr4kkkS0CX2DW+2w5LQBY4AJpt+UpAlZfKdf\u002fjSkAU95RRkc5KQJNWXy0juUpAErYpCbWjSkCQFfTkRo5KQA91vsDYeEpAjtSInGpjSkANNFN4\u002fE1KQIyTHVSOOEpAC\u002fPnLyAjSkCKUrILsg1KQAmyfOdD+ElAhxFHw9XiSUAGcRGfZ81JQIXQ23r5t0lABDCmVouiSUCDj3AyHY1JQALvOg6vd0lAgU4F6kBiSUAArs\u002fF0kxJQH8NmqFkN0lA\u002fWxkffYhSUB8zC5ZiAxJQPsr+TQa90hAeovDEKzhSED56o3sPcxIQHhKWMjPtkhA96kipGGhSEB2Ce1\u002f84tIQPRot1uFdkhAc8iBNxdhSEDyJ0wTqUtIQHGHFu86NkhA8ObgyswgSEBvRqumXgtIQO6ldYLw9UdAbQVAXoLgR0DrZAo6FMtHQGrE1BWmtUdA6SOf8TegR0Bog2nNyYpHQOfiM6lbdUdAZUL+hO1fR0Dkochgf0pHQGMBkzwRNUdA4mBdGKMfR0BhwCf0NApHQN8f8s\u002fG9EZAXn+8q1jfRkDd3oaH6slGQFw+UWN8tEZA250bPw6fRkBa\u002feUaoIlGQNlcsPYxdEZAWLx60sNeRkDWG0WuVUlGQFV7D4rnM0ZA1NrZZXkeRkBTOqRBCwlGQNKZbh2d80VA"},"type":"scatter","xaxis":"x","yaxis":"y"},{"marker":{"color":"#1f77b4","size":7},"mode":"markers","name":"学習データ","showlegend":false,"x":{"dtype":"f8","bdata":"AAAAAAAAAAAor6G8hvKqPyivobyG8ro\u002fXkN5DeU1xD8or6G8hvLKP3kN5TWU19A\u002fXkN5DeU11D9DeQ3lNZTXPyivobyG8to\u002fDeU1lNdQ3j95DeU1lNfgP2wor6G8huI\u002fXkN5DeU15D9QXkN5DeXlP0N5DeU1lOc\u002fNpTXUF5D6T8or6G8hvLqPxrKayivoew\u002fDeU1lNdQ7j8AAAAAAADwPw=="},"y":{"dtype":"f8","bdata":"iq8MMqq\u002fVEC7+n0lNLZSQPsi\u002fE3dDFVAgD+V7P+hVUDmY9dTVoBaQAqTD+4NX1RAV\u002feB36DbW0CNhwwb2n5VQF9AScEqtVVApR8lD1g8UkDcAObgkzBTQHqJCibHnkNAZ\u002fs3O6qsRkAbQ+ukKLpDQHOsym8YlkhAKca+3TYPQEDg+VzYtsBFQK4xjwR\u002fRkZAd2ajg2FMTkCZCnXBZqpSQA=="},"type":"scatter","xaxis":"x2","yaxis":"y2"},{"marker":{"color":"white","line":{"color":"#d62728","width":2},"size":7},"mode":"markers","name":"テストデータ","showlegend":false,"x":{"dtype":"f8","bdata":"oLlfhCm6kj\u002fQ\u002f1gCBW26P\u002faukVvL8tE\u002farf0QOlq0j8iGjr\u002fksrSP+API3loMdQ\u002fIADBm0mq3D8wHSLL0PflP6yUKHnbI+Y\u002fwKgxGfnw5z+3AX+mLgHoP55047jGQek\u002flXCm5UC16j\u002f7emLgNhPtP7F9pALApO8\u002f"},"y":{"dtype":"f8","bdata":"qhmK4E8+UEAiHorw0FdXQHIOUB78vFhAqBKCJftPVUDjBDl9Le1YQJvMJNdQIVdA1EQeg5h2VECZqLj2vtBAQA9KixmcjEJAm35ndQU6RUDv\u002ffZ4bsRKQIgcCjFzdkFAipmzC22\u002fQ0Dfl9Fbe2hKQAxW0nFAD1VA"},"type":"scatter","xaxis":"x2","yaxis":"y2"},{"line":{"color":"#ff7f0e","width":2.5},"mode":"lines","name":"次数3の曲線","showlegend":false,"x":{"dtype":"f8","bdata":"AAAAAAAAAAAF7r7j4mVrPwXuvuPiZXs\u002fhDLPKmqMhD8F7r7j4mWLP8NUV86tH5E\u002fhDLPKmqMlD9EEEeHJvmXPwXuvuPiZZs\u002fxss2QJ\u002fSnj\u002fDVFfOrR+hP6NDk\u002fwL1qI\u002fhDLPKmqMpD9kIQtZyEKmP0QQR4cm+ac\u002fJf+CtYSvqT8F7r7j4mWrP+Xc+hFBHK0\u002fxss2QJ\u002fSrj9TXTm3fkSwP8NUV86tH7E\u002fM0x15dz6sT+jQ5P8C9ayPxQ7sRM7sbM\u002fhDLPKmqMtD\u002f0Ke1BmWe1P2QhC1nIQrY\u002f1BgpcPcdtz9EEEeHJvm3P7UHZZ5V1Lg\u002fJf+CtYSvuT+V9qDMs4q6PwXuvuPiZbs\u002fdeXc+hFBvD\u002fl3PoRQRy9P1XUGClw970\u002fxss2QJ\u002fSvj82w1RXzq2\u002fP1NdObd+RMA\u002fC1nIQhaywD\u002fDVFfOrR\u002fBP3tQ5llFjcE\u002fM0x15dz6wT\u002frRwRxdGjCP6NDk\u002fwL1sI\u002fXD8iiKNDwz8UO7ETO7HDP8w2QJ\u002fSHsQ\u002fhDLPKmqMxD88Ll62AfrEP\u002fQp7UGZZ8U\u002frCV8zTDVxT9kIQtZyELGPxwdmuRfsMY\u002f1BgpcPcdxz+MFLj7jovHP0QQR4cm+cc\u002f\u002fAvWEr5myD+1B2WeVdTIP20D9CntQck\u002fJf+CtYSvyT\u002fd+hFBHB3KP5X2oMyziso\u002fTfIvWEv4yj8F7r7j4mXLP73pTW9608s\u002fdeXc+hFBzD8t4WuGqa7MP+Xc+hFBHM0\u002fndiJndiJzT9V1BgpcPfNPw7Qp7QHZc4\u002fxss2QJ\u002fSzj9+x8XLNkDPPzbDVFfOrc8\u002fd99x8bIN0D9TXTm3fkTQPy\u002fbAH1Ke9A\u002fC1nIQhay0D\u002fn1o8I4ujQP8NUV86tH9E\u002fn9IelHlW0T97UOZZRY3RP1fOrR8RxNE\u002fM0x15dz60T8PyjyrqDHSP+tHBHF0aNI\u002fx8XLNkCf0j+jQ5P8C9bSP3\u002fBWsLXDNM\u002fXD8iiKND0z84velNb3rTPxQ7sRM7sdM\u002f8Lh42Qbo0z\u002fMNkCf0h7UP6i0B2WeVdQ\u002fhDLPKmqM1D9gsJbwNcPUPzwuXrYB+tQ\u002fGKwlfM0w1T\u002f0Ke1BmWfVP9CntAdlntU\u002frCV8zTDV1T+Io0OT\u002fAvWP2QhC1nIQtY\u002fQJ\u002fSHpR51j8cHZrkX7DWP\u002fiaYaor59Y\u002f1BgpcPcd1z+wlvA1w1TXP4wUuPuOi9c\u002faJJ\u002fwVrC1z9EEEeHJvnXPyCODk3yL9g\u002f\u002fAvWEr5m2D\u002fYiZ3YiZ3YP7UHZZ5V1Ng\u002fkYUsZCEL2T9tA\u002fQp7UHZP0mBu++4eNk\u002fJf+CtYSv2T8BfUp7UObZP936EUEcHdo\u002fuXjZBuhT2j+V9qDMs4raP3F0aJJ\u002fwdo\u002fTfIvWEv42j8pcPcdFy\u002fbPwXuvuPiZds\u002f4WuGqa6c2z+96U1vetPbP5lnFTVGCtw\u002fdeXc+hFB3D9RY6TA3XfcPy3ha4aprtw\u002fCV8zTHXl3D\u002fl3PoRQRzdP8FawtcMU90\u002fndiJndiJ3T95VlFjpMDdP1XUGClw990\u002fMlLg7jsu3j8O0Ke0B2XeP+pNb3rTm94\u002fxss2QJ\u002fS3j+iSf4FawnfP37Hxcs2QN8\u002fWkWNkQJ33z82w1RXzq3fPxJBHB2a5N8\u002fd99x8bIN4D9lnlXUGCngP1NdObd+ROA\u002fQRwdmuRf4D8v2wB9SnvgPx2a5F+wluA\u002fC1nIQhay4D\u002f5F6wlfM3gP+fWjwji6OA\u002f1ZVz60cE4T\u002fDVFfOrR\u002fhP7ETO7ETO+E\u002fn9IelHlW4T+NkQJ333HhP3tQ5llFjeE\u002faQ\u002fKPKuo4T9Xzq0fEcThP0WNkQJ33+E\u002fM0x15dz64T8hC1nIQhbiPw\u002fKPKuoMeI\u002f\u002fYggjg5N4j\u002frRwRxdGjiP9kG6FPag+I\u002fx8XLNkCf4j+1hK8ZprriP6NDk\u002fwL1uI\u002fkQJ333Hx4j9\u002fwVrC1wzjP22APqU9KOM\u002fXD8iiKND4z9K\u002fgVrCV\u002fjPzi96U1veuM\u002fJnzNMNWV4z8UO7ETO7HjPwL6lPagzOM\u002f8Lh42Qbo4z\u002fed1y8bAPkP8w2QJ\u002fSHuQ\u002fuvUjgjg65D+otAdlnlXkP5Zz60cEceQ\u002fhDLPKmqM5D9y8bIN0KfkP2CwlvA1w+Q\u002fTm9605ve5D88Ll62AfrkPyrtQZlnFeU\u002fGKwlfM0w5T8GawlfM0zlP\u002fQp7UGZZ+U\u002f4ujQJP+C5T\u002fQp7QHZZ7lP75mmOrKueU\u002frCV8zTDV5T+a5F+wlvDlP4ijQ5P8C+Y\u002fdmIndmIn5j9kIQtZyELmP1Lg7jsuXuY\u002fQJ\u002fSHpR55j8uXrYB+pTmPxwdmuRfsOY\u002fCtx9x8XL5j\u002f4mmGqK+fmP+ZZRY2RAuc\u002f1BgpcPcd5z\u002fC1wxTXTnnP7CW8DXDVOc\u002fnlXUGClw5z+MFLj7jovnP3rTm970puc\u002faJJ\u002fwVrC5z9WUWOkwN3nP0QQR4cm+ec\u002fMs8qaowU6D8gjg5N8i\u002foPw5N8i9YS+g\u002f\u002fAvWEr5m6D\u002fqyrn1I4LoP9iJndiJneg\u002fx0iBu++46D+1B2WeVdToP6PGSIG77+g\u002fkYUsZCEL6T9\u002fRBBHhybpP20D9CntQek\u002fW8LXDFNd6T9JgbvvuHjpPzdAn9IelOk\u002fJf+CtYSv6T8TvmaY6srpPwF9SntQ5uk\u002f7zsuXrYB6j\u002fd+hFBHB3qP8u59SOCOOo\u002fuXjZBuhT6j+nN73pTW\u002fqP5X2oMyziuo\u002fg7WErxmm6j9xdGiSf8HqP18zTHXl3Oo\u002fTfIvWEv46j87sRM7sRPrPylw9x0XL+s\u002fFy\u002fbAH1K6z8F7r7j4mXrP\u002fOsosZIges\u002f4WuGqa6c6z\u002fPKmqMFLjrP73pTW960+s\u002fq6gxUuDu6z+ZZxU1RgrsP4cm+ResJew\u002fdeXc+hFB7D9jpMDdd1zsP1FjpMDdd+w\u002fPyKIo0OT7D8t4WuGqa7sPxugT2kPyuw\u002fCV8zTHXl7D\u002f3HRcv2wDtP+Xc+hFBHO0\u002f05ve9KY37T\u002fBWsLXDFPtP68Zprpybu0\u002fndiJndiJ7T+Ll22APqXtP3lWUWOkwO0\u002fZxU1Rgrc7T9V1BgpcPftP0OT\u002fAvWEu4\u002fMlLg7jsu7j8gEcTRoUnuPw7Qp7QHZe4\u002f\u002fI6Ll22A7j\u002fqTW9605vuP9gMU105t+4\u002fxss2QJ\u002fS7j+0ihojBe7uP6JJ\u002fgVrCe8\u002fkAji6NAk7z9+x8XLNkDvP2yGqa6cW+8\u002fWkWNkQJ37z9IBHF0aJLvPzbDVFfOre8\u002fJII4OjTJ7z8SQRwdmuTvPwAAAAAAAPA\u002f"},"y":{"dtype":"f8","bdata":"pqrzh3xVUUCLdW\u002fslpZRQHtIviFb1lFAi9Quf8sUUkDSyg9c6lFSQGTcrw+6jVJAWbpd8TzIUkDGFWhYdQFTQMGfHZxlOVNAYAnNExBwU0C4A8UWd6VTQOE\u002fVPyc2VNA727JG4QMVED5QXPMLj5UQBVqoGWfblRAWJifPtidVEDYfb+u28tUQKzLTg2s+FRA6jKcsUskVUCmZPbyvE5VQPgRrCgCeFVA9OsLqh2gVUCyo2TOEcdVQEfqBO3g7FVAyHA7XY0RVkBM6FZ2GTVWQOoBpo+HV1ZAtW53ANp4VkDG3xkgE5lWQDAG3EU1uFZADJMMyULWVkBtN\u002foAPvNWQGuk80QpD1dAG4tH7AYqV0CTnERO2UNXQOqJOcKiXFdANAR1n2V0V0CIvEU9JItXQPxj+vLgoFdApqvhF561V0CcREoDXslXQPPfggwj3FdAwi7aiu\u002ftV0Ae4p7Vxf5XQB6rH0SoDlhA2DqrLZkdWEBgQpDpmitYQM5yHc+vOFhANn2hNdpEWECwEmt0HFBYQFHkyOJ4WlhAL6MJ2PFjWEBfAHyriWxYQPisbrRCdFhAEVowSh97WEC+uA\u002fEIYFYQBV6W3lMhlhALU9iwaGKWEAb6XLzI45YQPb422bVkFhA0i\u002fscriSWEDIPvJuz5NYQOvWPLIclFhAUqkalKKTWEATZ9prY5JYQETBypBhkFhA+2g6Wp+NWEBOD3gfH4pYQFJl0jfjhVhAHxyY+u2AWEDI5Be\u002fQXtYQGZwoNzgdFhADHCAqs1tWEDSlAaACmZYQM2PgbSZXVhAExJAn31UWEC7zJCXuEpYQNlwwvRMQFhAha8jDj01WEDUOQM7iylYQNvAr9I5HVhAsfV3LEsQWEBsiaqfwQJYQCEtloOf9FdA55GJL+flV0DTaNP6mtZXQP1iwjy9xldAeDGlTFC2V0BahcqBVqVXQLwPgTPSk1dAsoEXucWBV0BSjNxpM29XQLDgHp0dXFdA5i8tqoZIV0AIK1bocDRXQCuD6K7eH1dAZukyVdIKV0DODoQyTvVWQHqkKp5U31ZAgFt17+fIVkD15LJ9CrJWQO7xMaC+mlZAhDNBrgaDVkDKWi\u002f\u002f5GpWQNgYS+pbUlZAwx7jxm05VkChHUbsHCBWQIjGwrFrBlZAjcqnblzsVUDH2kN68dFVQEyo5Sstt1VAMuTb2hGcVUCPP3XeoYBVQHdrAI7fZFVAARnMQM1IVUBE+SZObSxVQFW9Xw3CD1VASxbF1c3yVEA7taX+ktVUQDlLUN8TuFRAXokTz1KaVEDAID4lUnxUQHXCHjkUXlRAkB8EYps\u002fVEAp6Tz36SBUQFTQF1ACAlRAKobjw+biU0C\u002fu+6pmcNTQCkiiFkdpFNAgGr+KXSEU0DXRaByoGRTQERlvIqkRFNA4XmhyYIkU0C\u002fNJ6GPQRTQPdGARnX41JAnmEZ2FHDUkDJNTUbsKJSQI90ozn0gVJABs+yiiBhUkBC9rFlN0BSQFyb7yE7H1JAZ2+6Fi7+UUB8I2GbEt1RQK5oMgfru1FAFvB8sbmaUUDHao\u002fxgHlRQNiJuB5DWFFAXf5GkAI3UUBxeYmdwRVRQCWszp2C9FBAlEdl6EfTUEDN\u002fJvUE7JQQOx8wbnokFBAAXkk78hvUEAoohPMtk5QQHap3ae0LVBA\u002fT\u002fR2cQMUECsLXpy09dPQC6+3zpLlk9ArJNwu\u002fVUT0BNEMqi1xNPQEGWiZ\u002f10k5AtIdMYFSSTkDORrCT+FFOQL81UujmEU5AsrbPDCTSTUDQK8avtJJNQEj30n+dU01ARnuTK+MUTUD3GaVhitZMQHw1pdCXmExAEDAxJxBbTEDaa+YT+B1MQAFLYkVU4UtAtS9CaimlS0AjfCMxfGlLQGySo0hRLktAzNRfX63zSkBopfUjlblKQGxmAkUNgEpAAXojcRpHSkBWQvZWwQ5KQJghGKUG10lA6HkmCu+fSUCHrb40f2lJQIweftO7M0lAMC8Clan+SECYQegnTcpIQPS3zTqrlkhAb\u002fRPfMhjSEAwWQybqTFIQGhIoEVTAEhARCSpKsrPR0DuTsT4EqBHQI4qj14ycUdAVhmnCi1DR0BqfamrBxZHQAG5M\u002fDG6UZAPi7jhm++RkBKP1UeBpRGQGBOJ2WPakZAl732CRBCRkAo72C7jBpGQERFAygK9EVADSJ7\u002fozORUCy52XtGapFQGH4YKO1hkVAP7YJz2RkRUB+g\u002f0eLENFQETC2UEQI0VAyNQ75hUERUAsHcG6QeZEQJr9Bm6YyURAStiqrh6uREBcD0or2ZNEQAIFgpLMekRAZxvwkv1iRECztDHbcExEQBYz5BkrN0RAtvik\u002fTAjREDMZxE1hxBEQHfixm4y\u002f0NA6cpiWTfvQ0BOg4KjmuBDQMVtw\u002ftg00NAjezCEI\u002fHQ0DMYR6RKb1DQKwvcys1tENAVLhejrasQ0D4XX5osqZDQLqCb2gtokNAzojPPCyfQ0Bg0juUs51DQJTBUR3InUNApbiuhm6fQ0CwGfB+q6JDQOlGs7SDp0NAbqKV1vutQ0CEjjSTGLZDQERtLZnev0NA3KAdl1LLQ0B6i6I7edhDQE6PWTVX50NAgQ7gMvH3Q0A6a9PiSwpEQKoH0fNrHkRA\u002fkV2FFY0REBiiGDzDkxEQPwwLT+bZURA\u002fKF5pv+ARECOPePXQJ5EQNplB4JjvURAAn2DU2zeREBQ5fT6XwFFQOAA+SZDJkVA1jEthhpNRUBo2i7H6nVFQLpcm5i4oEVAAxsQqYjNRUBkdyqnX\u002fxFQA\u002fUh0FCLUZAKJPFJjVgRkDjFoEFPZVGQF7BV4xezEZA3\u002fTmaZ4FR0B+E8xMAUFHQG9\u002fpOOLfkdA3JoN3UK+R0Dsx6TnKgBIQM5oB7JIREhAst\u002fS6qCKSEC8jqRAONNIQCTYGWITHklACR7Q\u002fTZrSUCWwmTCp7pJQPgndV5qDEpAarCegINgSkAHvn7X97ZKQAqzshHMD0tAkvHX3QRrS0DR24vqpshLQOvTa+a2KExAEzwVgDmLTEB3diVmM\u002fBMQDnlOUepV01Alurv0Z\u002fBTUCo6OS0Gy5OQKZBtp4hnU5AsVcBPrYOT0D+jGNB3oJPQLlDelee+U9AB29xl305UEAQXx27fHdQQBKjD+7OtlBAGuyWh3b3UEBL6wHfdTlRQLZRn0vPfFFActC9JIXBUUCUGKzBmQdSQC7buHkPT1JA"},"type":"scatter","xaxis":"x2","yaxis":"y2"},{"marker":{"color":"#1f77b4","size":7},"mode":"markers","name":"学習データ","showlegend":false,"x":{"dtype":"f8","bdata":"AAAAAAAAAAAor6G8hvKqPyivobyG8ro\u002fXkN5DeU1xD8or6G8hvLKP3kN5TWU19A\u002fXkN5DeU11D9DeQ3lNZTXPyivobyG8to\u002fDeU1lNdQ3j95DeU1lNfgP2wor6G8huI\u002fXkN5DeU15D9QXkN5DeXlP0N5DeU1lOc\u002fNpTXUF5D6T8or6G8hvLqPxrKayivoew\u002fDeU1lNdQ7j8AAAAAAADwPw=="},"y":{"dtype":"f8","bdata":"iq8MMqq\u002fVEC7+n0lNLZSQPsi\u002fE3dDFVAgD+V7P+hVUDmY9dTVoBaQAqTD+4NX1RAV\u002feB36DbW0CNhwwb2n5VQF9AScEqtVVApR8lD1g8UkDcAObgkzBTQHqJCibHnkNAZ\u002fs3O6qsRkAbQ+ukKLpDQHOsym8YlkhAKca+3TYPQEDg+VzYtsBFQK4xjwR\u002fRkZAd2ajg2FMTkCZCnXBZqpSQA=="},"type":"scatter","xaxis":"x3","yaxis":"y3"},{"marker":{"color":"white","line":{"color":"#d62728","width":2},"size":7},"mode":"markers","name":"テストデータ","showlegend":false,"x":{"dtype":"f8","bdata":"oLlfhCm6kj\u002fQ\u002f1gCBW26P\u002faukVvL8tE\u002farf0QOlq0j8iGjr\u002fksrSP+API3loMdQ\u002fIADBm0mq3D8wHSLL0PflP6yUKHnbI+Y\u002fwKgxGfnw5z+3AX+mLgHoP55047jGQek\u002flXCm5UC16j\u002f7emLgNhPtP7F9pALApO8\u002f"},"y":{"dtype":"f8","bdata":"qhmK4E8+UEAiHorw0FdXQHIOUB78vFhAqBKCJftPVUDjBDl9Le1YQJvMJNdQIVdA1EQeg5h2VECZqLj2vtBAQA9KixmcjEJAm35ndQU6RUDv\u002ffZ4bsRKQIgcCjFzdkFAipmzC22\u002fQ0Dfl9Fbe2hKQAxW0nFAD1VA"},"type":"scatter","xaxis":"x3","yaxis":"y3"},{"line":{"color":"#ff7f0e","width":2.5},"mode":"lines","name":"次数15の曲線","showlegend":false,"x":{"dtype":"f8","bdata":"AAAAAAAAAAAF7r7j4mVrPwXuvuPiZXs\u002fhDLPKmqMhD8F7r7j4mWLP8NUV86tH5E\u002fhDLPKmqMlD9EEEeHJvmXPwXuvuPiZZs\u002fxss2QJ\u002fSnj\u002fDVFfOrR+hP6NDk\u002fwL1qI\u002fhDLPKmqMpD9kIQtZyEKmP0QQR4cm+ac\u002fJf+CtYSvqT8F7r7j4mWrP+Xc+hFBHK0\u002fxss2QJ\u002fSrj9TXTm3fkSwP8NUV86tH7E\u002fM0x15dz6sT+jQ5P8C9ayPxQ7sRM7sbM\u002fhDLPKmqMtD\u002f0Ke1BmWe1P2QhC1nIQrY\u002f1BgpcPcdtz9EEEeHJvm3P7UHZZ5V1Lg\u002fJf+CtYSvuT+V9qDMs4q6PwXuvuPiZbs\u002fdeXc+hFBvD\u002fl3PoRQRy9P1XUGClw970\u002fxss2QJ\u002fSvj82w1RXzq2\u002fP1NdObd+RMA\u002fC1nIQhaywD\u002fDVFfOrR\u002fBP3tQ5llFjcE\u002fM0x15dz6wT\u002frRwRxdGjCP6NDk\u002fwL1sI\u002fXD8iiKNDwz8UO7ETO7HDP8w2QJ\u002fSHsQ\u002fhDLPKmqMxD88Ll62AfrEP\u002fQp7UGZZ8U\u002frCV8zTDVxT9kIQtZyELGPxwdmuRfsMY\u002f1BgpcPcdxz+MFLj7jovHP0QQR4cm+cc\u002f\u002fAvWEr5myD+1B2WeVdTIP20D9CntQck\u002fJf+CtYSvyT\u002fd+hFBHB3KP5X2oMyziso\u002fTfIvWEv4yj8F7r7j4mXLP73pTW9608s\u002fdeXc+hFBzD8t4WuGqa7MP+Xc+hFBHM0\u002fndiJndiJzT9V1BgpcPfNPw7Qp7QHZc4\u002fxss2QJ\u002fSzj9+x8XLNkDPPzbDVFfOrc8\u002fd99x8bIN0D9TXTm3fkTQPy\u002fbAH1Ke9A\u002fC1nIQhay0D\u002fn1o8I4ujQP8NUV86tH9E\u002fn9IelHlW0T97UOZZRY3RP1fOrR8RxNE\u002fM0x15dz60T8PyjyrqDHSP+tHBHF0aNI\u002fx8XLNkCf0j+jQ5P8C9bSP3\u002fBWsLXDNM\u002fXD8iiKND0z84velNb3rTPxQ7sRM7sdM\u002f8Lh42Qbo0z\u002fMNkCf0h7UP6i0B2WeVdQ\u002fhDLPKmqM1D9gsJbwNcPUPzwuXrYB+tQ\u002fGKwlfM0w1T\u002f0Ke1BmWfVP9CntAdlntU\u002frCV8zTDV1T+Io0OT\u002fAvWP2QhC1nIQtY\u002fQJ\u002fSHpR51j8cHZrkX7DWP\u002fiaYaor59Y\u002f1BgpcPcd1z+wlvA1w1TXP4wUuPuOi9c\u002faJJ\u002fwVrC1z9EEEeHJvnXPyCODk3yL9g\u002f\u002fAvWEr5m2D\u002fYiZ3YiZ3YP7UHZZ5V1Ng\u002fkYUsZCEL2T9tA\u002fQp7UHZP0mBu++4eNk\u002fJf+CtYSv2T8BfUp7UObZP936EUEcHdo\u002fuXjZBuhT2j+V9qDMs4raP3F0aJJ\u002fwdo\u002fTfIvWEv42j8pcPcdFy\u002fbPwXuvuPiZds\u002f4WuGqa6c2z+96U1vetPbP5lnFTVGCtw\u002fdeXc+hFB3D9RY6TA3XfcPy3ha4aprtw\u002fCV8zTHXl3D\u002fl3PoRQRzdP8FawtcMU90\u002fndiJndiJ3T95VlFjpMDdP1XUGClw990\u002fMlLg7jsu3j8O0Ke0B2XeP+pNb3rTm94\u002fxss2QJ\u002fS3j+iSf4FawnfP37Hxcs2QN8\u002fWkWNkQJ33z82w1RXzq3fPxJBHB2a5N8\u002fd99x8bIN4D9lnlXUGCngP1NdObd+ROA\u002fQRwdmuRf4D8v2wB9SnvgPx2a5F+wluA\u002fC1nIQhay4D\u002f5F6wlfM3gP+fWjwji6OA\u002f1ZVz60cE4T\u002fDVFfOrR\u002fhP7ETO7ETO+E\u002fn9IelHlW4T+NkQJ333HhP3tQ5llFjeE\u002faQ\u002fKPKuo4T9Xzq0fEcThP0WNkQJ33+E\u002fM0x15dz64T8hC1nIQhbiPw\u002fKPKuoMeI\u002f\u002fYggjg5N4j\u002frRwRxdGjiP9kG6FPag+I\u002fx8XLNkCf4j+1hK8ZprriP6NDk\u002fwL1uI\u002fkQJ333Hx4j9\u002fwVrC1wzjP22APqU9KOM\u002fXD8iiKND4z9K\u002fgVrCV\u002fjPzi96U1veuM\u002fJnzNMNWV4z8UO7ETO7HjPwL6lPagzOM\u002f8Lh42Qbo4z\u002fed1y8bAPkP8w2QJ\u002fSHuQ\u002fuvUjgjg65D+otAdlnlXkP5Zz60cEceQ\u002fhDLPKmqM5D9y8bIN0KfkP2CwlvA1w+Q\u002fTm9605ve5D88Ll62AfrkPyrtQZlnFeU\u002fGKwlfM0w5T8GawlfM0zlP\u002fQp7UGZZ+U\u002f4ujQJP+C5T\u002fQp7QHZZ7lP75mmOrKueU\u002frCV8zTDV5T+a5F+wlvDlP4ijQ5P8C+Y\u002fdmIndmIn5j9kIQtZyELmP1Lg7jsuXuY\u002fQJ\u002fSHpR55j8uXrYB+pTmPxwdmuRfsOY\u002fCtx9x8XL5j\u002f4mmGqK+fmP+ZZRY2RAuc\u002f1BgpcPcd5z\u002fC1wxTXTnnP7CW8DXDVOc\u002fnlXUGClw5z+MFLj7jovnP3rTm970puc\u002faJJ\u002fwVrC5z9WUWOkwN3nP0QQR4cm+ec\u002fMs8qaowU6D8gjg5N8i\u002foPw5N8i9YS+g\u002f\u002fAvWEr5m6D\u002fqyrn1I4LoP9iJndiJneg\u002fx0iBu++46D+1B2WeVdToP6PGSIG77+g\u002fkYUsZCEL6T9\u002fRBBHhybpP20D9CntQek\u002fW8LXDFNd6T9JgbvvuHjpPzdAn9IelOk\u002fJf+CtYSv6T8TvmaY6srpPwF9SntQ5uk\u002f7zsuXrYB6j\u002fd+hFBHB3qP8u59SOCOOo\u002fuXjZBuhT6j+nN73pTW\u002fqP5X2oMyziuo\u002fg7WErxmm6j9xdGiSf8HqP18zTHXl3Oo\u002fTfIvWEv46j87sRM7sRPrPylw9x0XL+s\u002fFy\u002fbAH1K6z8F7r7j4mXrP\u002fOsosZIges\u002f4WuGqa6c6z\u002fPKmqMFLjrP73pTW960+s\u002fq6gxUuDu6z+ZZxU1RgrsP4cm+ResJew\u002fdeXc+hFB7D9jpMDdd1zsP1FjpMDdd+w\u002fPyKIo0OT7D8t4WuGqa7sPxugT2kPyuw\u002fCV8zTHXl7D\u002f3HRcv2wDtP+Xc+hFBHO0\u002f05ve9KY37T\u002fBWsLXDFPtP68Zprpybu0\u002fndiJndiJ7T+Ll22APqXtP3lWUWOkwO0\u002fZxU1Rgrc7T9V1BgpcPftP0OT\u002fAvWEu4\u002fMlLg7jsu7j8gEcTRoUnuPw7Qp7QHZe4\u002f\u002fI6Ll22A7j\u002fqTW9605vuP9gMU105t+4\u002fxss2QJ\u002fS7j+0ihojBe7uP6JJ\u002fgVrCe8\u002fkAji6NAk7z9+x8XLNkDvP2yGqa6cW+8\u002fWkWNkQJ37z9IBHF0aJLvPzbDVFfOre8\u002fJII4OjTJ7z8SQRwdmuTvPwAAAAAAAPA\u002f"},"y":{"dtype":"f8","bdata":"W4WTWSK\u002fVEAAVaAJ8\u002fAoQG7A3EZTpUDArolp5xvqTcD3cyIIBu9RwGMxv6TFMlLAp8E2JfOFUMCOCal7GBBLwLS01JsZcEPA4AHRbqflNcCQA4ZgFocRwMAZUeEMjylAJM550kPyPEDMpqxba9dFQKzGf\u002f3+W0xALHFWSI76UEAyFSG8G09TQHYAECJsLlVAv2b2A\u002f6eVkC656FF8alXQHY9NuMeWlhADHXPNFu7WEDrVUcv3dlYQFu+E6fFwVhAQHVCHMJ+WEAsekkOxxtYQGZEX0TeoldADB\u002fy2wUdV0B4UzdLHZJWQI1dONrdCFZAer\u002fFYdyGVUAJHMxlkhBVQB2dK+BsqVRA3AHWSt9TVEC9tQqseRFUQJSccZYA41NA16L1OIbIU0DUC\u002fW\u002fg8FTQFsb\u002fWryzFNAOpYj2GPpU0BfjncgGRVUQNtuPXgYTlRA\u002f\u002fv7GUGSVEAjpAhVXd9UQBULf6cyM1VA2hCY2I+LVUBHQl4TWeZVQGnr+AqSQVZA5DVhOWabVkC1XnxPL\u002fJWQBbwaPJ5RFdApp6B5QiRV0B8QDnD1tZXQOzEuGgWFVhA0wMaOTJLWECx2GRdynhYQBbYHiaynVhA7OZysuy5WEDJdbb\u002fqM1YQBMHfoI92VhA8v6ZaCPdWED2Ajqh8dlYQFYHPsZX0FhAeTtY\u002fxjBWEAuJDr1Bq1YQJMii+j8lFhAB7Pt\u002fdp5WEBqGvDNgVxYQCqMVEXOPVhAgvbb35UeWEDCmn5Fo\u002f9XQPLx6k+z4VdAgTEifHLFV0AWBjbKeqtXQCmtewtSlFdATCPwnWiAV0BPUymSGHBXQHOj9DelY1dA98WZDDtbV0B24dQE8FZXQOyXyCvEVldAKdF\u002fj6JaV0BKDQhzYmJXQK2U7b3IbVdAXW9eoIl8V0AotGtjSo5XQMjGeVyjoldAe+5o+yG5V0DU08LqStFXQF7dxTmc6ldAGQpziI8EWEAjUPQtnB5YQCAoflI5OFhAkcDt9d9QWECaxW3dDGhYQGb3a2JCfVhA9kZ8HgqQWEDX1LBv9p9YQBn0PdKjrFhAUXNLDLq1WEBtEjAq7bpYQNi8FUn+u1hA0XO5L7y4WEB1v320A7FYQHHfoPG\u002fpFhA1MviR+qTWEBQbPMxin5YQLy2j+m0ZFhAlKxB4YxGWEBlXtEVQSRYQDWDvDkM\u002fldAGO\u002f9vjPUV0CwPIrCBqdXQH7mpN3cdldAkIPb4BREV0AgWOZ9Ew9XQLVugeNB2FZAUHEYUQygVkCtdUql4GZWQMsKTu0sLVZAj64B+F3zVUCxCJPx3blVQIJIWAsTgVVAUlIgNV5JVUDvcpvoGRNVQNgSHQ2Z3lRAXvNF9SWsVEDWSDh5AXxUQF\u002f2+S9iTlRAQHeyynMjVEBx9xuRVvtTQJIW6AMf1lNAPYrNodWzU0BFjzDUdpRTQOt\u002fKv\u002fyd1NATcfAty5eU0Cu0lcdA0dTQKyl+1c+MlNADCkIN6QfU0C4aK7v7g5TQKkUlfvP\u002f1JAXcgtD\u002fHxUkAAewct9eRSQALrs8t52FJAym+eEBjMUkDha14YZr9SQCyCpEz4sVJAXrXlwGKjUkCyg2iUOpNSQBu8H1QXgVJAEaVJW5RsUkDEW7soUlVSQHZ4Ka\u002f3OlJAEi4jkjMdUkAC4ZRTvftRQOtGS2lW1lFAvybNPMusUUAdOuwO9H5RQCg0Zbe1TFFAB6tmTAIWUUBWN4Kd2dpQQNFXC5JJm1BAVv\u002f7V25XUECCwO1vcg9QQJZZaCQdh09A4HRQyBLoTkA8h9oTbkJOQEVWxRXxlk1AwCnDKnbmTEA8fWIb7jFMQAK\u002frhheektABI8sRd3ASkBoc2MlkgZKQKxKNbGvTElAqqRhTHKUSEBOhtKKHN9HQLRTxrLzLUdARrC2TzyCRkBQrmyNNt1FQLX+B5caQEVA6vN\u002f4xSsREDNoeieQiJEQF3S\u002fh2uo0NAoUJFVksxQ0C2SmPD9MtCQOB9GhJodEJAWHExakMrQkCLekDAAvFBQFFcJZD9xUFA1\u002fuZ52SqQUC+eLPWQZ5BQIbGGzV0oUFAiiOW5bGzQUDq4Y+shtRBQBchEhNUA0JAD2sxY1I\u002fQkBZ3mChkYdCQDaAfjb72kJAu+CYXVQ4Q0DOkvlpQJ5DQOFkTUNEC0RAdnEF7Ml9REDx18zIJPREQGFfXq2VbEVAPK\u002fyWVDlRUAQoLY8gFxGQGRKEWpO0EZAe8cxK+c+R0Cr8RgggKZHQGcPnCleBUhAwoRzAtxZSEB\u002fvGnwb6JIQDKorUyy3UhA4yypMGMKSUDwYbxGcCdJQC3wiv\u002f5M0lAU4bboVgvSUCtpaiRIBlJQIAvXlQm8UhAlHY83YG3SECL6CYqkGxIQAS4dMb1EEhAOIOts56lR0DxpqPEvitHQC+kWpzPpEZAnZi+\u002fo4SRkBptEHo+XZFQCWSnp5J1ERAonpraewsRECj1eWOfoNDQMqdNm3D2kJAr7qULpo1QkCwfzjF9ZZBQAxEm7jOAUFAXZK\u002flRh5QEBwF3LRav8\u002fQOqJ7HPMMD9APkwYKXuLPkDOoR0bIRQ+QODquo7Szj1ApFLYley+PUDiJO\u002f2++Y9QNwnDUugSD5ADIl0B3LkPkBmV8327Lk\u002fQKBSNu6tY0BA9u3xJ+QEQUCrrwevd75BQP4ORyiejUJAH8zqWuNuQ0Bv2wNTLl5EQLgEGDzHVkVAE1QGJWJTRkDKewgMMU5HQNPYosT1QEhAggVOER4lSUAkCFpX4PNJQDWp+rJhpkpAGwU\u002fZNw1S0BEyD7e0ptLQBpMXiQ\u002f0ktAlp\u002fOC9DTS0DQ4e0ZJ5xLQLRXHxgTKEtANFILj9x1SkC8OuI7ioVJQJc93o4lWUhAr5+cKQL1RkD1v2I4BGBFQN\u002fHSn3ao0NAgMKC9TrNQUCQ292qFNg\u002fQATGz4HvJjxAmg3Aaxm0OEAwtds4ObM1QORdsMs+XjNARG8bgrj0MUB45\u002fwt8LoxQNTgOpmj+DJARviTJyT3NUAUaiJdGf86QPHgmVHFKkFAOSh4wh4cRkDBaUK\u002fmmxMQD+UJJ9SFlJACtI0F2+wVkDhbYgnIP9bQNxJGIdk+WBAhxnD8Yo3ZEDW+Xnu86NnQI6dDpDhHmtAwlWOxN58bkAIb05lNMJwQP7UhfCf9XFAcFe6P7KpckCeclpIz6NyQE3MhB7Qm3FAzmll8KJzbkCmjJwreidmQFsHMKkqqlJA"},"type":"scatter","xaxis":"x3","yaxis":"y3"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,0.2888888888888889],"title":{"text":"時間帯（0=開店，1=閉店）"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"来店客数（人）"},"range":[10,130]},"xaxis2":{"anchor":"y2","domain":[0.35555555555555557,0.6444444444444445],"title":{"text":"時間帯（0=開店，1=閉店）"}},"yaxis2":{"anchor":"x2","domain":[0.0,1.0],"matches":"y","showticklabels":false},"xaxis3":{"anchor":"y3","domain":[0.7111111111111111,1.0],"title":{"text":"時間帯（0=開店，1=閉店）"}},"yaxis3":{"anchor":"x3","domain":[0.0,1.0],"matches":"y","showticklabels":false},"annotations":[{"font":{"size":16},"showarrow":false,"text":"次数1：単純すぎる","x":0.14444444444444446,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"size":16},"showarrow":false,"text":"次数3：ちょうどよい","x":0.5,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"size":16},"showarrow":false,"text":"次数15：複雑すぎる（過学習）","x":0.8555555555555556,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"}],"legend":{"orientation":"h","y":-0.25},"width":950,"height":420,"title":{"text":"多項式の次数を変えてあてはめる：単純すぎ・ちょうどよい・複雑すぎ"}},                        {"responsive": true}                    )                };            </script>        </div></div></div>
+</div>
+<p>グラフと誤差の表を照らし合わせると，次のことが分かります．</p>
+<ul class="simple">
+<li><p><strong>次数1（単純すぎる）</strong>：直線では山と谷のあるパターンを表現できず，学習データに対してもテストデータに対しても誤差が大きいままです．そもそも学べていない状態です．</p></li>
+<li><p><strong>次数3（ちょうどよい）</strong>：真のパターンをうまくとらえ，学習データでもテストデータでも誤差が小さくなっています．これが「理解」した状態，つまり汎化できている状態です．</p></li>
+<li><p><strong>次数15（複雑すぎる）</strong>：曲線が個々の点を律儀に通ろうとして激しくうねっています．その結果，<strong>学習データでの誤差は3つの中で最小</strong>なのに，<strong>テストデータでの誤差は最大</strong>になっています．学習データへの当てはまりの良さは，偶然のゆらぎまで「暗記」した結果にすぎず，新しいデータではかえって大きく外すのです．これが過学習です．</p></li>
+</ul>
+<p>この実験から，2つの教訓を持ち帰ってください．第一に，<strong>モデルは複雑にすればよいというものではない</strong>こと．第二に，<strong>「学習データでの成績」でモデルを評価してはいけない</strong>こと．次数15のモデルは，学習データでの成績だけを見れば「最優秀」に見えてしまいます．学習に使っていないテストデータで測って初めて，暗記と理解を見分けられるのです．</p>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>過学習の危険は，モデルが複雑で，データが少ないほど高まります．「AIの精度99%を達成」という宣伝を見たら，「その精度は，学習に使っていない新しいデータで測ったものか？」と問う習慣をつけてください．学習データで測った精度は，実力の証明にはなりません．</p>
+</div>
+</section>
+</section>
+<section id="id13">
+<h2>精度評価の落とし穴——正解率99%のワナ<a class="headerlink" href="#id13" title="Link to this heading">#</a></h2>
+<p>テストデータで測れば安心か，というと，実はもう1つ大きな落とし穴があります．今度は測り方，すなわち<strong>精度評価の落とし穴</strong>の話です．</p>
+<p>迷惑メールフィルタの話に戻りましょう．いま，手元に1,000通のメールがあり，そのうち迷惑メールは1%——つまり10通しかないとします（残り990通は通常メール）．このデータで，次の「自称AI」の成績を測ってみます．このAIの中身は，<strong>何が来ても「通常メール」と答えるだけ</strong>の，学習も判断も何もしていないインチキです．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1,000通のうち迷惑メールは1%（10通）しかないとする</span>
+<span class="n">n_all</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">n_spam</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">n_normal</span> <span class="o">=</span> <span class="n">n_all</span> <span class="o">-</span> <span class="n">n_spam</span>
+
+<span class="c1"># 「全部通常メール」と答えるだけのインチキAIの成績</span>
+<span class="n">correct</span> <span class="o">=</span> <span class="n">n_normal</span>  <span class="c1"># 通常メール990通はすべて正解，迷惑メール10通はすべて不正解</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;正解率：</span><span class="si">{</span><span class="n">correct</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">n_all</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;見逃した迷惑メール：</span><span class="si">{</span><span class="n">n_spam</span><span class="si">}</span><span class="s2">通中 </span><span class="si">{</span><span class="n">n_spam</span><span class="si">}</span><span class="s2">通（すべて見逃し）&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>正解率：99.0%
+見逃した迷惑メール：10通中 10通（すべて見逃し）
+</pre></div>
+</div>
+</div>
+</div>
+<p>正解率は99.0%．数字だけ見れば超高性能です．しかしこのAIは，肝心の迷惑メールを<strong>1通も</strong>見つけていません．迷惑メールフィルタとしての仕事を何ひとつしていないのに，正解率が99%になってしまう——種明かしは単純で，<strong>そもそもデータの99%が通常メールだから</strong>です．このように，当てたい対象（迷惑メール）がデータのごく一部しかない状況を<strong>不均衡なデータ</strong>と呼び，不均衡なデータでは正解率という物差しがほとんど意味をなさなくなります．</p>
+<p>比較のために，まじめに学習したAIの成績も見てみましょう．このAIは，迷惑メール10通のうち9通を正しく見つけますが，その代わり通常メール990通のうち20通を誤って迷惑メール扱いしてしまうとします．</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># まじめなAI：迷惑メール10通中9通を発見，ただし通常メール20通を誤って迷惑扱い</span>
+<span class="n">correct_b</span> <span class="o">=</span> <span class="p">(</span><span class="n">n_normal</span> <span class="o">-</span> <span class="mi">20</span><span class="p">)</span> <span class="o">+</span> <span class="mi">9</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;正解率：</span><span class="si">{</span><span class="n">correct_b</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">n_all</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;見逃した迷惑メール：10通中 1通&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>正解率：97.9%
+見逃した迷惑メール：10通中 1通
+</pre></div>
+</div>
+</div>
+</div>
+<p>まじめなAIの正解率は97.9%．なんと，<strong>役に立つAIの方が，何もしないインチキAIより正解率が低い</strong>という逆転が起きました．正解率だけを物差しにすると，「迷惑メールを9割捕まえる有能なフィルタ」を捨てて「何もしないフィルタ」を選ぶ，という誤った判断をしてしまうのです．</p>
+<p>この落とし穴は，笑い話ではなく実害に直結します．たとえば1,000人に1人しかかからない病気を見つける検査AIを考えてください．「全員陰性」と答えるだけで正解率は99.9%になりますが，患者を1人も見つけられない検査に意味はありません．不正送金の検知，設備の故障予知，災害の予兆検知——<strong>「めったに起きないが，見逃すと重大なこと」を当てる仕事ほど，正解率という物差しは当てにならない</strong>のです．</p>
+<p>では，どうすればよいのでしょうか．この科目では詳細には立ち入りませんが，考え方だけ押さえておきましょう．大切なのは，正解率という1つの数字に頼らず，<strong>間違いの中身を分けて数える</strong>ことです．</p>
+<ul class="simple">
+<li><p>当てたいもの（迷惑メール・病気など）のうち，<strong>どれだけ見逃したか</strong></p></li>
+<li><p>「当てた」と判定したもののうち，<strong>どれだけ濡れ衣（誤検知）だったか</strong></p></li>
+</ul>
+<p>先ほどの例なら，インチキAIは「見逃し10通中10通（全滅）」，まじめなAIは「見逃し10通中1通」で，優劣は一目瞭然です．さらに言えば，見逃しと誤検知のどちらが深刻かは用途によって異なります．迷惑メールなら，多少すり抜けても（見逃し），大事なメールが迷惑フォルダに消える（誤検知）方が困る，という人が多いでしょう．逆に病気の検査なら，見逃しの方がはるかに深刻です．<strong>AIの「精度」は，用途に照らして，間違いの中身まで見て初めて評価できる</strong>——これが，事例判断で最も役立つ教訓です．</p>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>「AIの精度◯◯%」というニュースや宣伝を見たら，次の3つを確認する習慣をつけましょう．</p>
+<ol class="arabic simple">
+<li><p>その数字は<strong>学習に使っていないデータ</strong>で測ったものか（過学習していないか）</p></li>
+<li><p>当てたい対象は<strong>データの中にどれくらいの割合</strong>で存在するか（不均衡なら正解率は当てにならない）</p></li>
+<li><p><strong>見逃しと誤検知</strong>のそれぞれがどれくらいで，その用途ではどちらが深刻か</p></li>
+</ol>
+</div>
+</section>
+<section id="id14">
+<h2>機械学習の限界——何を学び，何を学んでいないのか<a class="headerlink" href="#id14" title="Link to this heading">#</a></h2>
+<p>ここまでで，機械学習の仕組みと評価を学びました．最後に，機械学習という技術の<strong>原理的な限界</strong>を2つ押さえます．どちらも，これまでの回で学んだことがそのままつながります．</p>
+<section id="id15">
+<h3>限界1：機械学習の予測は「相関」に基づく<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<p>ミニ分類器が学んだのは「『無料』という単語と迷惑メールというラベルが一緒に現れやすい」というパターンでした．カフェの例で学んだのは「時間帯と客数が連動する」というパターンでした．つまり，機械学習が学んでいるのは，<a class="reference internal" href="ch05-data-analysis.html"><span class="std std-doc">第5回</span></a>の言葉で言えば<strong>相関</strong>（変数どうしが一緒に動く関係）であって，<strong>因果</strong>（一方が他方を引き起こす仕組み）ではありません．相関を因果と取り違えてはならないことは，機械学習の定番解説でも明示的に警告されています <span id="id16">[<a class="reference internal" href="../references.html#id28" title="Pedro Domingos. A few useful things to know about machine learning. Communications of the ACM, 55(10):78–87, 2012. doi:10.1145/2347736.2347755.">Domingos, 2012</a>]</span>．</p>
+<p>第5回の結論を思い出してください——<strong>予測には相関で足りることがあるが，対策（介入）には因果がいる</strong>．傘を持つ人が多い日は渋滞しがちだ，というパターンは，傘が渋滞の原因でなくても渋滞の<strong>予測</strong>には使えます．しかし「では渋滞を減らすために傘を禁止しよう」は明らかにナンセンスです．機械学習はまさにこの「傘で渋滞を予測する」ことをやっています．だから，機械学習の予測が当たっていても，「予測に使われた要因を操作すれば結果を変えられる」とは限りません．たとえば「参考書の購入額が多い学生ほど成績が良い」と学習したAIがあっても，参考書を買い込むだけで成績が上がるわけではないのです．<strong>AIの予測を「原因の発見」と読み替えてはいけない</strong>——これが1つめの限界です．</p>
+</section>
+<section id="id17">
+<h3>限界2：データの偏りをそのまま学ぶ<a class="headerlink" href="#id17" title="Link to this heading">#</a></h3>
+<p>もう1つの限界は，もっと社会的な影響の大きい問題です．機械学習は与えられたデータからパターンを学ぶ——ということは，<strong>与えられたデータが偏っていれば，その偏りごと忠実に学ぶ</strong>ということです．</p>
+<p><a class="reference internal" href="ch02-data-collection.html"><span class="std std-doc">第2回</span></a>で学んだ「標本の偏り」を思い出してください．偏った標本からどんなに丁寧に計算しても，正しい結論は得られませんでした．機械学習もまったく同じ構図です．しかも機械学習の場合，偏ったデータから学んだ判断が<strong>自動化されて大規模に実行される</strong>ため，影響が桁違いに大きくなります．</p>
+<p>たとえば，過去に特定の属性の人ばかりを採用してきた組織の採用データで「良い応募者」を予測するAIを学習させると，AIは「その属性であること」を良い応募者のパターンとして学び，特定の属性に不利な判断を自動で繰り返すおそれがあります．AI自身に悪意はありません．データに刻まれた過去の偏りを，与えられたとおりに学んだだけです．しかしその結果は，採用・融資・入試といった人生を左右する場面での不公平につながりかねません．</p>
+<p>この問題は，「AIの公平性」としていま世界中で議論されており，法や倫理の観点からの検討が欠かせません．次回の<a class="reference internal" href="ch09-data-law.html"><span class="std std-doc">第9回「データと法」</span></a>では，まさにこの「アルゴリズムの公平性・差別」の問題を，個人情報保護や著作権とあわせて扱います．今回学んだ「機械学習はデータの偏りをそのまま学ぶ」という仕組みが，その議論の前提になります．</p>
+</section>
+</section>
+<section id="id18">
+<h2>活用事例：第1回のAIたちの正体——「例と正解から学ぶ」で読み解く<a class="headerlink" href="#id18" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="ch01-what-is-ds.html"><span class="std std-doc">第1回</span></a>では，社会におけるAI・データ活用事例として，医療の画像診断支援，交通の需要予測，マーケティングの推薦システムなどを紹介しました．当時は「大量のデータからパターンを学習するらしい」としか言えませんでしたが，今のみなさんは，その仕組みを自分の言葉で説明できるはずです．</p>
+<div class="tip admonition">
+<p class="admonition-title">事例：あのAIたちは何を「学習」していたのか</p>
+<p><strong>画像診断支援（分類）</strong>．「医用画像」と「病変あり／なし（医師の診断）」という例と正解のペアを大量に学習し，新しい画像に対して病変の疑いを判定する教師あり学習の分類です．迷惑メールフィルタが件名の単語を手がかりにしたように，画像診断AIは画像の中の模様や形のパターンを手がかりにします．この分野では2017年時点で300を超える研究が報告されるほど活発に研究が進んでいます <span id="id19">[<a class="reference internal" href="../references.html#id9" title="Geert Litjens and others. A survey on deep learning in medical image analysis. Medical Image Analysis, 42:60–88, 2017. doi:10.1016/j.media.2017.07.005.">Litjens and others, 2017</a>]</span>．</p>
+<p><strong>需要予測（回帰）</strong>．「過去の日時・曜日・天候・イベントなどの状況」と「そのときの実際の利用者数」のペアを学習し，将来の利用者数という数値を予測する回帰です．カフェの来店客数の例をそのまま大規模にしたものと考えられます．正解ラベルを人がつける必要がなく，過去の実績データがそのまま「正解」になるため，データが自然に貯まり続けるのもこの分野の特徴です．</p>
+<p><strong>推薦システム（好みの予測）</strong>．第1回で見たとおり，基本のアイデアは「行動が似ている人どうしは，好みも似ているだろう」でした．「ユーザーの行動履歴」から「その人が次にクリック・購入しそうな商品」を予測する，機械学習の一種です <span id="id20">[<a class="reference internal" href="../references.html#id10" title="Shoujin Wang and others. A survey on session-based recommender systems. ACM Computing Surveys, 54(7):154:1–154:38, 2021. doi:10.1145/3465401.">Wang and others, 2021</a>]</span>．「この商品を良いと思うか」の正解は，ユーザー自身のクリックや購入という行動が毎日教えてくれます．</p>
+<p>こうして見ると，見た目のまったく違う3つのAIが，どれも「<strong>例と正解のペアからパターンを学び，新しい入力に対して予測する</strong>」という同じ原理で動いていることが分かります．このような，入力されたデータを分類したり数値を予測したりするタイプのAIを，本講義では<strong>識別・予測系AI</strong>と呼ぶことにします．迷惑メールフィルタも，スマホの顔認証も，音声認識も，みなこの仲間です．社会で長く活躍してきたAIの大部分は，識別・予測系AIなのです．</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p><strong>発展：深層学習（ディープラーニング）——画像や音声を扱えるようになった理由</strong></p>
+<p>ここまでの例では，「件名の単語」や「時間帯」のような分かりやすい手がかり（判断材料）を使いました．しかし画像や音声が相手だと，「何を手がかりにすべきか」を人間が決めること自体が難しくなります．写真に写っているのがネコだと見分ける手がかりを，ルールとして書き出せないのと同じです．</p>
+<p>この壁を破ったのが<strong>深層学習</strong>（ディープラーニング，deep learning）です．深層学習は，人間の脳の神経回路を大まかにまねた「ニューラルネットワーク」を何層にも深く重ねたモデルで，<strong>手がかり（特徴）そのものをデータから自動的に学び取れる</strong>ことが最大の特徴です <span id="id21">[<a class="reference internal" href="../references.html#id30" title="Yann LeCun, Yoshua Bengio, and Geoffrey Hinton. Deep learning. Nature, 521(7553):436–444, 2015. doi:10.1038/nature14539.">LeCun <em>et al.</em>, 2015</a>]</span>．2010年代に画像認識や音声認識の性能を飛躍的に向上させ，第1回で見た画像診断支援 <span id="id22">[<a class="reference internal" href="../references.html#id9" title="Geert Litjens and others. A survey on deep learning in medical image analysis. Medical Image Analysis, 42:60–88, 2017. doi:10.1016/j.media.2017.07.005.">Litjens and others, 2017</a>]</span> や顔認証を実用レベルに押し上げたのは，この技術です．<a class="reference internal" href="ch10-genai.html"><span class="std std-doc">第10回</span></a>で扱う生成AIも，深層学習の延長線上にあります．</p>
+<p>ただし，深層学習も「例と正解のペアから学ぶ」「相関に基づいて予測する」「データの偏りをそのまま学ぶ」という機械学習の基本性質と限界を共有しています．モデルが高度になっても，この章で学んだ見方はそのまま通用します．</p>
+</div>
+</section>
+<section id="id23">
+<h2>まとめ<a class="headerlink" href="#id23" title="Link to this heading">#</a></h2>
+<p>今回の内容を振り返りましょう．</p>
+<ul class="simple">
+<li><p><strong>機械学習</strong>は，人がルールを書く代わりに，データからパターンを学ばせて予測や判別を行う技術です <span id="id24">[<a class="reference internal" href="../references.html#id29" title="M. I. Jordan and T. M. Mitchell. Machine learning: trends, perspectives, and prospects. Science, 349(6245):255–260, 2015. doi:10.1126/science.aaa8415.">Jordan and Mitchell, 2015</a>]</span>．ルールを書き出せない仕事・状況が変わり続ける仕事で威力を発揮します．</p></li>
+<li><p>中心となる学び方は，例と正解のペアから学ぶ<strong>教師あり学習</strong>です（正解なしでグループを見つける<strong>教師なし学習</strong>もあります）．タスクは，カテゴリを当てる<strong>分類</strong>（迷惑メール判定など）と数値を当てる<strong>回帰</strong>（来店客数の予測など）に大別されます．</p></li>
+<li><p>「学習」の正体は，ミニ迷惑メール分類器で見たように，<strong>データから判断材料を数え上げること</strong>でした．学んだ内容はすべてデータ由来であり，データにないことは学べません．</p></li>
+<li><p>機械学習の目標は，学習データへの当てはまりではなく，新しいデータで通用する<strong>汎化</strong>です．学習データの偶然のゆらぎまで「暗記」してしまう<strong>過学習</strong>を見抜くために，<strong>学習データとテストデータ</strong>を分けて評価します <span id="id25">[<a class="reference internal" href="../references.html#id28" title="Pedro Domingos. A few useful things to know about machine learning. Communications of the ACM, 55(10):78–87, 2012. doi:10.1145/2347736.2347755.">Domingos, 2012</a>]</span>．</p></li>
+<li><p><strong>精度評価には落とし穴</strong>があります．不均衡なデータでは「全部通常」と答えるだけで正解率99%になり得るため，正解率だけでなく見逃しと誤検知の中身を，用途に照らして確認する必要があります．</p></li>
+<li><p>画像診断支援・需要予測・推薦システムなど，社会で活躍するAIの多くは「例と正解から学ぶ」<strong>識別・予測系AI</strong>です．その予測は<strong>相関</strong>に基づくため因果の説明にはならず（第5回），<strong>データの偏りをそのまま学ぶ</strong>ため公平性の問題を引き起こし得ます（第2回・第9回）．</p></li>
+</ul>
+<p>機械学習を学んだことで，みなさんは「AIはどう学ぶのか」という問いに，仕組み・評価・限界の3つの面から答えられるようになりました．次回の<a class="reference internal" href="ch09-data-law.html"><span class="std std-doc">第9回「データと法」</span></a>では，データとAIの利活用を支える法制度——個人情報保護法・著作権——と，今回布石を打った「アルゴリズムの公平性」の問題を学びます．そして最終回の<a class="reference internal" href="ch10-genai.html"><span class="std std-doc">第10回「生成AI」</span></a>では，今回の識別・予測系AI——データから「見分け方・予測の仕方」を学ぶAI——に対して，データから「<strong>コンテンツの作り方</strong>」を学ぶAI，すなわち生成AIを扱います．今回の内容は，そのままその土台になります．</p>
+</section>
+<section id="id26">
+<h2>確認問題<a class="headerlink" href="#id26" title="Link to this heading">#</a></h2>
+<p><strong>問1（事例判断型）</strong>．ある企業が「不良品を99.2%の正解率で見分けるAI検品システム」を宣伝しています．この工場で作られる製品のうち，不良品は全体の約0.5%だとわかっています．この「正解率99.2%」という数字だけでこのAIを高性能と判断してはいけない理由を説明してください．また，このAIの実力を確かめるには，追加でどんな数字を確認すべきでしょうか．</p>
+<div class="dropdown admonition">
+<p class="admonition-title">解答と解説</p>
+<p>不良品が全体の0.5%しかない<strong>不均衡なデータ</strong>では，中身が何もないシステム——すべての製品を「良品」と答えるだけのシステム——でも，正解率は約99.5%になります．つまり正解率99.2%は，「全部良品」と答えるだけのシステムを<strong>下回っており</strong>，不良品を見つける実力の証拠にはまったくなりません．これが<strong>精度評価の落とし穴</strong>です．</p>
+<p>実力を確かめるには，間違いの中身を分けて確認する必要があります．具体的には，(1) 不良品のうち<strong>どれだけ見逃したか</strong>（見逃しは市場への不良品流出につながる），(2) 「不良品」と判定したもののうち<strong>どれだけが誤検知</strong>（実際は良品）だったか，の2つです．さらに，その数字が<strong>学習に使っていないデータ</strong>で測られたものかどうかも確認すべきです．</p>
+</div>
+<p><strong>問2（知識確認型）</strong>．次の（ア）〜（エ）のタスクを，<strong>分類</strong>と<strong>回帰</strong>に分けてください．</p>
+<ul class="simple">
+<li><p>（ア）スマホの顔認証で，カメラに映った顔が持ち主本人かどうかを判定する</p></li>
+<li><p>（イ）過去の販売実績から，ある弁当店の明日の来店客数を予測する</p></li>
+<li><p>（ウ）レントゲン画像に病変の疑いがあるかないかを判定する</p></li>
+<li><p>（エ）地図アプリで，現在の道路状況から目的地への所要時間（分）を予測する</p></li>
+</ul>
+<div class="dropdown admonition">
+<p class="admonition-title">解答と解説</p>
+<ul class="simple">
+<li><p><strong>分類</strong>：（ア）と（ウ）．正解が「本人か別人か」「病変ありかなしか」という<strong>カテゴリ</strong>だからです．</p></li>
+<li><p><strong>回帰</strong>：（イ）と（エ）．正解が「来店客数（人）」「所要時間（分）」という<strong>数値</strong>だからです．</p></li>
+</ul>
+<p>どちらも「例と正解のペアから学ぶ」教師あり学習である点は共通で，当てたい正解がカテゴリなら分類，数値なら回帰と呼び分けます．</p>
+</div>
+<p><strong>問3（事例判断型）</strong>．ある学生チームが，過去の気象データから翌日の売上を予測するモデルを作り，「手持ちのデータ全部を使って学習させたところ，そのデータに対する予測の誤差がほぼゼロになった．誤差ほぼゼロの超高精度モデルが完成した」と喜んでいます．このチームの評価方法の問題点を，この章で学んだ言葉を使って2つ指摘してください．</p>
+<div class="dropdown admonition">
+<p class="admonition-title">解答と解説</p>
+<p>問題点は次の2つです．</p>
+<ol class="arabic simple">
+<li><p><strong>学習データでの成績で実力を評価している</strong>こと．手持ちのデータ全部を学習に使ってしまったため，このモデルの実力を測るための<strong>テストデータ</strong>が残っていません．学習に使ったデータに対する誤差は，モデルの本当の実力（<strong>汎化</strong>の能力）の証明にはなりません．</p></li>
+<li><p><strong>誤差ほぼゼロは，むしろ過学習の疑いが濃い</strong>こと．現実の売上データには偶然のゆらぎが必ず含まれるため，誤差がほぼゼロということは，モデルがそのゆらぎ（ノイズ）まで「暗記」してしまっている——<strong>過学習</strong>している——可能性が高いと考えられます．多項式の次数15の例と同じで，このようなモデルは新しいデータに対してはかえって大きく外すおそれがあります．</p></li>
+</ol>
+<p>正しい手順は，データをあらかじめ<strong>学習データとテストデータに分け</strong>，学習に使っていないテストデータでの誤差でモデルを評価することです．</p>
+</div>
+</section>
+<section id="id27">
+<h2>さらに学ぶために<a class="headerlink" href="#id27" title="Link to this heading">#</a></h2>
+<p>この章の内容の元になった資料を紹介します．事例 → 解説 → 原典の順にたどるのがおすすめです．</p>
+<ul class="simple">
+<li><p>【解説・サーベイ】Pedro Domingos, &quot;A Few Useful Things to Know about Machine Learning,&quot; <em>Communications of the ACM</em>, 55(10), 78–87, 2012. 著者版PDF：<a class="reference external" href="https://homes.cs.washington.edu/~pedrod/papers/cacm12.pdf">https://homes.cs.washington.edu/~pedrod/papers/cacm12.pdf</a></p>
+<ul>
+<li><p>機械学習の実務的な要点を平易に整理した定番の解説記事です <span id="id28">[<a class="reference internal" href="../references.html#id28" title="Pedro Domingos. A few useful things to know about machine learning. Communications of the ACM, 55(10):78–87, 2012. doi:10.1145/2347736.2347755.">Domingos, 2012</a>]</span>．「過学習こそ最大の敵」「相関は因果ではない」「データは多いほどよい」など，この章で学んだ教訓の多くが専門家の言葉で語られています．著者のサイトで全文が公開されています．</p></li>
+</ul>
+</li>
+<li><p>【解説・サーベイ】M. I. Jordan &amp; T. M. Mitchell, &quot;Machine Learning: Trends, Perspectives, and Prospects,&quot; <em>Science</em>, 349(6245), 255–260, 2015. <a class="reference external" href="https://doi.org/10.1126/science.aaa8415">https://doi.org/10.1126/science.aaa8415</a></p>
+<ul>
+<li><p>機械学習に何ができて何が課題なのかを，第一人者が概観した権威ある論文です <span id="id29">[<a class="reference internal" href="../references.html#id29" title="M. I. Jordan and T. M. Mitchell. Machine learning: trends, perspectives, and prospects. Science, 349(6245):255–260, 2015. doi:10.1126/science.aaa8415.">Jordan and Mitchell, 2015</a>]</span>．本文は購読が必要なため，DOIリンクを掲載します．</p></li>
+</ul>
+</li>
+<li><p>【解説・サーベイ】Yann LeCun, Yoshua Bengio &amp; Geoffrey Hinton, &quot;Deep Learning,&quot; <em>Nature</em>, 521(7553), 436–444, 2015. <a class="reference external" href="https://doi.org/10.1038/nature14539">https://doi.org/10.1038/nature14539</a></p>
+<ul>
+<li><p>深層学習の代表的なレビュー論文です <span id="id30">[<a class="reference internal" href="../references.html#id30" title="Yann LeCun, Yoshua Bengio, and Geoffrey Hinton. Deep learning. Nature, 521(7553):436–444, 2015. doi:10.1038/nature14539.">LeCun <em>et al.</em>, 2015</a>]</span>．著者の3人は深層学習の発展への貢献で2018年のチューリング賞を受賞しています．発展コラムで触れた深層学習の背景を知りたい人向けです．本文は購読が必要なため，DOIリンクを掲載します．</p></li>
+</ul>
+</li>
+<li><p>【事例】Geert Litjens et al., &quot;A Survey on Deep Learning in Medical Image Analysis,&quot; <em>Medical Image Analysis</em>, 42, 60–88, 2017. arXiv版：<a class="reference external" href="https://arxiv.org/abs/1702.05747">https://arxiv.org/abs/1702.05747</a></p>
+<ul>
+<li><p>画像診断支援AIの研究を300件以上まとめたサーベイです <span id="id31">[<a class="reference internal" href="../references.html#id9" title="Geert Litjens and others. A survey on deep learning in medical image analysis. Medical Image Analysis, 42:60–88, 2017. doi:10.1016/j.media.2017.07.005.">Litjens and others, 2017</a>]</span>．機械学習が医療の現場でどう使われようとしているかの具体像がつかめます．arXiv版がオープンアクセスです．</p></li>
+</ul>
+</li>
+<li><p>【事例】Shoujin Wang et al., &quot;A Survey on Session-based Recommender Systems,&quot; <em>ACM Computing Surveys</em>, 54(7), Article 154, 2021. <a class="reference external" href="https://doi.org/10.1145/3465401">https://doi.org/10.1145/3465401</a></p>
+<ul>
+<li><p>推薦システムの中でも，直前の行動の流れから次の興味を予測する研究のサーベイです <span id="id32">[<a class="reference internal" href="../references.html#id10" title="Shoujin Wang and others. A survey on session-based recommender systems. ACM Computing Surveys, 54(7):154:1–154:38, 2021. doi:10.1145/3465401.">Wang and others, 2021</a>]</span>．第1回の活用事例の技術的な裏側に興味がある人向けです．</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="ch07-data-visualization.html"
+       title="前のページ">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">前へ</p>
+        <p class="prev-next-title">第7回：データの可視化とコミュニケーション</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="ch09-data-law.html"
+       title="次ページ">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">次へ</p>
+        <p class="prev-next-title">第9回：データと法——情報法の基礎</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目次
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">この回で学ぶこと</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">導入：迷惑メールフィルタ——毎日働いているのに意識しないAI</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">機械学習とは——ルールを書くか，データから学ぶか</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2つのプログラムの作り方</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">教師あり学習——例と正解のペアから学ぶ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">分類と回帰——カテゴリを当てるか，数値を当てるか</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">作って実感する：ミニ迷惑メール分類器</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">過学習と汎化——「暗記」と「理解」の違い</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">本番は「見たことのないデータ」</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">多項式のあてはめで過学習を見る</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">精度評価の落とし穴——正解率99%のワナ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">機械学習の限界——何を学び，何を学んでいないのか</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">限界1：機械学習の予測は「相関」に基づく</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">限界2：データの偏りをそのまま学ぶ</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">活用事例：第1回のAIたちの正体——「例と正解から学ぶ」で読み解く</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">まとめ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">確認問題</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">さらに学ぶために</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+著者 名古屋市立大学 大学院データサイエンス研究科 山本祐輔
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
