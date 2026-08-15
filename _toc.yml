@@ -7,7 +7,9 @@ chapters:
   - file: chapters/ch03-database
   - file: chapters/ch04-preprocessing
   - file: chapters/ch05-data-analysis
-  - file: chapters/ch06-data-visualization
-  - file: chapters/ch07-data-law
-  - file: chapters/ch08-genai
+  - file: chapters/ch06-inferential-statistics
+  - file: chapters/ch07-data-visualization
+  - file: chapters/ch08-machine-learning
+  - file: chapters/ch09-data-law
+  - file: chapters/ch10-genai
   - file: references

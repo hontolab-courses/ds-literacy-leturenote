@@ -17,14 +17,14 @@
 <text x="591.0" y="88" text-anchor="middle" font-family="'Hiragino Sans','Noto Sans JP',sans-serif" font-size="19" font-weight="bold" fill="#333333">分析I</text>
 <text x="591.0" y="110" text-anchor="middle" font-family="'Hiragino Sans','Noto Sans JP',sans-serif" font-size="14" fill="#4C72B0">第5回</text>
 <line x1="660" y1="92.0" x2="678" y2="92.0" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
-<rect x="688" y="60" width="138" height="64" rx="8" fill="#FBEEE4" stroke="#DD8452" stroke-width="3"/>
+<rect x="688" y="60" width="138" height="64" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
 <text x="757.0" y="88" text-anchor="middle" font-family="'Hiragino Sans','Noto Sans JP',sans-serif" font-size="19" font-weight="bold" fill="#333333">分析II</text>
-<text x="757.0" y="110" text-anchor="middle" font-family="'Hiragino Sans','Noto Sans JP',sans-serif" font-size="14" fill="#DD8452">第6回</text>
-<text x="757.0" y="48" text-anchor="middle" font-family="'Hiragino Sans','Noto Sans JP',sans-serif" font-size="15" font-weight="bold" fill="#DD8452">▼ 現在地</text>
+<text x="757.0" y="110" text-anchor="middle" font-family="'Hiragino Sans','Noto Sans JP',sans-serif" font-size="14" fill="#4C72B0">第6回</text>
 <line x1="826" y1="92.0" x2="844" y2="92.0" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
-<rect x="854" y="60" width="138" height="64" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<rect x="854" y="60" width="138" height="64" rx="8" fill="#FBEEE4" stroke="#DD8452" stroke-width="3"/>
 <text x="923.0" y="88" text-anchor="middle" font-family="'Hiragino Sans','Noto Sans JP',sans-serif" font-size="19" font-weight="bold" fill="#333333">可視化</text>
-<text x="923.0" y="110" text-anchor="middle" font-family="'Hiragino Sans','Noto Sans JP',sans-serif" font-size="14" fill="#4C72B0">第7回</text>
+<text x="923.0" y="110" text-anchor="middle" font-family="'Hiragino Sans','Noto Sans JP',sans-serif" font-size="14" fill="#DD8452">第7回</text>
+<text x="923.0" y="48" text-anchor="middle" font-family="'Hiragino Sans','Noto Sans JP',sans-serif" font-size="15" font-weight="bold" fill="#DD8452">▼ 現在地</text>
 <line x1="992" y1="92.0" x2="1010" y2="92.0" stroke="#8C8C8C" stroke-width="2" marker-end="url(#ah)"/>
 <rect x="1020" y="66" width="166" height="52" rx="26" fill="white" stroke="#8C8C8C" stroke-width="2" stroke-dasharray="6 4"/><text x="1103.0" y="88.0" text-anchor="middle" font-family="'Hiragino Sans','Noto Sans JP',sans-serif" font-size="15" fill="#333333">誰かの理解・</text><text x="1103.0" y="108.0" text-anchor="middle" font-family="'Hiragino Sans','Noto Sans JP',sans-serif" font-size="15" fill="#333333">意思決定へ</text>
 <rect x="24" y="164" width="968" height="34" rx="8" fill="#F2F2F2" stroke="#8C8C8C" stroke-width="2"/><text x="508.0" y="187" text-anchor="middle" font-family="'Hiragino Sans','Noto Sans JP',sans-serif" font-size="15" fill="#333333">機械学習（第8回）——発展・横断テーマ：データから学ぶAIの仕組み</text>

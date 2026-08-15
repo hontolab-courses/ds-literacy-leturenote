@@ -19,12 +19,13 @@ STAGES = [
     ("収集", "第2回", "ch02"),
     ("保存・検索", "第3回", "ch03"),
     ("前処理", "第4回", "ch04"),
-    ("分析", "第5回", "ch05"),
-    ("可視化", "第6回", "ch06"),
+    ("分析I", "第5回", "ch05"),
+    ("分析II", "第6回", "ch06"),
+    ("可視化", "第7回", "ch07"),
 ]
 
-W, H = 1170, 330
-BOX_W, BOX_H, GAP = 158, 64, 34
+W, H = 1210, 350
+BOX_W, BOX_H, GAP = 138, 64, 28
 MARGIN = 24
 TOP = 60
 
@@ -82,15 +83,20 @@ def build(highlight_idx=None):
         f'<text x="{end_x + (W - end_x - MARGIN) / 2}" y="{mid + 16}" text-anchor="middle" '
         f'font-family="{FONT}" font-size="15" fill="{TEXT}">意思決定へ</text>'
     )
-    # 横断テーマの帯
-    band_x1, band_x2 = MARGIN, MARGIN + 5 * BOX_W + 4 * GAP
-    for j, (name, kaisu) in enumerate([("データと法", "第7回"), ("生成AI", "第8回")]):
-        by = TOP + BOX_H + 40 + j * 46
+    # 発展・横断テーマの帯
+    band_x1, band_x2 = MARGIN, MARGIN + 6 * BOX_W + 5 * GAP
+    bands = [
+        ("機械学習", "第8回", "データから学ぶAIの仕組み"),
+        ("データと法", "第9回", "ライフサイクル全体を支えるルール"),
+        ("生成AI", "第10回", "データサイエンスの集大成としてのAI"),
+    ]
+    for j, (name, kaisu, desc) in enumerate(bands):
+        by = TOP + BOX_H + 40 + j * 44
         body.append(
-            f'<rect x="{band_x1}" y="{by}" width="{band_x2 - band_x1}" height="36" rx="8" '
+            f'<rect x="{band_x1}" y="{by}" width="{band_x2 - band_x1}" height="34" rx="8" '
             f'fill="{GRAY_FILL}" stroke="{GRAY}" stroke-width="2"/>'
-            f'<text x="{(band_x1 + band_x2) / 2}" y="{by + 24}" text-anchor="middle" '
-            f'font-family="{FONT}" font-size="16" fill="{TEXT}">{name}（{kaisu}）——ライフサイクル全体に関わる横断テーマ</text>'
+            f'<text x="{(band_x1 + band_x2) / 2}" y="{by + 23}" text-anchor="middle" '
+            f'font-family="{FONT}" font-size="15" fill="{TEXT}">{name}（{kaisu}）——発展・横断テーマ：{desc}</text>'
         )
     body.append("</svg>")
     return "\n".join(body)

@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 612" font-family="'Hiragino Sans','Noto Sans JP',sans-serif">
+<defs>
+<marker id="arrow-blue" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 Z" fill="#4C72B0"/></marker>
+</defs>
+<rect x="0" y="0" width="1000" height="612" fill="white"/>
+<!-- ① 学習段階 -->
+<rect x="24" y="24" width="952" height="284" rx="8" fill="white" stroke="#4C72B0" stroke-width="2"/>
+<text x="48" y="58" font-size="18" font-weight="bold" fill="#4C72B0">① 学習段階——「例と正解のペア」からパターンを学ぶ</text>
+<rect x="48" y="80" width="420" height="204" rx="8" fill="white" stroke="#8C8C8C" stroke-width="2"/>
+<text x="258" y="106" text-anchor="middle" font-size="14" font-weight="bold" fill="#333333">入力の例（件名）＋正解ラベル</text>
+<!-- ペア1 -->
+<rect x="64" y="118" width="284" height="32" rx="8" fill="#F2F2F2" stroke="#8C8C8C" stroke-width="2"/>
+<text x="74" y="139" font-size="14" fill="#333333">無料 プレゼント 当選</text>
+<rect x="368" y="118" width="76" height="32" rx="8" fill="#F9EAEA" stroke="#C44E52" stroke-width="2"/>
+<text x="406" y="139" text-anchor="middle" font-size="14" font-weight="bold" fill="#C44E52">迷惑</text>
+<!-- ペア2 -->
+<rect x="64" y="158" width="284" height="32" rx="8" fill="#F2F2F2" stroke="#8C8C8C" stroke-width="2"/>
+<text x="74" y="179" font-size="14" fill="#333333">今すぐ クリック 現金 プレゼント</text>
+<rect x="368" y="158" width="76" height="32" rx="8" fill="#F9EAEA" stroke="#C44E52" stroke-width="2"/>
+<text x="406" y="179" text-anchor="middle" font-size="14" font-weight="bold" fill="#C44E52">迷惑</text>
+<!-- ペア3 -->
+<rect x="64" y="198" width="284" height="32" rx="8" fill="#F2F2F2" stroke="#8C8C8C" stroke-width="2"/>
+<text x="74" y="219" font-size="14" fill="#333333">ゼミ レポート 提出 連絡</text>
+<rect x="368" y="198" width="76" height="32" rx="8" fill="#EAF5EC" stroke="#55A868" stroke-width="2"/>
+<text x="406" y="219" text-anchor="middle" font-size="14" font-weight="bold" fill="#55A868">通常</text>
+<!-- ペア4 -->
+<rect x="64" y="238" width="284" height="32" rx="8" fill="#F2F2F2" stroke="#8C8C8C" stroke-width="2"/>
+<text x="74" y="259" font-size="14" fill="#333333">授業 休講 お知らせ</text>
+<rect x="368" y="238" width="76" height="32" rx="8" fill="#EAF5EC" stroke="#55A868" stroke-width="2"/>
+<text x="406" y="259" text-anchor="middle" font-size="14" font-weight="bold" fill="#55A868">通常</text>
+<!-- 学習の矢印 -->
+<line x1="476" y1="182" x2="648" y2="182" stroke="#4C72B0" stroke-width="2" marker-end="url(#arrow-blue)"/>
+<text x="562" y="164" text-anchor="middle" font-size="15" font-weight="bold" fill="#333333">パターンを学ぶ</text>
+<text x="562" y="208" text-anchor="middle" font-size="13" fill="#8C8C8C">＝判断材料を数え上げる</text>
+<!-- モデル -->
+<rect x="656" y="124" width="296" height="116" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="804" y="152" text-anchor="middle" font-size="18" font-weight="bold" fill="#333333">モデル</text>
+<text x="804" y="176" text-anchor="middle" font-size="14" fill="#333333">学び取った見分け方のパターン</text>
+<text x="804" y="200" text-anchor="middle" font-size="13" fill="#8C8C8C">例：「無料」は怪しい</text>
+<text x="804" y="220" text-anchor="middle" font-size="13" fill="#8C8C8C">「日程」は怪しくない</text>
+<!-- モデルを本番へ -->
+<line x1="804" y1="240" x2="804" y2="384" stroke="#4C72B0" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arrow-blue)"/>
+<text x="792" y="325" text-anchor="end" font-size="13" fill="#8C8C8C">できあがったモデルを本番で使う</text>
+<!-- ② 予測段階 -->
+<rect x="24" y="332" width="952" height="256" rx="8" fill="white" stroke="#4C72B0" stroke-width="2"/>
+<text x="48" y="366" font-size="18" font-weight="bold" fill="#4C72B0">② 予測段階——見たことのない新しい入力を判定する</text>
+<rect x="48" y="392" width="400" height="84" rx="8" fill="white" stroke="#8C8C8C" stroke-width="2"/>
+<text x="248" y="420" text-anchor="middle" font-size="14" font-weight="bold" fill="#333333">新しい入力（正解ラベルなし）</text>
+<rect x="104" y="432" width="288" height="32" rx="8" fill="#F2F2F2" stroke="#8C8C8C" stroke-width="2"/>
+<text x="248" y="453" text-anchor="middle" font-size="14" fill="#333333">サークル 合宿 日程 お知らせ</text>
+<line x1="448" y1="434" x2="648" y2="434" stroke="#4C72B0" stroke-width="2" marker-end="url(#arrow-blue)"/>
+<text x="552" y="422" text-anchor="middle" font-size="13" fill="#8C8C8C">スコアを計算</text>
+<rect x="656" y="392" width="296" height="84" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
+<text x="804" y="440" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">①で学んだモデル</text>
+<line x1="804" y1="476" x2="804" y2="502" stroke="#4C72B0" stroke-width="2" marker-end="url(#arrow-blue)"/>
+<rect x="656" y="508" width="296" height="52" rx="8" fill="#EAF5EC" stroke="#55A868" stroke-width="2"/>
+<text x="804" y="540" text-anchor="middle" font-size="16" font-weight="bold" fill="#333333">予測：「通常メール」</text>
+</svg>
