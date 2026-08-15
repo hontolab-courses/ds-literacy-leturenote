@@ -21,7 +21,7 @@ kernelspec:
 
 本科目における現在地は {numref}`fig-ch04-lifecycle` のとおりです．前回までに集めて保存したデータを，分析に使える状態に整える「前処理」が今回のテーマです．
 
-```{figure} ../figures/common-lifecycle-ch04.svg
+```{figure} ../figures/common/common-lifecycle-ch04.svg
 :name: fig-ch04-lifecycle
 :alt: データのライフサイクル（収集・保存検索・前処理・分析・可視化）のフロー図のうち，前処理（第4回）が現在地としてハイライトされている
 :width: 100%
@@ -45,7 +45,7 @@ kernelspec:
 
 この時間配分をイメージとして描いたものが {numref}`fig-ch04-pipeline-time` です．分析の流れ全体の中で，前処理がいかに大きな割合を占めるかを確認してください．
 
-```{figure} ../figures/ch04-pipeline-time.svg
+```{figure} ../figures/ch04/ch04-pipeline-time.svg
 :name: fig-ch04-pipeline-time
 :alt: 収集，前処理，分析，可視化・報告という分析の流れを横棒のパイプラインで示し，前処理の横棒だけを時間配分に比例して太く描いた図．前処理の下に，分析の作業時間の50〜80%（おおむね5〜8割）を占めるという注記が付いている
 :width: 100%
@@ -89,7 +89,7 @@ df
 
 この表のどこに，どんな汚れが潜んでいるのかを地図のように整理したものが {numref}`fig-ch04-baddata-map` です．以下ではこの図を手がかりに，汚れの型をひとつずつ確認していきます．
 
-```{figure} ../figures/ch04-baddata-map.svg
+```{figure} ../figures/ch04/ch04-baddata-map.svg
 :name: fig-ch04-baddata-map
 :alt: 新歓アンケートの表の汚れの地図．欠損値（None）を青の実線枠，空文字による見えない欠損を青の点線枠，表記ゆれを橙の枠，重複データを緑の枠で色分けして示した図
 :width: 100%
@@ -169,7 +169,7 @@ df[df.duplicated(keep=False)]
 
 このセル結合の表が，人間と機械のそれぞれにどう「見えて」いるのかを対比したものが {numref}`fig-ch04-human-vs-machine` です．人間には見やすかった表が，機械には学部の分からない歯抜けの表として読まれてしまうことが分かります．
 
-```{figure} ../figures/ch04-human-vs-machine.svg
+```{figure} ../figures/ch04/ch04-human-vs-machine.svg
 :name: fig-ch04-human-vs-machine
 :alt: セル結合された表の対比図．左は人間の見た目で，学部のセルが結合されていて見やすい．右は同じ表を機械が読んだ状態で，2行目と4行目の学部が欠損（NaN）になっている
 :width: 100%
@@ -283,7 +283,7 @@ df_tidy
 
 tidy dataの3つの条件と，いま行った横持ち→縦持ちの変換をまとめて図解したものが {numref}`fig-ch04-tidy-data` です．列名だった「1年生」「2年生」「3年生」が，「学年」という1つの列の**値**へ移動していることを，色の対応で確認してください．
 
-```{figure} ../figures/ch04-tidy-data.svg
+```{figure} ../figures/ch04/ch04-tidy-data.svg
 :name: fig-ch04-tidy-data
 :alt: 上段はtidy dataの3つの条件の図解で，小さな表の上に，各変数が1つの列をなすことを縦の色帯，各観測が1つの行をなすことを横の色帯，各観測単位の類型が1つの表をなすことを表全体を囲む枠で示している．下段は横持ちの表df_wideから縦持ちのdf_tidyへの変換図で，列名だった1年生・2年生・3年生が学年という列の値に移動する様子を，学年ごとの色と3本の矢印で示している
 :width: 100%
@@ -325,7 +325,7 @@ df_tidy.groupby("学年")["参加人数"].sum()
 
 4つの尺度水準の関係を階段にたとえて整理したものが {numref}`fig-ch04-scale-levels` です．上の段は下の段の性質をすべて受け継いでおり，段を上るほどできる計算が増えていきます．
 
-```{figure} ../figures/ch04-scale-levels.svg
+```{figure} ../figures/ch04/ch04-scale-levels.svg
 :name: fig-ch04-scale-levels
 :alt: 名義尺度，順序尺度，間隔尺度，比率尺度の4段を上り階段として描いた図．名義尺度は同じか違うかを区別できる（例は学部・血液型），順序尺度は大小の比較・並べ替えが加わる（例は満足度），間隔尺度は差の計算が加わる（例は摂氏の気温），比率尺度は比の計算が加わりゼロが何もないことを表す（例は金額・身長）．上の段ほどできる計算が増えるという矢印と，名義・順序が質的変数，間隔・比率が量的変数にあたるという括りが付いている
 :width: 100%

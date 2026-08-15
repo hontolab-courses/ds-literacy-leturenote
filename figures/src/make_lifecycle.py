@@ -1,13 +1,13 @@
 """データのライフサイクル図（共通部品）を生成する．
 
-- common-lifecycle.svg          : フル版（第1章まとめ用，ハイライトなし）
-- common-lifecycle-chNN.svg     : 第2〜6章の冒頭用（現在地をハイライト）
+- common/common-lifecycle.svg      : フル版（第1章まとめ用，ハイライトなし）
+- common/common-lifecycle-chNN.svg : 第2〜6章の冒頭用（現在地をハイライト）
 
 スタイルは figures/STYLE.md に従う．
 """
 import pathlib
 
-FIGDIR = pathlib.Path(__file__).resolve().parent.parent
+FIGDIR = pathlib.Path(__file__).resolve().parent.parent / "common"
 
 FONT = "'Hiragino Sans','Noto Sans JP',sans-serif"
 BLUE_FILL, BLUE = "#EAF0F8", "#4C72B0"

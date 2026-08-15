@@ -23,7 +23,7 @@ kernelspec:
 
 はじめに，{numref}`fig-ch05-lifecycle` で本科目における現在地を確認しておきましょう．データのライフサイクルのうち，今回は集めて整えたデータを**分析**する段階です．
 
-```{figure} ../figures/common-lifecycle-ch05.svg
+```{figure} ../figures/common/common-lifecycle-ch05.svg
 :name: fig-ch05-lifecycle
 :alt: データのライフサイクルの図．収集，保存・検索，前処理，分析，可視化の流れのうち，今回の内容である「分析（第5回）」が現在地としてハイライトされている．
 
@@ -110,7 +110,7 @@ print("最頻値：", wages2.mode()[0], "円")
 
 この様子を模式的に描いたのが {numref}`fig-ch05-skewed-mean` です．年収や貯蓄額のように一部の大きな値に偏った（右に裾を引いた）分布では，多くの人が集まる山のあたりに最頻値と中央値が位置する一方，平均だけが外れ値（裾）の方向に引っ張られます．
 
-```{figure} ../figures/ch05-skewed-mean.svg
+```{figure} ../figures/ch05/ch05-skewed-mean.svg
 :name: fig-ch05-skewed-mean
 :alt: 右に裾を引いた分布の模式図．横軸は金額（時給・年収・貯蓄額など），縦軸は人数．山のいちばん高いところに最頻値，その右に中央値，さらに右に平均の3本の縦線が色分けして引かれ，最頻値＜中央値＜平均の順に並んでいる．山のあたりには「多くの人はこのあたり」，右に長く伸びる裾には「ごく少数の非常に大きな値（外れ値）」の注記があり，「平均は外れ値（裾）の方向に引っ張られる」という右向きの矢印が描かれている．
 
@@ -371,7 +371,7 @@ HTML(fig.to_html(include_plotlyjs="cdn", full_html=False))
 
 この構図を図解したものが {numref}`fig-ch05-confounding-triangle` です．気温から売上へ，気温から事故へは因果の矢印（実線）が伸びていますが，売上と事故の間に直接の矢印はなく，点線の「見かけの相関」で結ばれているだけです．
 
-```{figure} ../figures/ch05-confounding-triangle.svg
+```{figure} ../figures/ch05/ch05-confounding-triangle.svg
 :name: fig-ch05-confounding-triangle
 :alt: 交絡の三角構造図．頂点の「気温（交絡因子・黒幕）」から「アイスクリームの売上」と「水難事故の件数」へ実線の矢印（因果あり）が伸び，売上と事故の間は点線の両向き矢印で「見かけの相関（因果はない）」と示されている．右には「朝食を食べる習慣」と「成績」を「家庭の生活習慣・教育環境」が動かす同じ構図が併記されている．
 
@@ -461,7 +461,7 @@ HTML(fig.to_html(include_plotlyjs="cdn", full_html=False))
 
 この実験の流れを {numref}`fig-ch05-rct-flow` に示します．参加者の背景はバラバラですが，くじ引きでランダムに分けることで，どちらのグループにも背景の違いが均等に混ざり，2つのグループの違いは朝食の有無だけになります．
 
-```{figure} ../figures/ch05-rct-flow.svg
+```{figure} ../figures/ch05/ch05-rct-flow.svg
 :name: fig-ch05-rct-flow
 :alt: ランダム化比較試験のフロー図．背景の違いを色分けした参加者の集団を，くじ引き（サイコロのアイコン）でランダムに2つのグループに分ける．「朝食を提供する群（介入するグループ）」と「今までどおり過ごす群（比較するグループ）」のどちらにも色が均等に混ざっており，「ランダムに分けたので，違いは朝食の有無だけ」という注記とともに，一定期間後に成績を比較する流れが示されている．
 
@@ -481,7 +481,7 @@ HTML(fig.to_html(include_plotlyjs="cdn", full_html=False))
 
 この3段の関係を図解したのが {numref}`fig-ch05-causal-ladder` です．
 
-```{figure} ../figures/ch05-causal-ladder.svg
+```{figure} ../figures/ch05/ch05-causal-ladder.svg
 :name: fig-ch05-causal-ladder
 :alt: 因果のはしごの図解．3段の階段状に，1段目「関連（見る）：AとBは一緒に動くか？（相関の世界・観察だけで分かる）」，2段目「介入（する）：Aを変えたらBはどうなるか？（実験・介入の世界）」，3段目「反事実（想像する）：もしあのときAが違っていたら，Bはどうなっていたか？（起こらなかった世界との比較）」が並ぶ．1段目には人が立ち，1段目と2段目の間には点線の壁が引かれ，「データを眺めるだけで到達できるのはここまで」，その先へは「因果の知識（モデル）を組み合わせて初めて2段目・3段目に登れる」と注記されている．
 
@@ -503,7 +503,7 @@ Pearlは，データだけをいくら眺めても1段目から上には登れ�
 
 記述統計と推測統計の役割の違いを，この味見の比喩とあわせて {numref}`fig-ch05-descriptive-inferential` に整理しました．右側の鍋と一口の関係は，第2回の {numref}`fig-ch02-miso-sampling` で見た母集団と標本の関係そのものです．
 
-```{figure} ../figures/ch05-descriptive-inferential.svg
+```{figure} ../figures/ch05/ch05-descriptive-inferential.svg
 :name: fig-ch05-descriptive-inferential
 :alt: 記述統計と推測統計の対比図．左パネルは記述統計で，手元のデータ（表．例：800人分の試験の点数）を「要約」の矢印で統計量（平均・ばらつき）のカードに変換し，「手元のデータを要約して記述する」と示されている．右パネルは推測統計で，鍋のみそ汁（＝母集団・全体）をよくかき混ぜて一口味見（＝標本・一部）し，そこから全体（母集団）の味を推し量る流れが描かれ，「かき混ぜずに上澄みだけを味見すれば判断を誤る（＝第2回で学んだ標本の偏り）」と注記されている．
 

@@ -35,7 +35,7 @@ policy/figures.md 3節の作成ルールを具体化したもの．全図で必�
 
 ## ファイルと挿入
 
-- ファイル名：`figures/chNN-<スラッグ>.svg`（共通部品は `common-<スラッグ>.svg`）
+- 保存場所は**章ごとのディレクトリ**：`figures/chNN/chNN-<スラッグ>.svg`（共通部品は `figures/common/common-<スラッグ>.svg`）
 - 生成スクリプトがある場合は `figures/src/` に置く
 - 本文挿入は `{figure}` ディレクティブ＋`:name: fig-<スラッグ>`＋`:alt:`＋キャプション．本文から `{numref}` で必ず参照する
 - 図中の数値・比喩は本文に書かれているもののみ使う
@@ -45,5 +45,5 @@ policy/figures.md 3節の作成ルールを具体化したもの．全図で必�
 作成・修正のたびに以下でPNG化し，**画像を開いて目視確認**する（文字のはみ出し・重なり・誤字）．
 
 ```bash
-rsvg-convert -w 1200 figures/chNN-xxx.svg -o /tmp/preview.png
+rsvg-convert -w 1200 figures/chNN/chNN-xxx.svg -o /tmp/preview.png
 ```

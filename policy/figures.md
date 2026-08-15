@@ -25,7 +25,7 @@
 ## 3. 自作図解の作成ルール
 
 1. **ツールと形式**：draw.io（推奨）またはPowerPointで作成し，**SVG（第一候補）またはPNG（2倍解像度）**で書き出して `figures/` に置く．編集可能な元ファイル（.drawio / .pptx）も `figures/src/` に保存し，Gitで管理する．
-2. **命名規則**：`figures/chNN-<内容のスラッグ>.svg`（例：`ch05-confounding-triangle.svg`）．全章共通部品は `common-<スラッグ>.svg`（例：`common-lifecycle.svg`）．
+2. **命名規則**：章ごとのディレクトリに分けて保存する．`figures/chNN/chNN-<内容のスラッグ>.svg`（例：`figures/ch05/ch05-confounding-triangle.svg`）．全章共通部品は `figures/common/common-<スラッグ>.svg`（例：`figures/common/common-lifecycle.svg`）．
 3. **挿入方法**：MySTの `{figure}` ディレクティブ＋`:name:` ラベルで挿入し，本文から `{numref}` で参照する．キャプションと `:alt:`（代替テキスト）を必ず付ける．
 4. **スタイル統一**（量産前にテンプレートを1枚作って確定する）：
    - 配色はカラーユニバーサルデザインに配慮した4色以内（青系・橙系を基本とし，赤緑の対比だけで意味を伝えない）
