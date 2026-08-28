@@ -65,7 +65,7 @@
 <!-- 下段：調査の用語 -->
 <rect x="150" y="258" width="190" height="84" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
 <text x="245" y="290" text-anchor="middle" font-size="17" font-weight="bold" fill="#333333">母集団</text>
-<text x="245" y="314" text-anchor="middle" font-size="13" fill="#4C72B0">例：名市大の1年生全員</text>
+<text x="245" y="314" text-anchor="middle" font-size="13" fill="#4C72B0">例：ある大学の1年生全員</text>
 
 <rect x="380" y="258" width="190" height="84" rx="8" fill="#EAF0F8" stroke="#4C72B0" stroke-width="2"/>
 <text x="475" y="290" text-anchor="middle" font-size="17" font-weight="bold" fill="#333333">無作為抽出</text>

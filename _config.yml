@@ -1,6 +1,7 @@
 # Jupyter Book設定（設計方針は policy/jupyter-book-design.md を参照）
 title: データサイエンス・リテラシー
-author: 名古屋市立大学 大学院データサイエンス研究科 山本祐輔
+# 公開前の匿名化（設計方針9節6）：元の記述＝「名古屋市立大学 大学院データサイエンス研究科 山本祐輔」
+author: 山本祐輔
 copyright: "2026"
 language: ja
 
@@ -30,4 +31,8 @@ html:
 sphinx:
   config:
     language: ja
+    # 公開前の匿名化（設計方針9節6）：Markdownソースを公開サイトに同梱しない
+    # （ソース内のコメントに匿名化前の記述が含まれるため．ダウンロードボタンも非表示になる）
+    html_copy_source: false
+    html_show_sourcelink: false
     bibtex_reference_style: author_year

@@ -1,0 +1,158 @@
+/* @theme lecture */
+/* @size 4:3 10in 7.5in */
+
+/*
+ * 講義スライド共通テーマ（policy/Marp-style-guide.md の実装）
+ * - 27節のテーマ定義を基本とし，19節（.codebox）・23節（.node）のクラスを含む
+ * - 色・サイズ等を変更する場合は必ずスタイルガイドを先に改訂すること
+ */
+
+:root {
+  --navy: #08285A;
+  --text: #293348;
+  --accent: #C2174F;
+  --blue: #0783C6;
+
+  --pink-light: #F3DDE5;
+  --blue-light: #DDECF6;
+
+  --gray: #C7C7C7;
+  --gray-light: #EEEEEE;
+  --code-bg: #E8EBF2;
+
+  --white: #FFFFFF;
+}
+
+section {
+  width: 10in;
+  height: 7.5in;
+
+  padding: 95px 70px 45px;
+
+  background: white;
+  color: var(--text);
+
+  font-family:
+    "Noto Sans JP",
+    "Hiragino Sans",
+    "Yu Gothic",
+    sans-serif;
+
+  font-size: 31px;
+  line-height: 1.35;
+}
+
+/* 上部タイトルバー（10節） */
+.slide-title {
+  position: absolute;
+
+  top: 14px;
+  left: 14px;
+  right: 14px;
+
+  height: 52px;
+
+  padding-left: 60px;
+
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+
+  background: var(--navy);
+  color: white;
+
+  font-size: 27px;
+  font-weight: 400;
+}
+
+/* メインメッセージ（12節） */
+.hero {
+  font-size: 47px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+/* 実装上の堅牢化：hero内でMarkdownが複数段落に分かれても行間が開きすぎないようにする */
+.hero p {
+  margin: 0.2em 0;
+}
+
+/* 強調の文法（4.2節・13節） */
+.accent {
+  color: var(--accent);
+}
+
+.blue {
+  color: var(--blue);
+}
+
+/* 非注目要素のグレーアウト（5節・16節） */
+.inactive {
+  color: var(--gray);
+}
+
+/* 左右分割レイアウト（15節 Pattern B） */
+.columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
+}
+
+/* 下部メッセージバー（17節） */
+.takeaway {
+  position: absolute;
+
+  left: 100px;
+  right: 15px;
+  bottom: 16px;
+
+  box-sizing: border-box;
+
+  padding: 9px 28px;
+
+  background: var(--accent);
+  color: white;
+
+  border-radius: 32px 0 0 32px;
+
+  text-align: center;
+  font-size: 27px;
+}
+
+/* コード（19節） */
+.codebox {
+  background: var(--code-bg);
+  border-left: 6px solid var(--navy);
+  padding: 20px;
+}
+
+pre {
+  background: var(--code-bg);
+  border-left: 6px solid var(--navy);
+
+  padding: 18px 22px;
+
+  font-size: 25px;
+}
+
+/* ノード図（23節） */
+.node {
+  background: white;
+  border: 5px solid var(--navy);
+  border-radius: 50%;
+}
+
+.node.focus-red {
+  background: var(--pink-light);
+}
+
+.node.focus-blue {
+  background: var(--blue-light);
+}
+
+/* Markdownの強調はキーワード強調（赤紫）として扱う（27節） */
+strong {
+  color: var(--accent);
+}

@@ -89,8 +89,16 @@ from IPython.display import HTML
 
 教師あり学習の予測タスクは，当てたい正解の種類によって2つに分けられます．
 
-- **分類**（classification）：正解が**カテゴリ（種類）**であるタスクです．「迷惑メールか，通常メールか」「この顔画像は本人か，別人か」「この画像に病変はあるか，ないか」のように，選択肢の中からどれかを当てます．
+- **分類**（classification）：正解が**カテゴリ（種類）** であるタスクです．「迷惑メールか，通常メールか」「この顔画像は本人か，別人か」「この画像に病変はあるか，ないか」のように，選択肢の中からどれかを当てます．
 - **回帰**（regression）：正解が**数値**であるタスクです．「明日のこの店の来店客数は何人か」「この時間帯のバスの所要時間は何分か」のように，量を当てます．
+
+回帰がやっていることは，式で書くと見通しがよくなります．回帰の最も単純なモデルは，高校の数学で学んだ**1次関数**そのものです．
+
+$$
+y = ax + b
+$$
+
+ここで，$y$（ワイ）は当てたい数値（例：来店客数），$x$（エックス）は予測の手がかりになる数値（例：時間帯），$a$（エー）は直線の傾き，$b$（ビー）は切片です．そして，機械学習における「学習」とは，**実際のデータと予測のずれ（誤差）ができるだけ小さくなるように，$a$ と $b$ の値を決めること**です．傾きと切片をどう選べば，直線がデータに最も寄り添うか——それをコンピュータに探させるのが，回帰における「学習」の正体です．この式は，この後の過学習の実験でもう一度登場します．
 
 迷惑メール判定は分類，来店客数の予測は回帰——この区別は，AIのニュースを理解するときの基本の語彙になるので，覚えておいてください．どちらも「例と正解のペアから学ぶ」という原理は同じで，正解がカテゴリなら分類，数値なら回帰と呼び分けているだけです．2つのタスクの関係を {numref}`fig-ch08-classification-regression` に整理します．
 
@@ -233,6 +241,14 @@ y_test = true_pattern(x_test) + np.random.normal(0, 8, 15)
 
 このデータに，複雑さの異なる3種類の曲線をあてはめてみます．使うのは**多項式**による曲線あてはめです．多項式の「次数」は曲線の複雑さを決めるツマミで，次数1はただの直線，次数3はゆるやかな曲線，次数15は非常にくねくね曲がれる複雑な曲線です．それぞれをデータに最もよく合うように調整（これが「学習」です）し，学習データとテストデータのそれぞれで，予測が実際の客数から平均して何人ずれたか（平均誤差）を計算します．
 
+この「次数」も，式で書くと正体がはっきりします．次数1の多項式は，先ほど登場した1次関数 $y = ax + b$ そのものです．次数3になると，
+
+$$
+y = ax^3 + bx^2 + cx + d
+$$
+
+のように項が増えます（$x^3$（エックスの3乗）は $x$ を3回かけ合わせた値で，調整できる数も $a, b, c, d$ の4つに増えています）．次数15ではさらに項が増え，調整できる数は16個になります．つまり次数とは「式の項をいくつまで使ってよいか」の上限のことで，項——曲線の形を調整できるツマミ——が増えるほど，曲線は自由に曲がりくねれるようになるのです．一方，「学習」がやることは1次関数のときとまったく同じです．実際のデータと曲線のずれ（誤差）ができるだけ小さくなるように，これらのツマミの値を決めているだけです．
+
 ```{code-cell} ipython3
 # 次数1・3・15の多項式をあてはめ，学習データとテストデータでの誤差を比べる
 degrees = [1, 3, 15]
@@ -256,10 +272,37 @@ pd.DataFrame(rows)
 :tags: [hide-input]
 
 # 3種類のあてはめを並べて描く（作図の体裁調整が中心のセルです）
-titles = ["次数1：単純すぎる", "次数3：ちょうどよい", "次数15：複雑すぎる（過学習）"]
-fig = make_subplots(rows=1, cols=3, shared_yaxes=True, subplot_titles=titles)
+# 「別のデータで試す」ボタン用に，シードを変えた10セットのデータを事前に用意する
+# （セット1は上のセルで作った現行データそのもの．セット2以降はシード2〜10で引き直す）
+datasets = [(x_train, y_train, x_test, y_test)]
+for seed in range(2, 11):
+    np.random.seed(seed)
+    y_tr = true_pattern(x_train) + np.random.normal(0, 8, 20)
+    x_te = np.sort(np.random.uniform(0, 1, 15))
+    y_te = true_pattern(x_te) + np.random.normal(0, 8, 15)
+    datasets.append((x_train, y_tr, x_te, y_te))
 
+# 各セットに次数1・3・15の多項式をあてはめ直し，曲線と誤差を事前に計算しておく
 x_grid = np.linspace(0, 1, 300)
+curves, errors = [], []
+for x_tr, y_tr, x_te, y_te in datasets:
+    c, e = {}, {}
+    for d in degrees:
+        coef = np.polyfit(x_tr, y_tr, d)
+        c[d] = np.polyval(coef, x_grid)
+        e[d] = (np.abs(np.polyval(coef, x_tr) - y_tr).mean(),
+                np.abs(np.polyval(coef, x_te) - y_te).mean())
+    curves.append(c)
+    errors.append(e)
+
+# サブプロットのタイトル（誤差の表示つき）をセット k 用につくる関数
+titles = ["次数1：単純すぎる", "次数3：ちょうどよい", "次数15：複雑すぎる（過学習）"]
+def subplot_titles(k):
+    return [f"{t}<br><sub>学習誤差 {errors[k][d][0]:.1f}人／テスト誤差 {errors[k][d][1]:.1f}人</sub>"
+            for t, d in zip(titles, degrees)]
+
+fig = make_subplots(rows=1, cols=3, shared_yaxes=True, subplot_titles=subplot_titles(0))
+
 for i, d in enumerate(degrees):
     col = i + 1
     fig.add_trace(
@@ -274,16 +317,44 @@ for i, d in enumerate(degrees):
         row=1, col=col,
     )
     fig.add_trace(
-        go.Scatter(x=x_grid, y=np.polyval(fits[d], x_grid), mode="lines",
+        go.Scatter(x=x_grid, y=curves[0][d], mode="lines",
                    name=f"次数{d}の曲線", line=dict(color="#ff7f0e", width=2.5),
                    showlegend=False),
         row=1, col=col,
     )
+
+# ボタンの説明ラベル（注釈はボタンでまるごと差し替えるため，ここで追加しておく）
+fig.add_annotation(text="<b>別のデータで試す</b>（ボタンを押すと学習データを引き直します）：",
+                   x=0, y=1.42, xref="paper", yref="paper",
+                   xanchor="left", yanchor="bottom", showarrow=False)
+base_anns = [a.to_plotly_json() for a in fig.layout.annotations]
+
+def annotations_for(k):
+    anns = [dict(a) for a in base_anns]
+    for a, t in zip(anns, subplot_titles(k)):  # 先頭3つがサブプロットのタイトル
+        a["text"] = t
+    return anns
+
+# 「別のデータで試す」ボタン：セット k の点・曲線・誤差表示に切り替える
+buttons = []
+for k, (x_tr, y_tr, x_te, y_te) in enumerate(datasets):
+    xs, ys = [], []
+    for d in degrees:
+        xs += [x_tr, x_te, x_grid]
+        ys += [y_tr, y_te, curves[k][d]]
+    buttons.append(dict(label=f"データ{k + 1}", method="update",
+                        args=[{"x": xs, "y": ys},
+                              {"annotations": annotations_for(k)}]))
+
 fig.update_yaxes(range=[10, 130], title_text="来店客数（人）", col=1)
 fig.update_xaxes(title_text="時間帯（0=開店，1=閉店）")
-fig.update_layout(width=950, height=420,
-                  title="多項式の次数を変えてあてはめる：単純すぎ・ちょうどよい・複雑すぎ",
-                  legend=dict(orientation="h", y=-0.25))
+fig.update_layout(width=950, height=520, margin=dict(t=170),
+                  title=dict(text="多項式の次数を変えてあてはめる：単純すぎ・ちょうどよい・複雑すぎ",
+                             y=0.98, x=0, xanchor="left"),
+                  legend=dict(orientation="h", y=-0.25),
+                  updatemenus=[dict(type="buttons", direction="right", buttons=buttons,
+                                    x=0, xanchor="left", y=1.38, yanchor="top",
+                                    pad=dict(r=2, t=2))])
 
 HTML(fig.to_html(include_plotlyjs="cdn", full_html=False))
 ```
@@ -295,6 +366,8 @@ HTML(fig.to_html(include_plotlyjs="cdn", full_html=False))
 - **次数15（複雑すぎる）**：曲線が個々の点を律儀に通ろうとして激しくうねっています．その結果，**学習データでの誤差は3つの中で最小**なのに，**テストデータでの誤差は最大**になっています．学習データへの当てはまりの良さは，偶然のゆらぎまで「暗記」した結果にすぎず，新しいデータではかえって大きく外すのです．これが過学習です．
 
 この実験から，2つの教訓を持ち帰ってください．第一に，**モデルは複雑にすればよいというものではない**こと．第二に，**「学習データでの成績」でモデルを評価してはいけない**こと．次数15のモデルは，学習データでの成績だけを見れば「最優秀」に見えてしまいます．学習に使っていないテストデータで測って初めて，暗記と理解を見分けられるのです．
+
+もう1つ，グラフ上部の **「別のデータで試す」ボタン**（データ1〜データ10）をぜひ押してみてください．ボタンを押すたびに，同じ作り方（同じ真のパターン＋偶然のゆらぎ）で観測をやり直した別のデータセットに切り替わり，それぞれのデータにあてはめ直した3本の曲線と誤差が表示されます．注目してほしいのは，**データを引き直すたびに，次数15の曲線だけが形を大きく変える**ことです．偶然のゆらぎまで「暗記」するモデルは，ゆらぎが引き直されるだけで別物のようにうねり方を変えてしまう——複雑すぎるモデルほど，データの偶然に振り回されるのです．一方，次数1と次数3の曲線は，どのデータでもほぼ同じ形を保ちます．誤差の数字にも注目してください．学習誤差はどのデータでも次数15が最小ですが，テストデータでの誤差は，次数3がどのデータでも安定して小さいのに対し，次数15はデータによって大きく変動します（テスト誤差がたまたま小さくなる幸運なデータもありますが，それは実力ではなく偶然です）．
 
 ```{warning}
 過学習の危険は，モデルが複雑で，データが少ないほど高まります．「AIの精度99%を達成」という宣伝を見たら，「その精度は，学習に使っていない新しいデータで測ったものか？」と問う習慣をつけてください．学習データで測った精度は，実力の証明にはなりません．

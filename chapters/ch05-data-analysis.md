@@ -78,6 +78,14 @@ from IPython.display import HTML
 - **中央値**（median）：データを小さい順に並べたとき，ちょうど真ん中に来る値です．データが偶数個のときは，真ん中の2つの値の平均を取ります．
 - **最頻値**（mode）：データの中で最も多く登場する値です．たとえば売れ筋の靴のサイズを知りたいときのように，「一番よくあるケース」を知りたいときに役立ちます．
 
+最もよく使う平均だけ，式でも書いておきましょう．データが $n$ 個（$n$ は「エヌ」と読み，データの個数を表します）あるとき，1つ1つの値を $x_1, x_2, \ldots, x_n$（エックスワン，エックスツー，…，エックスエヌ）と表します．このとき平均は，記号 $\bar{x}$（「エックスバー」と読みます．$x$ の上の横棒が「平均した」ことを表す印です）を使って次のように書けます．
+
+$$
+\bar{x} = \frac{x_1 + x_2 + \cdots + x_n}{n}
+$$
+
+「すべての値を足して，個数で割る」という先ほどの言葉の定義を，そのまま記号に置き換えただけの式です．
+
 「代表値なんて平均だけで十分では？」と思うかもしれません．ところが，平均には大きな弱点があります．それを，アルバイトの時給の例で確かめてみましょう．
 
 ある学生が，同じ学部の友人7人に時給を聞いてまわったとします．コンビニ，飲食店，書店など，時給1000円〜1200円くらいのアルバイトが並びました．
@@ -91,7 +99,7 @@ print("中央値：", wages.median(), "円")
 print("最頻値：", wages.mode()[0], "円")
 ```
 
-平均・中央値ともにおよそ1000円台の前半で，実感とよく合う「代表値」になっています．ではここに，時給5000円で家庭教師をしている友人が1人加わったらどうなるでしょうか．
+平均・中央値ともにおよそ1000円台の前半で，実感とよく合う「代表値」になっています．実際，先ほどの平均の式に当てはめると $(1000 + 1000 + 1030 + 1050 + 1100 + 1150 + 1200) \div 7 \approx 1075.7$ 円となり，上の実行結果と一致します．ではここに，時給5000円で家庭教師をしている友人が1人加わったらどうなるでしょうか．
 
 ```{code-cell} ipython3
 # 時給5000円の家庭教師の友人を1人加える
@@ -135,6 +143,18 @@ print("最頻値：", wages2.mode()[0], "円")
 1. まず，各データが平均からどれだけ離れているか（偏差）を測ります．
 2. 離れ方には「平均より上」と「平均より下」があるので，符号を消すために偏差を2乗してから平均します．こうして得られる値が**分散**です．
 3. ただし分散は「2乗」した値なので，単位も2乗されてしまい（点数なら「点の2乗」），直感的に扱いにくくなります．そこで分散の平方根を取って元の単位に戻した値が**標準偏差**です．
+
+この手順を式で書くと次のとおりです．$n$ 個のデータ $x_1, x_2, \ldots, x_n$ の平均を $\bar{x}$ とすると，分散（記号では $s^2$ と書き，「エス2乗」と読みます）は
+
+$$
+s^2 = \frac{(x_1 - \bar{x})^2 + (x_2 - \bar{x})^2 + \cdots + (x_n - \bar{x})^2}{n}
+$$
+
+となります．分子に並ぶ $(x_1 - \bar{x})$ などが手順1の偏差（平均からのずれ）で，それを2乗して足し合わせ，個数で割って平均を取っています（手順2）．そして標準偏差 $s$（エス）は，手順3のとおり分散の平方根です．
+
+$$
+s = \sqrt{s^2}
+$$
 
 細かい計算式を覚える必要はありません．押さえてほしいのは，「**分散・標準偏差は，データが平均のまわりにどれくらい散らばっているかを表す数字であり，大きいほどばらつきが大きい**」ということだけです．先ほどの例で言えば，クラスAは標準偏差が小さく，クラスBは標準偏差が大きい，と一言で表現できます．
 
@@ -240,70 +260,105 @@ HTML(fig.to_html(include_plotlyjs="cdn", full_html=False))
 - **符号**が関係の向きを表します．プラスなら正の相関（右上がりの傾向），マイナスなら負の相関（右下がりの傾向）です．
 - **絶対値の大きさ**が関係の強さを表します．1に近いほど点が一直線に近く並び，0に近いほど直線的な関係は見られません．
 
+相関係数も，高校数学の「データの分析」に登場する式で定義されます．言葉で言うと，「$x$ の偏差と $y$ の偏差を掛けて平均したもの（これを**共分散**と呼びます）を，$x$ の標準偏差と $y$ の標準偏差の積で割ったもの」が相関係数です．式で書くと，共分散を $s_{xy}$（エス・エックスワイ），$x$ の標準偏差を $s_x$（エス・エックス），$y$ の標準偏差を $s_y$（エス・ワイ）として
+
+$$
+r = \frac{s_{xy}}{s_x s_y},
+\qquad
+s_{xy} = \frac{(x_1 - \bar{x})(y_1 - \bar{y}) + \cdots + (x_n - \bar{x})(y_n - \bar{y})}{n}
+$$
+
+となります．標準偏差の積で割っているおかげで，測る単位（円・点・℃など）が何であっても，相関係数は必ず $-1$ から $+1$ の間に収まります．この式も暗記する必要はなく，「偏差どうしの掛け算がプラスに偏れば正の相関，マイナスに偏れば負の相関」という仕組みだけつかんでおけば十分です．
+
 「どこからが強い相関か」に絶対の基準はありませんが，おおまかな目安として，絶対値が0.7を超えると「強い相関」，0.4〜0.7で「中程度の相関」，0.2以下では「ほとんど相関なし」などと表現されることが多いです（分野によって目安は異なります）．
 
 とはいえ，相関係数0.8や0.3と言われても，どんな散布図なのかすぐには想像しにくいと思います．そこで，相関係数の値と散布図の見た目の対応を，自分の目で確かめられるグラフを用意しました．次のコードでは，相関係数がさまざまな値になるように乱数でデータをつくっています（乱数の種を固定しているので，何度実行しても同じ結果になります）．
 
 ```{code-cell} ipython3
 # 相関の強さが異なる6組のデータを乱数でつくる
-np.random.seed(0)  # 乱数の種を固定して，結果を再現可能にする
-
 n = 200            # 各データセットの点の数
 target_rs = [0.9, 0.6, 0.3, 0.0, -0.6, -0.9]  # 目標とする相関係数
 
-datasets = []
-for r in target_rs:
-    x = np.random.normal(0, 1, n)
-    noise = np.random.normal(0, 1, n)
-    y = r * x + np.sqrt(1 - r**2) * noise  # 相関係数がおよそ r になるように y をつくる
-    actual = np.corrcoef(x, y)[0, 1]       # 実際に得られた相関係数
-    datasets.append((r, x, y, actual))
+# 「別のデータで試す」ボタン用に，乱数の種を変えた10セット分を事前につくる
+# （先頭の種0が既定のデータセットになる）
+seeds = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+all_datasets = []
+for seed in seeds:
+    np.random.seed(seed)  # 乱数の種を固定して，結果を再現可能にする
+    datasets = []
+    for r in target_rs:
+        x = np.random.normal(0, 1, n)
+        noise = np.random.normal(0, 1, n)
+        y = r * x + np.sqrt(1 - r**2) * noise  # 相関係数がおよそ r になるように y をつくる
+        actual = np.corrcoef(x, y)[0, 1]       # 実際に得られた相関係数
+        datasets.append((r, x, y, actual))
+    all_datasets.append(datasets)
+
+datasets = all_datasets[0]  # 既定のデータセット（種0）
 ```
 
-次のグラフは，上でつくった6組のデータを**ドロップダウンメニューで切り替えて**表示できるようになっています．メニューから相関係数を選んで，散布図の見た目がどう変わるかをぜひ自分の手で試してみてください（点にマウスを重ねると値も表示されます）．
+次のグラフは，上でつくった6組のデータを**ドロップダウンメニューで切り替えて**表示できるようになっています．メニューから相関係数を選んで，散布図の見た目がどう変わるかをぜひ自分の手で試してみてください（点にマウスを重ねると値も表示されます）．さらに，グラフ上部の「別のデータで試す」ボタン（1〜10）を押すと，同じ相関の強さのまま乱数データを引き直せます．いま表示されているデータの実際の相関係数は，グラフ右上の凡例に表示されます．
 
 ```{code-cell} ipython3
 :tags: [hide-input]
 
-# ドロップダウンで散布図を切り替えられるインタラクティブ図をつくる
+# ドロップダウンとボタンで散布図を切り替えられるインタラクティブ図をつくる
 import plotly.graph_objects as go
 from IPython.display import HTML
 
 fig = go.Figure()
 
-# 6組の散布図を重ねて追加し，最初は1つ目だけを表示する
+# 既定データセットの6組の散布図を重ねて追加し，最初は1つ目だけを表示する
+# （実際の相関係数は，凡例に出るトレース名として表示する）
 for i, (r, x, y, actual) in enumerate(datasets):
     fig.add_trace(
         go.Scatter(
             x=x, y=y, mode="markers",
             marker=dict(size=6, opacity=0.6),
-            name=f"相関係数 {actual:.2f}",
+            name=f"実際の相関係数 {actual:+.2f}",
             visible=(i == 0),
         )
     )
 
-# ドロップダウンメニューのボタンをつくる
-buttons = []
+# 相関の強さを選ぶドロップダウンメニュー（表示するトレースを切り替える）
+r_buttons = []
 for i, (r, x, y, actual) in enumerate(datasets):
     visible = [j == i for j in range(len(datasets))]
-    buttons.append(
+    r_buttons.append(
+        dict(label=f"相関係数 約 {r:+.1f}", method="update",
+             args=[{"visible": visible}])
+    )
+
+# 「別のデータで試す」ボタン（6組全部の x・y・凡例名をまとめて差し替える）
+data_buttons = []
+for k, ds in enumerate(all_datasets):
+    data_buttons.append(
         dict(
-            label=f"相関係数 約 {r:+.1f}",
+            label=f"{k + 1}",
             method="update",
-            args=[
-                {"visible": visible},
-                {"title": f"散布図（このデータの相関係数 = {actual:.2f}）"},
-            ],
+            args=[{
+                "x": [x for (r, x, y, actual) in ds],
+                "y": [y for (r, x, y, actual) in ds],
+                "name": [f"実際の相関係数 {actual:+.2f}" for (r, x, y, actual) in ds],
+            }],
         )
     )
 
 fig.update_layout(
-    updatemenus=[dict(buttons=buttons, x=0, xanchor="left", y=1.18, yanchor="top")],
-    title=f"散布図（このデータの相関係数 = {datasets[0][3]:.2f}）",
+    updatemenus=[
+        dict(buttons=r_buttons, x=0, xanchor="left", y=1.24, yanchor="bottom"),
+        dict(type="buttons", direction="right", buttons=data_buttons,
+             x=0.31, xanchor="left", y=1.08, yanchor="bottom"),
+    ],
+    annotations=[dict(text="別のデータで試す：", showarrow=False,
+                      xref="paper", yref="paper", x=0, y=1.11,
+                      xanchor="left", yanchor="bottom")],
     xaxis_title="変数 X",
     yaxis_title="変数 Y",
-    width=650, height=520,
-    showlegend=False,
+    width=650, height=560, margin=dict(t=130),
+    showlegend=True,
+    legend=dict(x=1, xanchor="right", y=1, yanchor="top"),
 )
 
 HTML(fig.to_html(include_plotlyjs="cdn", full_html=False))
@@ -382,57 +437,94 @@ HTML(fig.to_html(include_plotlyjs="cdn", full_html=False))
 
 ```{code-cell} ipython3
 # 交絡の実演：気温が「アイスクリーム売上」と「水難事故」の両方を動かすデータをつくる
-np.random.seed(42)  # 乱数の種を固定して再現可能にする
-
 days = 100  # 夏のある期間の100日分を想定
 
-# その日の最高気温（15〜35℃の間でランダム）
-temp = np.random.uniform(15, 35, days)
+def make_confounding_data(seed):
+    """乱数の種 seed を固定して，100日分のデータを1セットつくる"""
+    np.random.seed(seed)
 
-# アイスクリームの売上：気温が高いほど売れる（＋日ごとの偶然のゆらぎ）
-ice = 20 + 10 * temp + np.random.normal(0, 40, days)
+    # その日の最高気温（15〜35℃の間でランダム）
+    temp = np.random.uniform(15, 35, days)
 
-# 水難事故の件数：気温が高いほど増える（＋偶然のゆらぎ．マイナスは0件に切り上げ）
-accidents = 0.5 * temp + np.random.normal(0, 2.0, days)
-accidents = np.clip(accidents, 0, None)
+    # アイスクリームの売上：気温が高いほど売れる（＋日ごとの偶然のゆらぎ）
+    ice = 20 + 10 * temp + np.random.normal(0, 40, days)
 
-df = pd.DataFrame({"気温": temp, "アイス売上": ice, "水難事故": accidents})
+    # 水難事故の件数：気温が高いほど増える（＋偶然のゆらぎ．マイナスは0件に切り上げ）
+    accidents = 0.5 * temp + np.random.normal(0, 2.0, days)
+    accidents = np.clip(accidents, 0, None)
+
+    return pd.DataFrame({"気温": temp, "アイス売上": ice, "水難事故": accidents})
+
+# 「別のデータで試す」ボタン用に，種を変えた10セット分を事前につくる
+# （先頭の種42が既定のデータセットになる）
+confound_dfs = [make_confounding_data(seed)
+                for seed in [42, 101, 102, 103, 104, 105, 106, 107, 108, 109]]
+df = confound_dfs[0]  # 既定のデータセット（種42）
 
 # 3つの量の相関係数をまとめて確認する
 df.corr().round(2)
 ```
 
-表の「アイス売上」と「水難事故」の交わるところを見てください．**直接の関係をまったく入れていない**のに，2つの間にはっきりとした正の相関が現れています．散布図でも確かめましょう（点にマウスを重ねると，その日の売上・事故件数・気温が確認できます）．
+表の「アイス売上」と「水難事故」の交わるところを見てください．**直接の関係をまったく入れていない**のに，2つの間にはっきりとした正の相関が現れています．散布図でも確かめましょう（点にマウスを重ねると，その日の売上・事故件数・気温が確認できます）．グラフ上部の「別のデータで試す」ボタン（1〜10）を押すと，乱数データをつくり直して同じ実験をやり直せます．どのデータでも，直接の関係を入れていないのに毎回「見かけの相関」が現れることを確かめてください．
 
 ```{code-cell} ipython3
 :tags: [hide-input]
 
 # 左：見かけの相関．右：点を気温で色分けすると，気温が黒幕だと分かる
+# （10セット分のトレースを重ねておき，「別のデータで試す」ボタンで表示を切り替える）
+r0 = confound_dfs[0]["アイス売上"].corr(confound_dfs[0]["水難事故"])
 fig = make_subplots(
     rows=1, cols=2, shared_yaxes=True,
-    subplot_titles=["一見すると「アイスが売れるほど事故が多い」",
+    subplot_titles=[f"一見すると「アイスが売れるほど事故が多い」（相関係数 {r0:.2f}）",
                     "気温で色分けすると：黒幕は気温（赤いほど高温）"],
 )
 
 # 点にマウスを重ねたときに気温も表示する
 hover = "アイス売上 %{x:.0f}個<br>水難事故 %{y:.1f}件<br>気温 %{customdata:.1f}℃<extra></extra>"
 
-fig.add_trace(
-    go.Scatter(x=df["アイス売上"], y=df["水難事故"], mode="markers",
-               marker=dict(size=8, color="#1f77b4", opacity=0.7),
-               customdata=df["気温"], hovertemplate=hover),
-    row=1, col=1,
-)
-fig.add_trace(
-    go.Scatter(x=df["アイス売上"], y=df["水難事故"], mode="markers",
-               marker=dict(size=8, color=df["気温"], colorscale="RdBu_r",
-                           opacity=0.8, colorbar=dict(title="気温（℃）")),
-               customdata=df["気温"], hovertemplate=hover),
-    row=1, col=2,
-)
+# 各データセットにつき左右2つの散布図を追加し，最初は既定のセットだけを表示する
+for k, d in enumerate(confound_dfs):
+    fig.add_trace(
+        go.Scatter(x=d["アイス売上"], y=d["水難事故"], mode="markers",
+                   marker=dict(size=8, color="#1f77b4", opacity=0.7),
+                   customdata=d["気温"], hovertemplate=hover,
+                   visible=(k == 0)),
+        row=1, col=1,
+    )
+    fig.add_trace(
+        go.Scatter(x=d["アイス売上"], y=d["水難事故"], mode="markers",
+                   marker=dict(size=8, color=d["気温"], colorscale="RdBu_r",
+                               opacity=0.8, colorbar=dict(title="気温（℃）")),
+                   customdata=d["気温"], hovertemplate=hover,
+                   visible=(k == 0)),
+        row=1, col=2,
+    )
+
+# ボタンの説明の注釈（ボタンで注釈一式を差し替えても消えないよう，先に追加しておく）
+fig.add_annotation(text="別のデータで試す：", showarrow=False,
+                   xref="paper", yref="paper", x=0, y=1.13,
+                   xanchor="left", yanchor="bottom")
+base_annotations = [a.to_plotly_json() for a in fig.layout.annotations]
+
+# 「別のデータで試す」ボタン：表示セットを切り替え，左パネル見出しの相関係数も更新する
+buttons = []
+for k, d in enumerate(confound_dfs):
+    r = d["アイス売上"].corr(d["水難事故"])
+    annotations = [dict(a) for a in base_annotations]
+    annotations[0] = {**annotations[0],
+                      "text": f"一見すると「アイスが売れるほど事故が多い」（相関係数 {r:.2f}）"}
+    visible = [False] * (2 * len(confound_dfs))
+    visible[2 * k] = visible[2 * k + 1] = True
+    buttons.append(dict(label=f"{k + 1}", method="update",
+                        args=[{"visible": visible}, {"annotations": annotations}]))
+
 fig.update_xaxes(title_text="アイスクリームの売上（個）")
 fig.update_yaxes(title_text="水難事故（件）", col=1)
-fig.update_layout(width=900, height=450, showlegend=False)
+fig.update_layout(
+    updatemenus=[dict(type="buttons", direction="right", buttons=buttons,
+                      x=0.14, xanchor="left", y=1.10, yanchor="bottom")],
+    width=900, height=480, margin=dict(t=110), showlegend=False,
+)
 
 HTML(fig.to_html(include_plotlyjs="cdn", full_html=False))
 ```

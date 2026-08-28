@@ -102,7 +102,7 @@ from IPython.display import HTML
 
 ### 実験の準備：本当の支持率が「40%」の母集団をつくる
 
-100万人の有権者からなる仮想的な母集団をつくります．一人ひとりを「支持する（1）」か「支持しない（0）」かの数字で表し，**本当の支持率はちょうど40%**になるように設定します．神様の視点で「正解」を知ったうえで，調査がどこまで正解に迫れるかを試すわけです．
+100万人の有権者からなる仮想的な母集団をつくります．一人ひとりを「支持する（1）」か「支持しない（0）」かの数字で表し，**本当の支持率はちょうど40%** になるように設定します．神様の視点で「正解」を知ったうえで，調査がどこまで正解に迫れるかを試すわけです．
 
 ```{code-cell} ipython3
 np.random.seed(6)  # 乱数の種を固定して，結果を再現可能にする
@@ -127,7 +127,7 @@ sample = np.random.choice(population, size=2000)
 print(f"標本2,000人の中の支持率：{sample.mean() * 100:.1f}%")
 ```
 
-結果は**41.4%**でした．本当の支持率40%とぴったり同じではありませんが，かなり近い値です．このずれ（+1.4ポイント）が標本誤差です．では，同じ調査をあと4回繰り返したらどうなるでしょうか．
+結果は**41.4%** でした．本当の支持率40%とぴったり同じではありませんが，かなり近い値です．このずれ（+1.4ポイント）が標本誤差です．では，同じ調査をあと4回繰り返したらどうなるでしょうか．
 
 ```{code-cell} ipython3
 # 同じ調査（無作為に2,000人）をあと4回繰り返す
@@ -137,6 +137,59 @@ for i in range(4):
 ```
 
 41.0%，40.8%，40.5%，38.5%——**調査のたびに結果が少しずつ違います**．母集団は何ひとつ変わっていないのに，です．現実の世論調査で報道機関ごとに支持率が数ポイント食い違うのも，調査方法の違いに加えて，この標本誤差が効いています．
+
+この「調査のたびの揺れ」は，自分の手で確かめてみるのがいちばんです．次の図では，上に並んだ **「標本1」〜「標本10」のボタン**を押すことで，同じ母集団から選び直した別の2,000人の標本に表示を切り替えて，標本を引き直す体験ができます（標本1は，先ほどの1回めの調査の標本そのものです）．押すたびに，母集団は同じままなのに標本の中の支持率が少しずつ揺れることを確かめてください．
+
+```{code-cell} ipython3
+:tags: [hide-input]
+
+# 「標本を引き直す」体験用の図：2,000人の標本を10セット用意する
+# （標本1は先ほどの1回めの調査の標本そのもの．標本2〜10は，既存の実験結果に
+# 　影響を与えないよう，独立した乱数生成器で新たに抽出する）
+rng_redraw = np.random.default_rng(6)
+samples_redraw = [sample] + [rng_redraw.choice(population, size=2000) for _ in range(9)]
+rates = [s.mean() * 100 for s in samples_redraw]
+
+def redraw_title(i, rate):
+    return (f"標本{i}（2,000人）の中の支持率：{rate:.1f}%"
+            f"（本当の支持率40%とのずれ：{rate - 40:+.1f}ポイント）")
+
+fig = go.Figure(
+    go.Bar(
+        x=["支持する", "支持しない"],
+        y=[rates[0], 100 - rates[0]],
+        marker_color=["#4C72B0", "#C44E52"],
+        hovertemplate="%{x}：%{y:.1f}%<extra></extra>",
+    )
+)
+# 母集団の本当の割合（支持する40%・支持しない60%）を点線で示す
+for x0, x1, y, text in [(-0.4, 0.4, 40, "本当の値 40%"), (0.6, 1.4, 60, "本当の値 60%")]:
+    fig.add_shape(type="line", x0=x0, x1=x1, y0=y, y1=y,
+                  line=dict(dash="dash", color="#DD8452", width=2))
+    fig.add_annotation(x=(x0 + x1) / 2, y=y, text=text, yshift=12,
+                       showarrow=False, font=dict(color="#DD8452"))
+
+# 「標本を引き直す」ボタン：標本ごとに棒の高さとタイトルを差し替える
+buttons = [
+    dict(
+        label=f"標本{i}",
+        method="update",
+        args=[{"y": [[r, 100 - r]]}, {"title": redraw_title(i, r)}],
+    )
+    for i, r in enumerate(rates, start=1)
+]
+fig.update_layout(
+    title=redraw_title(1, rates[0]),
+    yaxis_title="標本の中の割合（%）",
+    yaxis_range=[0, 75],
+    width=700, height=450,
+    margin=dict(t=110),
+    updatemenus=[dict(type="buttons", direction="right", buttons=buttons,
+                      x=0, xanchor="left", y=1.22, yanchor="top")],
+)
+
+HTML(fig.to_html(include_plotlyjs="cdn", full_html=False))
+```
 
 ### 同じ調査を1,000回繰り返すと——誤差には「型」がある
 
@@ -256,6 +309,14 @@ HTML(fig.to_html(include_plotlyjs="cdn", full_html=False))
 
 ここで表の数字をよく見てください．標本サイズを500人から4倍の2,000人にしたとき，誤差は±4.4から±2.1へ，**半分ほどにしか**縮んでいません．2,000人から4倍の8,000人にしても，±2.1から±1.1へ，やはり半分です．つまり，**標本サイズを4倍にしても，誤差は半分にしかならない**のです（統計学では，誤差はおおよそ「標本サイズの平方根に反比例して」縮むことが知られていますが，公式を覚えるより「4倍で半分」という感覚をつかんでください）．
 
+この「4倍で半分」を，式の形でも書いておきましょう（覚える必要はありません）．標本サイズを $n$（エヌ）と書くと，
+
+$$
+\text{誤差の目安} \propto \frac{1}{\sqrt{n}}
+$$
+
+となります．記号の読み方は，$\sqrt{n}$ が「ルート $n$」（2乗すると $n$ になる数．たとえば $\sqrt{4}=2$，$\sqrt{100}=10$），$\propto$ が「比例する」です．つまりこの式は，「誤差の目安は，1を $\sqrt{n}$ で割った形になる（$\sqrt{n}$ に反比例する）」と読みます．標本サイズ $n$ を4倍にすると，分母の $\sqrt{n}$ は $\sqrt{4}=2$ 倍になるので，誤差は半分——「4倍で半分」は，この式をそのまま言葉にしたものです．先ほどの実験で誤差の目安が±9.5→±4.4→±2.1→±1.1と縮んでいったのも，この式のとおりの動きです（たとえば500人→2,000人では $n$ が4倍なので，誤差は±4.4→±2.1とほぼ半分になっています）．
+
 この関係は，調査の実務にとって決定的に重要です．誤差を半分にするたびに費用と手間は4倍になるのですから，人数を増やせば増やすほど「割に合わなく」なっていきます．±2ポイント程度の精度があれば世論の大きな動きを捉えるには十分——だから世の中の多くの世論調査は，1,000〜2,000人前後という標本サイズに落ち着いているのです．「たった2,000人で1億人が分かるのか」という導入の問いには，こう答えることができます．**分かる．ただし±2ポイントほどの誤差つきで**．そして，2,000人でこの精度が出るのに240万人のLiterary Digest誌が大外れしたことを思い出せば，「量より集め方」の教訓がいっそう鮮明になるはずです．
 
 ## 信頼区間——「誤差±2ポイント」の読み方
@@ -265,6 +326,14 @@ HTML(fig.to_html(include_plotlyjs="cdn", full_html=False))
 丁寧な世論調査報道には，「支持率44%．誤差は±2ポイント程度」のような注記がついています．この「値±誤差」の幅，つまり「42%から46%まで」のような区間を**信頼区間**（confidence interval）と呼びます（報道では「誤差の範囲」という言い方もよくされます）．
 
 信頼区間の意味は，先ほどのシミュレーションを思い出せば直感的につかめます．2,000人の調査は，本当の値の±2ポイントほどの範囲に収まることが多いのでした．ということは，逆に，**調査で得られた値の±2ポイントの幅をとれば，その幅の中に本当の値が入っていることが多い**はずです．「支持率44%（誤差±2ポイント）」という報道は，「本当の支持率はぴったり44%だ」ではなく，「**本当の支持率は，おそらく42%から46%のあいだのどこかにある**」と読むのが正しい読み方です．
+
+この「±2ポイント」という誤差の幅にも，簡単な目安があります．式で書くと，割合（支持率◯%のような値）を調べる調査では，95%信頼区間の幅はおおよそ
+
+$$
+\pm\frac{1}{\sqrt{n}}
+$$
+
+（を%に直した程度）になることが知られています（$n$ は標本サイズ，$\sqrt{n}$ は「ルート $n$」．前の節で登場した記号と同じです）．$n=2000$ なら $1/\sqrt{2000}$ は約0.022，%に直すと約±2ポイントで，先ほどの実験で得た誤差の目安±2.1ポイントともよく合っています．厳密な計算式は統計学の入門科目で学ぶ内容なので，ここでは立ち入らず，「幅はだいたい $\sqrt{n}$ 分の1」という目安だけ知っておけば十分です．
 
 本当にそうなるか，これもシミュレーションで確かめましょう．2,000人の調査を100回行い，それぞれの結果に±2.1ポイント（先ほどの実験で得た誤差の目安）の幅をつけて，その幅が本当の支持率40%を含んでいるかを数えます．
 
@@ -282,19 +351,42 @@ contains = (lower_ci <= 40) & (40 <= upper_ci)
 print(f"100回の調査のうち，幅の中に本当の支持率40%を含んだ回数：{contains.sum()}回")
 ```
 
-100回の調査それぞれの「幅」を1本ずつ描いてみます．横棒1本が1回の調査の信頼区間で，本当の支持率40%（点線）を含まなかった幅だけ橙色にしてあります．
+100回の調査それぞれの「幅」を1本ずつ描いてみます．横棒1本が1回の調査の信頼区間で，本当の支持率40%（点線）を含まなかった幅だけ橙色にしてあります．また，図の上の **「セット1」〜「セット10」のボタン**を押すと，「100回の調査」をまるごと引き直せます．引き直すたびに，たまたま正解を外す幅（橙色）の本数も位置も変わることを確かめてみてください．
 
 ```{code-cell} ipython3
 :tags: [hide-input]
 
 # 100回分の信頼区間を1本ずつ描く（40%を外した区間は橙色）
+# ボタンで「100回の調査」をまるごと引き直せるよう，調査結果を10セット用意する
+# （セット1は先ほどの実験結果そのもの．セット2〜10は，既存の実験結果に
+# 　影響を与えないよう，独立した乱数生成器で新たに抽出する）
+rng_ci = np.random.default_rng(66)
+ci_sets = [props_ci] + [
+    rng_ci.choice(population, size=(n_surveys, 2000)).mean(axis=1) * 100
+    for _ in range(9)
+]
+
+def split_by_hit(props):
+    # 40%を含んだ幅と外した幅に分け，描画用のx（支持率）とy（何回めか）を返す
+    hit = (props - margin <= 40) & (40 <= props + margin)
+    xs, ys = [], []
+    for flag in [True, False]:
+        idx = np.where(hit == flag)[0]
+        xs.append(props[idx].tolist())
+        ys.append((idx + 1).tolist())
+    return xs, ys, int(hit.sum())
+
+def ci_title(i, n_hit):
+    return (f"100回の調査それぞれの「値±{margin}ポイント」の幅："
+            f"40%を含んだ幅は100本中{n_hit}本（セット{i}）")
+
+xs, ys, n_hit = split_by_hit(ci_sets[0])
 fig = go.Figure()
-for hit, color, label in [(True, "#4C72B0", "40%を含んだ幅"),
-                          (False, "#DD8452", "40%を外した幅")]:
-    idx = np.where(contains == hit)[0]
+for x, y, color, label in zip(xs, ys, ["#4C72B0", "#DD8452"],
+                              ["40%を含んだ幅", "40%を外した幅"]):
     fig.add_trace(
         go.Scatter(
-            x=props_ci[idx], y=idx + 1, mode="markers", name=label,
+            x=x, y=y, mode="markers", name=label,
             marker=dict(size=4, color=color),
             error_x=dict(type="constant", value=margin, color=color, thickness=1.2),
             hovertemplate="調査%{y}回め：支持率 %{x:.1f}%<extra></extra>",
@@ -304,12 +396,27 @@ fig.add_vline(
     x=40, line_dash="dash", line_color="gray", line_width=2,
     annotation_text="本当の支持率 40%", annotation_position="top right",
 )
+
+# 「調査を引き直す」ボタン：セットごとに描画データとタイトルを差し替える
+buttons = []
+for i, props in enumerate(ci_sets, start=1):
+    xs_i, ys_i, n_hit_i = split_by_hit(props)
+    buttons.append(
+        dict(
+            label=f"セット{i}",
+            method="update",
+            args=[{"x": xs_i, "y": ys_i}, {"title": ci_title(i, n_hit_i)}],
+        )
+    )
 fig.update_layout(
-    title="100回の調査それぞれの「値±2.1ポイント」の幅：ほとんどの幅が正解を含む",
+    title=ci_title(1, n_hit),
     xaxis_title="調査で得られた支持率（%）",
     yaxis_title="何回めの調査か",
-    width=750, height=620,
+    width=750, height=660,
+    margin=dict(t=140),
     legend=dict(orientation="h", y=1.08),
+    updatemenus=[dict(type="buttons", direction="right", buttons=buttons,
+                      x=0, xanchor="left", y=1.26, yanchor="top")],
 )
 
 HTML(fig.to_html(include_plotlyjs="cdn", full_html=False))
